@@ -9,6 +9,10 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.2",
+    "@mui/material": "^5.15.2",
     "@repo/ui": "workspace:*",
     "framer-motion": "^10.16.16",
     "next": "^14.0.3",

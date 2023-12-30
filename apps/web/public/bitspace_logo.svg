@@ -1,0 +1,12 @@
+<svg width="450" height="750" viewBox="0 0 450 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="150" height="150" fill="black"/>
+<rect width="150" height="150" transform="translate(150)" fill="black"/>
+<rect width="150" height="150" transform="translate(300)" fill="black"/>
+<rect width="150" height="150" transform="translate(300 150)" fill="black"/>
+<rect width="150" height="150" transform="translate(300 300)" fill="black"/>
+<rect width="150" height="150" transform="translate(150 300)" fill="black"/>
+<rect width="150" height="150" transform="translate(0 150)" fill="black"/>
+<rect width="150" height="150" transform="translate(300 450)" fill="black"/>
+<rect width="150" height="150" transform="translate(150 600)" fill="black"/>
+<rect width="150" height="150" fill="black"/>
+</svg>
