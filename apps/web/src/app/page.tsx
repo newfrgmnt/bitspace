@@ -1,8 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { AddOutlined, BoltOutlined } from '@mui/icons-material';
+import { AddOutlined, HiveOutlined } from '@mui/icons-material';
 import Image from 'next/image';
+import { useHotkeys, useHotkeysContext } from 'react-hotkeys-hook';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const cards = [
     {
@@ -10,16 +13,32 @@ const cards = [
         title: 'New Project'
     },
     {
-        icon: <BoltOutlined fontSize="large" />,
+        icon: <HiveOutlined fontSize="large" />,
         title: 'Alma'
     },
     {
-        icon: <BoltOutlined fontSize="large" />,
+        icon: <HiveOutlined fontSize="large" />,
         title: 'Nodl'
     }
 ];
 
 export default function Page(): JSX.Element {
+    const { disableScope, enableScope, enabledScopes } = useHotkeysContext();
+
+    useHotkeys('esc', () => {
+        enableScope('commandMenuInvokable');
+    });
+
+    useHotkeys(
+        'space',
+        () => {
+            disableScope('commandMenuInvokable');
+        },
+        { scopes: ['commandMenuInvokable'] }
+    );
+
+    const shouldRenderInput = !enabledScopes.includes('commandMenuInvokable');
+
     return (
         <motion.main
             className="flex flex-col justify-between h-screen p-20"
@@ -31,7 +50,7 @@ export default function Page(): JSX.Element {
                 className="flex flex-row justify-between items-center w-full"
                 variants={{ initial: { opacity: 0 }, animate: { opacity: 1, transition: { duration: 1, delay: 1 } } }}
             >
-                <Image src="/bitspace_logo.svg" alt="Bitspace" width={20} height={20} />
+                <Image src="/bitspace_logo.png" alt="Bitspace" width={20} height={20} />
                 <div
                     className="w-10 h-10 bg-cover bg-center rounded-full"
                     style={{
@@ -39,26 +58,30 @@ export default function Page(): JSX.Element {
                     }}
                 />
             </motion.div>
-            <motion.div className="overflow-hidden">
-                <motion.h1
-                    className="text-6xl leading-normal"
-                    variants={{
-                        initial: {
-                            y: '100%'
-                        },
-                        animate: {
-                            y: '0%',
-                            transition: {
-                                duration: 1.5,
-                                delay: 0.2,
-                                ease: [0.75, 0, 0.25, 1]
+            {shouldRenderInput ? (
+                <input className="text-6xl leading-normal bg-transparent outline-none" autoFocus />
+            ) : (
+                <motion.div className="overflow-hidden">
+                    <motion.h1
+                        className="text-6xl leading-normal"
+                        variants={{
+                            initial: {
+                                y: '100%'
+                            },
+                            animate: {
+                                y: '0%',
+                                transition: {
+                                    duration: 1.5,
+                                    delay: 0.2,
+                                    ease: [0.75, 0, 0.25, 1]
+                                }
                             }
-                        }
-                    }}
-                >
-                    Welcome to your Bitspace
-                </motion.h1>
-            </motion.div>
+                        }}
+                    >
+                        Welcome to your Bitspace
+                    </motion.h1>
+                </motion.div>
+            )}
             <div className="flex flex-row gap-x-6">
                 {cards.map(card => (
                     <motion.a
