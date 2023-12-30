@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { AddOutlined } from '@mui/icons-material';
+import { AddOutlined, BoltOutlined } from '@mui/icons-material';
 import Image from 'next/image';
 
 const cards = [
@@ -10,12 +10,12 @@ const cards = [
         title: 'New Project'
     },
     {
-        icon: '👋',
-        title: 'Card 2'
+        icon: <BoltOutlined fontSize="large" />,
+        title: 'Alma'
     },
     {
-        icon: '👋',
-        title: 'Card 3'
+        icon: <BoltOutlined fontSize="large" />,
+        title: 'Nodl'
     }
 ];
 
