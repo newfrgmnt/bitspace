@@ -1,0 +1,16 @@
+{
+    "extends": "@repo/typescript-config/base.json",
+    "compilerOptions": {
+        "outDir": "build",
+        "rootDir": "src",
+        "baseUrl": ".",
+        "paths": {
+            "@repo/server/*": ["src/*"]
+        }
+    },
+    "include": ["src/**/*.ts", "global.d.ts"],
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "files": true
+    }
+}
