@@ -1,4 +1,4 @@
-import { Namespace, Socket } from 'socket.io';
+import { RealtimeChannel } from '@supabase/supabase-js';
 import { v4 as uuid } from 'uuid';
 
 export class Room {
@@ -6,12 +6,4 @@ export class Room {
     id: string = uuid();
     /** Room Name */
     name: string = 'Untitled';
-    /** Room Namespace */
-    namespace: Namespace;
-    /** Room Clients */
-    clients: Socket[] = [];
-
-    constructor(namespace: Namespace) {
-        this.namespace = namespace;
-    }
 }
