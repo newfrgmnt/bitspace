@@ -1,7 +1,10 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Providers } from './providers';
+import { ClientLayout } from './ClientLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,7 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
     return (
         <Providers>
             <html lang="en">
-                <body className={`${inter.className} bg-slate-100`}>{children}</body>
+                <body className={`${inter.className} bg-slate-50`}>
+                    <ClientLayout>{children}</ClientLayout>
+                </body>
             </html>
         </Providers>
     );

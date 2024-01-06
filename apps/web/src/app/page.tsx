@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { AddOutlined, HiveOutlined } from '@mui/icons-material';
-import Image from 'next/image';
-import { useHotkeys, useHotkeysContext } from 'react-hotkeys-hook';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 const cards = [
     {
@@ -23,70 +19,33 @@ const cards = [
 ];
 
 export default function Page(): JSX.Element {
-    const { disableScope, enableScope, enabledScopes } = useHotkeysContext();
-
-    useHotkeys('esc', () => {
-        enableScope('commandMenuInvokable');
-    });
-
-    useHotkeys(
-        'space',
-        () => {
-            disableScope('commandMenuInvokable');
-        },
-        { scopes: ['commandMenuInvokable'] }
-    );
-
-    const shouldRenderInput = !enabledScopes.includes('commandMenuInvokable');
-
     return (
-        <motion.main
-            className="flex flex-col justify-between h-screen p-20"
-            initial="initial"
-            animate="animate"
-            transition={{ staggerChildren: 0.05 }}
-        >
-            <motion.div
-                className="flex flex-row justify-between items-center w-full"
-                variants={{ initial: { opacity: 0 }, animate: { opacity: 1, transition: { duration: 1, delay: 1 } } }}
-            >
-                <Image src="/bitspace_logo.png" alt="Bitspace" width={20} height={20} />
-                <div
-                    className="w-10 h-10 bg-cover bg-center rounded-full"
-                    style={{
-                        backgroundImage: `url(https://pbs.twimg.com/profile_images/1699785592723349504/BU-JhnQC_400x400.jpg)`
-                    }}
-                />
-            </motion.div>
-            {shouldRenderInput ? (
-                <input className="text-6xl leading-normal bg-transparent outline-none" autoFocus />
-            ) : (
-                <motion.div className="overflow-hidden">
-                    <motion.h1
-                        className="text-6xl leading-normal"
-                        variants={{
-                            initial: {
-                                y: '100%'
-                            },
-                            animate: {
-                                y: '0%',
-                                transition: {
-                                    duration: 1.5,
-                                    delay: 0.2,
-                                    ease: [0.75, 0, 0.25, 1]
-                                }
+        <>
+            <motion.div className="overflow-hidden">
+                <motion.h1
+                    className="text-6xl leading-normal"
+                    variants={{
+                        initial: {
+                            y: '100%'
+                        },
+                        animate: {
+                            y: '0%',
+                            transition: {
+                                duration: 1.5,
+                                delay: 0.2,
+                                ease: [0.75, 0, 0.25, 1]
                             }
-                        }}
-                    >
-                        Welcome to your Bitspace
-                    </motion.h1>
-                </motion.div>
-            )}
+                        }
+                    }}
+                >
+                    Welcome to your Bitspace
+                </motion.h1>
+            </motion.div>
             <div className="flex flex-row gap-x-6">
                 {cards.map(card => (
                     <motion.a
                         key={card.title}
-                        href="/"
+                        href="/circuit"
                         className="flex flex-col gap-y-8 rounded-3xl p-8 text-lg bg-slate-200 w-48 h-56 hover:bg-white group transition-colors duration-200 items-stretch justify-between"
                         variants={{
                             initial: { y: 200, opacity: 0 },
@@ -98,6 +57,6 @@ export default function Page(): JSX.Element {
                     </motion.a>
                 ))}
             </div>
-        </motion.main>
+        </>
     );
 }
