@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Draggable from 'react-draggable';
+import { ColorWheel } from '../../components/Color/ColorWheel';
 
 export default function Page(): JSX.Element {
     return (
@@ -12,8 +13,10 @@ export default function Page(): JSX.Element {
                     animate: { opacity: 1, transition: { duration: 1, delay: 1, ease: [0.75, 0, 0.25, 1] } }
                 }}
             >
-                <Draggable>
-                    <motion.div className="w-72 h-72 rounded-[2.5rem] overflow-hidden bg-slate-200 border-4 border-transparent hover:border-slate-300 transition-colors"></motion.div>
+                <Draggable disabled>
+                    <motion.div className="relative w-72 h-72 rounded-[2.5rem] overflow-hidden bg-slate-200 border-4 border-transparent hover:border-slate-300 transition-colors">
+                        <ColorWheel />
+                    </motion.div>
                 </Draggable>
             </motion.div>
         </motion.main>
