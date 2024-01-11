@@ -6,7 +6,8 @@
         "baseUrl": ".",
         "paths": {
             "@repo/server/*": ["src/*"]
-        }
+        },
+        "esModuleInterop": true
     },
     "include": ["src/**/*.ts", "global.d.ts"],
     "exclude": ["node_modules"],

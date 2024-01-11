@@ -6,8 +6,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env.SUPABASE_URL);
-
 const app = express();
 const server = http.createServer(app);
 
