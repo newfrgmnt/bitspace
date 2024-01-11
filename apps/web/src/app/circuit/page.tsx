@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Draggable from 'react-draggable';
 import { ColorWheel, combinations } from '../../components/Color/ColorWheel';
+import { Circuit } from '../../components/Circuit/Circuit';
 
 export default function Page(): JSX.Element {
     return (
@@ -16,16 +17,18 @@ export default function Page(): JSX.Element {
                     }
                 }}
             >
-                {Object.keys(combinations).map((combination, i) => (
-                    <Draggable key={combination} defaultPosition={{ x: i * 330, y: 250 }} disabled>
-                        <motion.div className="flex flex-col items-center gap-y-8 absolute">
-                            <h3 className="capitalize font-medium">{combination}</h3>
-                            <div className="relative">
-                                <ColorWheel combination={combination as keyof typeof combinations} />
-                            </div>
-                        </motion.div>
-                    </Draggable>
-                ))}
+                <Circuit>
+                    {Object.keys(combinations).map((combination, i) => (
+                        <Draggable key={combination} defaultPosition={{ x: i * 330, y: 250 }} disabled>
+                            <motion.div className="flex flex-col items-center gap-y-8 absolute">
+                                <h3 className="capitalize font-medium">{combination}</h3>
+                                <div className="relative">
+                                    <ColorWheel combination={combination as keyof typeof combinations} />
+                                </div>
+                            </motion.div>
+                        </Draggable>
+                    ))}
+                </Circuit>
             </motion.div>
         </motion.main>
     );

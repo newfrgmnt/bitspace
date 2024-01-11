@@ -1,8 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { Providers } from './providers';
 import { ClientLayout } from './ClientLayout';
 
