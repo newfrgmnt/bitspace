@@ -1,12 +1,27 @@
-import convert from 'color-convert';
-
+import { motion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Draggable, { DraggableEventHandler } from 'react-draggable';
 
-export const ColorWheel = () => {
+export const combinations = {
+    triad: [120, 240],
+    tetradic: [60, 180, 240],
+    complementary: [0, 180],
+    analogous: [-30, 30],
+    square: [90, 180, 270]
+} as const;
+
+type CombinationPositionMap = {
+    [key in keyof typeof combinations]: { x: number; y: number }[];
+};
+
+interface ColorWheelProps {
+    combination: keyof typeof combinations;
+}
+
+export const ColorWheel = ({ combination }: ColorWheelProps) => {
     const ref = useRef<HTMLCanvasElement>(null);
-    const [analogousA, setanalogousA] = useState({ x: 0, y: 0 });
-    const [analogousB, setanalogousB] = useState({ x: 0, y: 0 });
+    const [color, setColor] = useState({ hue: 0, saturation: 0, value: 1 });
+    const [components, setComponents] = useState<{ x: number; y: number }[]>([]);
 
     useEffect(() => {
         if (!ref.current) return;
@@ -19,6 +34,27 @@ export const ColorWheel = () => {
 
         drawCircle(ctx);
     }, []);
+
+    const buildComponents = useCallback(
+        (r: number, color: { hue: number; saturation: number; value: number }): CombinationPositionMap => {
+            const ctx = ref.current?.getContext('2d');
+
+            if (!ctx) throw new Error('No context found');
+
+            return Object.entries(combinations).reduce((acc, [name, combination]) => {
+                return {
+                    ...acc,
+                    [name]: combination
+                        .map(hue => (color.hue + hue) % 360)
+                        .map(hue => {
+                            const [x, y] = polar2xy(r, hue * (Math.PI / 180));
+                            return { x: -x + ctx.canvas.width / 2, y: -y + ctx.canvas.height / 2 };
+                        })
+                };
+            }, {}) as CombinationPositionMap;
+        },
+        [color, polar2xy]
+    );
 
     const handleDrag: DraggableEventHandler = useCallback((e, data) => {
         const ctx = ref.current?.getContext('2d');
@@ -34,19 +70,16 @@ export const ColorWheel = () => {
         const saturation = r / (ctx.canvas.width / 2);
         const value = 1.0;
 
-        const analogousA = (hue + 30) % 360;
+        /* const analogousA = (hue + 30) % 360;
         const [analogousAX, analogousAY] = polar2xy(r, analogousA * (Math.PI / 180));
         setanalogousA({ x: -analogousAX + ctx.canvas.width / 2, y: -analogousAY + ctx.canvas.height / 2 });
 
         const analogousB = (hue - 30) % 360;
         const [analogousBX, analogousBY] = polar2xy(r, analogousB * (Math.PI / 180));
-        setanalogousB({ x: -analogousBX + ctx.canvas.width / 2, y: -analogousBY + ctx.canvas.height / 2 });
+        setanalogousB({ x: -analogousBX + ctx.canvas.width / 2, y: -analogousBY + ctx.canvas.height / 2 }); */
 
-        const [red, green, blue] = hsv2rgb(hue, saturation, value);
-
-        const color = `rgb(${red}, ${green}, ${blue})`;
-
-        e.target.style.backgroundColor = color;
+        setColor({ hue, saturation, value });
+        setComponents(buildComponents(r, { hue, saturation, value })[combination]);
     }, []);
 
     function xy2polar(x: number, y: number): [number, number] {
@@ -73,6 +106,8 @@ export const ColorWheel = () => {
         for (let x = -radius; x < radius; x++) {
             for (let y = -radius; y < radius; y++) {
                 let [r, phi] = xy2polar(x, y);
+
+                if (r > radius) continue; // skip this pixel because it's outside the circle
 
                 let deg = rad2deg(phi);
 
@@ -101,16 +136,15 @@ export const ColorWheel = () => {
     }
 
     return (
-        <div className="relative w-full h-full">
+        <div className="relative w-72 h-72">
             <canvas ref={ref} className="w-full h-full" />
-            <Draggable position={analogousA}>
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white" />
-            </Draggable>
-            <Draggable position={analogousB}>
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white" />
-            </Draggable>
+            {components.map((position, i) => (
+                <Draggable position={position} key={i} disabled>
+                    <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white" />
+                </Draggable>
+            ))}
             <Draggable onDrag={handleDrag} defaultPosition={{ x: 100, y: 100 }}>
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white" />
+                <motion.div className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white bg-white" />
             </Draggable>
         </div>
     );

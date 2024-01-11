@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Draggable from 'react-draggable';
-import { ColorWheel } from '../../components/Color/ColorWheel';
+import { ColorWheel, combinations } from '../../components/Color/ColorWheel';
 
 export default function Page(): JSX.Element {
     return (
@@ -10,14 +10,22 @@ export default function Page(): JSX.Element {
             <motion.div
                 variants={{
                     initial: { opacity: 0 },
-                    animate: { opacity: 1, transition: { duration: 1, delay: 1, ease: [0.75, 0, 0.25, 1] } }
+                    animate: {
+                        opacity: 1,
+                        transition: { duration: 1, delay: 1, ease: [0.75, 0, 0.25, 1], staggerChildren: 0.5 }
+                    }
                 }}
             >
-                <Draggable disabled>
-                    <motion.div className="relative w-72 h-72 rounded-[2.5rem] overflow-hidden bg-slate-200 border-4 border-transparent hover:border-slate-300 transition-colors">
-                        <ColorWheel />
-                    </motion.div>
-                </Draggable>
+                {Object.keys(combinations).map((combination, i) => (
+                    <Draggable key={combination} defaultPosition={{ x: i * 330, y: 250 }} disabled>
+                        <motion.div className="flex flex-col items-center gap-y-8 absolute">
+                            <h3 className="capitalize font-medium">{combination}</h3>
+                            <div className="relative">
+                                <ColorWheel combination={combination as keyof typeof combinations} />
+                            </div>
+                        </motion.div>
+                    </Draggable>
+                ))}
             </motion.div>
         </motion.main>
     );
