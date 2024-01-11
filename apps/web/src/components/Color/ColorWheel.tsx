@@ -11,9 +11,10 @@ export const combinations = {
 
 interface ColorWheelProps {
     combination: keyof typeof combinations;
+    onChange?: (combinations: { hue: number; saturation: number; value: number }[]) => void;
 }
 
-export const ColorWheel = ({ combination: combinationName }: ColorWheelProps) => {
+export const ColorWheel = ({ combination: combinationName, onChange }: ColorWheelProps) => {
     const ref = useRef<HTMLCanvasElement>(null);
     const [position, setPosition] = useState({ x: 144, y: 144 });
 
@@ -71,14 +72,16 @@ export const ColorWheel = ({ combination: combinationName }: ColorWheelProps) =>
         const saturation = r / (ctx.canvas.width / 2);
         const value = 1.0;
 
-        const positions = combination.map(combinationHue => {
+        const colors = combination.map(combinationHue => {
             const newHue = (hue + combinationHue) % 360;
             const [x, y] = polar2xy(r, newHue * (Math.PI / 180));
-            return { x: -x + ctx.canvas.width / 2, y: -y + ctx.canvas.height / 2 };
+            return { x: -x + ctx.canvas.width / 2, y: -y + ctx.canvas.height / 2, hue: newHue, saturation, value };
         });
 
-        return positions;
-    }, [position, combination, polar2xy]);
+        onChange?.([{ hue, saturation, value }, ...colors]);
+
+        return colors;
+    }, [position, combination, polar2xy, onChange, xy2polar, rad2deg]);
 
     // hue in range [0, 360]
     // saturation, value in range [0,1]
@@ -151,18 +154,18 @@ export const ColorWheel = ({ combination: combinationName }: ColorWheelProps) =>
 
     return (
         <div className="relative w-72 h-72">
-            <canvas ref={ref} className="w-full h-full" />
+            <canvas ref={ref} className="w-full h-full shadow-inner border border-slate-200 rounded-full" />
             {components.map((position, i) => (
                 <div
                     key={i}
-                    className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white"
+                    className="absolute -top-3 -left-3 w-6 h-6 rounded-full border-2 border-white"
                     style={{
                         transform: `translate(${position.x}px, ${position.y}px)`
                     }}
                 />
             ))}
             <Draggable onDrag={handleDrag} position={position}>
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 border-white bg-white" />
+                <div className="absolute -top-3 -left-3 w-6 h-6 rounded-full border-2 border-[rgba(0,0,0,.1)] bg-white" />
             </Draggable>
         </div>
     );
