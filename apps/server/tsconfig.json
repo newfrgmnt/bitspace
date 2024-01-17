@@ -7,7 +7,10 @@
         "paths": {
             "@repo/server/*": ["src/*"]
         },
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false
     },
     "include": ["src/**/*.ts", "global.d.ts"],
     "exclude": ["node_modules"],

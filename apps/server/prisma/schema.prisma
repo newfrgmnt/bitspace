@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public", "auth"]
+}
+
+model Bit {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@schema("public")
+}
+
+model Circuit {
+  id          String       @id @default(uuid())
+  nodes       Node[]
+  connections Connection[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+
+  @@schema("public")
+}
+
+model Connection {
+  id        String  @id @default(uuid())
+  circuitId String
+  circuit   Circuit @relation(fields: [circuitId], references: [id])
+  fromId    String
+  from      Output  @relation(fields: [fromId], references: [id])
+  toId      String  @unique
+  to        Input   @relation(fields: [toId], references: [id])
+
+  @@schema("public")
+}
+
+model Node {
+  id        String   @id @default(uuid())
+  name      String   @default("Untitled")
+  circuitId String
+  circuit   Circuit  @relation(fields: [circuitId], references: [id])
+  inputs    Input[]
+  outputs   Output[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@schema("public")
+}
+
+model Input {
+  id         String      @id @default(uuid())
+  name       String      @default("Untitled")
+  nodeId     String
+  node       Node        @relation(fields: [nodeId], references: [id])
+  connection Connection?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now())
+
+  @@schema("public")
+}
+
+model Output {
+  id          String       @id @default(uuid())
+  name        String       @default("Untitled")
+  nodeId      String
+  node        Node         @relation(fields: [nodeId], references: [id])
+  connections Connection[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+
+  @@schema("public")
+}
