@@ -5,14 +5,14 @@ import { map, from, switchMap } from 'rxjs';
 /** Declare a zod schema for value validation */
 const StringSchema = schema(z.string());
 
-const ImageSchema = schema(z.string().url());
+const ImageSchema = schema('Image', z.string().url());
 
 export class ImageNode extends Node {
     name = 'Image';
 
     inputs = {
         prompt: new Input({
-            name: 'A',
+            name: 'Prompt',
             type: StringSchema,
             defaultValue: 'A man looking outside of a window from a house on a winter landscape'
         })
