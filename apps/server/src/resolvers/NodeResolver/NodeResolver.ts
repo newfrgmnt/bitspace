@@ -3,22 +3,32 @@ import { PrismaClient, Node } from '@prisma/client';
 import { NodeCreateInput } from './NodeCreateInput';
 
 @Resolver(Node)
-class NodeResolver {
+export class NodeResolver {
     constructor(private prismaService: PrismaClient) {}
 
     @Query(returns => Node)
     async node(@Arg('id') id: string) {
-        const recipe = await this.prismaService.node.findUnique({ where: { id } });
+        const node = await this.prismaService.node.findUnique({ where: { id } });
 
-        if (!recipe) {
-            throw new NodeNotFoundError(id);
+        if (!node) {
+            throw new Error(`Node with identifier ${id} does not exist`);
         }
 
-        return recipe;
+        return node;
     }
 
     @Mutation(returns => Node)
     async createNode(@Arg('data') data: NodeCreateInput) {
-        return this.prismaService.node.create({ data });
+        return this.prismaService.node.create({
+            data: {
+                name: data.name,
+                inputs: {
+                    createMany: data.inputs
+                },
+                outputs: {
+                    createMany: data.outputs
+                }
+            }
+        });
     }
 }
