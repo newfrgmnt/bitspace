@@ -42,7 +42,7 @@ export default function Page(): JSX.Element {
     }, []);
 
     return (
-        <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg'),auto]">
+        <main className="flex flex-col justify-between h-screen w-screen>
             <Circuit store={circuitStore} nodeWindowResolver={nodeWindowManager} />
         </main>
     );
