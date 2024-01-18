@@ -13,15 +13,21 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2",
+    "@nodl/core": "^1.0.9",
+    "@nodl/react": "^1.0.4",
     "@repo/ui": "workspace:*",
     "@types/color-convert": "^2.0.3",
+    "ai": "^2.2.31",
     "color-convert": "^2.0.1",
     "framer-motion": "^10.16.16",
     "next": "^14.0.3",
+    "openai": "^4.24.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
-    "react-hotkeys-hook": "^4.4.1"
+    "react-hotkeys-hook": "^4.4.1",
+    "rxjs": "^7.8.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.2",
