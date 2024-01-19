@@ -74,7 +74,9 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
                     color={(node as ColorHarmonyNode).inputs.color.value}
                     radius={130}
                     harmony="analogous"
-                    onChange={hsv => (node as ColorHarmonyNode).inputs.color.next(hsv[0])}
+                    onChange={hsv =>
+                        hsv && '0' in hsv ? (node as ColorHarmonyNode).inputs.color.next(hsv[0]) : void 0
+                    }
                 />
             );
         case 'HSV':

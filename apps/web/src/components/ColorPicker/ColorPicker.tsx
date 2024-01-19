@@ -2,7 +2,7 @@ import React, { ComponentProps, useCallback, useEffect, useMemo, useRef, useStat
 import Draggable, { DraggableEventHandler } from 'react-draggable';
 import { harmonies, hsv2rgb, hsv2xy, polar2xy, rad2deg, xy2polar, xy2rgb } from './ColorPicker.utils';
 
-export type ColorWheelProps = Omit<ComponentProps<'div'>, 'color'> & {
+export type ColorWheelProps = Omit<ComponentProps<'div'>, 'color' | 'onChange'> & {
     radius: number;
     harmony: keyof typeof harmonies;
     color?: { hue: number; saturation: number; value: number };
