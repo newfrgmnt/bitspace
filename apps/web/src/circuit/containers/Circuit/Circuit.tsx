@@ -18,17 +18,11 @@ const Nodes = observer(({ windowResolver }: { windowResolver?: NodeWindowResolve
     const { store } = React.useContext(StoreContext);
 
     return (
-        <motion.div
-            animate="animate"
-            initial="initial"
-            transition={{
-                staggerChildren: 0.04
-            }}
-        >
+        <>
             {store.nodes.map(node => (
                 <Node key={node.id} node={node} window={windowResolver?.(node)} />
             ))}
-        </motion.div>
+        </>
     );
 });
 
@@ -43,13 +37,22 @@ const Connections = observer(() => {
     }, []);
 
     return (
-        <svg ref={ref} id="connections" width="100%" height="100%" onClick={onClick}>
+        <motion.svg
+            ref={ref}
+            id="connections"
+            width="100%"
+            height="100%"
+            onClick={onClick}
+            animate="animate"
+            initial="initial"
+            transition={{ staggerChildren: 0.3, delayChildren: 1 }}
+        >
             {store.connections.map(connection => (
                 <Connection key={connection.id} connection={connection} />
             ))}
 
             {store.draftConnectionSource && <Connection output={store.draftConnectionSource} />}
-        </svg>
+        </motion.svg>
     );
 });
 

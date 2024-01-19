@@ -91,11 +91,15 @@ export default function Page(): JSX.Element {
         const hsv2Node = new HSVNode();
         const hsv3Node = new HSVNode();
 
+        colorHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
+        colorHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);
+        colorHarmonyNode.outputs.c.connect(hsv3Node.inputs.color);
+
         circuitStore.setNodes([
             [colorHarmonyNode, { x: -500, y: 0 }],
-            [hsvNode, { x: 0, y: -500 }],
+            [hsvNode, { x: 0, y: 500 }],
             [hsv2Node, { x: 0, y: 0 }],
-            [hsv3Node, { x: 0, y: 500 }]
+            [hsv3Node, { x: 0, y: -500 }]
         ]);
 
         return circuitStore;
@@ -103,7 +107,7 @@ export default function Page(): JSX.Element {
 
     return (
         <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_12_12,auto]">
-            <header className="flex flex-row justify-center items-center p-12 z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-[rgba(0,0,0,.2)] to-transparent">
+            <header className="flex flex-row justify-center items-center p-12 z-50 fixed top-0 left-0 right-0 pointer-events-none">
                 <h3 className="text-2xl">Bitspace</h3>
             </header>
             <Circuit store={store} nodeWindowResolver={nodeWindowManager} />

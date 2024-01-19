@@ -8,6 +8,7 @@ import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { ConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
+import { motion } from 'framer-motion';
 
 const INPUT_PORT_OFFSET_X = 12;
 const INPUT_PORT_OFFSET_Y = 12;
@@ -124,7 +125,19 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
     const strokeColor = selectedConnection || output ? '#1e62ff' : '#ced5db';
 
     return (
-        <g>
+        <motion.g
+            variants={{
+                initial: {
+                    opacity: 0
+                },
+                animate: {
+                    opacity: 1,
+                    transition: {
+                        duration: 1
+                    }
+                }
+            }}
+        >
             <path
                 className="connector"
                 d={pathString}
@@ -147,6 +160,6 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
                 strokeWidth="8"
                 stroke={strokeColor}
             />
-        </g>
+        </motion.g>
     );
 });

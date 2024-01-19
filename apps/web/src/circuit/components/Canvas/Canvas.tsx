@@ -61,6 +61,11 @@ export const Canvas = observer(
                             backgroundSize: '30px 30px',
                             transform
                         }}
+                        animate="animate"
+                        initial="initial"
+                        transition={{
+                            staggerChildren: 0.04
+                        }}
                         onMouseMove={onMouseMove}
                         onMouseDown={onMouseDown}
                         onMouseUp={onMouseUp}
