@@ -73,18 +73,19 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     });
 
     const nodeHeaderWrapperClassNames = clsx(
-        'flex flex-row justify-between items-center py-2 pl-3 pr-4 text-xxs font-medium uppercase tracking-widest rounded-t-xl border-b-2 handle',
+        'relative flex flex-row justify-center items-center px-4 pt-4 text-xxs font-medium uppercase tracking-widest rounded-t-xl handle',
         {
-            'border-b-slate-200': !active,
-            'border-b-blue-500': active,
             'text-blue-500': active
         }
     );
 
-    const nodeActionsClassNames = clsx('flex flex-row nowrap gap-x-2 align-center transition-opacity', {
-        'opacity-0': !(isHovered || active),
-        'opacity-100': isHovered || active
-    });
+    const nodeActionsClassNames = clsx(
+        'absolute right-5 top-5 flex flex-row nowrap gap-x-2 align-center transition-opacity',
+        {
+            'opacity-0': !(isHovered || active),
+            'opacity-100': isHovered || active
+        }
+    );
 
     const nodeContentWrapperClassNames = clsx(
         `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-100`
@@ -108,7 +109,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             >
                 <motion.div
                     className={clsx(
-                        'flex flex-col bg-slate-100 border border-slate-50 rounded-2xl transition-shadow active:shadow-2xl',
+                        'flex flex-col bg-[#fcfdff] border-slate-200 rounded-3xl transition-shadow active:shadow-2xl',
                         {
                             'shadow-xl': active
                         }
@@ -129,7 +130,9 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                             <NodeAction color="#ff4444" onClick={handleRemoveNode} />
                         </div>
                     </div>
-                    {window ? <div className="relative flex flex-col" children={window} /> : undefined}
+                    {window ? (
+                        <div className="relative flex flex-col m-4 rounded-3xl overflow-hidden" children={window} />
+                    ) : undefined}
                     <div className={nodeContentWrapperClassNames}>
                         <NodePorts ports={Object.values(node.inputs)} />
                         <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
@@ -152,7 +155,7 @@ const NodeAction = ({ color = '#fff', onClick }: NodeActionProps) => {
 
 const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
     const nodePortsWrapperClassNames = clsx(
-        'flex flex-col flex-grow p-3',
+        'flex flex-col flex-grow px-4 pb-5',
         isOutputWrapper ? 'items-end' : 'items-start'
     );
     return (

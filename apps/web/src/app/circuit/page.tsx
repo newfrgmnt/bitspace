@@ -31,7 +31,7 @@ const ImageWindow = ({ node }: { node: ImageNode }) => {
                 defaultValue={node.inputs.prompt.value}
             />
             <div
-                className="w-full h-80 bg-cover bg-center bg-black"
+                className="w-[244px] h-80 bg-cover bg-center bg-black"
                 style={{
                     backgroundImage: `url(${imageSrc})`
                 }}
@@ -69,14 +69,16 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
             );
         case 'Color Harmony':
             return (
-                <ColorWheel
-                    color={(node as ColorHarmonyNode).inputs.color.value}
-                    radius={130}
-                    harmony="analogous"
-                    onChange={hsv =>
-                        hsv && '0' in hsv ? (node as ColorHarmonyNode).inputs.color.next(hsv[0]) : void 0
-                    }
-                />
+                <div className="h-fit w-full">
+                    <ColorWheel
+                        color={(node as ColorHarmonyNode).inputs.color.value}
+                        radius={122}
+                        harmony="analogous"
+                        onChange={hsv =>
+                            hsv && '0' in hsv ? (node as ColorHarmonyNode).inputs.color.next(hsv[0]) : void 0
+                        }
+                    />
+                </div>
             );
         case 'HSV':
             return <HSVWindow node={node as HSVNode} />;
@@ -91,6 +93,8 @@ export default function Page(): JSX.Element {
         const hsv2Node = new HSVNode();
         const hsv3Node = new HSVNode();
 
+        const imageNode = new ImageNode();
+
         colorHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
         colorHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);
         colorHarmonyNode.outputs.c.connect(hsv3Node.inputs.color);
@@ -99,7 +103,8 @@ export default function Page(): JSX.Element {
             [colorHarmonyNode, { x: -500, y: 0 }],
             [hsvNode, { x: 0, y: 500 }],
             [hsv2Node, { x: 0, y: 0 }],
-            [hsv3Node, { x: 0, y: -500 }]
+            [hsv3Node, { x: 0, y: -500 }],
+            [imageNode, { x: 500, y: 0 }]
         ]);
 
         return circuitStore;

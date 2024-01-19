@@ -23,7 +23,7 @@ module.exports = {
                 }
             },
             fontSize: {
-                xxs: '.65rem'
+                xxs: '.6rem'
             }
         }
     },

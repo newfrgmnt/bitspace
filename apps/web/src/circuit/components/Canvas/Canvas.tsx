@@ -46,7 +46,7 @@ export const Canvas = observer(
             return (
                 <div
                     ref={scrollRef}
-                    className={clsx('relative w-full h-full overflow-auto bg-white text-slate-400', className)}
+                    className={clsx('relative w-full h-full overflow-auto bg-[#f5f6fa] text-slate-400', className)}
                     {...panZoomHandlers}
                     onMouseDown={handleMouseDown}
                 >
@@ -56,9 +56,9 @@ export const Canvas = observer(
                         style={{
                             width: size.width,
                             height: size.height,
-                            backgroundImage: 'radial-gradient(rgba(0,0,0,.1) 5%, transparent 5%)',
+                            backgroundImage: 'radial-gradient(rgba(0,0,0,.1) 3%, transparent 3%)',
                             backgroundPosition: '0 0',
-                            backgroundSize: '30px 30px',
+                            backgroundSize: '50px 50px',
                             transform
                         }}
                         animate="animate"
