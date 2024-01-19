@@ -15,7 +15,7 @@ import { HSVRGBNode } from '../../nodes/HSVRGBNode/HSVRGBNode';
 import { NumberFloatNode } from '../../nodes/NumberFloatNode/NumberFloatNode';
 import { RGBNode } from '../../nodes/RGBNode/RGBNode';
 
-export const ImageWindow = ({ node }: { node: ImageNode }) => {
+const ImageWindow = ({ node }: { node: ImageNode }) => {
     const [imageSrc, setImageSrc] = useState<string>();
 
     useEffect(() => {

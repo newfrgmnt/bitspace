@@ -16,19 +16,4 @@ export class NodeResolver {
 
         return node;
     }
-
-    @Mutation(returns => Node)
-    async createNode(@Arg('data') data: NodeCreateInput) {
-        return this.prismaService.node.create({
-            data: {
-                name: data.name,
-                inputs: {
-                    createMany: data.inputs
-                },
-                outputs: {
-                    createMany: data.outputs
-                }
-            }
-        });
-    }
 }

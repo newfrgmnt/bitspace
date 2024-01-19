@@ -3,17 +3,4 @@ import { User } from '../../models/User';
 import {} from '@prisma/client';
 
 @Resolver(User)
-class UserResolver {
-    constructor(private userService: UserService) {}
-
-    @Query(returns => User)
-    async user(@Arg('id') id: string) {
-        const recipe = await this.userService.findById(id);
-
-        if (!recipe) {
-            throw new UserNotFoundError(id);
-        }
-
-        return recipe;
-    }
-}
+class UserResolver {}
