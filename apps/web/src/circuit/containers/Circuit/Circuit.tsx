@@ -10,9 +10,9 @@ import { CIRCUIT_SIZE } from '../../constants';
 import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
 import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
 import { normalizeBounds } from '../../utils/bounds/bounds';
-import { circuitContainerStyles, circuitSelectionStyles } from './Circuit.styles';
 import { CircuitProps, NodeWindowResolver } from './Circuit.types';
 import { motion } from 'framer-motion';
+import clsx from 'clsx';
 
 const Nodes = observer(({ windowResolver }: { windowResolver?: NodeWindowResolver }) => {
     const { store } = React.useContext(StoreContext);
@@ -59,7 +59,13 @@ const Connections = observer(() => {
 const Selection = observer(() => {
     const { store } = React.useContext(StoreContext);
 
-    return store.selectionBounds ? <div css={circuitSelectionStyles(normalizeBounds(store.selectionBounds))} /> : null;
+    const { width, height, x, y } = normalizeBounds(store.selectionBounds || { width: 0, height: 0, x: 0, y: 0 });
+    return store.selectionBounds ? (
+        <div
+            className="z-30 absolute top-0 left-0 border border-black"
+            style={{ width, height, transform: `translate(${x}px, ${y}px)` }}
+        />
+    ) : null;
 });
 
 export const Circuit = observer(
@@ -153,8 +159,7 @@ export const Circuit = observer(
             <StoreContext.Provider value={{ store: props.store }}>
                 <Canvas
                     ref={ref}
-                    className={props.className}
-                    css={circuitContainerStyles}
+                    className={clsx('fixed top-0 left-0 w-full h-full', props.className)}
                     size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                     onMouseDown={onMouseDown}
                     onMouseMove={onMouseMove}

@@ -122,7 +122,7 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
     const selectedConnection =
         connection &&
         store.selectedNodes?.flatMap(node => node.connections).includes(connection as NodlConnection<unknown>);
-    const strokeColor = selectedConnection || output ? '#1e62ff' : '#ced5db';
+    const strokeColor = selectedConnection || output ? '#444' : '#ced5db';
 
     return (
         <motion.g

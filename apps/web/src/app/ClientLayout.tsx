@@ -13,7 +13,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
             transition={{ staggerChildren: 0.05 }}
         >
             <motion.div
-                className="flex flex-row justify-between items-center w-full sticky top-0"
+                className="flex flex-row justify-between items-center w-full sticky top-0 z-10"
                 variants={{
                     initial: { opacity: 0 },
                     animate: { opacity: 1, transition: { duration: 1, delay: 1 } }

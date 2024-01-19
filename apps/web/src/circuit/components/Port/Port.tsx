@@ -79,7 +79,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
             'flex-row-reverse': isOutput,
             'flex-row': !isOutput,
             'opacity-30': visuallyDisabled,
-            'text-blue-500': highlighted
+            'text-black': highlighted
         }
     );
 
@@ -88,7 +88,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         {
             'bg-red-500': port.connected && isPortTypeHovered,
             'bg-slate-200': !port.connected && !isHovered && !highlighted,
-            'bg-blue-500': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered) || highlighted,
+            'bg-black': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered) || highlighted,
             'text-white': highlighted || isHovered,
             'ml-3': isOutput,
             'mr-3': !isOutput

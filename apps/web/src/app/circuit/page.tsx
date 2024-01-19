@@ -13,6 +13,7 @@ import { NumberFloatNode } from '../../nodes/NumberFloatNode/NumberFloatNode';
 import { RGBNode } from '../../nodes/RGBNode/RGBNode';
 import { Circuit, CircuitStore } from '../../circuit';
 import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.types';
+import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 
 const ImageWindow = ({ node }: { node: ImageNode }) => {
     const [imageSrc, setImageSrc] = useState<string>();
@@ -109,11 +110,13 @@ export default function Page(): JSX.Element {
 
     return (
         <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_12_12,auto]">
-            <header className="flex flex-row justify-center items-center p-12 z-50 fixed top-0 left-0 right-0 pointer-events-none">
+            <header className="flex flex-row justify-center items-center p-20 z-50 fixed top-0 left-0 right-0 pointer-events-none">
                 <h3 className="text-2xl">Bitspace</h3>
             </header>
             <Circuit store={store} nodeWindowResolver={nodeWindowManager} />
-            <pre id="test" className="fixed bottom-0 right-0 max-w-xl h-96 overflow-auto"></pre>
+            <div className="fixed bottom-20 left-0 right-0 flex flex-row justify-center">
+                <MenuButton />
+            </div>
         </main>
     );
 }

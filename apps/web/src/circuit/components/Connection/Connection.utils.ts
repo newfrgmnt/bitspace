@@ -5,7 +5,7 @@ export const quadraticCurve = (start: ConnectionTargetPoint, end: ConnectionTarg
     const y1 = start.y;
     const x4 = end.x;
     const y4 = end.y;
-    const min_diff = 20;
+    const min_diff = 30;
     let offset: number;
 
     if (Math.abs(y4 - y1) < min_diff * 2) {

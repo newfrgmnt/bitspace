@@ -52,7 +52,7 @@ export default function Page(): JSX.Element {
                             animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
                         }}
                     >
-                        <span className="group-hover:text-blue-500 transition-colors">{card.icon}</span>
+                        <span className="group-hover:text-black transition-colors">{card.icon}</span>
                         <h3 className="font-medium text-2xl leading-normal">{card.title}</h3>
                     </motion.a>
                 ))}
