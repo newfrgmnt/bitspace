@@ -1,4 +1,4 @@
-import { Input, Node } from '@nodl/core';
+import { Input, Node } from '@bitspace/circuit';
 import { float, Prim, Term } from '@thi.ng/shader-ast';
 
 import { PrimSchema } from '../../../schemas/Prim/Prim';

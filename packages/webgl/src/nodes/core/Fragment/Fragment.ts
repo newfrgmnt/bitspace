@@ -1,4 +1,4 @@
-import { Input, Node } from '@nodl/core';
+import { Input, Node } from '@bitspace/circuit';
 import { assign, defMain, Sym, Term, vec4 } from '@thi.ng/shader-ast';
 import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 

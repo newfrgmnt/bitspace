@@ -1,4 +1,4 @@
-import { Output } from '@nodl/core';
+import { Output } from '@bitspace/circuit';
 import { pow } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 

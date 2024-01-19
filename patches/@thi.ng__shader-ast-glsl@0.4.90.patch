@@ -1,0 +1,16 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 9895bf1177ef41bdb653eecfd63dfe3fb42eae40..0000000000000000000000000000000000000000
+diff --git a/target.js b/target.js
+index 29aaa598f7211ad23de6715994050ec74a2ca042..0f33081845b7d34ad4d2d068d8bf08cfda1d8851 100644
+--- a/target.js
++++ b/target.js
+@@ -73,6 +73,8 @@ const targetGLSL = (opts) => {
+     )})` : $fn(t),
+     decl: (t) => $decl(t.id),
+     fn: (t) => `${$type(t.type)} ${t.id}(${$list(t.args)}) ${emit(t.scope)}`,
++    rawFn: t => `${$type(t.type)} ${t.id}(${$list(t.args)}) {
++  ${t.body}}`,
+     for: (t) => `for(${t.init ? emit(t.init) : ""}; ${emit(t.test)}; ${t.iter ? emit(t.iter) : ""}) ${emit(t.scope)}`,
+     idx: emitIndex,
+     idxm: emitIndex,

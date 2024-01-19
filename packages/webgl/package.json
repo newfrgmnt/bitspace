@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "main": "build/index.js",
     "description": "",
+    "private": true,
     "files": [
         "build/*"
     ],
@@ -17,7 +18,6 @@
     },
     "scripts": {
         "build": "tsup src/index.ts --dts --format cjs,esm --outDir build",
-        "preinstall": "npx patch-package",
         "prepare": "npm run build",
         "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
         "lint": "eslint"
@@ -38,11 +38,11 @@
         "typescript": "^4.8.3"
     },
     "dependencies": {
-        "@nodl/core": "^1.0.8",
+        "@bitspace/circuit": "workspace:*",
         "@nodl/react": "^1.0.4",
         "@thi.ng/shader-ast": "^0.12.29",
-        "@thi.ng/shader-ast-glsl": "^0.4.36",
-        "@thi.ng/webgl": "^6.2.13",
+        "@thi.ng/shader-ast-glsl": "^0.4.90",
+        "@thi.ng/webgl": "^6.6.19",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-prettier": "^5.0.0",
         "jest": "^29.7.0",

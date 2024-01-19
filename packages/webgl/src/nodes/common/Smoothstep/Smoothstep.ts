@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@nodl/core';
+import { Input, Node, Output } from '@bitspace/circuit';
 import { float, smoothstep, step } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
@@ -29,7 +29,9 @@ export class Smoothstep extends Node {
         output: new Output({
             name: 'Output',
             type: PrimSchema,
-            observable: combineLatest([this.inputs.edgeA, this.inputs.edgeB, this.inputs.input]).pipe(map(inputs => smoothstep(...inputs)))
+            observable: combineLatest([this.inputs.edgeA, this.inputs.edgeB, this.inputs.input]).pipe(
+                map(inputs => smoothstep(...inputs))
+            )
         })
     };
 }

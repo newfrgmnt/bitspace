@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@nodl/core';
+import { Input, Node, Output } from '@bitspace/circuit';
 import { abs, add, ceil, clamp, float, output, Prim, Term } from '@thi.ng/shader-ast';
 import { combineLatest, lastValueFrom, map } from 'rxjs';
 
@@ -31,7 +31,9 @@ export class Clamp extends Node {
         output: new Output({
             name: 'Output',
             type: PrimSchema,
-            observable: combineLatest([this.inputs.input, this.inputs.min, this.inputs.max]).pipe(map(inputs => clamp(...inputs)))
+            observable: combineLatest([this.inputs.input, this.inputs.min, this.inputs.max]).pipe(
+                map(inputs => clamp(...inputs))
+            )
         })
-    }
+    };
 }

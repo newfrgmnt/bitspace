@@ -1,12 +1,9 @@
 'use client';
 
-import { Circuit, CircuitStore } from '@nodl/react';
 import { Fragment, compile, GLSLVersion, Vector4 } from '@bitspace/webgl';
 import { useEffect, useMemo, useState } from 'react';
 import { ImageNode } from '../../nodes/ImageNode/ImageNode';
-import { NodeWindowResolver } from '@nodl/react/build/containers/Circuit/Circuit.types';
 import { Node } from '@bitspace/circuit';
-import { PromptNode } from '../../nodes/PromptNode/PromptNode';
 import { ColorHarmonyNode } from '../../nodes/ColorHarmonyNode/ColorHarmonyNode';
 import { ColorWheel } from '../../components/ColorPicker/ColorPicker';
 import { hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
@@ -14,6 +11,8 @@ import { HSVNode } from '../../nodes/HSVNode/HSVNode';
 import { HSVRGBNode } from '../../nodes/HSVRGBNode/HSVRGBNode';
 import { NumberFloatNode } from '../../nodes/NumberFloatNode/NumberFloatNode';
 import { RGBNode } from '../../nodes/RGBNode/RGBNode';
+import { Circuit, CircuitStore } from '../../circuit';
+import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.types';
 
 const ImageWindow = ({ node }: { node: ImageNode }) => {
     const [imageSrc, setImageSrc] = useState<string>();
@@ -110,8 +109,10 @@ export default function Page(): JSX.Element {
         ]);
 
         fragmentNode.inputs.color.subscribe(color => {
-            const compiled = compile(fragmentNode, {}, GLSLVersion.GLES_300);
-            document.getElementById('test')!.innerText = compiled;
+            if ('window' in global && 'documnet' in window) {
+                const compiled = compile(fragmentNode, {}, GLSLVersion.GLES_300);
+                document.getElementById('test')!.innerText = compiled;
+            }
         });
 
         return circuitStore;

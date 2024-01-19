@@ -1,4 +1,4 @@
-import { Output } from '@nodl/core';
+import { Output } from '@bitspace/circuit';
 import { fract } from '@thi.ng/shader-ast';
 import { map } from 'rxjs';
 

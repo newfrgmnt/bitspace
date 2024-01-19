@@ -1,4 +1,4 @@
-import { Output } from '@nodl/core';
+import { Output } from '@bitspace/circuit';
 import { abs, add, ceil, floor } from '@thi.ng/shader-ast';
 import { combineLatest, lastValueFrom, map } from 'rxjs';
 

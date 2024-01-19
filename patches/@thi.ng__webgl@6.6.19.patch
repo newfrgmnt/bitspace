@@ -1,0 +1,41 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index c372872e42f6e7c838f0fc922d4ecab06cba2d4f..0000000000000000000000000000000000000000
+diff --git a/texture.d.ts b/texture.d.ts
+index 0a7d72134edca051bb354151f8553e66a4031cf9..0903c52de3e2080a02cd1dc6452914ce5124c9a7 100644
+--- a/texture.d.ts
++++ b/texture.d.ts
+@@ -10,7 +10,7 @@ export declare class Texture implements ITexture {
+     wrap: TextureRepeat[];
+     type: TextureType;
+     size: number[];
+-    constructor(gl: WebGLRenderingContext, opts?: Partial<TextureOpts>);
++    constructor(gl: WebGLRenderingContext, texture?: WebGLTexture, opts?: Partial<TextureOpts>);
+     configure(opts?: Partial<TextureOpts>, unbind?: boolean): boolean;
+     protected configureImage(target: TextureTarget, opts: Partial<TextureOpts>): void;
+     protected configureImage2d(target: TextureTarget, opts: Partial<TextureOpts>): void;
+diff --git a/texture.js b/texture.js
+index e07af89696bc6b701d34ffce0a7e7ad6adf17158..db1646a7c66e2b7114ddd78225b9c45f957b1818 100644
+--- a/texture.js
++++ b/texture.js
+@@ -28,9 +28,9 @@ class Texture {
+   wrap;
+   type;
+   size;
+-  constructor(gl, opts = {}) {
++  constructor(gl, texture = undefined, opts = {}) {
+     this.gl = gl;
+-    this.tex = gl.createTexture() || error("error creating WebGL texture");
++    this.tex = texture || gl.createTexture() || error("error creating WebGL texture");
+     this.configure({
+       filter: TextureFilter.NEAREST,
+       wrap: TextureRepeat.CLAMP,
+@@ -259,7 +259,7 @@ class Texture {
+     return false;
+   }
+ }
+-const defTexture = (gl, opts) => new Texture(gl, opts);
++const defTexture = (gl, opts) => new Texture(gl, undefined, opts);
+ const defTextureCubeMap = (gl, faces, opts = {}) => {
+   const tex = new Texture(gl, { target: gl.TEXTURE_CUBE_MAP });
+   const faceOpts = withoutKeysObj(opts, [

@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@nodl/core';
+import { Input, Node, Output } from '@bitspace/circuit';
 import { float, mix, Prim, Term } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 import { FloatSchema } from '../../../schemas/Float/Float';
@@ -24,7 +24,7 @@ export class Mix extends Node {
             type: FloatSchema,
             defaultValue: float(0)
         })
-    }
+    };
 
     outputs = {
         output: new Output({

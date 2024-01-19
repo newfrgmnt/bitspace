@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@nodl/core';
+import { Input, Node, Output } from '@bitspace/circuit';
 import { float, vec3 } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
@@ -24,13 +24,15 @@ export class Vector3 extends Node {
             type: FloatSchema,
             defaultValue: float(0)
         })
-    }
+    };
 
     outputs = {
         output: new Output({
             name: 'Output',
             type: Vec3Schema,
-            observable: combineLatest([this.inputs.x, this.inputs.y, this.inputs.z]).pipe(map(inputs => vec3(...inputs)))
+            observable: combineLatest([this.inputs.x, this.inputs.y, this.inputs.z]).pipe(
+                map(inputs => vec3(...inputs))
+            )
         })
     };
 }

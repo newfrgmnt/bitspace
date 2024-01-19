@@ -1,4 +1,4 @@
-import { schema } from '@nodl/core';
+import { schema } from '@bitspace/circuit';
 import { z } from 'zod';
 
 import { FloatSchema } from '../Float/Float';
