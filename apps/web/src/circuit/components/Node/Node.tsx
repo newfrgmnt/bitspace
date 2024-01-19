@@ -10,6 +10,7 @@ import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Port } from '../Port/Port';
 import { NodeActionProps, NodePortsProps, NodeProps } from './Node.types';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 export const Node = observer(({ node, actions, window }: NodeProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -65,14 +66,11 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
 
-    const nodeWrapperClassNames = clsx(
-        `absolute flex flex-col select-none rounded-2xl transition-shadow bg-slate-100 active:shadow-2xl border border-slate-50 focus:outline-none`,
-        {
-            'z-10': !active,
-            'z-20': active,
-            'shadow-xl': active
-        }
-    );
+    const nodeWrapperClassNames = clsx(`absolute flex flex-col select-none focus:outline-none`, {
+        'z-10': !active,
+        'z-20': active,
+        'overflow-hidden': !active
+    });
 
     const nodeHeaderWrapperClassNames = clsx(
         'flex flex-row justify-between items-center py-2 pl-3 pr-4 text-xxs font-medium uppercase tracking-widest rounded-t-xl border-b-2 handle',
@@ -99,7 +97,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             onDrag={handleOnDrag}
             handle=".handle"
         >
-            <div
+            <motion.div
                 ref={ref}
                 className={nodeWrapperClassNames}
                 onClick={handleOnClick}
@@ -108,18 +106,36 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                 onMouseLeave={onMouseLeave}
                 tabIndex={0}
             >
-                <div className={nodeHeaderWrapperClassNames}>
-                    <span>{node.name}</span>
-                    <div className={nodeActionsClassNames}>
-                        <NodeAction color="#ff4444" onClick={handleRemoveNode} />
+                <motion.div
+                    className={clsx(
+                        'flex flex-col bg-slate-100 border border-slate-50 rounded-2xl transition-shadow active:shadow-2xl',
+                        {
+                            'shadow-xl': active
+                        }
+                    )}
+                    variants={{
+                        initial: {
+                            y: '100%'
+                        },
+                        animate: {
+                            y: '0%',
+                            transition: { duration: 1.2, ease: [0.83, 0, 0.17, 1] }
+                        }
+                    }}
+                >
+                    <div className={nodeHeaderWrapperClassNames}>
+                        <span>{node.name}</span>
+                        <div className={nodeActionsClassNames}>
+                            <NodeAction color="#ff4444" onClick={handleRemoveNode} />
+                        </div>
                     </div>
-                </div>
-                {window ? <div className="relative flex flex-col" children={window} /> : undefined}
-                <div className={nodeContentWrapperClassNames}>
-                    <NodePorts ports={Object.values(node.inputs)} />
-                    <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
-                </div>
-            </div>
+                    {window ? <div className="relative flex flex-col" children={window} /> : undefined}
+                    <div className={nodeContentWrapperClassNames}>
+                        <NodePorts ports={Object.values(node.inputs)} />
+                        <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
+                    </div>
+                </motion.div>
+            </motion.div>
         </Draggable>
     );
 });

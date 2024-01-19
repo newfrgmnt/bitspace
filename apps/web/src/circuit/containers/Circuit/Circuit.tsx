@@ -12,16 +12,23 @@ import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { circuitContainerStyles, circuitSelectionStyles } from './Circuit.styles';
 import { CircuitProps, NodeWindowResolver } from './Circuit.types';
+import { motion } from 'framer-motion';
 
 const Nodes = observer(({ windowResolver }: { windowResolver?: NodeWindowResolver }) => {
     const { store } = React.useContext(StoreContext);
 
     return (
-        <>
+        <motion.div
+            animate="animate"
+            initial="initial"
+            transition={{
+                staggerChildren: 0.04
+            }}
+        >
             {store.nodes.map(node => (
                 <Node key={node.id} node={node} window={windowResolver?.(node)} />
             ))}
-        </>
+        </motion.div>
     );
 });
 
