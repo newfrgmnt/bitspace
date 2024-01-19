@@ -109,9 +109,9 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             >
                 <motion.div
                     className={clsx(
-                        'flex flex-col bg-[#fcfdff] border-slate-200 rounded-3xl transition-shadow active:shadow-2xl',
+                        'flex flex-col bg-[#fcfdff] border-white border rounded-3xl transition-shadow active:shadow-2xl',
                         {
-                            'shadow-xl': active
+                            'shadow-2xl': active
                         }
                     )}
                     variants={{
@@ -131,7 +131,10 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                         </div>
                     </div>
                     {window ? (
-                        <div className="relative flex flex-col m-4 rounded-3xl overflow-hidden" children={window} />
+                        <div
+                            className="relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl"
+                            children={window}
+                        />
                     ) : undefined}
                     <div className={nodeContentWrapperClassNames}>
                         <NodePorts ports={Object.values(node.inputs)} />

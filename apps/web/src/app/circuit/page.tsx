@@ -31,7 +31,7 @@ const ImageWindow = ({ node }: { node: ImageNode }) => {
                 defaultValue={node.inputs.prompt.value}
             />
             <div
-                className="w-[244px] h-80 bg-cover bg-center bg-black"
+                className="w-[244px] h-80 bg-cover bg-center bg-slate-100"
                 style={{
                     backgroundImage: `url(${imageSrc})`
                 }}
@@ -73,7 +73,7 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
                     <ColorWheel
                         color={(node as ColorHarmonyNode).inputs.color.value}
                         radius={122}
-                        harmony="analogous"
+                        harmony="triad"
                         onChange={hsv =>
                             hsv && '0' in hsv ? (node as ColorHarmonyNode).inputs.color.next(hsv[0]) : void 0
                         }
