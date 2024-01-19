@@ -73,7 +73,7 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
                 <ColorWheel
                     color={(node as ColorHarmonyNode).inputs.color.value}
                     radius={130}
-                    harmony="triad"
+                    harmony="analogous"
                     onChange={hsv => (node as ColorHarmonyNode).inputs.color.next(hsv[0])}
                 />
             );

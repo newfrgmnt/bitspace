@@ -7,9 +7,9 @@ import { hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
 export const RGBSchema = schema(
     'RGB',
     z.object({
-        red: z.number().min(0).max(1),
-        green: z.number().min(0).max(1),
-        blue: z.number().min(0).max(1)
+        red: z.number().min(0).max(1.01),
+        green: z.number().min(0).max(1.01),
+        blue: z.number().min(0).max(1.01)
     })
 );
 
