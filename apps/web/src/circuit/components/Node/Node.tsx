@@ -120,7 +120,10 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                         },
                         animate: {
                             y: '0%',
-                            transition: { duration: 1.2, ease: [0.83, 0, 0.17, 1] }
+                            transition: {
+                                duration: 2,
+                                ease: [0.75, 0, 0.25, 1]
+                            }
                         }
                     }}
                 >

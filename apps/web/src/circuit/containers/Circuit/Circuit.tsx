@@ -45,7 +45,7 @@ const Connections = observer(() => {
             onClick={onClick}
             animate="animate"
             initial="initial"
-            transition={{ staggerChildren: 0.3, delayChildren: 1 }}
+            transition={{ staggerChildren: 0.3, delayChildren: 1.5 }}
         >
             {store.connections.map(connection => (
                 <Connection key={connection.id} connection={connection} />

@@ -20,7 +20,7 @@ export class ColorHarmonyNode extends Node {
             type: HSVSchema,
             defaultValue: {
                 hue: 0,
-                saturation: 1,
+                saturation: 0.5,
                 value: 1
             }
         })

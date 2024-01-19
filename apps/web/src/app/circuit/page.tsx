@@ -71,7 +71,7 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
             return (
                 <div className="h-fit w-full">
                     <ColorWheel
-                        color={(node as ColorHarmonyNode).inputs.color.value}
+                        defaultColor={(node as ColorHarmonyNode).inputs.color.value}
                         radius={122}
                         harmony="triad"
                         onChange={hsv =>
@@ -93,8 +93,6 @@ export default function Page(): JSX.Element {
         const hsv2Node = new HSVNode();
         const hsv3Node = new HSVNode();
 
-        const imageNode = new ImageNode();
-
         colorHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
         colorHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);
         colorHarmonyNode.outputs.c.connect(hsv3Node.inputs.color);
@@ -103,8 +101,7 @@ export default function Page(): JSX.Element {
             [colorHarmonyNode, { x: -500, y: 0 }],
             [hsvNode, { x: 0, y: 500 }],
             [hsv2Node, { x: 0, y: 0 }],
-            [hsv3Node, { x: 0, y: -500 }],
-            [imageNode, { x: 500, y: 0 }]
+            [hsv3Node, { x: 0, y: -500 }]
         ]);
 
         return circuitStore;
