@@ -7,8 +7,9 @@ import { useHover } from '../../hooks/useHover/useHover';
 import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipPosition } from '../Tooltip/Tooltip.types';
-import { portTypeStyles, portWrapperStyles } from './Port.styles';
 import { PortProps } from './Port.types';
+import clsx from 'clsx';
+import { output } from '@bitspace/webgl';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -65,29 +66,47 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         }
     }, [port]);
 
+    const highlighted =
+        port.connected ||
+        (!store.draftConnectionSource && isHovered) ||
+        (store.draftConnectionSource?.id === port.id && !visuallyDisabled);
+
+    const portWrapperClassNames = clsx(
+        'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-widest cursor-pointer select-none transition-opacity',
+        {
+            'pl-6': isOutput,
+            'pr-6': !isOutput,
+            'flex-row-reverse': isOutput,
+            'flex-row': !isOutput,
+            'opacity-30': visuallyDisabled,
+            'text-blue-500': highlighted
+        }
+    );
+
+    const portTypeClassNames = clsx(
+        'flex flex-col items-center justify-center text-xxs font-medium tracking-normal rounded w-4 h-4 transition-all',
+        {
+            'bg-red-500': port.connected && isPortTypeHovered,
+            'bg-slate-200': !port.connected && !isHovered && !highlighted,
+            'bg-blue-500': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered) || highlighted,
+            'text-white': highlighted || isHovered,
+            'ml-3': isOutput,
+            'mr-3': !isOutput
+        }
+    );
+
     return (
         <Tooltip text={port.type.name} position={tooltipPosition}>
             <div
                 ref={ref}
-                css={portWrapperStyles(
-                    port.connected ||
-                        (!store.draftConnectionSource && isHovered) ||
-                        (!!store.draftConnectionSource && !visuallyDisabled),
-                    isOutput,
-                    visuallyDisabled
-                )}
+                className={portWrapperClassNames}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onMouseUp={onMouseUp}
                 onMouseDown={onMouseDown}
             >
                 <div
-                    css={portTypeStyles(
-                        port.connected,
-                        isOutput,
-                        isHovered && !visuallyDisabled,
-                        isPortTypeHovered && !visuallyDisabled
-                    )}
+                    className={portTypeClassNames}
                     onMouseEnter={onPortTypeEnter}
                     onMouseLeave={onPortTypeLeave}
                     onClick={onClick}

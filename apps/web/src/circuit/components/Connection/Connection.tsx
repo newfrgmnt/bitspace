@@ -12,7 +12,7 @@ import { quadraticCurve } from './Connection.utils';
 const INPUT_PORT_OFFSET_X = 12;
 const INPUT_PORT_OFFSET_Y = 12;
 
-const OUTPUT_PORT_OFFSET_X = 0;
+const OUTPUT_PORT_OFFSET_X = 2;
 const OUTPUT_PORT_OFFSET_Y = 12;
 
 const defaultPosition = { x: 0, y: 0 };
@@ -121,7 +121,7 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
     const selectedConnection =
         connection &&
         store.selectedNodes?.flatMap(node => node.connections).includes(connection as NodlConnection<unknown>);
-    const strokeColor = selectedConnection || output ? '#1e62ff' : '#424763';
+    const strokeColor = selectedConnection || output ? '#1e62ff' : '#ced5db';
 
     return (
         <g>

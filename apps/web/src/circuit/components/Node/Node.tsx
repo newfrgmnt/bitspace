@@ -8,17 +8,8 @@ import { useHover } from '../../hooks/useHover/useHover';
 import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Port } from '../Port/Port';
-import {
-    nodeHeaderWrapperStyles,
-    nodeContentWrapperStyles,
-    nodeWrapperStyles,
-    nodePortsWrapperStyles,
-    nodeHeaderActionsStyles,
-    nodeActionStyles,
-    nodeHeaderNameWrapperStyle,
-    nodeWindowWrapperStyles
-} from './Node.styles';
 import { NodeActionProps, NodePortsProps, NodeProps } from './Node.types';
+import clsx from 'clsx';
 
 export const Node = observer(({ node, actions, window }: NodeProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -74,6 +65,33 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
 
+    const nodeWrapperClassNames = clsx(
+        `absolute flex flex-col select-none rounded-2xl transition-shadow bg-slate-100 active:shadow-2xl border border-slate-50 focus:outline-none`,
+        {
+            'z-10': !active,
+            'z-20': active,
+            'shadow-xl': active
+        }
+    );
+
+    const nodeHeaderWrapperClassNames = clsx(
+        'flex flex-row justify-between items-center py-2 pl-3 pr-4 text-xxs font-medium uppercase tracking-widest rounded-t-xl border-b-2 handle',
+        {
+            'border-b-slate-200': !active,
+            'border-b-blue-500': active,
+            'text-blue-500': active
+        }
+    );
+
+    const nodeActionsClassNames = clsx('flex flex-row nowrap gap-x-2 align-center transition-opacity', {
+        'opacity-0': !(isHovered || active),
+        'opacity-100': isHovered || active
+    });
+
+    const nodeContentWrapperClassNames = clsx(
+        `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-100`
+    );
+
     return (
         <Draggable
             nodeRef={ref}
@@ -83,23 +101,21 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
         >
             <div
                 ref={ref}
-                css={nodeWrapperStyles(active)}
+                className={nodeWrapperClassNames}
                 onClick={handleOnClick}
                 onFocus={handleOnFocus}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 tabIndex={0}
             >
-                <div css={nodeHeaderWrapperStyles(active)} className={'handle'}>
-                    <div css={nodeHeaderNameWrapperStyle}>
-                        <span>{node.name}</span>
-                    </div>
-                    <div css={nodeHeaderActionsStyles(isHovered || active)}>
+                <div className={nodeHeaderWrapperClassNames}>
+                    <span>{node.name}</span>
+                    <div className={nodeActionsClassNames}>
                         <NodeAction color="#ff4444" onClick={handleRemoveNode} />
                     </div>
                 </div>
-                {window ? <div css={nodeWindowWrapperStyles} children={window} /> : undefined}
-                <div css={nodeContentWrapperStyles}>
+                {window ? <div className="relative flex flex-col" children={window} /> : undefined}
+                <div className={nodeContentWrapperClassNames}>
                     <NodePorts ports={Object.values(node.inputs)} />
                     <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
                 </div>
@@ -109,12 +125,22 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
 });
 
 const NodeAction = ({ color = '#fff', onClick }: NodeActionProps) => {
-    return <div css={nodeActionStyles(color)} color={color} onClick={onClick} />;
+    return (
+        <div
+            className="opacity-100 transition-opacity ml-1.5 w-2 h-2 rounded-md bg-red-400 hover:opactiy-40"
+            color={color}
+            onClick={onClick}
+        />
+    );
 };
 
 const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
+    const nodePortsWrapperClassNames = clsx(
+        'flex flex-col flex-grow p-3',
+        isOutputWrapper ? 'items-end' : 'items-start'
+    );
     return (
-        <div css={nodePortsWrapperStyles(isOutputWrapper)}>
+        <div className={nodePortsWrapperClassNames}>
             {ports.map(port => (
                 <Port key={port.id} port={port} isOutput={!!isOutputWrapper} />
             ))}

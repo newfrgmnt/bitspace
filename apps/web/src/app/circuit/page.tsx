@@ -91,35 +91,18 @@ export default function Page(): JSX.Element {
         const hsv2Node = new HSVNode();
         const hsv3Node = new HSVNode();
 
-        const fragmentNode = new Fragment();
-        const vec4Node = new Vector4();
-        const hsvToRGBNode = new HSVRGBNode();
-        const numberFloatNode = new NumberFloatNode();
-        const rgbNode = new RGBNode();
         circuitStore.setNodes([
-            [rgbNode, { x: 100, y: 100 }],
-            [colorHarmonyNode, { x: -500, y: 100 }],
+            [colorHarmonyNode, { x: -500, y: 0 }],
             [hsvNode, { x: 0, y: -500 }],
-            [hsv2Node, { x: 0, y: -700 }],
-            [hsv3Node, { x: 0, y: -900 }],
-            [fragmentNode, { x: 1000, y: 300 }],
-            [vec4Node, { x: 400, y: 300 }],
-            [hsvToRGBNode, { x: 800, y: 300 }],
-            [numberFloatNode, { x: 800, y: 500 }]
+            [hsv2Node, { x: 0, y: 0 }],
+            [hsv3Node, { x: 0, y: 500 }]
         ]);
-
-        fragmentNode.inputs.color.subscribe(color => {
-            if ('window' in global && 'documnet' in window) {
-                const compiled = compile(fragmentNode, {}, GLSLVersion.GLES_300);
-                document.getElementById('test')!.innerText = compiled;
-            }
-        });
 
         return circuitStore;
     }, []);
 
     return (
-        <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_12_12,auto] text-white">
+        <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_12_12,auto]">
             <header className="flex flex-row justify-center items-center p-12 z-50 fixed top-0 left-0 right-0 bg-gradient-to-b from-[rgba(0,0,0,.2)] to-transparent">
                 <h3 className="text-2xl">Bitspace</h3>
             </header>

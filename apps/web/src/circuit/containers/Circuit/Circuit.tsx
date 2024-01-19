@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Canvas } from '../../components/Canvas/Canvas';
 import { Connection } from '../../components/Connection/Connection';
 import { Node } from '../../components/Node/Node';
-import { CANVAS_SIZE } from '../../constants';
+import { CIRCUIT_SIZE } from '../../constants';
 import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
 import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
 import { normalizeBounds } from '../../utils/bounds/bounds';
@@ -145,7 +145,7 @@ export const Circuit = observer(
                     ref={ref}
                     className={props.className}
                     css={circuitContainerStyles}
-                    size={{ width: CANVAS_SIZE, height: CANVAS_SIZE }}
+                    size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                     onMouseDown={onMouseDown}
                     onMouseMove={onMouseMove}
                     onMouseUp={onMouseUp}
