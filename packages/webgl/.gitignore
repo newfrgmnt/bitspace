@@ -1,0 +1,6 @@
+node_modules
+build
+ssl
+
+DS_Store
+.env

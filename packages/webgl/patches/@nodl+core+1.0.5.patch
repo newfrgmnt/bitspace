@@ -1,0 +1,13 @@
+diff --git a/node_modules/@nodl/core/build/Output/Output.d.ts b/node_modules/@nodl/core/build/Output/Output.d.ts
+index dab0823..d83fe0c 100644
+--- a/node_modules/@nodl/core/build/Output/Output.d.ts
++++ b/node_modules/@nodl/core/build/Output/Output.d.ts
+@@ -20,7 +20,7 @@ export declare class Output<TValue = any> extends ReplaySubject<TValue> {
+     /** Determines if output is connected */
+     get connected(): boolean;
+     /** Connects the output with a compatible input port */
+-    connect(input: Input<TValue>): Connection<TValue>;
++    connect(input: Input<any>): Connection<TValue>;
+     /** Disposes the Output */
+     dispose(): void;
+ }

@@ -1,0 +1,35 @@
+{
+    "name": "@bitspace/circuit",
+    "version": "1.0.9",
+    "description": "Core implementation of the Circuit framework",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "author": "Emil Widlund",
+    "license": "MIT",
+    "private": false,
+    "type": "module",
+    "scripts": {
+        "build": "tsup src/index.ts --dts --format cjs,esm --outDir build",
+        "prepare": "pnpm run build",
+        "test": "jest",
+        "generate:docs": "typedoc ./src/index.ts"
+    },
+    "keywords": [],
+    "dependencies": {
+        "mobx": "^6.8.0",
+        "rxjs": "^7.8.0",
+        "tsup": "^8.0.1",
+        "typescript": "^4.9.4",
+        "uuid": "^9.0.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.2.5",
+        "@types/uuid": "^9.0.0",
+        "jest": "^29.3.1",
+        "ts-jest": "^29.0.3",
+        "typedoc": "^0.23.26"
+    },
+    "peerDependencies": {
+        "zod": "^3.21.4"
+    }
+}

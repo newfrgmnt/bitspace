@@ -1,0 +1,13 @@
+diff --git a/node_modules/@thi.ng/shader-ast-glsl/target.js b/node_modules/@thi.ng/shader-ast-glsl/target.js
+index d201592..7fb1aa6 100644
+--- a/node_modules/@thi.ng/shader-ast-glsl/target.js
++++ b/node_modules/@thi.ng/shader-ast-glsl/target.js
+@@ -93,6 +93,8 @@ export const targetGLSL = (opts) => {
+             : $fn(t),
+         decl: (t) => $decl(t.id),
+         fn: (t) => `${$type(t.type)} ${t.id}(${$list(t.args)}) ${emit(t.scope)}`,
++        rawFn: t => `${$type(t.type)} ${t.id}(${$list(t.args)}) {
++    ${t.body}}`,
+         for: (t) => `for(${t.init ? emit(t.init) : ""}; ${emit(t.test)}; ${t.iter ? emit(t.iter) : ""}) ${emit(t.scope)}`,
+         idx: emitIndex,
+         idxm: emitIndex,

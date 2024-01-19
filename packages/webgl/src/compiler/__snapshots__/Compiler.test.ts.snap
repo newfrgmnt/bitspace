@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compiler should produce valid GLSL code 1`] = `
+"#version 300 es
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp int;
+precision highp float;
+#else
+precision mediump int;
+precision mediump float;
+#endif
+#ifndef PI
+#define PI 3.141592653589793
+#endif
+#ifndef TAU
+#define TAU 6.283185307179586
+#endif
+#ifndef HALF_PI
+#define HALF_PI 1.570796326794896
+#endif
+
+in vec2 vUv;
+layout(location=0) out vec4 fragColor;
+void main() {
+fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+}"
+`;
+
+exports[`Compiler should produce valid GLSL code from a complex graph 1`] = `
+"#version 300 es
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp int;
+precision highp float;
+#else
+precision mediump int;
+precision mediump float;
+#endif
+#ifndef PI
+#define PI 3.141592653589793
+#endif
+#ifndef TAU
+#define TAU 6.283185307179586
+#endif
+#ifndef HALF_PI
+#define HALF_PI 1.570796326794896
+#endif
+
+in vec2 vUv;
+layout(location=0) out vec4 fragColor;
+void main() {
+fragColor = (vec4(0.3, 0.5, 0.1, 1.0) + vec4(1.0, 0.02, 0.6, 1.0));
+}"
+`;

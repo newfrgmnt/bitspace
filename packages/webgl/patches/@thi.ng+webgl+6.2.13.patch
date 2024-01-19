@@ -1,0 +1,38 @@
+diff --git a/node_modules/@thi.ng/webgl/texture.d.ts b/node_modules/@thi.ng/webgl/texture.d.ts
+index 079c823..f9b0be1 100644
+--- a/node_modules/@thi.ng/webgl/texture.d.ts
++++ b/node_modules/@thi.ng/webgl/texture.d.ts
+@@ -10,7 +10,7 @@ export declare class Texture implements ITexture {
+     wrap: TextureRepeat[];
+     type: TextureType;
+     size: number[];
+-    constructor(gl: WebGLRenderingContext, opts?: Partial<TextureOpts>);
++    constructor(gl: WebGLRenderingContext, texture?: WebGLTexture, opts?: Partial<TextureOpts>);
+     configure(opts?: Partial<TextureOpts>, unbind?: boolean): boolean;
+     protected configureImage(target: TextureTarget, opts: Partial<TextureOpts>): void;
+     protected configureImage2d(target: TextureTarget, opts: Partial<TextureOpts>): void;
+diff --git a/node_modules/@thi.ng/webgl/texture.js b/node_modules/@thi.ng/webgl/texture.js
+index e500278..8772149 100644
+--- a/node_modules/@thi.ng/webgl/texture.js
++++ b/node_modules/@thi.ng/webgl/texture.js
+@@ -13,9 +13,9 @@ const $bind = (op) => (textures) => {
+ export const bindTextures = $bind("bind");
+ export const unbindTextures = $bind("unbind");
+ export class Texture {
+-    constructor(gl, opts = {}) {
++    constructor(gl, texture = undefined, opts = {}) {
+         this.gl = gl;
+-        this.tex = gl.createTexture() || error("error creating WebGL texture");
++        this.tex = texture || gl.createTexture() || error("error creating WebGL texture");
+         this.configure({
+             filter: TextureFilter.NEAREST,
+             wrap: TextureRepeat.CLAMP,
+@@ -177,7 +177,7 @@ export class Texture {
+         return false;
+     }
+ }
+-export const defTexture = (gl, opts) => new Texture(gl, opts);
++export const defTexture = (gl, opts) => new Texture(gl, undefined, opts);
+ /**
+  * Creates cube map texture from given 6 `face` texture sources. The
+  * given options are shared by each each side/face of the cube map. The

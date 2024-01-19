@@ -1,0 +1,58 @@
+{
+    "name": "@bitspace/webgl",
+    "version": "0.0.1",
+    "main": "build/index.js",
+    "description": "",
+    "files": [
+        "build/*"
+    ],
+    "exports": {
+        ".": "./build/index.js",
+        "./nodes": "./build/nodes/index.js",
+        "./schemas": "./build/schemas/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/newfrgmnt/alma.git"
+    },
+    "scripts": {
+        "build": "tsup src/index.ts --dts --format cjs,esm --outDir build",
+        "preinstall": "npx patch-package",
+        "prepare": "npm run build",
+        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+        "lint": "eslint"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/jest": "^29.5.4",
+        "@types/node": "^18.7.18",
+        "@typescript-eslint/eslint-plugin": "^5.62.0",
+        "@typescript-eslint/parser": "^5.62.0",
+        "eslint": "^8.23.1",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-import-resolver-typescript": "^3.6.0",
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "husky": "^8.0.3",
+        "typescript": "^4.8.3"
+    },
+    "dependencies": {
+        "@nodl/core": "^1.0.8",
+        "@nodl/react": "^1.0.4",
+        "@thi.ng/shader-ast": "^0.12.29",
+        "@thi.ng/shader-ast-glsl": "^0.4.36",
+        "@thi.ng/webgl": "^6.2.13",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "jest": "^29.7.0",
+        "npm-run-all": "^4.1.5",
+        "patch-package": "^7.0.0",
+        "prettier": "^3.0.2",
+        "rxjs": "^7.8.1",
+        "ts-jest": "^29.1.1",
+        "tsup": "^8.0.1",
+        "zod": "^3.22.2"
+    },
+    "type": "module"
+}
