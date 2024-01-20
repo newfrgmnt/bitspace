@@ -15,6 +15,10 @@ export const MenuButton = ({ onClick }: MenuButtonProps) => {
             {Array.from({ length: 3 }).map((_, i) => (
                 <motion.div
                     key={i}
+                    transition={{
+                        ease: [0.65, 0, 0.35, 1],
+                        duration: 0.5
+                    }}
                     variants={{
                         initial: {
                             y: i === 0 ? -5 : 5, // top for the first circle, bottom for the others
@@ -22,11 +26,7 @@ export const MenuButton = ({ onClick }: MenuButtonProps) => {
                         },
                         hover: {
                             x: 0,
-                            y: 0,
-                            transition: {
-                                ease: [0.65, 0, 0.35, 1],
-                                duration: 0.5
-                            }
+                            y: 0
                         }
                     }}
                     className="absolute w-[3px] h-[3px] bg-black rounded-full"
@@ -34,9 +34,10 @@ export const MenuButton = ({ onClick }: MenuButtonProps) => {
             ))}
             <motion.div
                 className="absolute w-12 h-12 rounded-full bg-black"
+                transition={{ duration: 0.5, delay: 0.3 }}
                 variants={{
-                    initial: { scale: 0 },
-                    hover: { scale: 0.8, opacity: 0, transition: { duration: 0.5, delay: 0.3 } }
+                    initial: { scale: 0, opacity: 1 },
+                    hover: { scale: 0.5, opacity: 0, transitionEnd: { scale: 0, opacity: 1 } }
                 }}
             />
         </motion.button>

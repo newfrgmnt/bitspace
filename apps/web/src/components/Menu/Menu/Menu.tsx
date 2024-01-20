@@ -5,6 +5,7 @@ import { NodeGroups } from '../../../nodes';
 import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
+import { startCase } from 'lodash';
 
 export interface MenuProps {
     onClose: () => void;
@@ -136,7 +137,7 @@ const MenuItem = ({ title, description, active }: MenuItemProps) => {
                 'bg-slate-100': active
             })}
         >
-            <h4 className="text-lg">{title}</h4>
+            <h4 className="text-lg">{startCase(title)}</h4>
             {description && <p className="text-slate-400">{description}</p>}
         </div>
     );

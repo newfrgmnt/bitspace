@@ -5,7 +5,7 @@ import { from, switchMap, skip, tap } from 'rxjs';
 /** Declare a zod schema for value validation */
 const StringSchema = schema(z.string());
 
-export class PromptNode extends Node {
+export class Prompt extends Node {
     name = 'Prompt';
 
     inputs = {

@@ -5,7 +5,7 @@ import { FloatSchema, float } from '@bitspace/webgl';
 
 const NumberSchema = schema('Number', z.number());
 
-export class NumberFloatNode extends Node {
+export class NumberFloat extends Node {
     name = 'Number - Float';
 
     inputs = {

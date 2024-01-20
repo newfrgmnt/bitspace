@@ -11,7 +11,7 @@ export const HSVSchema = schema(
     })
 );
 
-export class ColorHarmonyNode extends Node {
+export class ColorHarmony extends Node {
     name = 'Color Harmony';
 
     inputs = {

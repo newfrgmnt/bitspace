@@ -1,12 +1,11 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { HSVSchema } from '../ColorHarmonyNode/ColorHarmonyNode';
 import { RGBSchema } from '../HSVRGBNode/HSVRGBNode';
 
 const NumberSchema = schema('Number', z.number());
 
-export class RGBNode extends Node {
+export class RGB extends Node {
     name = 'RGB';
 
     inputs = {

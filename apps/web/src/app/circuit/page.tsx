@@ -2,21 +2,18 @@
 
 import { Fragment, compile, GLSLVersion, Vector4 } from '@bitspace/webgl';
 import { useEffect, useMemo, useState } from 'react';
-import { ImageNode } from '../../nodes/ImageNode/ImageNode';
+import { Image } from '../../nodes/ImageNode/ImageNode';
 import { Node } from '@bitspace/circuit';
-import { ColorHarmonyNode } from '../../nodes/ColorHarmonyNode/ColorHarmonyNode';
+import { ColorHarmony } from '../../nodes/ColorHarmonyNode/ColorHarmonyNode';
 import { ColorWheel } from '../../components/ColorPicker/ColorPicker';
 import { hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
-import { HSVNode } from '../../nodes/HSVNode/HSVNode';
-import { HSVRGBNode } from '../../nodes/HSVRGBNode/HSVRGBNode';
-import { NumberFloatNode } from '../../nodes/NumberFloatNode/NumberFloatNode';
-import { RGBNode } from '../../nodes/RGBNode/RGBNode';
+import { HSV } from '../../nodes/HSVNode/HSVNode';
 import { Circuit, CircuitStore, StoreContext } from '../../circuit';
 import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.types';
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
 
-const ImageWindow = ({ node }: { node: ImageNode }) => {
+const ImageWindow = ({ node }: { node: Image }) => {
     const [imageSrc, setImageSrc] = useState<string>();
 
     useEffect(() => {
@@ -42,7 +39,7 @@ const ImageWindow = ({ node }: { node: ImageNode }) => {
     );
 };
 
-const HSVWindow = ({ node }: { node: HSVNode }) => {
+const HSVWindow = ({ node }: { node: HSV }) => {
     const [rgb, setRgb] = useState<[number, number, number]>([0, 0, 0]);
 
     useEffect(() => {
@@ -60,7 +57,7 @@ const HSVWindow = ({ node }: { node: HSVNode }) => {
 const nodeWindowManager: NodeWindowResolver = (node: Node) => {
     switch (node.name) {
         case 'Image':
-            return <ImageWindow node={node as ImageNode} />;
+            return <ImageWindow node={node as Image} />;
         case 'Prompt':
             return (
                 <input
@@ -73,17 +70,17 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
             return (
                 <div className="h-fit w-full">
                     <ColorWheel
-                        defaultColor={(node as ColorHarmonyNode).inputs.color.value}
+                        defaultColor={(node as ColorHarmony).inputs.color.value}
                         radius={122}
                         harmony="triad"
                         onChange={hsv =>
-                            hsv && '0' in hsv ? (node as ColorHarmonyNode).inputs.color.next(hsv[0]) : void 0
+                            hsv && '0' in hsv ? (node as ColorHarmony).inputs.color.next(hsv[0]) : void 0
                         }
                     />
                 </div>
             );
         case 'HSV':
-            return <HSVWindow node={node as HSVNode} />;
+            return <HSVWindow node={node as HSV} />;
     }
 };
 
@@ -92,10 +89,10 @@ export default function Page(): JSX.Element {
 
     const store = useMemo(() => {
         const circuitStore = new CircuitStore();
-        const colorHarmonyNode = new ColorHarmonyNode();
-        const hsvNode = new HSVNode();
-        const hsv2Node = new HSVNode();
-        const hsv3Node = new HSVNode();
+        const colorHarmonyNode = new ColorHarmony();
+        const hsvNode = new HSV();
+        const hsv2Node = new HSV();
+        const hsv3Node = new HSV();
 
         colorHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
         colorHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);

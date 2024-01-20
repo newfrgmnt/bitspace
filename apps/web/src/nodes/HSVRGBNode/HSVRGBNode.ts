@@ -13,7 +13,7 @@ export const RGBSchema = schema(
     })
 );
 
-export class HSVRGBNode extends Node {
+export class HSVRGB extends Node {
     name = 'HSV - RGB';
 
     inputs = {
