@@ -112,7 +112,7 @@ export default function Page(): JSX.Element {
     }, []);
 
     return (
-        <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_12_12,auto]">
+        <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_4_4,auto]">
             <header className="flex flex-row justify-center items-center p-20 z-50 fixed top-0 left-0 right-0 pointer-events-none">
                 <h3 className="text-2xl">Bitspace</h3>
             </header>
@@ -120,7 +120,7 @@ export default function Page(): JSX.Element {
                 <Circuit store={store} nodeWindowResolver={nodeWindowManager} />
                 {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
             </StoreContext.Provider>
-            <div className="fixed bottom-20 left-0 right-0 flex flex-row justify-center">
+            <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
                 <MenuButton onClick={() => setMenuOpen(true)} />
             </div>
         </main>

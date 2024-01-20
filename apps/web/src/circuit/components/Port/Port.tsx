@@ -9,7 +9,6 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';
 import clsx from 'clsx';
-import { output } from '@bitspace/webgl';
 import { CloseOutlined } from '@mui/icons-material';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
@@ -43,11 +42,16 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         }
     }, []);
 
-    const onMouseDown = React.useCallback(() => {
-        if (isOutput) {
-            store.setDraftConnectionSource(port as Output<any>);
-        }
-    }, [isOutput]);
+    const onMouseDown: React.MouseEventHandler<HTMLDivElement> = React.useCallback(
+        e => {
+            e.stopPropagation();
+
+            if (isOutput) {
+                store.setDraftConnectionSource(port as Output<any>);
+            }
+        },
+        [isOutput]
+    );
 
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && store.draftConnectionSource) {
@@ -73,7 +77,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         (store.draftConnectionSource?.id === port.id && !visuallyDisabled);
 
     const portWrapperClassNames = clsx(
-        'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-widest cursor-pointer select-none transition-opacity',
+        'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-widest select-none transition-opacity',
         {
             'flex-row-reverse': isOutput,
             'flex-row': !isOutput,

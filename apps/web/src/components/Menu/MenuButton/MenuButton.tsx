@@ -7,7 +7,7 @@ export interface MenuButtonProps {
 export const MenuButton = ({ onClick }: MenuButtonProps) => {
     return (
         <motion.button
-            className="rounded-full w-12 h-12 p-2 flex flex-col items-center justify-center bg-white shadow-lg focus:border-none focus-visible:outline-none"
+            className="rounded-full w-12 h-12 p-2 flex flex-col items-center justify-center bg-white shadow-lg focus:border-none focus-visible:outline-none cursor-[url('/cursor.svg')_4_4,auto]"
             whileHover="hover"
             initial="initial"
             onClick={onClick}
@@ -24,8 +24,8 @@ export const MenuButton = ({ onClick }: MenuButtonProps) => {
                             x: 0,
                             y: 0,
                             transition: {
-                                ease: [0.86, 0, 0.14, 1],
-                                duration: 0.8
+                                ease: [0.65, 0, 0.35, 1],
+                                duration: 0.5
                             }
                         }
                     }}
@@ -36,7 +36,7 @@ export const MenuButton = ({ onClick }: MenuButtonProps) => {
                 className="absolute w-12 h-12 rounded-full bg-black"
                 variants={{
                     initial: { scale: 0 },
-                    hover: { scale: 0.8, opacity: 0, transition: { duration: 0.5, delay: 0.5 } }
+                    hover: { scale: 0.8, opacity: 0, transition: { duration: 0.5, delay: 0.3 } }
                 }}
             />
         </motion.button>

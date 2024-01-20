@@ -63,7 +63,7 @@ const Selection = observer(() => {
 
     return store.selectionBounds ? (
         <div
-            className="z-30 absolute top-0 left-0 border-2 border-slate-300 rounded-xl bg-white/20"
+            className="z-30 absolute top-0 left-0 border-2 border-slate-300 rounded-lg bg-white/20"
             style={{ width, height, transform: `translate(${x}px, ${y}px)` }}
         />
     ) : null;

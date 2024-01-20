@@ -102,7 +102,6 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             nodeRef={ref}
             position={fromCanvasCartesianPoint(position.x - NODE_POSITION_OFFSET_X, position.y)}
             onDrag={handleOnDrag}
-            handle=".handle"
         >
             <motion.div
                 ref={ref}
@@ -135,6 +134,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                     <div
                         className="relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl"
                         children={window}
+                        onMouseDown={e => e.stopPropagation()}
                     />
                 ) : undefined}
                 <div className={nodeContentWrapperClassNames}>

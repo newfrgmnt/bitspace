@@ -1,18 +1,21 @@
-import React, { KeyboardEventHandler, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { KeyboardEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
 import { NodeGroups } from '../../../nodes';
 import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
+import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
 
 export interface MenuProps {
     onClose: () => void;
 }
 
 export const Menu = ({ onClose }: MenuProps) => {
+    const modalRef = useRef<HTMLDivElement>(null);
     const [query, setQuery] = useState('');
     const [activeIndex, setActiveIndex] = useState(0);
     const { store } = useContext(StoreContext);
+    useClickOutside(modalRef, onClose);
 
     const matchingGroups = useMemo(() => {
         return NodeGroups.map(group => {
@@ -36,9 +39,9 @@ export const Menu = ({ onClose }: MenuProps) => {
             e.stopPropagation();
 
             if (e.key === 'ArrowDown') {
-                setActiveIndex(activeIndex => activeIndex + 1);
+                setActiveIndex(activeIndex => Math.max(0, Math.min(matchingItems.length - 1, activeIndex + 1)));
             } else if (e.key === 'ArrowUp') {
-                setActiveIndex(activeIndex => activeIndex - 1);
+                setActiveIndex(activeIndex => Math.min(matchingItems.length - 1, Math.max(0, activeIndex - 1)));
             }
 
             if (e.key === 'Enter') {
@@ -50,6 +53,10 @@ export const Menu = ({ onClose }: MenuProps) => {
                     store.setNodes([[node, { x: 0, y: 0 }]]);
                     onClose();
                 }
+            }
+
+            if (e.key === 'Escape') {
+                onClose();
             }
         },
         [matchingGroups, activeIndex, onClose, store, setActiveIndex]
@@ -63,10 +70,14 @@ export const Menu = ({ onClose }: MenuProps) => {
                 animate: { opacity: 1, transition: { ease: [0.65, 0, 0.35, 1], duration: 0.5 } }
             }}
         >
-            <FocusTrap>
-                <motion.div className="bg-white rounded-3xl max-w-3xl w-full h-fit -translate-y-1/3 -translate-x-1/2 absolute top-1/3 left-1/2 overflow-hidden">
+            <motion.div
+                ref={modalRef}
+                className="bg-white rounded-3xl max-w-3xl w-full h-fit -translate-y-1/3 -translate-x-1/2 absolute top-1/3 left-1/2 overflow-hidden"
+            >
+                <FocusTrap>
                     <div className="flex flex-row p-8 border-b">
                         <input
+                            tabIndex={0}
                             placeholder="Search for Nodes & Utilities..."
                             className="text-2xl w-full border-none focus:outline-none"
                             value={query}
@@ -75,26 +86,26 @@ export const Menu = ({ onClose }: MenuProps) => {
                             onKeyDown={handleKeyDown}
                         />
                     </div>
-                    <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-4">
-                        {matchingGroups.map((group, index) => (
-                            <MenuItemGroup key={group.name} title={group.name}>
-                                {group.nodes.map(node => {
-                                    const index = matchingItems.indexOf(node);
+                </FocusTrap>
+                <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-4">
+                    {matchingGroups.map((group, index) => (
+                        <MenuItemGroup key={group.name} title={group.name}>
+                            {group.nodes.map(node => {
+                                const index = matchingItems.indexOf(node);
 
-                                    return (
-                                        <MenuItem
-                                            key={node.name}
-                                            title={node.name}
-                                            active={activeIndex === index}
-                                            onSelect={() => {}}
-                                        />
-                                    );
-                                })}
-                            </MenuItemGroup>
-                        ))}
-                    </div>
-                </motion.div>
-            </FocusTrap>
+                                return (
+                                    <MenuItem
+                                        key={node.name}
+                                        title={node.name}
+                                        active={activeIndex === index}
+                                        onSelect={() => {}}
+                                    />
+                                );
+                            })}
+                        </MenuItemGroup>
+                    ))}
+                </div>
+            </motion.div>
         </motion.div>
     );
 };
