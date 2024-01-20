@@ -42,7 +42,8 @@ export const Menu = ({ onClose }: MenuProps) => {
             }
 
             if (e.key === 'Enter') {
-                const matchingNode = matchingGroups[activeIndex]?.nodes[0];
+                const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
+                console.log(matchingNode, matchingGroups, activeIndex);
 
                 if (matchingNode) {
                     const node = new matchingNode();
@@ -51,7 +52,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                 }
             }
         },
-        [matchingGroups, activeIndex, onClose, store]
+        [matchingGroups, activeIndex, onClose, store, setActiveIndex]
     );
 
     return (

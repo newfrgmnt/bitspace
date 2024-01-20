@@ -56,7 +56,7 @@ export const Canvas = observer(
                         style={{
                             width: size.width,
                             height: size.height,
-                            backgroundImage: 'radial-gradient(rgba(0,0,0,.1) 3%, transparent 3%)',
+                            backgroundImage: 'radial-gradient(rgba(0,0,0,.15) 3%, transparent 3%)',
                             backgroundPosition: '0 0',
                             backgroundSize: '50px 50px',
                             transform

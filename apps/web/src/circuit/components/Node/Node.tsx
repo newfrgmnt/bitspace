@@ -66,10 +66,14 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
 
-    const nodeWrapperClassNames = clsx(`absolute flex flex-col select-none focus:outline-none w-[260px]`, {
-        'z-10': !active,
-        'z-20': active
-    });
+    const nodeWrapperClassNames = clsx(
+        `absolute flex flex-col select-none focus:outline-none w-[260px] bg-[#fcfdff] border-white border rounded-3xl transition-shadow active:shadow-2xl opacity-100`,
+        {
+            'z-10': !active,
+            'z-20': active,
+            'shadow-2xl': active
+        }
+    );
 
     const nodeHeaderWrapperClassNames = clsx(
         'relative flex flex-row justify-center items-center px-4 pt-4 text-xxs font-medium uppercase tracking-widest rounded-t-xl handle',
@@ -108,44 +112,35 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 tabIndex={0}
+                variants={{
+                    initial: {
+                        opacity: 0
+                    },
+                    animate: {
+                        opacity: 1,
+                        transition: {
+                            duration: 1.5,
+                            ease: [0.75, 0, 0.25, 1]
+                        }
+                    }
+                }}
             >
-                <motion.div
-                    className={clsx(
-                        'flex flex-col bg-[#fcfdff] border-white border rounded-3xl transition-shadow active:shadow-2xl',
-                        {
-                            'shadow-2xl': active
-                        }
-                    )}
-                    variants={{
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1,
-                            transition: {
-                                duration: 2,
-                                ease: [0.75, 0, 0.25, 1]
-                            }
-                        }
-                    }}
-                >
-                    <div className={nodeHeaderWrapperClassNames}>
-                        <span>{node.name}</span>
-                        <div className={nodeActionsClassNames}>
-                            <NodeAction color="#ff4444" onClick={handleRemoveNode} />
-                        </div>
+                <div className={nodeHeaderWrapperClassNames}>
+                    <span>{node.name}</span>
+                    <div className={nodeActionsClassNames}>
+                        <NodeAction color="#ff4444" onClick={handleRemoveNode} />
                     </div>
-                    {window ? (
-                        <div
-                            className="relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl"
-                            children={window}
-                        />
-                    ) : undefined}
-                    <div className={nodeContentWrapperClassNames}>
-                        <NodePorts ports={Object.values(node.inputs)} />
-                        <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
-                    </div>
-                </motion.div>
+                </div>
+                {window ? (
+                    <div
+                        className="relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl"
+                        children={window}
+                    />
+                ) : undefined}
+                <div className={nodeContentWrapperClassNames}>
+                    <NodePorts ports={Object.values(node.inputs)} />
+                    <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
+                </div>
             </motion.div>
         </Draggable>
     );
