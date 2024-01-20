@@ -10,6 +10,7 @@ import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';
 import clsx from 'clsx';
 import { output } from '@bitspace/webgl';
+import { CloseOutlined } from '@mui/icons-material';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -74,8 +75,6 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const portWrapperClassNames = clsx(
         'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-widest cursor-pointer select-none transition-opacity',
         {
-            'pl-6': isOutput,
-            'pr-6': !isOutput,
             'flex-row-reverse': isOutput,
             'flex-row': !isOutput,
             'opacity-30': visuallyDisabled,
@@ -112,7 +111,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
                     onClick={onClick}
                 >
                     {port.connected && isPortTypeHovered && !visuallyDisabled ? (
-                        <span>x</span>
+                        <CloseOutlined fontSize="inherit" />
                     ) : (
                         <span>{port.type.name.charAt(0)}</span>
                     )}

@@ -10,10 +10,10 @@ import { ConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
 import { motion } from 'framer-motion';
 
-const INPUT_PORT_OFFSET_X = 16;
+const INPUT_PORT_OFFSET_X = 18;
 const INPUT_PORT_OFFSET_Y = 12;
 
-const OUTPUT_PORT_OFFSET_X = 18;
+const OUTPUT_PORT_OFFSET_X = 2;
 const OUTPUT_PORT_OFFSET_Y = 12;
 
 const defaultPosition = { x: 0, y: 0 };

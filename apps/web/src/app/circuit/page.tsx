@@ -11,9 +11,10 @@ import { HSVNode } from '../../nodes/HSVNode/HSVNode';
 import { HSVRGBNode } from '../../nodes/HSVRGBNode/HSVRGBNode';
 import { NumberFloatNode } from '../../nodes/NumberFloatNode/NumberFloatNode';
 import { RGBNode } from '../../nodes/RGBNode/RGBNode';
-import { Circuit, CircuitStore } from '../../circuit';
+import { Circuit, CircuitStore, StoreContext } from '../../circuit';
 import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.types';
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
+import { Menu } from '../../components/Menu/Menu/Menu';
 
 const ImageWindow = ({ node }: { node: ImageNode }) => {
     const [imageSrc, setImageSrc] = useState<string>();
@@ -53,7 +54,7 @@ const HSVWindow = ({ node }: { node: HSVNode }) => {
 
     const [r, g, b] = rgb;
 
-    return <div className="w-full h-[260px]" style={{ backgroundColor: `rgba(${r}, ${g}, ${b})` }} />;
+    return <div className="w-full h-[226px]" style={{ backgroundColor: `rgba(${r}, ${g}, ${b})` }} />;
 };
 
 const nodeWindowManager: NodeWindowResolver = (node: Node) => {
@@ -87,6 +88,8 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
 };
 
 export default function Page(): JSX.Element {
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const store = useMemo(() => {
         const circuitStore = new CircuitStore();
         const colorHarmonyNode = new ColorHarmonyNode();
@@ -113,9 +116,12 @@ export default function Page(): JSX.Element {
             <header className="flex flex-row justify-center items-center p-20 z-50 fixed top-0 left-0 right-0 pointer-events-none">
                 <h3 className="text-2xl">Bitspace</h3>
             </header>
-            <Circuit store={store} nodeWindowResolver={nodeWindowManager} />
+            <StoreContext.Provider value={{ store }}>
+                <Circuit store={store} nodeWindowResolver={nodeWindowManager} />
+                {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
+            </StoreContext.Provider>
             <div className="fixed bottom-20 left-0 right-0 flex flex-row justify-center">
-                <MenuButton />
+                <MenuButton onClick={() => setMenuOpen(true)} />
             </div>
         </main>
     );

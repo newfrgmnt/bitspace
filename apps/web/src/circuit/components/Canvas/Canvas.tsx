@@ -64,7 +64,7 @@ export const Canvas = observer(
                         animate="animate"
                         initial="initial"
                         transition={{
-                            staggerChildren: 0.04
+                            staggerChildren: 0.2
                         }}
                         onMouseMove={onMouseMove}
                         onMouseDown={onMouseDown}

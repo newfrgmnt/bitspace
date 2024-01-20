@@ -62,7 +62,7 @@ const Selection = observer(() => {
     const { width, height, x, y } = normalizeBounds(store.selectionBounds || { width: 0, height: 0, x: 0, y: 0 });
     return store.selectionBounds ? (
         <div
-            className="z-30 absolute top-0 left-0 border border-black"
+            className="z-30 absolute top-0 left-0 border border-slate-300 rounded-xl bg-white/20"
             style={{ width, height, transform: `translate(${x}px, ${y}px)` }}
         />
     ) : null;
@@ -156,20 +156,18 @@ export const Circuit = observer(
         }, [props]);
 
         return (
-            <StoreContext.Provider value={{ store: props.store }}>
-                <Canvas
-                    ref={ref}
-                    className={clsx('fixed top-0 left-0 w-full h-full', props.className)}
-                    size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
-                    onMouseDown={onMouseDown}
-                    onMouseMove={onMouseMove}
-                    onMouseUp={onMouseUp}
-                >
-                    <Nodes windowResolver={props.nodeWindowResolver} />
-                    <Connections />
-                    <Selection />
-                </Canvas>
-            </StoreContext.Provider>
+            <Canvas
+                ref={ref}
+                className={clsx('fixed top-0 left-0 w-full h-full', props.className)}
+                size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
+                onMouseDown={onMouseDown}
+                onMouseMove={onMouseMove}
+                onMouseUp={onMouseUp}
+            >
+                <Nodes windowResolver={props.nodeWindowResolver} />
+                <Connections />
+                <Selection />
+            </Canvas>
         );
     })
 );

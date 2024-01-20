@@ -20,6 +20,7 @@
         "ai": "^2.2.31",
         "clsx": "^2.1.0",
         "color-convert": "^2.0.1",
+        "focus-trap-react": "^10.2.3",
         "framer-motion": "^10.16.16",
         "lodash": "^4.17.21",
         "mobx": "^6.8.0",

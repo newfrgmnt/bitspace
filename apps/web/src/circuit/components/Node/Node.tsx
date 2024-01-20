@@ -66,10 +66,9 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
 
-    const nodeWrapperClassNames = clsx(`absolute flex flex-col select-none focus:outline-none`, {
+    const nodeWrapperClassNames = clsx(`absolute flex flex-col select-none focus:outline-none w-[260px]`, {
         'z-10': !active,
-        'z-20': active,
-        'overflow-hidden': !active
+        'z-20': active
     });
 
     const nodeHeaderWrapperClassNames = clsx(
@@ -88,7 +87,10 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     );
 
     const nodeContentWrapperClassNames = clsx(
-        `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-100`
+        `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-100`,
+        {
+            'mt-8': !window
+        }
     );
 
     return (
@@ -116,10 +118,10 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                     )}
                     variants={{
                         initial: {
-                            y: '100%'
+                            opacity: 0
                         },
                         animate: {
-                            y: '0%',
+                            opacity: 1,
                             transition: {
                                 duration: 2,
                                 ease: [0.75, 0, 0.25, 1]

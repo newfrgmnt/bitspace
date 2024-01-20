@@ -3,6 +3,7 @@
 import './globals.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function ClientLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
@@ -13,13 +14,15 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
             transition={{ staggerChildren: 0.05 }}
         >
             <motion.div
-                className="flex flex-row justify-between items-center w-full sticky top-0 z-10"
+                className="flex flex-row justify-between items-center w-full sticky top-0 z-10 pointer-events-none"
                 variants={{
                     initial: { opacity: 0 },
                     animate: { opacity: 1, transition: { duration: 1, delay: 1 } }
                 }}
             >
-                <Image src="/bitspace_logo.png" alt="Bitspace" width={20} height={20} />
+                <Link href="/">
+                    <Image src="/bitspace_logo.png" alt="Bitspace" width={20} height={20} />
+                </Link>
                 <div
                     className="w-10 h-10 bg-cover bg-center rounded-full"
                     style={{
