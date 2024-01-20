@@ -30,7 +30,7 @@ const Connections = observer(() => {
     const ref = React.useRef<SVGSVGElement>(null);
     const { store } = React.useContext(StoreContext);
 
-    const onClick = React.useCallback((e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    const onMouseDown = React.useCallback((e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         if (ref.current === e.target) {
             store.selectNodes([]);
         }
@@ -42,7 +42,7 @@ const Connections = observer(() => {
             id="connections"
             width="100%"
             height="100%"
-            onClick={onClick}
+            onMouseDown={onMouseDown}
             animate="animate"
             initial="initial"
             transition={{ staggerChildren: 0.3, delayChildren: 1.5 }}
@@ -60,6 +60,7 @@ const Selection = observer(() => {
     const { store } = React.useContext(StoreContext);
 
     const { width, height, x, y } = normalizeBounds(store.selectionBounds || { width: 0, height: 0, x: 0, y: 0 });
+
     return store.selectionBounds ? (
         <div
             className="z-30 absolute top-0 left-0 border-2 border-slate-300 rounded-xl bg-white/20"
