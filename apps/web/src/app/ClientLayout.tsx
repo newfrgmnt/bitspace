@@ -21,7 +21,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
                 }}
             >
                 <Link href="/">
-                    <Image src="/bitspace_logo.png" alt="Bitspace" width={20} height={20} />
+                    <h3 className="text-2xl">Bitspace</h3>
                 </Link>
                 <div
                     className="w-10 h-10 bg-cover bg-center rounded-full"

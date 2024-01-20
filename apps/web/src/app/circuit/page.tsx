@@ -110,9 +110,6 @@ export default function Page(): JSX.Element {
 
     return (
         <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_4_4,auto]">
-            <header className="flex flex-row justify-center items-center p-20 z-50 fixed top-0 left-0 right-0 pointer-events-none">
-                <h3 className="text-2xl">Bitspace</h3>
-            </header>
             <StoreContext.Provider value={{ store }}>
                 <Circuit store={store} nodeWindowResolver={nodeWindowManager} />
                 {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
