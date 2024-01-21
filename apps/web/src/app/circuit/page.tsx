@@ -56,6 +56,8 @@ const HSVWindow = ({ node }: { node: HSV }) => {
 };
 
 const nodeWindowManager: NodeWindowResolver = (node: Node) => {
+    if ('displayName' in node.constructor === false) return <></>;
+
     switch (node.constructor.displayName) {
         case 'Image':
             return <ImageWindow node={node as Image} />;
