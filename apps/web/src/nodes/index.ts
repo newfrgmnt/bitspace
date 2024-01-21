@@ -39,6 +39,9 @@ import { RGB } from './RGB/RGB';
 import { SquareHarmony } from './SquareHarmony/SquareHarmony';
 import { TetradicHarmony } from './TetradicHarmony/TetradicHarmony';
 import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmony';
+import { Image } from './Image/Image';
+import { Prompt } from './Prompt/Prompt';
+import { Console } from './Console/Console';
 
 // WebGL
 const CommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -67,8 +70,18 @@ export const ColorNodes = [
     RGB
 ].sort((a, b) => a.name.localeCompare(b.displayName));
 
+// AI
+export const AINodes = [Image, Prompt].sort((a, b) => a.name.localeCompare(b.displayName));
+
+// Utilities
+export const Utilities = [Console].sort((a, b) => a.name.localeCompare(b.displayName));
+
 // Node Groups
 export const NodeGroups = [
+    {
+        name: 'Artificial Intelligence',
+        nodes: AINodes
+    },
     {
         name: 'Color Nodes',
         nodes: ColorNodes
@@ -76,5 +89,9 @@ export const NodeGroups = [
     {
         name: 'WebGL Nodes',
         nodes: WebGLNodes
+    },
+    {
+        name: 'Utility Nodes',
+        nodes: Utilities
     }
 ];

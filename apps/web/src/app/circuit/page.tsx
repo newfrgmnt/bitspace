@@ -13,6 +13,7 @@ import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.typ
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
 import { NodeWindow } from '../../circuit/components/Node/Node';
+import { Console } from '../../components/Console/Console';
 
 const ImageWindow = ({ node }: { node: Image }) => {
     const [imageSrc, setImageSrc] = useState<string>();
@@ -27,6 +28,7 @@ const ImageWindow = ({ node }: { node: Image }) => {
         <NodeWindow>
             <input
                 className="text-black"
+                onKeyDown={e => e.preventDefault()}
                 onBlur={e => node.inputs.prompt.next(e.target.value)}
                 defaultValue={node.inputs.prompt.value}
             />
@@ -129,6 +131,9 @@ export default function Page(): JSX.Element {
             </StoreContext.Provider>
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
                 <MenuButton onClick={() => setMenuOpen(true)} />
+            </div>
+            <div className="fixed left-0 bottom-20 flex flex-row justify-center">
+                <Console />
             </div>
         </main>
     );

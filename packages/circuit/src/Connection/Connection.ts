@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, lastValueFrom, withLatestFrom } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 
 import { Input } from '../Input/Input';
@@ -15,17 +15,8 @@ export class Connection<T> extends Subject<T> {
     /** Subscription */
     public subscription: Subscription;
 
-    /** Determines type compatibility */
-    public static isTypeCompatible<TFrom, TTo>(from: Output<TFrom>, to: Input<TTo>) {
-        return from.type.name === to.type.name;
-    }
-
     constructor(from: Output<T>, to: Input<T>) {
         super();
-
-        if (!Connection.isTypeCompatible(from, to)) {
-            throw new Error('Connection origin & target has incompatible types');
-        }
 
         if (to.connected) {
             /** Remove previous connection gracefully */

@@ -20,16 +20,12 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const tooltipPosition = React.useMemo(() => (isOutput ? TooltipPosition.RIGHT : TooltipPosition.LEFT), [isOutput]);
     const visuallyDisabled = React.useMemo(() => {
         const isOccupied = !isOutput && port.connected;
-        const hasDifferentValueType =
-            store.draftConnectionSource && port instanceof Input
-                ? !Connection.isTypeCompatible(store.draftConnectionSource, port)
-                : true;
         const hasSharedNode = store.draftConnectionSource
             ? store.getNodeByPortId(store.draftConnectionSource.id) === store.getNodeByPortId(port.id)
             : false;
         // const isUnrelatedToConnectionDraft = store.draftConnectionSource !== port;
 
-        return store.draftConnectionSource ? isOccupied || hasDifferentValueType || isOutput || hasSharedNode : false;
+        return store.draftConnectionSource ? isOccupied || isOutput || hasSharedNode : false;
     }, [isOutput]);
 
     React.useEffect(() => {
