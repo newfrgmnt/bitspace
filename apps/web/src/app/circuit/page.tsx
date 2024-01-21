@@ -7,26 +7,32 @@ import { Circuit, CircuitStore, StoreContext } from '../../circuit';
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
 import { nodeWindowResolver } from '../windows';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
+    useHotkeys(
+        'space',
+        e => {
+            e.preventDefault();
+            e.stopPropagation();
+            setMenuOpen(true);
+        },
+        {
+            enabled: !menuOpen
+        }
+    );
 
     const store = useMemo(() => {
         const circuitStore = new CircuitStore();
         const analogousHarmonyNode = new AnalogousHarmony();
         const hsvNode = new HSV();
-        const hsv2Node = new HSV();
-        const hsv3Node = new HSV();
 
         analogousHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
-        analogousHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);
-        analogousHarmonyNode.outputs.c.connect(hsv3Node.inputs.color);
 
         circuitStore.setNodes([
-            [analogousHarmonyNode, { x: -500, y: 0 }],
-            [hsvNode, { x: 0, y: 500 }],
-            [hsv2Node, { x: 0, y: 0 }],
-            [hsv3Node, { x: 0, y: -500 }]
+            [analogousHarmonyNode, { x: -300, y: 200 }],
+            [hsvNode, { x: 300, y: 200 }]
         ]);
 
         return circuitStore;
@@ -39,7 +45,7 @@ export default function Page(): JSX.Element {
                 {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
             </StoreContext.Provider>
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
-                <MenuButton onClick={() => setMenuOpen(true)} />
+                {<MenuButton onClick={() => setMenuOpen(true)} animate={menuOpen} />}
             </div>
         </main>
     );

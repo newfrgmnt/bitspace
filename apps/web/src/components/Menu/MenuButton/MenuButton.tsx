@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
 
 export interface MenuButtonProps {
+    animate?: boolean;
     onClick: () => void;
 }
 
-export const MenuButton = ({ onClick }: MenuButtonProps) => {
+export const MenuButton = ({ onClick, animate }: MenuButtonProps) => {
     return (
         <motion.button
             className="rounded-full w-12 h-12 p-2 flex flex-col items-center justify-center bg-white shadow-lg focus:border-none focus-visible:outline-none cursor-[url('/cursor.svg')_4_4,auto]"
             whileHover="hover"
+            animate={animate ? 'hover' : 'initial'}
             initial="initial"
             onClick={onClick}
         >

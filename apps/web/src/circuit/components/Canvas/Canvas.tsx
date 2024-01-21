@@ -46,7 +46,7 @@ export const Canvas = observer(
             return (
                 <div
                     ref={scrollRef}
-                    className={clsx('w-full h-full overflow-auto bg-[#f5f6fa] text-slate-400', className)}
+                    className={clsx('w-full h-full overflow-auto bg-[#f0f2f7] text-slate-400', className)}
                     {...panZoomHandlers}
                     onMouseDown={handleMouseDown}
                 >

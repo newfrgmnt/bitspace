@@ -47,11 +47,11 @@ export const Menu = ({ onClose }: MenuProps) => {
 
             if (e.key === 'Enter') {
                 const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
-                console.log(matchingNode, matchingGroups, activeIndex);
 
                 if (matchingNode) {
                     const node = new matchingNode();
                     store.setNodes([[node, { x: 0, y: 0 }]]);
+                    store.selectNodes([node]);
                     onClose();
                 }
             }
@@ -127,7 +127,9 @@ const MenuItem = ({ title, description, active }: MenuItemProps) => {
     }, []);
 
     useEffect(() => {
-        handleSelect();
+        if (active) {
+            handleSelect();
+        }
     }, [active]);
 
     return (

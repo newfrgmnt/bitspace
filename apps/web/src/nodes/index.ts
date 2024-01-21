@@ -42,6 +42,7 @@ import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmon
 import { Image } from './Image/Image';
 import { Prompt } from './Prompt/Prompt';
 import { Console } from './Console/Console';
+import { Timer } from './Timer/Timer';
 
 // WebGL
 const CommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -74,7 +75,7 @@ export const ColorNodes = [
 export const AINodes = [Image, Prompt].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Utilities
-export const Utilities = [Console].sort((a, b) => a.displayName.localeCompare(b.displayName));
+export const Utilities = [Console, Timer].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Node Groups
 export const NodeGroups = [
