@@ -36,6 +36,9 @@ import { TriadHarmony } from './TriadHarmony/TriadHarmony';
 import { HSV } from './HSV/HSV';
 import { HSVRGB } from './HSVRGB/HSVRGB';
 import { RGB } from './RGB/RGB';
+import { SquareHarmony } from './SquareHarmony/SquareHarmony';
+import { TetradicHarmony } from './TetradicHarmony/TetradicHarmony';
+import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmony';
 
 // WebGL
 const CommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -50,12 +53,19 @@ export const WebGLNodes = [
     ...TrigonometryNodes,
     ...ExponentialNodes,
     ...VectorNodes
-].sort((a, b) => a.name.localeCompare(b.name));
+].sort((a, b) => a.name.localeCompare(b.displayName));
 
 // Color
-export const ColorNodes = [AnalogousHarmony, TriadHarmony, HSV, HSVRGB, RGB].sort((a, b) =>
-    a.name.localeCompare(b.name)
-);
+export const ColorNodes = [
+    AnalogousHarmony,
+    TriadHarmony,
+    SquareHarmony,
+    TetradicHarmony,
+    ComplementaryHarmony,
+    HSV,
+    HSVRGB,
+    RGB
+].sort((a, b) => a.name.localeCompare(b.displayName));
 
 // Node Groups
 export const NodeGroups = [

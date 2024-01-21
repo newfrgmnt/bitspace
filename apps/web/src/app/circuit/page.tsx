@@ -1,18 +1,18 @@
 'use client';
 
-import { Fragment, compile, GLSLVersion, Vector4 } from '@bitspace/webgl';
 import { useEffect, useMemo, useState } from 'react';
 import { Image } from '../../nodes/Image/Image';
 import { Node } from '@bitspace/circuit';
 import { AnalogousHarmony } from '../../nodes/AnalogousHarmony/AnalogousHarmony';
 import { TriadHarmony } from '../../nodes/TriadHarmony/TriadHarmony';
 import { ColorWheel } from '../../components/ColorPicker/ColorPicker';
-import { hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
+import { harmonies, hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
 import { HSV } from '../../nodes/HSV/HSV';
 import { Circuit, CircuitStore, StoreContext } from '../../circuit';
 import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.types';
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
+import { NodeWindow } from '../../circuit/components/Node/Node';
 
 const ImageWindow = ({ node }: { node: Image }) => {
     const [imageSrc, setImageSrc] = useState<string>();
@@ -24,7 +24,7 @@ const ImageWindow = ({ node }: { node: Image }) => {
     }, [node]);
 
     return (
-        <>
+        <NodeWindow>
             <input
                 className="text-black"
                 onBlur={e => node.inputs.prompt.next(e.target.value)}
@@ -36,7 +36,7 @@ const ImageWindow = ({ node }: { node: Image }) => {
                     backgroundImage: `url(${imageSrc})`
                 }}
             />
-        </>
+        </NodeWindow>
     );
 };
 
@@ -52,7 +52,11 @@ const HSVWindow = ({ node }: { node: HSV }) => {
 
     const [r, g, b] = rgb;
 
-    return <div className="w-full h-[226px]" style={{ backgroundColor: `rgba(${r}, ${g}, ${b})` }} />;
+    return (
+        <NodeWindow>
+            <div className="w-full h-[226px]" style={{ backgroundColor: `rgba(${r}, ${g}, ${b})` }} />
+        </NodeWindow>
+    );
 };
 
 const nodeWindowManager: NodeWindowResolver = (node: Node) => {
@@ -63,37 +67,30 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
             return <ImageWindow node={node as Image} />;
         case 'Prompt':
             return (
-                <input
-                    className="text-black"
-                    onBlur={e => node.inputs.prompt?.next(e.target.value)}
-                    defaultValue={node.inputs.prompt?.value}
-                />
+                <NodeWindow>
+                    <textarea
+                        className="text-black"
+                        onBlur={e => node.inputs.prompt?.next(e.target.value)}
+                        defaultValue={node.inputs.prompt?.value}
+                    />
+                </NodeWindow>
             );
         case 'Triad Harmony':
+        case 'Analogous Harmony':
+        case 'Square Harmony':
+        case 'Tetradic Harmony':
+        case 'Complementary Harmony':
             return (
-                <div className="h-fit w-full">
+                <NodeWindow className="overflow-hidden rounded-full">
                     <ColorWheel
                         defaultColor={(node as TriadHarmony).inputs.color.value}
                         radius={113}
-                        harmony="triad"
+                        harmony={node.constructor.displayName.split(' ')[0]?.toLowerCase() as keyof typeof harmonies}
                         onChange={hsv =>
                             hsv && '0' in hsv ? (node as TriadHarmony).inputs.color.next(hsv[0]) : void 0
                         }
                     />
-                </div>
-            );
-        case 'Analogous Harmony':
-            return (
-                <div className="h-fit w-full">
-                    <ColorWheel
-                        defaultColor={(node as AnalogousHarmony).inputs.color.value}
-                        radius={122}
-                        harmony="analogous"
-                        onChange={hsv =>
-                            hsv && '0' in hsv ? (node as AnalogousHarmony).inputs.color.next(hsv[0]) : void 0
-                        }
-                    />
-                </div>
+                </NodeWindow>
             );
         case 'HSV':
             return <HSVWindow node={node as HSV} />;

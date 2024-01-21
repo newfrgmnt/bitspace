@@ -127,7 +127,9 @@ export const ColorWheel = ({
             style={{
                 position: 'relative',
                 width: `${radius * 2}px`,
-                height: `${radius * 2}px`
+                height: `${radius * 2}px`,
+                borderRadius: '999px',
+                overflow: 'hidden'
             }}
             {...props}
         >

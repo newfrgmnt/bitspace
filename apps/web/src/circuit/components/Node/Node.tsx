@@ -131,13 +131,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                         <NodeAction color="#ff4444" onClick={handleRemoveNode} />
                     </div>
                 </div>
-                {window ? (
-                    <div
-                        className="relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl"
-                        children={window}
-                        onMouseDown={e => e.stopPropagation()}
-                    />
-                ) : undefined}
+                {window}
                 <div className={nodeContentWrapperClassNames}>
                     <NodePorts ports={Object.values(node.inputs)} />
                     <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
@@ -167,6 +161,17 @@ const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
             {ports.map(port => (
                 <Port key={port.id} port={port} isOutput={!!isOutputWrapper} />
             ))}
+        </div>
+    );
+};
+
+export const NodeWindow = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => {
+    return (
+        <div
+            className={clsx('relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl', className)}
+            onMouseDown={e => e.stopPropagation()}
+        >
+            {children}
         </div>
     );
 };
