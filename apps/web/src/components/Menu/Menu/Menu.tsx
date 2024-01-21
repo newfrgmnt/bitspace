@@ -23,7 +23,7 @@ export const Menu = ({ onClose }: MenuProps) => {
             return {
                 name: group.name,
                 nodes: group.nodes.filter(node => {
-                    return node.name.toLowerCase().includes(query.toLowerCase());
+                    return node.displayName.toLowerCase().includes(query.toLowerCase());
                 })
             };
         }).filter(group => group.nodes.length);

@@ -56,7 +56,7 @@ export const WebGLNodes = [
     ...TrigonometryNodes,
     ...ExponentialNodes,
     ...VectorNodes
-].sort((a, b) => a.name.localeCompare(b.displayName));
+].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Color
 export const ColorNodes = [
@@ -68,13 +68,13 @@ export const ColorNodes = [
     HSV,
     HSVRGB,
     RGB
-].sort((a, b) => a.name.localeCompare(b.displayName));
+].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // AI
-export const AINodes = [Image, Prompt].sort((a, b) => a.name.localeCompare(b.displayName));
+export const AINodes = [Image, Prompt].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Utilities
-export const Utilities = [Console].sort((a, b) => a.name.localeCompare(b.displayName));
+export const Utilities = [Console].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Node Groups
 export const NodeGroups = [

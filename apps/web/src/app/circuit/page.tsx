@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { use, useEffect, useMemo, useRef, useState } from 'react';
 import { Image } from '../../nodes/Image/Image';
 import { Node } from '@bitspace/circuit';
 import { AnalogousHarmony } from '../../nodes/AnalogousHarmony/AnalogousHarmony';
@@ -13,15 +13,51 @@ import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.typ
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
 import { NodeWindow } from '../../circuit/components/Node/Node';
-import { Console } from '../../components/Console/Console';
+import { Console } from '../../nodes/Console/Console';
+import { takeRight } from 'lodash';
+
+export const ConsoleWindow = ({ node }: { node: Console }) => {
+    const scrollRef = useRef<HTMLPreElement>(null);
+    const [stack, setStack] = useState<string[]>([]);
+
+    useEffect(() => {
+        const subscription = node.inputs.input.subscribe(value => {
+            setStack(stack => [...takeRight(stack, 100), JSON.stringify(value)]);
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+
+    useEffect(() => {
+        scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
+    }, [stack]);
+
+    return (
+        <NodeWindow className="font-mono flex flex-col text-xxs flex-wrap shadow-none border-slate-100 bg-slate-50 border-2 text-slate-500 rounded-2xl">
+            <pre ref={scrollRef} className="w-full h-full text-wrap overflow-y-auto flex flex-col gap-y-1 p-2">
+                {stack.map((v, i) => (
+                    <div className="flex flex-row w-full" key={i}>
+                        {v}
+                    </div>
+                ))}
+            </pre>
+        </NodeWindow>
+    );
+};
 
 const ImageWindow = ({ node }: { node: Image }) => {
     const [imageSrc, setImageSrc] = useState<string>();
 
     useEffect(() => {
-        node.outputs.output.subscribe(value => {
+        const subscription = node.outputs.output.subscribe(value => {
             setImageSrc(value);
         });
+
+        return () => {
+            subscription.unsubscribe();
+        };
     }, [node]);
 
     return (
@@ -65,6 +101,8 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
     if ('displayName' in node.constructor === false) return <></>;
 
     switch (node.constructor.displayName) {
+        case 'Console':
+            return <ConsoleWindow node={node as Console} />;
         case 'Image':
             return <ImageWindow node={node as Image} />;
         case 'Prompt':
@@ -131,9 +169,6 @@ export default function Page(): JSX.Element {
             </StoreContext.Provider>
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
                 <MenuButton onClick={() => setMenuOpen(true)} />
-            </div>
-            <div className="fixed left-0 bottom-20 flex flex-row justify-center">
-                <Console />
             </div>
         </main>
     );
