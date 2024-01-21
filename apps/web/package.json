@@ -30,7 +30,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-draggable": "^4.4.6",
-        "react-hotkeys-hook": "^4.4.1",
+        "react-hotkeys-hook": "^4.4.4",
         "rxjs": "^7.8.1",
         "use-pan-and-zoom": "^0.6.5",
         "zod": "^3.22.4"
