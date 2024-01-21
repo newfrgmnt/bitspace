@@ -74,7 +74,7 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
                 <div className="h-fit w-full">
                     <ColorWheel
                         defaultColor={(node as TriadHarmony).inputs.color.value}
-                        radius={122}
+                        radius={113}
                         harmony="triad"
                         onChange={hsv =>
                             hsv && '0' in hsv ? (node as TriadHarmony).inputs.color.next(hsv[0]) : void 0
