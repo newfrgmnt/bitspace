@@ -6,7 +6,7 @@ import { HSVSchema } from '../ColorHarmonyNode/ColorHarmonyNode';
 const NumberSchema = schema('Number', z.number());
 
 export class HSV extends Node {
-    name = 'HSV';
+    static displayName = 'HSV';
 
     inputs = {
         color: new Input({

@@ -5,7 +5,7 @@ import { combineLatest, map } from 'rxjs';
 import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export class Step extends Node {
-    name = 'Step';
+    static displayName = 'Step';
 
     inputs = {
         edge: new Input({

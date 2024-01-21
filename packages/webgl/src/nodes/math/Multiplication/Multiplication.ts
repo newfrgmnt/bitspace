@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 
 export class Multiplication extends ABPrimNode {
-    name = 'Multiplication';
+    static displayName = 'Multiplication';
 
     outputs = {
         output: new Output({

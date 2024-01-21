@@ -5,7 +5,7 @@ import { combineLatest, map } from 'rxjs';
 import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export class Smoothstep extends Node {
-    name = 'Smoothstep';
+    static displayName = 'Smoothstep';
 
     inputs = {
         edgeA: new Input({

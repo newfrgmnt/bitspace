@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 
 export class Minimum extends ABPrimNode {
-    name = 'Minimum';
+    static displayName = 'Minimum';
 
     outputs = {
         output: new Output({

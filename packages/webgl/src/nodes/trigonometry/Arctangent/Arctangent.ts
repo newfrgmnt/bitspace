@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Arctangent extends InputPrimNode {
-    name = 'Arctangent';
+    static displayName = 'Arctangent';
 
     outputs = {
         output: new Output({

@@ -12,7 +12,7 @@ export const HSVSchema = schema(
 );
 
 export class ColorHarmony extends Node {
-    name = 'Color Harmony';
+    static displayName = 'Color Harmony';
 
     inputs = {
         color: new Input({

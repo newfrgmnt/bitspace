@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Degrees extends InputPrimNode {
-    name = 'Degrees';
+    static displayName = 'Degrees';
 
     outputs = {
         output: new Output({

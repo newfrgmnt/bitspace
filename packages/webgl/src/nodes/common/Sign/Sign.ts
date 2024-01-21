@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Sign extends InputPrimNode {
-    name = 'Sign';
+    static displayName = 'Sign';
 
     outputs = {
         output: new Output({

@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Arccosine extends InputPrimNode {
-    name = 'Arccosine';
+    static displayName = 'Arccosine';
 
     outputs = {
         output: new Output({

@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 
 export class Subtraction extends ABPrimNode {
-    name = 'Subtraction';
+    static displayName = 'Subtraction';
 
     outputs = {
         output: new Output({

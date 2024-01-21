@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class InverseSquareRoot extends InputPrimNode {
-    name = 'InverseSquareRoot';
+    static displayName = 'InverseSquareRoot';
 
     outputs = {
         output: new Output({

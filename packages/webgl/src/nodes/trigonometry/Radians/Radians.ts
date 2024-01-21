@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Radians extends InputPrimNode {
-    name = 'Radians';
+    static displayName = 'Radians';
 
     outputs = {
         output: new Output({

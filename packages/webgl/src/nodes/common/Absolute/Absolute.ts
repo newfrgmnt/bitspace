@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Absolute extends InputPrimNode {
-    name = 'Absolute';
+    static displayName = 'Absolute';
 
     outputs = {
         output: new Output({

@@ -96,8 +96,8 @@ export const Menu = ({ onClose }: MenuProps) => {
 
                                 return (
                                     <MenuItem
-                                        key={node.name}
-                                        title={node.name}
+                                        key={node.displayName}
+                                        title={node.displayName}
                                         active={activeIndex === index}
                                         onSelect={() => {}}
                                     />

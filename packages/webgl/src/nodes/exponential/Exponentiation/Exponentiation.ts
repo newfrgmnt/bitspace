@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Exponentiation extends InputPrimNode {
-    name = 'Exponentiation';
+    static displayName = 'Exponentiation';
 
     outputs = {
         output: new Output({

@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Cosine extends InputPrimNode {
-    name = 'Cosine';
+    static displayName = 'Cosine';
 
     outputs = {
         output: new Output({

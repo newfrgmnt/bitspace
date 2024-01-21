@@ -6,7 +6,7 @@ import { FloatSchema } from '../../../schemas/Float/Float';
 import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export class Mix extends Node {
-    name = 'Mix';
+    static displayName = 'Mix';
 
     inputs = {
         a: new Input<Term<Prim>>({

@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Logarithm extends InputPrimNode {
-    name = 'Logarithm';
+    static displayName = 'Logarithm';
 
     outputs = {
         output: new Output({

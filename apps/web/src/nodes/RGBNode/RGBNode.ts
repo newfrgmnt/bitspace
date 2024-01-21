@@ -6,7 +6,7 @@ import { RGBSchema } from '../HSVRGBNode/HSVRGBNode';
 const NumberSchema = schema('Number', z.number());
 
 export class RGB extends Node {
-    name = 'RGB';
+    static displayName = 'RGB';
 
     inputs = {
         color: new Input({

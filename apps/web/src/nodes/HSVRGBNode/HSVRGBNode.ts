@@ -14,7 +14,7 @@ export const RGBSchema = schema(
 );
 
 export class HSVRGB extends Node {
-    name = 'HSV - RGB';
+    static displayName = 'HSV - RGB';
 
     inputs = {
         hsv: new Input({

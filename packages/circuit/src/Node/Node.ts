@@ -18,6 +18,9 @@ export abstract class Node<TData extends NodeData = NodeData> {
     /** Arbitrary Data Store */
     public data: TData = {} as TData;
 
+    /** Node Display Name */
+    public static displayName: string = '';
+
     constructor() {
         makeObservable(this, {
             id: observable,

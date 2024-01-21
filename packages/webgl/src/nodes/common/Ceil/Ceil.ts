@@ -7,7 +7,7 @@ import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Ceil extends InputPrimNode {
-    name = 'Ceil';
+    static displayName = 'Ceil';
 
     outputs = {
         output: new Output({

@@ -8,7 +8,7 @@ const StringSchema = schema(z.string());
 const ImageSchema = schema('Image', z.string().url());
 
 export class Image extends Node {
-    name = 'Image';
+    static displayName = 'Image';
 
     inputs = {
         prompt: new Input({

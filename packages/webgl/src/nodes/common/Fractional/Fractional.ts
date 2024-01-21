@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Fractional extends InputPrimNode {
-    name = 'Fractional';
+    static displayName = 'Fractional';
 
     outputs = {
         output: new Output({

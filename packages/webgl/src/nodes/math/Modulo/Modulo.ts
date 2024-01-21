@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 
 export class Modulo extends ABPrimNode {
-    name = 'Modulo';
+    static displayName = 'Modulo';
 
     outputs = {
         output: new Output({

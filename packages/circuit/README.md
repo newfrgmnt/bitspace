@@ -49,7 +49,7 @@ import { combineLatest, map } from 'rxjs';
 const NumberSchema = schema(z.number());
 
 class Addition extends Node {
-    name = 'Addition';
+    static displayName = 'Addition';
 
     inputs = {
         a: new Input({ name: 'A', type: NumberSchema, defaultValue: 0 }),
@@ -79,7 +79,7 @@ import { combineLatest, map } from 'rxjs';
 const NumberSchema = schema(z.number());
 
 class Addition extends Node {
-    name = 'Addition';
+    static displayName = 'Addition';
 
     inputs = {
         a: new Input({ name: 'A', type: NumberSchema, defaultValue: 0 }),

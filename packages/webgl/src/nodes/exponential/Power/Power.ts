@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 
 export class Power extends ABPrimNode {
-    name = 'Power';
+    static displayName = 'Power';
 
     outputs = {
         output: new Output({

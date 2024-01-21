@@ -7,7 +7,7 @@ import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Floor extends InputPrimNode {
-    name = 'Floor';
+    static displayName = 'Floor';
 
     outputs = {
         output: new Output({

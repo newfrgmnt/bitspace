@@ -4,7 +4,7 @@ import { float, Prim, Term } from '@thi.ng/shader-ast';
 import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export abstract class ABPrimNode extends Node {
-    name = 'AB Prim Node';
+    static displayName = 'AB Prim Node';
 
     inputs = {
         a: new Input<Term<Prim>>({

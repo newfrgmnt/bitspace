@@ -6,7 +6,7 @@ import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Tangent extends InputPrimNode {
-    name = 'Tangent';
+    static displayName = 'Tangent';
 
     outputs = {
         output: new Output({

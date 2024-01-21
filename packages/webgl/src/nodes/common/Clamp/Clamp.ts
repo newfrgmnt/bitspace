@@ -7,7 +7,7 @@ import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 import { InputPrimNode } from '../../internal/InputPrimNode/InputPrimNode';
 
 export class Clamp extends Node {
-    name = 'Clamp';
+    static displayName = 'Clamp';
 
     inputs = {
         input: new Input<Term<Prim>>({

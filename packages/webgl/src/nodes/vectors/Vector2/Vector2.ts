@@ -6,7 +6,7 @@ import { FloatSchema } from '../../../schemas/Float/Float';
 import { Vec2Schema } from '../../../schemas/Vec2/Vec2';
 
 export class Vector2 extends Node {
-    name = 'Vector 2';
+    static displayName = 'Vector 2';
 
     inputs = {
         x: new Input({
