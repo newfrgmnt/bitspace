@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { RGBSchema } from '../HSVRGBNode/HSVRGBNode';
+import { RGBSchema } from '../HSVRGB/HSVRGB';
 
 const NumberSchema = schema('Number', z.number());
 

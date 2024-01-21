@@ -2,12 +2,13 @@
 
 import { Fragment, compile, GLSLVersion, Vector4 } from '@bitspace/webgl';
 import { useEffect, useMemo, useState } from 'react';
-import { Image } from '../../nodes/ImageNode/ImageNode';
+import { Image } from '../../nodes/Image/Image';
 import { Node } from '@bitspace/circuit';
-import { ColorHarmony } from '../../nodes/ColorHarmonyNode/ColorHarmonyNode';
+import { AnalogousHarmony } from '../../nodes/AnalogousHarmony/AnalogousHarmony';
+import { TriadHarmony } from '../../nodes/TriadHarmony/TriadHarmony';
 import { ColorWheel } from '../../components/ColorPicker/ColorPicker';
 import { hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
-import { HSV } from '../../nodes/HSVNode/HSVNode';
+import { HSV } from '../../nodes/HSV/HSV';
 import { Circuit, CircuitStore, StoreContext } from '../../circuit';
 import { NodeWindowResolver } from '../../circuit/containers/Circuit/Circuit.types';
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
@@ -55,7 +56,7 @@ const HSVWindow = ({ node }: { node: HSV }) => {
 };
 
 const nodeWindowManager: NodeWindowResolver = (node: Node) => {
-    switch (node.name) {
+    switch (node.constructor.displayName) {
         case 'Image':
             return <ImageWindow node={node as Image} />;
         case 'Prompt':
@@ -66,15 +67,28 @@ const nodeWindowManager: NodeWindowResolver = (node: Node) => {
                     defaultValue={node.inputs.prompt?.value}
                 />
             );
-        case 'Color Harmony':
+        case 'Triad Harmony':
             return (
                 <div className="h-fit w-full">
                     <ColorWheel
-                        defaultColor={(node as ColorHarmony).inputs.color.value}
+                        defaultColor={(node as TriadHarmony).inputs.color.value}
                         radius={122}
                         harmony="triad"
                         onChange={hsv =>
-                            hsv && '0' in hsv ? (node as ColorHarmony).inputs.color.next(hsv[0]) : void 0
+                            hsv && '0' in hsv ? (node as TriadHarmony).inputs.color.next(hsv[0]) : void 0
+                        }
+                    />
+                </div>
+            );
+        case 'Analogous Harmony':
+            return (
+                <div className="h-fit w-full">
+                    <ColorWheel
+                        defaultColor={(node as AnalogousHarmony).inputs.color.value}
+                        radius={122}
+                        harmony="analogous"
+                        onChange={hsv =>
+                            hsv && '0' in hsv ? (node as AnalogousHarmony).inputs.color.next(hsv[0]) : void 0
                         }
                     />
                 </div>
@@ -89,17 +103,17 @@ export default function Page(): JSX.Element {
 
     const store = useMemo(() => {
         const circuitStore = new CircuitStore();
-        const colorHarmonyNode = new ColorHarmony();
+        const analogousHarmonyNode = new AnalogousHarmony();
         const hsvNode = new HSV();
         const hsv2Node = new HSV();
         const hsv3Node = new HSV();
 
-        colorHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
-        colorHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);
-        colorHarmonyNode.outputs.c.connect(hsv3Node.inputs.color);
+        analogousHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
+        analogousHarmonyNode.outputs.b.connect(hsv2Node.inputs.color);
+        analogousHarmonyNode.outputs.c.connect(hsv3Node.inputs.color);
 
         circuitStore.setNodes([
-            [colorHarmonyNode, { x: -500, y: 0 }],
+            [analogousHarmonyNode, { x: -500, y: 0 }],
             [hsvNode, { x: 0, y: 500 }],
             [hsv2Node, { x: 0, y: 0 }],
             [hsv3Node, { x: 0, y: -500 }]

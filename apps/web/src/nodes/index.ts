@@ -31,10 +31,11 @@ import {
     Vector3,
     Vector4
 } from '@bitspace/webgl';
-import { ColorHarmony } from './ColorHarmonyNode/ColorHarmonyNode';
-import { HSV } from './HSVNode/HSVNode';
-import { HSVRGB } from './HSVRGBNode/HSVRGBNode';
-import { RGB } from './RGBNode/RGBNode';
+import { AnalogousHarmony } from './AnalogousHarmony/AnalogousHarmony';
+import { TriadHarmony } from './TriadHarmony/TriadHarmony';
+import { HSV } from './HSV/HSV';
+import { HSVRGB } from './HSVRGB/HSVRGB';
+import { RGB } from './RGB/RGB';
 
 // WebGL
 const CommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -52,7 +53,9 @@ export const WebGLNodes = [
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Color
-export const ColorNodes = [ColorHarmony, HSV, HSVRGB, RGB].sort((a, b) => a.name.localeCompare(b.name));
+export const ColorNodes = [AnalogousHarmony, TriadHarmony, HSV, HSVRGB, RGB].sort((a, b) =>
+    a.name.localeCompare(b.name)
+);
 
 // Node Groups
 export const NodeGroups = [

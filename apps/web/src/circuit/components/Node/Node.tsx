@@ -125,7 +125,8 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                 }}
             >
                 <div className={nodeHeaderWrapperClassNames}>
-                    <span>{node.name}</span>
+                    {/** @ts-ignore */}
+                    <span>{node.constructor.displayName}</span>
                     <div className={nodeActionsClassNames}>
                         <NodeAction color="#ff4444" onClick={handleRemoveNode} />
                     </div>

@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
 
+import { harmonies } from '../../components/ColorPicker/ColorPicker.utils';
+
 export const HSVSchema = schema(
     'HSV',
     z.object({
@@ -11,8 +13,8 @@ export const HSVSchema = schema(
     })
 );
 
-export class ColorHarmony extends Node {
-    static displayName = 'Color Harmony';
+export class TriadHarmony extends Node {
+    static displayName = 'Triad Harmony';
 
     inputs = {
         color: new Input({
@@ -39,7 +41,9 @@ export class ColorHarmony extends Node {
                 map(color => {
                     const { hue, saturation, value } = color;
 
-                    return { hue: this.rotate(hue, -120), saturation, value };
+                    const [a] = harmonies.triad;
+
+                    return { hue: this.rotate(hue, a), saturation, value };
                 })
             )
         }),
@@ -49,9 +53,10 @@ export class ColorHarmony extends Node {
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;
+                    const [_, b] = harmonies.triad;
 
                     return {
-                        hue: this.rotate(hue, 120),
+                        hue: this.rotate(hue, b),
                         saturation,
                         value
                     };
