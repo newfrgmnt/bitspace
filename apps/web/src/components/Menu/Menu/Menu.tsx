@@ -68,7 +68,7 @@ export const Menu = ({ onClose }: MenuProps) => {
             className="fixed inset-0 bg-black/20 flex flex-col items-center z-90"
             variants={{
                 initial: { opacity: 0 },
-                animate: { opacity: 1, transition: { ease: [0.65, 0, 0.35, 1], duration: 0.5 } }
+                animate: { opacity: 1, transition: { ease: [0.65, 0, 0.35, 1], duration: 0.2 } }
             }}
         >
             <motion.div
