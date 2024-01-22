@@ -43,6 +43,7 @@ import { Image } from './Image/Image';
 import { Prompt } from './Prompt/Prompt';
 import { Console } from './Console/Console';
 import { Timer } from './Timer/Timer';
+import { ToHSV } from './ToHSV/ToHSV';
 
 // WebGL
 const CommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -67,6 +68,7 @@ export const ColorNodes = [
     TetradicHarmony,
     ComplementaryHarmony,
     HSV,
+    ToHSV,
     HSVRGB,
     RGB
 ].sort((a, b) => a.displayName.localeCompare(b.displayName));

@@ -1,5 +1,5 @@
-import { NodeWindow } from '../../circuit/components/Node/Node';
-import { Image } from '../../nodes/Image/Image';
+import { NodeWindow } from '../circuit/components/Node/Node';
+import { Image } from '../nodes/Image/Image';
 import { useEffect, useState } from 'react';
 
 export const ImageWindow = ({ node }: { node: Image }) => {

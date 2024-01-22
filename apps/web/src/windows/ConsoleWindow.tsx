@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Console } from '../../nodes/Console/Console';
+import { Console } from '../nodes/Console/Console';
 import { takeRight } from 'lodash';
-import { NodeWindow } from '../../circuit/components/Node/Node';
+import { NodeWindow } from '../circuit/components/Node/Node';
 
 export const ConsoleWindow = ({ node }: { node: Console }) => {
     const scrollRef = useRef<HTMLPreElement>(null);

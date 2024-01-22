@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { HSV } from '../../nodes/HSV/HSV';
-import { hsv2rgb } from '../../components/ColorPicker/ColorPicker.utils';
-import { NodeWindow } from '../../circuit/components/Node/Node';
+import { HSV } from '../nodes/HSV/HSV';
+import { hsv2rgb } from '../components/ColorPicker/ColorPicker.utils';
+import { NodeWindow } from '../circuit/components/Node/Node';
 
 export const HSVWindow = ({ node }: { node: HSV }) => {
     const [rgb, setRgb] = useState<[number, number, number]>([0, 0, 0]);

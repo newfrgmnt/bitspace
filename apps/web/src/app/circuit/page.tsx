@@ -6,7 +6,7 @@ import { HSV } from '../../nodes/HSV/HSV';
 import { Circuit, CircuitStore, StoreContext } from '../../circuit';
 import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
-import { nodeWindowResolver } from '../windows';
+import { nodeWindowResolver } from '../../windows';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 export default function Page(): JSX.Element {
