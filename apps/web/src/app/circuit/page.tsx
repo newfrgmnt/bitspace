@@ -8,6 +8,9 @@ import { MenuButton } from '../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../components/Menu/Menu/Menu';
 import { nodeWindowResolver } from '../../windows';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { Timer } from '../../nodes/Timer/Timer';
+import { ToHSV } from '../../nodes/ToHSV/ToHSV';
+import { ComplementaryHarmony } from '../../nodes/ComplementaryHarmony/ComplementaryHarmony';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -25,14 +28,23 @@ export default function Page(): JSX.Element {
 
     const store = useMemo(() => {
         const circuitStore = new CircuitStore();
-        const analogousHarmonyNode = new AnalogousHarmony();
+        const timer = new Timer();
+        const toHSV = new ToHSV();
+        const cHarmonyNode = new ComplementaryHarmony();
         const hsvNode = new HSV();
+        const hsvNode2 = new HSV();
 
-        analogousHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
+        timer.outputs.time.connect(toHSV.inputs.hue);
+        toHSV.outputs.color.connect(cHarmonyNode.inputs.color);
+        cHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
+        cHarmonyNode.outputs.b.connect(hsvNode2.inputs.color);
 
         circuitStore.setNodes([
-            [analogousHarmonyNode, { x: -300, y: 200 }],
-            [hsvNode, { x: 300, y: 200 }]
+            [timer, { x: -600, y: 200 }],
+            [toHSV, { x: -200, y: 150 }],
+            [cHarmonyNode, { x: 200, y: 200 }],
+            [hsvNode, { x: 600, y: 400 }],
+            [hsvNode2, { x: 600, y: -50 }]
         ]);
 
         return circuitStore;

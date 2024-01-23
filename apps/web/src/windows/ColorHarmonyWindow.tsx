@@ -8,6 +8,7 @@ import { SquareHarmony } from '../nodes/SquareHarmony/SquareHarmony';
 import { TetradicHarmony } from '../nodes/TetradicHarmony/TetradicHarmony';
 import { TriadHarmony } from '../nodes/TriadHarmony/TriadHarmony';
 import { z } from 'zod';
+import { output } from '@bitspace/webgl';
 
 export const ColorHarmonyWindow = ({
     node
@@ -36,7 +37,13 @@ export const ColorHarmonyWindow = ({
                         ?.split(' ')[0]
                         ?.toLowerCase() as keyof typeof harmonies
                 }
-                // onChange={hsv => (hsv && '0' in hsv ? (node as TriadHarmony).inputs.color.next(hsv[0]) : void 0)}
+                onChange={hsv => {
+                    Object.values(node.outputs).forEach((output, index) => {
+                        // @ts-ignore
+                        const { hue, saturation, value } = hsv[index];
+                        output.next({ hue, saturation, value });
+                    });
+                }}
             />
         </NodeWindow>
     );

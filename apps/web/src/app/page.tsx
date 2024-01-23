@@ -14,7 +14,7 @@ const cards = [
     },
     {
         icon: <HiveOutlined fontSize="large" />,
-        title: 'Nodl'
+        title: 'Harmony'
     }
 ];
 

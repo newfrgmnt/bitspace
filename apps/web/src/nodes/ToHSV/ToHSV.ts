@@ -31,7 +31,7 @@ export class ToHSV extends Node {
             name: 'Color',
             type: HSVSchema,
             observable: combineLatest([this.inputs.hue, this.inputs.saturation, this.inputs.value]).pipe(
-                map(([hue, saturation, value]) => ({ hue, saturation, value }))
+                map(([hue, saturation, value]) => ({ hue: Math.abs(hue % 360), saturation, value }))
             )
         })
     };
