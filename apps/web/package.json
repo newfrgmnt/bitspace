@@ -26,6 +26,7 @@
         "mobx": "^6.8.0",
         "mobx-react-lite": "^4.0.5",
         "next": "^14.0.3",
+        "next-auth": "^4.24.5",
         "openai": "^4.24.7",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
