@@ -1,17 +1,16 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AnalogousHarmony } from '../../../nodes/AnalogousHarmony/AnalogousHarmony';
-import { HSV } from '../../../nodes/HSV/HSV';
 import { Circuit, CircuitStore, StoreContext } from '../../../circuit';
 import { MenuButton } from '../../../components/Menu/MenuButton/MenuButton';
 import { Menu } from '../../../components/Menu/Menu/Menu';
 import { nodeWindowResolver } from '../../../windows';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { Timer } from '../../../nodes/Timer/Timer';
-import { ToHSV } from '../../../nodes/ToHSV/ToHSV';
-import { ComplementaryHarmony } from '../../../nodes/ComplementaryHarmony/ComplementaryHarmony';
+import { Timer } from '../../../nodes/utilities/Timer/Timer';
 import { Journey } from '../../../components/Onboarding/Journey';
+import { ToHSV } from '../../../nodes/color/ToHSV/ToHSV';
+import { ComplementaryHarmony } from '../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
+import { HSV } from '../../../nodes/color/HSV/HSV';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);

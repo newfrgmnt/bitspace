@@ -16,7 +16,7 @@ import {
     Modulo,
     Radians,
     Degrees,
-    Sine,
+    Sine as WebGLSine,
     Arcsine,
     Cosine,
     Arccosine,
@@ -31,33 +31,34 @@ import {
     Vector3,
     Vector4
 } from '@bitspace/webgl';
-import { AnalogousHarmony } from './AnalogousHarmony/AnalogousHarmony';
-import { TriadHarmony } from './TriadHarmony/TriadHarmony';
-import { HSV } from './HSV/HSV';
-import { HSVRGB } from './HSVRGB/HSVRGB';
-import { RGB } from './RGB/RGB';
-import { SquareHarmony } from './SquareHarmony/SquareHarmony';
-import { TetradicHarmony } from './TetradicHarmony/TetradicHarmony';
-import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmony';
-import { Image } from './Image/Image';
-import { Prompt } from './Prompt/Prompt';
-import { Console } from './Console/Console';
-import { Timer } from './Timer/Timer';
-import { ToHSV } from './ToHSV/ToHSV';
+import { Image } from './ai/Image/Image';
+import { Prompt } from './ai/Prompt/Prompt';
+import { Console } from './utilities/Console/Console';
+import { Timer } from './utilities/Timer/Timer';
+import { AnalogousHarmony } from './color/AnalogousHarmony/AnalogousHarmony';
+import { TriadHarmony } from './color/TriadHarmony/TriadHarmony';
+import { SquareHarmony } from './color/SquareHarmony/SquareHarmony';
+import { TetradicHarmony } from './color/TetradicHarmony/TetradicHarmony';
+import { ComplementaryHarmony } from './color/ComplementaryHarmony/ComplementaryHarmony';
+import { HSV } from './color/HSV/HSV';
+import { ToHSV } from './color/ToHSV/ToHSV';
+import { HSVRGB } from './color/HSVRGB/HSVRGB';
+import { RGB } from './color/RGB/RGB';
+import { MathNodes } from './math';
 
 // WebGL
-const CommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
-const MathNodes = [Addition, Subtraction, Multiplication, Division, Modulo];
-const TrigonometryNodes = [Radians, Degrees, Sine, Arcsine, Cosine, Arccosine, Tangent, Arctangent];
-const ExponentialNodes = [Exponentiation, Logarithm, Power, SquareRoot, InverseSquareRoot];
-const VectorNodes = [Vector2, Vector3, Vector4];
+const WebGLCommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
+const WebGLMathNodes = [Addition, Subtraction, Multiplication, Division, Modulo];
+const WebGLTrigonometryNodes = [Radians, Degrees, WebGLSine, Arcsine, Cosine, Arccosine, Tangent, Arctangent];
+const WebGLExponentialNodes = [Exponentiation, Logarithm, Power, SquareRoot, InverseSquareRoot];
+const WebGLVectorNodes = [Vector2, Vector3, Vector4];
 
 export const WebGLNodes = [
-    ...CommonNodes,
-    ...MathNodes,
-    ...TrigonometryNodes,
-    ...ExponentialNodes,
-    ...VectorNodes
+    ...WebGLCommonNodes,
+    ...WebGLMathNodes,
+    ...WebGLTrigonometryNodes,
+    ...WebGLExponentialNodes,
+    ...WebGLVectorNodes
 ].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Color
@@ -84,6 +85,10 @@ export const NodeGroups = [
     {
         name: 'Artificial Intelligence',
         nodes: AINodes
+    },
+    {
+        name: 'Math',
+        nodes: MathNodes
     },
     {
         name: 'Color Nodes',

@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { NodeWindow } from '../circuit/components/Node/Node';
 import { ColorWheel } from '../components/ColorPicker/ColorPicker';
 import { harmonies } from '../components/ColorPicker/ColorPicker.utils';
-import { AnalogousHarmony, HSVSchema } from '../nodes/AnalogousHarmony/AnalogousHarmony';
-import { ComplementaryHarmony } from '../nodes/ComplementaryHarmony/ComplementaryHarmony';
-import { SquareHarmony } from '../nodes/SquareHarmony/SquareHarmony';
-import { TetradicHarmony } from '../nodes/TetradicHarmony/TetradicHarmony';
-import { TriadHarmony } from '../nodes/TriadHarmony/TriadHarmony';
 import { z } from 'zod';
 import { output } from '@bitspace/webgl';
+import { TriadHarmony } from '../nodes/color/TriadHarmony/TriadHarmony';
+import { TetradicHarmony } from '../nodes/color/TetradicHarmony/TetradicHarmony';
+import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
+import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
+import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
+import { HSVSchema } from '../schemas/HSVSchema';
 
 export const ColorHarmonyWindow = ({
     node

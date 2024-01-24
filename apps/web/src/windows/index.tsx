@@ -1,20 +1,18 @@
 import { NodeWindowResolver } from '../circuit/containers/Circuit/Circuit.types';
-import { Console } from '../nodes/Console/Console';
-import { Image } from '../nodes/Image/Image';
+import { Console } from '../nodes/utilities/Console/Console';
+import { Image } from '../nodes/ai/Image/Image';
 import { ConsoleWindow } from './ConsoleWindow';
 import { Node } from '@bitspace/circuit';
 import { ImageWindow } from './ImageWindow';
 import { NodeWindow } from '../circuit/components/Node/Node';
-import { ColorWheel } from '../components/ColorPicker/ColorPicker';
-import { TriadHarmony } from '../nodes/TriadHarmony/TriadHarmony';
-import { harmonies } from '../components/ColorPicker/ColorPicker.utils';
 import { HSVWindow } from './HSVWindow';
-import { HSV } from '../nodes/HSV/HSV';
 import { ColorHarmonyWindow } from './ColorHarmonyWindow';
-import { AnalogousHarmony } from '../nodes/AnalogousHarmony/AnalogousHarmony';
-import { SquareHarmony } from '../nodes/SquareHarmony/SquareHarmony';
-import { TetradicHarmony } from '../nodes/TetradicHarmony/TetradicHarmony';
-import { ComplementaryHarmony } from '../nodes/ComplementaryHarmony/ComplementaryHarmony';
+import { TriadHarmony } from '../nodes/color/TriadHarmony/TriadHarmony';
+import { TetradicHarmony } from '../nodes/color/TetradicHarmony/TetradicHarmony';
+import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
+import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
+import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
+import { HSV } from '../nodes/color/HSV/HSV';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if ('displayName' in node.constructor === false) return <></>;

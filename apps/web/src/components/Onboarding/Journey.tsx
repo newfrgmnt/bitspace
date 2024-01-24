@@ -18,14 +18,14 @@ export const Journey = ({ steps }: JourneyProps) => {
         <motion.div
             className="p-8 rounded-[2rem] bg-white shadow-2xl fixed left-20 bottom-20 w-72 max-h-[320px] h-full overflow-y-auto flex flex-col gap-y-8"
             variants={{
-                initial: { y: 200, opacity: 0 },
-                animate: { y: 0, opacity: 1, transition: { duration: 2, ease: [0.75, 0, 0.25, 1] } }
+                initial: { y: 300, opacity: 0 },
+                animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
             }}
         >
             <motion.div
                 className="h-full"
                 variants={{
-                    initial: { y: 50, opacity: 0 },
+                    initial: { y: 40, opacity: 0 },
                     animate: { y: 0, opacity: 1, transition: { duration: 2, ease: [0.75, 0, 0.25, 1] } }
                 }}
             >
@@ -41,6 +41,10 @@ export const Journey = ({ steps }: JourneyProps) => {
                 >
                     <ChevronLeftOutlined />
                 </motion.button>
+
+                <span className="text-sm text-slate-400">
+                    {currentStep + 1} / {steps.length}
+                </span>
 
                 <motion.button
                     className={clsx('bg-slate-200 text-slate-400 rounded-xl p-2', {
