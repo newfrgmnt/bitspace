@@ -16,7 +16,7 @@ export const Journey = ({ steps }: JourneyProps) => {
 
     return (
         <motion.div
-            className="p-8 rounded-[2rem] bg-white shadow-2xl fixed left-20 bottom-20 w-72 max-h-[320px] h-full overflow-y-auto flex flex-col gap-y-8"
+            className="p-10 rounded-[2rem] bg-white shadow-2xl fixed left-20 bottom-20 w-80 max-h-[360px] h-full overflow-y-auto flex flex-col gap-y-8"
             variants={{
                 initial: { y: 300, opacity: 0 },
                 animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
@@ -83,8 +83,8 @@ export const JourneyStep = ({ step }: { step: JourneyStepProps }) => {
                     }}
                 />
             )}
-            <motion.h3 className="text-2xl leading-snug">{step.title}</motion.h3>
-            <motion.p className="text-slate-500 leading-normal">{step.description}</motion.p>
+            <motion.h3 className="text-xl font-medium leading-snug">{step.title}</motion.h3>
+            <motion.p className="text-slate-500 leading-relaxed">{step.description}</motion.p>
         </motion.div>
     );
 };

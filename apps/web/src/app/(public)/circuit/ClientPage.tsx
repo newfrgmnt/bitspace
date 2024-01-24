@@ -69,6 +69,14 @@ export default function Page(): JSX.Element {
                         title: 'Circuits',
                         description:
                             'This canvas is known as a Circuit. It contains nodes & connections - the building blocks of Bitspace.'
+                    },
+                    {
+                        title: 'Nodes',
+                        description: 'Isolated blocks of computation, operating on inputs to produce outputs.'
+                    },
+                    {
+                        title: 'Connections',
+                        description: 'These are used to link data between different nodes.'
                     }
                 ]}
             />
