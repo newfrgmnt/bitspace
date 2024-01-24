@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { RGBSchema } from '../HSVRGB/HSVRGB';
 import { NumberSchema } from '../../../schemas/NumberSchema';
+import { RGBSchema } from '../../../schemas/RGBSchema';
 
 export class RGB extends Node {
     static displayName = 'RGB';

@@ -1,17 +1,8 @@
-import { z } from 'zod';
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { hsv2rgb } from '../../../components/ColorPicker/ColorPicker.utils';
 import { HSVSchema } from '../../../schemas/HSVSchema';
-
-export const RGBSchema = schema(
-    'RGB',
-    z.object({
-        red: z.number().min(0).max(1.01),
-        green: z.number().min(0).max(1.01),
-        blue: z.number().min(0).max(1.01)
-    })
-);
+import { RGBSchema } from '../../../schemas/RGBSchema';
 
 export class HSVRGB extends Node {
     static displayName = 'HSV - RGB';
