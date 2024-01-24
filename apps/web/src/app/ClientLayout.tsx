@@ -26,17 +26,28 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
                 <Link href="/">
                     <h3 className="text-3xl">Bitspace</h3>
                 </Link>
-                {status === 'authenticated' ? (
-                    <div
-                        className="w-11 h-11 bg-cover bg-center rounded-full"
-                        style={{
-                            backgroundImage: `url(${auth.user?.image})`
-                        }}
-                        onClick={() => signOut()}
-                    />
-                ) : (
-                    <SignInWithGithub />
-                )}
+                <div className="flex flex-row items-center gap-x-12">
+                    <Link href="/mission">
+                        <h3 className="text-xl">Mission</h3>
+                    </Link>
+                    <Link href="/preview-access">
+                        <h3 className="text-xl">Preview</h3>
+                    </Link>
+                    <Link href="https://github.com/bitspace/bitspace" target="_blank">
+                        <h3 className="text-xl">Open Source</h3>
+                    </Link>
+                    {status === 'authenticated' ? (
+                        <div
+                            className="w-11 h-11 bg-cover bg-center rounded-full"
+                            style={{
+                                backgroundImage: `url(${auth.user?.image})`
+                            }}
+                            onClick={() => signOut()}
+                        />
+                    ) : (
+                        <SignInWithGithub />
+                    )}
+                </div>
             </motion.div>
             {children}
         </motion.main>

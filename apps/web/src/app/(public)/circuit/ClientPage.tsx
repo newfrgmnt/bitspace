@@ -11,6 +11,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Timer } from '../../../nodes/Timer/Timer';
 import { ToHSV } from '../../../nodes/ToHSV/ToHSV';
 import { ComplementaryHarmony } from '../../../nodes/ComplementaryHarmony/ComplementaryHarmony';
+import { Journey } from '../../../components/Onboarding/Journey';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -59,6 +60,19 @@ export default function Page(): JSX.Element {
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
                 {<MenuButton onClick={() => setMenuOpen(true)} animate={menuOpen} />}
             </div>
+            <Journey
+                steps={[
+                    {
+                        title: 'Welcome to Bitspace',
+                        description: 'A visual programming environment for creative endeavours.'
+                    },
+                    {
+                        title: 'Circuits',
+                        description:
+                            'This canvas is known as a Circuit. It contains nodes & connections - the building blocks of Bitspace.'
+                    }
+                ]}
+            />
         </main>
     );
 }

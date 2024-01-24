@@ -20,7 +20,12 @@ const cards = [
 
 export default function Page(): JSX.Element {
     return (
-        <>
+        <motion.div
+            className="h-[50vh] w-full flex flex-col justify-between"
+            initial="initial"
+            animate="animate"
+            transition={{ staggerChildren: 0.05 }}
+        >
             <motion.div className="overflow-hidden">
                 <motion.h1
                     className="text-6xl leading-normal"
@@ -57,6 +62,6 @@ export default function Page(): JSX.Element {
                     </motion.a>
                 ))}
             </div>
-        </>
+        </motion.div>
     );
 }
