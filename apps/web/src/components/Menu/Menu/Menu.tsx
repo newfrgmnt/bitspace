@@ -38,6 +38,8 @@ export const Menu = ({ onClose }: MenuProps) => {
     const handlePress = useCallback(() => {
         const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
 
+        console.log(matchingNode);
+
         if (matchingNode) {
             const node = new matchingNode();
             store.setNodes([[node, { x: 0, y: 0 }]]);
@@ -103,7 +105,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                                         key={node.displayName}
                                         title={node.displayName}
                                         active={activeIndex === index}
-                                        onClick={handlePress}
+                                        index={index}
                                     />
                                 );
                             })}
@@ -120,10 +122,10 @@ interface MenuItemProps {
     title: string;
     description?: string;
     active: boolean;
-    onClick?: () => void;
+    index: number;
 }
 
-const MenuItem = ({ title, description, active, onClick }: MenuItemProps) => {
+const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
 
     const handleSelect = React.useCallback(() => {
@@ -139,10 +141,10 @@ const MenuItem = ({ title, description, active, onClick }: MenuItemProps) => {
     return (
         <div
             ref={ref}
-            className={clsx('flex flex-col px-8 py-2 gap-y-1 hover:bg-slate-100 transition-colors', {
-                'bg-slate-100': active
+            className={clsx('flex flex-col px-4 py-2 gap-y-1 transition-colors rounded-xl scroll-m-4', {
+                'bg-slate-100': active,
+                'scroll-m-24': index === 0
             })}
-            onClick={onClick}
         >
             <h4 className="text-lg">{startCase(title)}</h4>
             {description && <p className="text-slate-400">{description}</p>}
@@ -154,7 +156,7 @@ const MenuItemGroup = ({ title, children }: { title: string; children: React.Rea
     return (
         <div className="flex flex-col gap-y-2">
             <h3 className="px-8 text-slate-400">{title}</h3>
-            <div className="flex flex-col">{children}</div>
+            <div className="flex flex-col px-4 gap-y-1">{children}</div>
         </div>
     );
 };
