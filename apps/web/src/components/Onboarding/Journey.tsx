@@ -15,8 +15,22 @@ export const Journey = ({ steps }: JourneyProps) => {
     const previousStep = useMemo(() => steps[currentStep - 1], [currentStep, steps]);
 
     return (
-        <motion.div className="p-8 rounded-[2rem] bg-white shadow-2xl fixed left-20 bottom-20 w-72 max-h-[320px] h-full overflow-y-auto flex flex-col gap-y-8">
-            {step && <JourneyStep key={step.title} step={step} />}
+        <motion.div
+            className="p-8 rounded-[2rem] bg-white shadow-2xl fixed left-20 bottom-20 w-72 max-h-[320px] h-full overflow-y-auto flex flex-col gap-y-8"
+            variants={{
+                initial: { y: 200, opacity: 0 },
+                animate: { y: 0, opacity: 1, transition: { duration: 2, ease: [0.75, 0, 0.25, 1] } }
+            }}
+        >
+            <motion.div
+                className="h-full"
+                variants={{
+                    initial: { y: 50, opacity: 0 },
+                    animate: { y: 0, opacity: 1, transition: { duration: 2, ease: [0.75, 0, 0.25, 1] } }
+                }}
+            >
+                {step && <JourneyStep key={step.title} step={step} />}
+            </motion.div>
             <div className="flex flex-row justify-between items-center">
                 <motion.button
                     className={clsx('bg-slate-200 text-slate-400 rounded-xl p-2', {
@@ -50,7 +64,13 @@ export interface JourneyStepProps {
 
 export const JourneyStep = ({ step }: { step: JourneyStepProps }) => {
     return (
-        <motion.div className="flex flex-col gap-y-4 flex-grow">
+        <motion.div
+            className="flex flex-col gap-y-4 flex-grow"
+            variants={{
+                initial: { opacity: 0 },
+                animate: { opacity: 1, transition: { duration: 1, ease: 'linear' } }
+            }}
+        >
             {step.image && (
                 <motion.div
                     className="rounded-2xl bg-cover bg-center w-full max-h-32 h-full"
