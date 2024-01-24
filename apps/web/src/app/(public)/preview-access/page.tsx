@@ -4,14 +4,6 @@ import { motion } from 'framer-motion';
 import PolarIcon from '../../../components/Icons/PolarIcon';
 import Link from 'next/link';
 
-const cards = [
-    {
-        icon: <PolarIcon size={56} className="text-blue-500" />,
-        title: 'Subscribe on Polar',
-        link: 'https://polar.sh/emilwidlund/subscriptions'
-    }
-];
-
 export default function Page(): JSX.Element {
     return (
         <>
@@ -73,14 +65,14 @@ export default function Page(): JSX.Element {
                     }}
                 >
                     <Link
-                        className="flex flex-row gap-x-2 rounded-full pl-3 pr-6 py-2 items-center bg-blue-500 hover:bg-blue-400 transition-colors self-start text-white"
+                        className="flex flex-row gap-x-2 rounded-full pl-3 pr-6 py-2 items-center bg-blue-700 hover:bg-blue-600 transition-colors self-start text-blue-50"
                         target="_blank"
                         href="https://polar.sh/emilwidlund/subscriptions"
                     >
                         <PolarIcon size={32} className="text-white" />
                         <span>Subscribe on Polar</span>
                     </Link>
-                    <span className="text-xl leading-tight text-blue-500">$5 /month</span>
+                    <span className="text-xl leading-tight text-blue-700">$5 /month</span>
                 </motion.div>
             </div>
         </>
