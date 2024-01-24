@@ -119,6 +119,9 @@ importers:
       '@mui/material':
         specifier: ^5.15.2
         version: 5.15.5(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
+      '@polar-sh/sdk':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -1742,6 +1745,10 @@ packages:
   /@pkgr/core@0.1.1:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  /@polar-sh/sdk@0.2.0:
+    resolution: {integrity: sha512-ik4aGdBwDufTlpd82GOfrxw+wr1UoHSl82201KAGoz/sQXyx/w4Jsv4IOeKM5HEmkkqOTDusNyvjDMkMLP/vBA==}
+    dev: false
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}

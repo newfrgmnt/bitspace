@@ -2,10 +2,13 @@
 
 import './globals.css';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { SignInWithGithub } from '../components/Auth/SignInWithGithub';
 
 export function ClientLayout({ children }: { children: React.ReactNode }): JSX.Element {
+    const { status, data: auth } = useSession();
+
     return (
         <motion.main
             className="relative flex flex-col justify-between h-screen p-20"
@@ -14,21 +17,26 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
             transition={{ staggerChildren: 0.05 }}
         >
             <motion.div
-                className="flex flex-row justify-between items-center w-full sticky top-0 z-10 pointer-events-none"
+                className="flex flex-row justify-between items-center w-full sticky top-0 z-10"
                 variants={{
                     initial: { opacity: 0 },
                     animate: { opacity: 1, transition: { duration: 1, delay: 1 } }
                 }}
             >
                 <Link href="/">
-                    <h3 className="text-2xl">Bitspace</h3>
+                    <h3 className="text-3xl">Bitspace</h3>
                 </Link>
-                <div
-                    className="w-10 h-10 bg-cover bg-center rounded-full"
-                    style={{
-                        backgroundImage: `url(https://pbs.twimg.com/profile_images/1699785592723349504/BU-JhnQC_400x400.jpg)`
-                    }}
-                />
+                {status === 'authenticated' ? (
+                    <div
+                        className="w-11 h-11 bg-cover bg-center rounded-full"
+                        style={{
+                            backgroundImage: `url(${auth.user?.image})`
+                        }}
+                        onClick={() => signOut()}
+                    />
+                ) : (
+                    <SignInWithGithub />
+                )}
             </motion.div>
             {children}
         </motion.main>
