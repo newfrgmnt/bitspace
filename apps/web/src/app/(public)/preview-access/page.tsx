@@ -65,7 +65,7 @@ export default function Page(): JSX.Element {
                     }}
                 >
                     <Link
-                        className="flex flex-row gap-x-2 rounded-full pl-3 pr-6 py-2 items-center bg-blue-700 hover:bg-blue-600 transition-colors self-start text-blue-50"
+                        className="flex flex-row gap-x-2 rounded-full pl-3 pr-6 py-2 items-center bg-blue-700 hover:bg-blue-500 transition-colors self-start text-blue-50"
                         target="_blank"
                         href="https://polar.sh/emilwidlund/subscriptions"
                     >

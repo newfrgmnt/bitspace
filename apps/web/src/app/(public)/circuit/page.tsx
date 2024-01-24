@@ -1,8 +1,7 @@
 import { Platforms } from '@polar-sh/sdk';
 import ClientPage from './ClientPage';
-import { getServerSideAPI } from '../../../utils';
+import { authOptions, getServerSideAPI } from '../../../utils';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 
 const SUBSCRIPTION_TIER_ID = `3bfaec57-603b-4e55-aa2d-d634f6e5c89b`;
