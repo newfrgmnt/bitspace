@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Node, Output, schema } from '@bitspace/circuit';
-import { interval, tap } from 'rxjs';
+import { interval } from 'rxjs';
 
 const NumberSchema = schema('Number', z.number());
 

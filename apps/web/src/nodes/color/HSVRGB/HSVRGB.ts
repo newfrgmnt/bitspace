@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { HSVSchema } from '../AnalogousHarmony/AnalogousHarmony';
 import { hsv2rgb } from '../../../components/ColorPicker/ColorPicker.utils';
+import { HSVSchema } from '../../../schemas/HSVSchema';
 
 export const RGBSchema = schema(
     'RGB',
