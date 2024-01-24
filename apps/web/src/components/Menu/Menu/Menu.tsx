@@ -139,7 +139,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     }, [active]);
 
     return (
-        <div
+        <motion.div
             ref={ref}
             className={clsx('flex flex-col px-4 py-2 gap-y-1 transition-colors rounded-xl scroll-m-4', {
                 'bg-slate-100': active,
@@ -148,7 +148,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
         >
             <h4 className="text-lg">{startCase(title)}</h4>
             {description && <p className="text-slate-400">{description}</p>}
-        </div>
+        </motion.div>
     );
 };
 
