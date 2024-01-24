@@ -35,6 +35,17 @@ export const Menu = ({ onClose }: MenuProps) => {
         setActiveIndex(0);
     }, [query]);
 
+    const handlePress = useCallback(() => {
+        const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
+
+        if (matchingNode) {
+            const node = new matchingNode();
+            store.setNodes([[node, { x: 0, y: 0 }]]);
+            store.selectNodes([node]);
+            onClose();
+        }
+    }, [matchingGroups, onClose, store, activeIndex]);
+
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
         e => {
             e.stopPropagation();
@@ -46,14 +57,7 @@ export const Menu = ({ onClose }: MenuProps) => {
             }
 
             if (e.key === 'Enter') {
-                const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
-
-                if (matchingNode) {
-                    const node = new matchingNode();
-                    store.setNodes([[node, { x: 0, y: 0 }]]);
-                    store.selectNodes([node]);
-                    onClose();
-                }
+                handlePress();
             }
 
             if (e.key === 'Escape') {
@@ -99,7 +103,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                                         key={node.displayName}
                                         title={node.displayName}
                                         active={activeIndex === index}
-                                        onSelect={() => {}}
+                                        onClick={handlePress}
                                     />
                                 );
                             })}
@@ -116,10 +120,10 @@ interface MenuItemProps {
     title: string;
     description?: string;
     active: boolean;
-    onSelect: () => void;
+    onClick?: () => void;
 }
 
-const MenuItem = ({ title, description, active }: MenuItemProps) => {
+const MenuItem = ({ title, description, active, onClick }: MenuItemProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
 
     const handleSelect = React.useCallback(() => {
@@ -138,6 +142,7 @@ const MenuItem = ({ title, description, active }: MenuItemProps) => {
             className={clsx('flex flex-col px-8 py-2 gap-y-1 hover:bg-slate-100 transition-colors', {
                 'bg-slate-100': active
             })}
+            onClick={onClick}
         >
             <h4 className="text-lg">{startCase(title)}</h4>
             {description && <p className="text-slate-400">{description}</p>}
