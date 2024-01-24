@@ -168,7 +168,10 @@ const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
 export const NodeWindow = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => {
     return (
         <div
-            className={clsx('relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl', className)}
+            className={clsx(
+                'relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl max-h-[226px] h-full',
+                className
+            )}
             onMouseDown={e => e.stopPropagation()}
         >
             {children}
