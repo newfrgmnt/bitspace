@@ -24,46 +24,31 @@ export const CubicBezier = ({ points: controls }: CubicBezierProps) => {
         return [xy1, xy2];
     }, [points]);
 
-    useEffect(() => {
-        const ctx = ref.current?.getContext('2d');
-
-        if (!ctx) {
-            return;
-        }
-
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-        ctx.moveTo(0, ctx.canvas.height ?? 0);
-        ctx.lineTo(xy1.x, xy1.y);
-        ctx.strokeStyle = '#000';
-        ctx.stroke();
-
-        ctx.moveTo(ctx.canvas.width ?? 0, 0);
-        ctx.lineTo(xy2.x, xy2.y);
-        ctx.strokeStyle = '#000';
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(0, ctx.canvas.height ?? 0);
-        ctx.bezierCurveTo(xy1.x, xy1.y, xy2.x, xy2.y, ctx.canvas.width, 0);
-        ctx.strokeStyle = '#0000ff';
-        ctx.lineWidth = 2;
-
-        ctx.stroke();
-    }, [xy1, xy2]);
-
     return (
         <div className="relative h-[226px] w-full">
-            <canvas ref={ref} className="absolute inset-0 rounded-2xl" width={222} height={222} />
+            <svg
+                className="rounded-3xl"
+                viewBox="0 0 222 222"
+                height={222}
+                width={222}
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d={`M 0 222 C ${xy1.x} ${xy1.y}, ${xy2.x} ${xy2.y}, 222 0`}
+                    stroke="#0000ff"
+                    strokeWidth={2}
+                    fill="none"
+                />
+                <line x1={0} x2={xy1.x} y1={222} y2={xy1.y} stroke="#94a3b8" stroke-width="2" />
+                <line x1={222} x2={xy2.x} y1={0} y2={xy2.y} stroke="#94a3b8" stroke-width="2" />
+            </svg>
             <ControlPoint
-                bounds="parent"
                 position={xy1}
                 onDrag={(e, data) => {
                     setPosition(position => [data.x / 222, 1 - data.y / 222, position[2], position[3]]);
                 }}
             />
             <ControlPoint
-                bounds="parent"
                 position={xy2}
                 onDrag={(e, data) => {
                     setPosition(position => [position[0], position[1], data.x / 222, 1 - data.y / 222]);
@@ -75,8 +60,17 @@ export const CubicBezier = ({ points: controls }: CubicBezierProps) => {
 
 const ControlPoint = (props: Partial<DraggableProps>) => {
     return (
-        <Draggable {...props} onMouseDown={e => e.stopPropagation()}>
-            <div className="w-3 h-3 rounded-full bg-black absolute -top-1.5 -left-1.5" />
+        <Draggable
+            {...props}
+            onMouseDown={e => e.stopPropagation()}
+            bounds={{
+                left: 0,
+                right: 222,
+                top: 0,
+                bottom: 222
+            }}
+        >
+            <div className="w-2 h-2 rounded-full bg-[#94a3b8] absolute -top-1 -left-1" />
         </Draggable>
     );
 };
