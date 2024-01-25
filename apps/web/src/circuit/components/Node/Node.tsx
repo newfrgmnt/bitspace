@@ -165,16 +165,19 @@ const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
     );
 };
 
-export const NodeWindow = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => {
-    return (
-        <div
-            className={clsx(
-                'relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl max-h-[226px] h-full',
-                className
-            )}
-            onMouseDown={e => e.stopPropagation()}
-        >
-            {children}
-        </div>
-    );
-};
+export const NodeWindow = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{ className?: string }>>(
+    ({ children, className }, ref) => {
+        return (
+            <div
+                ref={ref}
+                className={clsx(
+                    'relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl max-h-[226px] h-full',
+                    className
+                )}
+                onMouseDown={e => e.stopPropagation()}
+            >
+                {children}
+            </div>
+        );
+    }
+);

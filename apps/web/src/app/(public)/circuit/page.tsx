@@ -30,7 +30,8 @@ export default async function Page() {
 
     if (
         !usersWithSubscription?.includes(session?.user?.email ?? '') &&
-        session?.user?.email !== 'hello@emilwidlund.com'
+        session?.user?.email !== 'hello@emilwidlund.com' &&
+        process.env.NODE_ENV === 'production'
     ) {
         redirect('/preview-access');
     }

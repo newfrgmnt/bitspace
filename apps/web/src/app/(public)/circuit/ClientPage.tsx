@@ -12,6 +12,7 @@ import { ToHSV } from '../../../nodes/color/ToHSV/ToHSV';
 import { ComplementaryHarmony } from '../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { HSV } from '../../../nodes/color/HSV/HSV';
 import { PropertyPanel } from '../../../containers/PropertyPanel/PropertyPanel';
+import { CubicBezier } from '../../../nodes/utilities/CubicBezier/CubicBezier';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -34,6 +35,7 @@ export default function Page(): JSX.Element {
         const cHarmonyNode = new ComplementaryHarmony();
         const hsvNode = new HSV();
         const hsvNode2 = new HSV();
+        const bezier = new CubicBezier();
 
         timer.outputs.time.connect(toHSV.inputs.hue);
         toHSV.outputs.color.connect(cHarmonyNode.inputs.color);
@@ -45,7 +47,8 @@ export default function Page(): JSX.Element {
             [toHSV, { x: -200, y: 150 }],
             [cHarmonyNode, { x: 200, y: 200 }],
             [hsvNode, { x: 600, y: 400 }],
-            [hsvNode2, { x: 600, y: -50 }]
+            [hsvNode2, { x: 600, y: -50 }],
+            [bezier, { x: 900, y: 0 }]
         ]);
 
         return circuitStore;

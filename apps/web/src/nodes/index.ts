@@ -45,6 +45,7 @@ import { ToHSV } from './color/ToHSV/ToHSV';
 import { HSVRGB } from './color/HSVRGB/HSVRGB';
 import { RGB } from './color/RGB/RGB';
 import { MathNodes } from './math';
+import { CubicBezier } from './utilities/CubicBezier/CubicBezier';
 
 // WebGL
 const WebGLCommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -78,7 +79,7 @@ export const ColorNodes = [
 export const AINodes = [Image, Prompt].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Utilities
-export const Utilities = [Console, Timer].sort((a, b) => a.displayName.localeCompare(b.displayName));
+export const Utilities = [Console, Timer, CubicBezier].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 // Node Groups
 export const NodeGroups = [

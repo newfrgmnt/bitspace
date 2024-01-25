@@ -13,10 +13,13 @@ import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
 import { HSV } from '../nodes/color/HSV/HSV';
+import { CubicBezier } from '../components/CubicBezier/CubicBezier';
+import { CubicBezierWindow } from './CubicBezierWindow';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if ('displayName' in node.constructor === false) return <></>;
 
+    // @ts-ignore
     switch (node.constructor.displayName) {
         case 'Console':
             return <ConsoleWindow node={node as Console} />;
@@ -32,6 +35,8 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
                     />
                 </NodeWindow>
             );
+        case 'Cubic Bezier':
+            return <CubicBezierWindow node={node} />;
         case 'Triad Harmony':
         case 'Analogous Harmony':
         case 'Square Harmony':
