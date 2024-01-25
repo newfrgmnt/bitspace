@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronLeftOutlined, ChevronRight, ChevronRightOutlined } from '@mui/icons-material';
+import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
+import { Panel } from '../Panel/Panel';
 
 export interface JourneyProps {
     steps: JourneyStepProps[];
@@ -15,15 +16,15 @@ export const Journey = ({ steps }: JourneyProps) => {
     const previousStep = useMemo(() => steps[currentStep - 1], [currentStep, steps]);
 
     return (
-        <motion.div
-            className="p-10 rounded-[2rem] bg-white shadow-2xl fixed left-20 bottom-20 w-80 max-h-[360px] h-full overflow-y-auto flex flex-col gap-y-8"
+        <Panel
+            className="fixed left-20 bottom-20 w-80 max-h-[360px] h-full justify-between"
             variants={{
                 initial: { y: 300, opacity: 0 },
                 animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
             }}
         >
             <motion.div
-                className="h-full"
+                className="h-full w-full flex flex-col"
                 variants={{
                     initial: { y: 40, opacity: 0 },
                     animate: { y: 0, opacity: 1, transition: { duration: 2, ease: [0.75, 0, 0.25, 1] } }
@@ -56,7 +57,7 @@ export const Journey = ({ steps }: JourneyProps) => {
                     <ChevronRightOutlined />
                 </motion.button>
             </div>
-        </motion.div>
+        </Panel>
     );
 };
 

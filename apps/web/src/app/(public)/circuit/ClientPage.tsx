@@ -11,6 +11,7 @@ import { Journey } from '../../../components/Onboarding/Journey';
 import { ToHSV } from '../../../nodes/color/ToHSV/ToHSV';
 import { ComplementaryHarmony } from '../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { HSV } from '../../../nodes/color/HSV/HSV';
+import { PropertyPanel } from '../../../containers/PropertyPanel/PropertyPanel';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -55,6 +56,7 @@ export default function Page(): JSX.Element {
             <StoreContext.Provider value={{ store }}>
                 <Circuit store={store} nodeWindowResolver={nodeWindowResolver} />
                 {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
+                <PropertyPanel className="fixed right-20 top-20" />
             </StoreContext.Provider>
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
                 {<MenuButton onClick={() => setMenuOpen(true)} animate={menuOpen} />}
