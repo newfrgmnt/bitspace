@@ -1,5 +1,5 @@
 import { cubicBezier } from 'framer-motion';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Draggable, { DraggableProps } from 'react-draggable';
 
 interface Position {
@@ -9,10 +9,10 @@ interface Position {
 
 export interface CubicBezierProps {
     points: [number, number, number, number];
+    onChange: (points: [number, number, number, number]) => void;
 }
 
-export const CubicBezier = ({ points: controls }: CubicBezierProps) => {
-    const ref = useRef<HTMLCanvasElement>(null);
+export const CubicBezier = ({ points: controls, onChange }: CubicBezierProps) => {
     const [points, setPosition] = useState<[number, number, number, number]>(controls);
 
     const [xy1, xy2] = useMemo(() => {
@@ -24,6 +24,10 @@ export const CubicBezier = ({ points: controls }: CubicBezierProps) => {
         return [xy1, xy2];
     }, [points]);
 
+    useEffect(() => {
+        onChange(points);
+    }, [points]);
+
     return (
         <div className="relative h-[226px] w-full">
             <svg
@@ -33,14 +37,24 @@ export const CubicBezier = ({ points: controls }: CubicBezierProps) => {
                 width={222}
                 xmlns="http://www.w3.org/2000/svg"
             >
+                {/** Subdivision Lines */}
+                <line x1={55} x2={55} y1={0} y2={222} stroke="#f1f5f9" strokeWidth="2" />
+                <line x1={111} x2={111} y1={0} y2={222} stroke="#f1f5f9" strokeWidth="2" />
+                <line x1={166} x2={166} y1={0} y2={222} stroke="#f1f5f9" strokeWidth="2" />
+                <line x1={0} x2={222} y1={55} y2={55} stroke="#f1f5f9" strokeWidth="2" />
+                <line x1={0} x2={222} y1={111} y2={111} stroke="#f1f5f9" strokeWidth="2" />
+                <line x1={0} x2={222} y1={166} y2={166} stroke="#f1f5f9" strokeWidth="2" />
+
+                {/** Handle Lines */}
+                <line x1={0} x2={xy1.x} y1={222} y2={xy1.y} stroke="#94a3b8" strokeWidth="2" />
+                <line x1={222} x2={xy2.x} y1={0} y2={xy2.y} stroke="#94a3b8" strokeWidth="2" />
+
                 <path
                     d={`M 0 222 C ${xy1.x} ${xy1.y}, ${xy2.x} ${xy2.y}, 222 0`}
                     stroke="#0000ff"
                     strokeWidth={2}
                     fill="none"
                 />
-                <line x1={0} x2={xy1.x} y1={222} y2={xy1.y} stroke="#94a3b8" stroke-width="2" />
-                <line x1={222} x2={xy2.x} y1={0} y2={xy2.y} stroke="#94a3b8" stroke-width="2" />
             </svg>
             <ControlPoint
                 position={xy1}

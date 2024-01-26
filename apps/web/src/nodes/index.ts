@@ -45,7 +45,9 @@ import { ToHSV } from './color/ToHSV/ToHSV';
 import { HSVRGB } from './color/HSVRGB/HSVRGB';
 import { RGB } from './color/RGB/RGB';
 import { MathNodes } from './math';
-import { CubicBezier } from './utilities/CubicBezier/CubicBezier';
+import { CubicBezier } from './easings/CubicBezier/CubicBezier';
+import { EasingNodes } from './easings';
+import { Utilities } from './utilities';
 
 // WebGL
 const WebGLCommonNodes = [Fragment, Mix, Fractional, Minimum, Maximum, Absolute, Sign, Floor, Ceil, Smoothstep];
@@ -78,9 +80,6 @@ export const ColorNodes = [
 // AI
 export const AINodes = [Image, Prompt].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
-// Utilities
-export const Utilities = [Console, Timer, CubicBezier].sort((a, b) => a.displayName.localeCompare(b.displayName));
-
 // Node Groups
 export const NodeGroups = [
     {
@@ -92,15 +91,19 @@ export const NodeGroups = [
         nodes: MathNodes
     },
     {
-        name: 'Color Nodes',
+        name: 'Easing',
+        nodes: EasingNodes
+    },
+    {
+        name: 'Color',
         nodes: ColorNodes
     },
     {
-        name: 'WebGL Nodes',
+        name: 'WebGL',
         nodes: WebGLNodes
     },
     {
-        name: 'Utility Nodes',
+        name: 'Utility',
         nodes: Utilities
     }
 ];

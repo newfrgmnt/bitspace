@@ -12,7 +12,7 @@ import { ToHSV } from '../../../nodes/color/ToHSV/ToHSV';
 import { ComplementaryHarmony } from '../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { HSV } from '../../../nodes/color/HSV/HSV';
 import { PropertyPanel } from '../../../containers/PropertyPanel/PropertyPanel';
-import { CubicBezier } from '../../../nodes/utilities/CubicBezier/CubicBezier';
+import { CubicBezier } from '../../../nodes/easings/CubicBezier/CubicBezier';
 
 export default function Page(): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
