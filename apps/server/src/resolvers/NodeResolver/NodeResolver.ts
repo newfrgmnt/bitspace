@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Authorized, Arg, Args } from 'type-graphql';
-import { PrismaClient, Node } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { NodeCreateInput } from './NodeCreateInput';
 
 @Resolver(Node)

@@ -8,14 +8,14 @@ export const useKeyboardActions = (store: CircuitStore) => {
     const removeNodes = React.useCallback(() => {
         for (const node of store.selectedNodes || []) {
             node.dispose();
-            store.removeNode(node.id);
+            store.removeNode(node);
         }
 
         store.selectNodes([]);
     }, [store]);
 
     const selectAllNodes = React.useCallback(() => {
-        store.selectNodes(store.nodes);
+        store.selectNodes(store.circuit.nodes);
     }, [store]);
 
     const deselectAllNodes = React.useCallback(() => {

@@ -11,11 +11,14 @@ import { Port } from '../Port/Port';
 import { NodeActionProps, NodePortsProps, NodeProps } from './Node.types';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { Circuit } from '@bitspace/circuit';
+import { useRouter } from 'next/navigation';
 
 export const Node = observer(({ node, actions, window }: NodeProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
     const { store } = React.useContext(StoreContext);
+    const router = useRouter();
 
     React.useEffect(() => {
         if (ref.current) {
@@ -60,8 +63,14 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     const handleRemoveNode = React.useCallback(() => {
         node.dispose();
 
-        store.removeNode(node.id);
+        store.removeNode(node);
     }, [node]);
+
+    const handleDoubleClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback(() => {
+        if (node instanceof Circuit) {
+            router.push(`/circuit/${store.circuit.id}/${node.id}`);
+        }
+    }, [node, store]);
 
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
@@ -110,6 +119,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                 onFocus={handleOnFocus}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
+                onDoubleClick={handleDoubleClick}
                 tabIndex={0}
                 variants={{
                     initial: {

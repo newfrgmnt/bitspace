@@ -6,3 +6,4 @@ export * from './Output/Output';
 export * from './Output/Output.types';
 export * from './Schema/Schema';
 export * from './Schema/Schema.types';
+export * from './Circuit/Circuit';

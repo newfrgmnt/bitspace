@@ -19,7 +19,7 @@ const Nodes = observer(({ windowResolver }: { windowResolver?: NodeWindowResolve
 
     return (
         <>
-            {store.nodes.map(node => (
+            {store.circuit.nodes.map(node => (
                 <Node key={node.id} node={node} window={windowResolver?.(node)} />
             ))}
         </>
@@ -134,7 +134,7 @@ export const Circuit = observer(
 
         React.useEffect(() => {
             return reaction(
-                () => props.store.nodes,
+                () => props.store.circuit.nodes,
                 (nodes, prevNodes) => {
                     const removedNodes = prevNodes.filter(node => !nodes.includes(node));
 

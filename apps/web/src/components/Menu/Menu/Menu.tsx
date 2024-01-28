@@ -38,8 +38,6 @@ export const Menu = ({ onClose }: MenuProps) => {
     const handlePress = useCallback(() => {
         const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
 
-        console.log(matchingNode);
-
         if (matchingNode) {
             const node = new matchingNode();
             store.setNodes([[node, { x: 0, y: 0 }]]);

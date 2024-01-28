@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@bitspace/circuit';
+import { Node, Output } from '@bitspace/circuit';
 import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { cubicBezier } from 'framer-motion';
 import { EasingSchema } from '../../../schemas/EasingSchema';

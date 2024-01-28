@@ -1,4 +1,4 @@
-import { Connection, Input, Node, Output } from '@bitspace/circuit';
+import { Connection, Input, Node, Output, Circuit } from '@bitspace/circuit';
 import { isEmpty, isEqual, xorWith } from 'lodash';
 import { autorun, IReactionDisposer, makeAutoObservable } from 'mobx';
 import { createContext } from 'react';
@@ -11,7 +11,7 @@ import { MousePosition, NodeWithPosition, StoreProviderValue } from './CircuitSt
 
 export class CircuitStore {
     /** Associated Nodes */
-    public nodes: Node[] = [];
+    public circuit: Circuit;
     /** Associated Node Elements */
     public nodeElements: Map<Node['id'], HTMLDivElement> = new Map();
     /** Node Positions */
@@ -30,7 +30,9 @@ export class CircuitStore {
     /** Selection Bounds autorun disposer */
     private selectionBoundsDisposer: IReactionDisposer;
 
-    constructor() {
+    constructor(circuit: Circuit) {
+        this.circuit = circuit;
+
         makeAutoObservable(this);
 
         this.selectionBoundsDisposer = this.onSelectionBoundsChange();
@@ -38,7 +40,7 @@ export class CircuitStore {
 
     /** All associated connections */
     public get connections() {
-        return this.nodes
+        return this.circuit.nodes
             .flatMap(node => node.connections)
             .filter((value, index, self) => self.indexOf(value) === index);
     }
@@ -46,16 +48,16 @@ export class CircuitStore {
     /** Sets the associated nodes */
     public setNodes(nodesWithPosition: NodeWithPosition[]) {
         for (const [node, position] of nodesWithPosition) {
-            this.nodes.push(node);
+            this.circuit.addNode(node);
             this.nodePositions.set(node.id, position);
         }
     }
 
     /** Removes a node from the store */
-    public removeNode(nodeId: Node['id']) {
-        this.nodes = this.nodes.filter(node => node.id !== nodeId);
-        this.nodeElements.delete(nodeId);
-        this.nodePositions.delete(nodeId);
+    public removeNode(node: Node) {
+        this.circuit.removeNode(node);
+        this.nodeElements.delete(node.id);
+        this.nodePositions.delete(node.id);
     }
 
     /** Associates a given Node instance with an HTML Element */
@@ -121,14 +123,14 @@ export class CircuitStore {
 
     /** Returns the node with the associated port */
     public getNodeByPortId(portId: Input['id'] | Output['id']) {
-        return this.nodes.find(node => {
+        return this.circuit.nodes.find(node => {
             return [...Object.values(node.inputs), ...Object.values(node.outputs)].some(port => port.id === portId);
         });
     }
 
     /** Disposes the store by cleaning up effects */
     public dispose(): void {
-        this.nodes = [];
+        this.circuit.dispose();
         this.nodeElements.clear();
         this.nodePositions.clear();
         this.portElements.clear();
@@ -148,7 +150,7 @@ export class CircuitStore {
 
                 const selectionCandidates = [];
 
-                for (const node of this.nodes) {
+                for (const node of this.circuit.nodes) {
                     const nodeElement = this.nodeElements.get(node.id);
 
                     if (nodeElement) {
@@ -178,7 +180,7 @@ export class CircuitStore {
 }
 
 const defaultStoreProviderValue: StoreProviderValue = {
-    store: new CircuitStore()
+    store: new CircuitStore(new Circuit())
 };
 
 export const StoreContext = createContext(defaultStoreProviderValue);

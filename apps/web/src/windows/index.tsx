@@ -13,8 +13,8 @@ import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
 import { HSV } from '../nodes/color/HSV/HSV';
-import { CubicBezier } from '../components/CubicBezier/CubicBezier';
 import { CubicBezierWindow } from './CubicBezierWindow';
+import { CubicBezier } from '../nodes/easings/CubicBezier/CubicBezier';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if ('displayName' in node.constructor === false) return <></>;
@@ -36,7 +36,7 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
                 </NodeWindow>
             );
         case 'Cubic Bezier':
-            return <CubicBezierWindow node={node} />;
+            return <CubicBezierWindow node={node as CubicBezier} />;
         case 'Triad Harmony':
         case 'Analogous Harmony':
         case 'Square Harmony':
