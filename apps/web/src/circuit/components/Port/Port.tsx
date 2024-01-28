@@ -10,6 +10,7 @@ import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';
 import clsx from 'clsx';
 import { CloseOutlined } from '@mui/icons-material';
+import posthog from 'posthog-js';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -44,6 +45,8 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
 
             if (isOutput) {
                 store.setDraftConnectionSource(port as Output<any>);
+
+                posthog.capture('Connection Draft initiated');
             }
         },
         [isOutput]
@@ -52,6 +55,8 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && store.draftConnectionSource) {
             store.commitDraftConnection(port as Input<any>);
+
+            posthog.capture('Connection established');
         }
     }, [isOutput]);
 
@@ -62,6 +67,8 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
             for (const connection of connections) {
                 if (connection) {
                     connection.dispose();
+
+                    posthog.capture('Connection removed on port click');
                 }
             }
         }

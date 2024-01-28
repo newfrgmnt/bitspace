@@ -9,6 +9,7 @@ import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { ConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
 import { motion } from 'framer-motion';
+import posthog from 'posthog-js';
 
 const INPUT_PORT_OFFSET_X = 16;
 const INPUT_PORT_OFFSET_Y = 12;
@@ -116,6 +117,8 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
     const handleClick = React.useCallback(() => {
         if (connection) {
             connection.dispose();
+
+            posthog.capture('Connection removed on connection click');
         }
     }, [connection]);
 

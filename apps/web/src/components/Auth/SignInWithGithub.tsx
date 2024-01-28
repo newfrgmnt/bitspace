@@ -1,5 +1,6 @@
 import { signIn } from 'next-auth/react';
-import { ComponentProps } from 'react';
+import posthog from 'posthog-js';
+import { ComponentProps, useCallback } from 'react';
 
 const GithubIcon = (props: ComponentProps<'svg'>) => (
     <svg {...props} fill="currentColor" viewBox="0 0 20 20">
@@ -11,12 +12,20 @@ const GithubIcon = (props: ComponentProps<'svg'>) => (
     </svg>
 );
 
-export const SignInWithGithub = () => (
-    <button
-        className="bg-white rounded-xl py-3 px-4 hover:bg-slate-100 transition-colors flex flex-row gap-x-3 items-center shadow-2xl"
-        onClick={() => signIn('github')}
-    >
-        <GithubIcon className="w-6 h-6" />
-        <span>Continue with GitHub</span>
-    </button>
-);
+export const SignInWithGithub = () => {
+    const handleClick = useCallback(() => {
+        signIn('github');
+
+        posthog.capture('Sign In with GitHub initiated');
+    }, []);
+
+    return (
+        <button
+            className="bg-white rounded-xl py-3 px-4 hover:bg-slate-100 transition-colors flex flex-row gap-x-3 items-center shadow-2xl"
+            onClick={handleClick}
+        >
+            <GithubIcon className="w-6 h-6" />
+            <span>Continue with GitHub</span>
+        </button>
+    );
+};

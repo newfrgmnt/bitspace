@@ -29,6 +29,7 @@
         "next": "^14.0.3",
         "next-auth": "^4.24.5",
         "openai": "^4.24.7",
+        "posthog-js": "^1.103.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-draggable": "^4.4.6",

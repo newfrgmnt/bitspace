@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
 import { startCase } from 'lodash';
+import posthog from 'posthog-js';
 
 export interface MenuProps {
     onClose: () => void;
@@ -42,6 +43,10 @@ export const Menu = ({ onClose }: MenuProps) => {
             const node = new matchingNode();
             store.setNodes([[node, { x: 0, y: 0 }]]);
             store.selectNodes([node]);
+
+            /** @ts-ignore */
+            posthog.capture('Node Created from Menu', { node: node.constructor.displayName });
+
             onClose();
         }
     }, [matchingGroups, onClose, store, activeIndex]);

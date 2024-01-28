@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { Circuit as CircuitComponent, CircuitStore, StoreContext } from '../../../../circuit';
-import { MenuButton } from '../../../../components/Menu/MenuButton/MenuButton';
-import { Menu } from '../../../../components/Menu/Menu/Menu';
-import { nodeWindowResolver } from '../../../../windows';
+import { useCallback, useState } from 'react';
+import { Circuit as CircuitComponent, CircuitStore, StoreContext } from '../../../circuit';
+import { MenuButton } from '../../../components/Menu/MenuButton/MenuButton';
+import { Menu } from '../../../components/Menu/Menu/Menu';
+import { nodeWindowResolver } from '../../../windows';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { Journey } from '../../../../components/Onboarding/Journey';
-import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPanel';
+import { Journey } from '../../../components/Onboarding/Journey';
+import { PropertyPanel } from '../../../containers/PropertyPanel/PropertyPanel';
+import posthog from 'posthog-js';
 
 export default function Page({ circuitStore }: { circuitStore: CircuitStore }): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -17,11 +18,19 @@ export default function Page({ circuitStore }: { circuitStore: CircuitStore }): 
             e.preventDefault();
             e.stopPropagation();
             setMenuOpen(true);
+
+            posthog.capture('Menu invoked from hotkey');
         },
         {
             enabled: !menuOpen
         }
     );
+
+    const onMenuButtonClick = useCallback(() => {
+        setMenuOpen(true);
+
+        posthog.capture('Menu invoked from button');
+    }, [setMenuOpen]);
 
     return (
         <main className="flex flex-col justify-between h-screen w-screen cursor-[url('/cursor.svg')_4_4,auto]">
@@ -31,7 +40,7 @@ export default function Page({ circuitStore }: { circuitStore: CircuitStore }): 
                 <PropertyPanel className="fixed right-20 top-20" />
             </StoreContext.Provider>
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
-                {<MenuButton onClick={() => setMenuOpen(true)} animate={menuOpen} />}
+                {<MenuButton onClick={onMenuButtonClick} animate={menuOpen} />}
             </div>
             <Journey
                 steps={[

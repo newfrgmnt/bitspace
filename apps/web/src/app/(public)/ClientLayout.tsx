@@ -1,10 +1,10 @@
 'use client';
 
-import './globals.css';
 import { motion } from 'framer-motion';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { SignInWithGithub } from '../components/Auth/SignInWithGithub';
+import { SignInWithGithub } from '../../components/Auth/SignInWithGithub';
+import posthog from 'posthog-js';
 
 export function ClientLayout({ children }: { children: React.ReactNode }): JSX.Element {
     const { status, data: auth } = useSession();
@@ -42,7 +42,10 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
                             style={{
                                 backgroundImage: `url(${auth.user?.image})`
                             }}
-                            onClick={() => signOut()}
+                            onClick={() => {
+                                signOut();
+                                posthog.reset();
+                            }}
                         />
                     ) : (
                         <SignInWithGithub />
