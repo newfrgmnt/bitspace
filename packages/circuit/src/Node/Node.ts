@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
-import { NodeData } from './Node.types';
+import { NodeData, SerializedNode } from './Node.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
@@ -46,5 +46,18 @@ export abstract class Node<TData extends NodeData = NodeData> {
         for (const output of Object.values(this.outputs)) {
             output.dispose();
         }
+    }
+
+    /** Serializes Node */
+    public toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            /** @ts-ignore */
+            displayName: this.constructor.displayName,
+            data: this.data,
+            inputs: this.inputs,
+            outputs: this.outputs
+        };
     }
 }

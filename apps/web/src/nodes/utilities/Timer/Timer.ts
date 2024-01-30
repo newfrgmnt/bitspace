@@ -1,11 +1,13 @@
 import { z } from 'zod';
 import { Node, Output, schema } from '@bitspace/circuit';
-import { interval } from 'rxjs';
+import { interval, map } from 'rxjs';
 
 const NumberSchema = schema('Number', z.number());
 
 export class Timer extends Node {
     static displayName = 'Timer';
+
+    public startTime = Date.now();
 
     inputs = {};
 
@@ -13,7 +15,7 @@ export class Timer extends Node {
         time: new Output({
             name: 'Time',
             type: NumberSchema,
-            observable: interval(30)
+            observable: interval(1000 / 60).pipe(map(() => Date.now() - this.startTime))
         })
     };
 }

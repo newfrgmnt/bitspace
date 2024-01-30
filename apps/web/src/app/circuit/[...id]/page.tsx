@@ -12,8 +12,6 @@ import { useParams } from 'next/navigation';
 const buildCircuitStores = () => {
     const circuitA = new Circuit();
 
-    const output = circuitA.nodes[0];
-
     const timer = new Timer();
     const toHSV = new ToHSV();
     const cHarmonyNode = new ComplementaryHarmony();
@@ -25,12 +23,7 @@ const buildCircuitStores = () => {
     cHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
     cHarmonyNode.outputs.b.connect(hsvNode2.inputs.color);
 
-    // @ts-ignore
-    hsvNode.outputs.hue.connect(output?.inputs?.output);
-
     const circuitStore = new CircuitStore(circuitA);
-
-    circuitStore.setNodePosition(output?.id ?? '', { x: 1200, y: 0 });
 
     circuitStore.setNodes([
         [timer, { x: -600, y: 200 }],
