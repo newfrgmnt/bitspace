@@ -7,8 +7,7 @@ import posthog from 'posthog-js';
 
 if (typeof window !== 'undefined') {
     posthog.init(process.env.POSTHOG_API_KEY as string, {
-        api_host: process.env.POSTHOG_API_HOST as string,
-        capture_pageview: false // Disable automatic pageview capture, as we capture manually
+        api_host: process.env.POSTHOG_API_HOST as string
     });
 }
 
