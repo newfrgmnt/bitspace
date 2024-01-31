@@ -1,8 +1,9 @@
-import 'reflect-metadata';
 import express from 'express';
 import http from 'http';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { CircuitModel } from './models/Circuit';
 
 dotenv.config();
 
@@ -13,8 +14,10 @@ const server = http.createServer(app);
 app.use(morgan('combined'));
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
-server.listen(PORT, () => {
+server.listen(PORT, async () => {
+    await mongoose.connect(process.env.DATABASE_URI as string);
+
     console.log(`Server is running on http://localhost:${PORT}`);
 });
