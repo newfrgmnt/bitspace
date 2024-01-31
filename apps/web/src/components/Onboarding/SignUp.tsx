@@ -12,7 +12,7 @@ export const SignUp = () => {
 
     return (
         <Panel
-            className="fixed left-12 bottom-12 right-12 md:right-unset md:w-80 h-fit justify-between"
+            className="right-4 bottom-4 left-4 md:right-[unset] md:left-12 md:bottom-12 fixed md:w-80 md:h-fit justify-between z-20"
             variants={{
                 initial: { y: 300, opacity: 0 },
                 animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
@@ -32,7 +32,7 @@ export const SignUp = () => {
                         animate: { opacity: 1, transition: { duration: 1, ease: 'linear' } }
                     }}
                 >
-                    <div className="absolute top-0 -right-0 text-gray-500" is="button">
+                    <div className="absolute -top-4 -right-4 text-gray-500" is="button">
                         <CloseOutlined onClick={() => toggle(false)} fontSize="small" />
                     </div>
                     <div className="flex flex-col gap-y-6 flex-grow">
