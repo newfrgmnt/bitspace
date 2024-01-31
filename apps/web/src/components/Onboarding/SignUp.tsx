@@ -50,7 +50,7 @@ export const SignUp = () => {
                     <Link
                         className="flex flex-row gap-x-2 rounded-full pl-3 pr-6 py-2 items-center bg-blue-700 hover:bg-blue-500 transition-colors self-start text-blue-50"
                         target="_blank"
-                        href="https://polar.sh/emilwidlund"
+                        href="https://polar.sh/emilwidlund/subscriptions"
                     >
                         <PolarIcon size={24} className="text-white" />
                         <span className="text-sm">Subscribe on Polar</span>
