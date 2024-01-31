@@ -27,6 +27,7 @@
         "lodash": "^4.17.21",
         "mobx": "^6.8.0",
         "mobx-react-lite": "^4.0.5",
+        "mongoose": "^8.1.1",
         "next": "^14.0.3",
         "next-auth": "^4.24.5",
         "openai": "^4.24.7",
