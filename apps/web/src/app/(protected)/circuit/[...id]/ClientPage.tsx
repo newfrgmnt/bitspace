@@ -1,16 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { Circuit as CircuitComponent, CircuitStore, StoreContext } from '../../../circuit';
-import { MenuButton } from '../../../components/Menu/MenuButton/MenuButton';
-import { Menu } from '../../../components/Menu/Menu/Menu';
-import { nodeWindowResolver } from '../../../windows';
+import { Circuit as CircuitComponent, CircuitStore, StoreContext } from '../../../../circuit';
+import { MenuButton } from '../../../../components/Menu/MenuButton/MenuButton';
+import { Menu } from '../../../../components/Menu/Menu/Menu';
+import { nodeWindowResolver } from '../../../../windows';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { Journey } from '../../../components/Onboarding/Journey';
-import { PropertyPanel } from '../../../containers/PropertyPanel/PropertyPanel';
+import { Journey } from '../../../../components/Onboarding/Journey';
+import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPanel';
 import posthog from 'posthog-js';
-import { NodeGroups } from '../../../nodes';
-import { Circuit, CircuitInputsNode, CircuitOutputNode } from '@bitspace/circuit';
 
 export default function Page({ circuitStore }: { circuitStore: CircuitStore }): JSX.Element {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -27,17 +25,6 @@ export default function Page({ circuitStore }: { circuitStore: CircuitStore }): 
             enabled: !menuOpen
         }
     );
-
-    useEffect(() => {
-        console.log(
-            'circuitStore',
-            Circuit.from(
-                JSON.parse(JSON.stringify(circuitStore.circuit)),
-                /** @ts-ignore */
-                [...NodeGroups.flatMap(g => g.nodes), CircuitInputsNode, CircuitOutputNode, Circuit]
-            )
-        );
-    }, []);
 
     const onMenuButtonClick = useCallback(() => {
         setMenuOpen(true);

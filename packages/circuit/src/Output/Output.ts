@@ -64,13 +64,4 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
         this.subscription.unsubscribe();
         this.unsubscribe();
     }
-
-    /** Serializes Port */
-    public toJSON() {
-        return {
-            id: this.id,
-            name: this.name,
-            connections: this.connections
-        };
-    }
 }

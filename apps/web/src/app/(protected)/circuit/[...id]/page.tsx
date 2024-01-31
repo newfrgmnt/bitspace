@@ -2,11 +2,11 @@
 
 import { Circuit } from '@bitspace/circuit';
 import ClientPage from './ClientPage';
-import { Timer } from '../../../nodes/utilities/Timer/Timer';
-import { ToHSV } from '../../../nodes/color/ToHSV/ToHSV';
-import { ComplementaryHarmony } from '../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
-import { HSV } from '../../../nodes/color/HSV/HSV';
-import { CircuitStore } from '../../../circuit';
+import { Timer } from '../../../../nodes/utilities/Timer/Timer';
+import { ToHSV } from '../../../../nodes/color/ToHSV/ToHSV';
+import { ComplementaryHarmony } from '../../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
+import { HSV } from '../../../../nodes/color/HSV/HSV';
+import { CircuitStore } from '../../../../circuit';
 import { useParams } from 'next/navigation';
 
 const buildCircuitStores = () => {

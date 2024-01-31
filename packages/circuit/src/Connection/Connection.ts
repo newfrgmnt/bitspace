@@ -57,13 +57,4 @@ export class Connection<T> extends Subject<T> {
 
         this.to.next(this.to.defaultValue);
     }
-
-    /** Serializes Connection */
-    public toJSON() {
-        return {
-            id: this.id,
-            from: this.from.id,
-            to: this.to.id
-        };
-    }
 }

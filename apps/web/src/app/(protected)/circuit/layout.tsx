@@ -1,8 +1,11 @@
-import '../globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Providers } from '../providers';
+import { Providers } from '../../providers';
 import { ClientLayout } from './ClientLayout';
+import posthog from 'posthog-js';
+
+/** @ts-ignore */
+posthog.init(process.env.POSTHOG_API_KEY, { api_host: process.env.POSTHOG_HOST });
 
 const inter = Inter({ subsets: ['latin'] });
 

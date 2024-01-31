@@ -28,75 +28,6 @@ export class Circuit extends Node {
         })
     };
 
-    /** Restores a Circuit from JSON */
-    public static from(serializedCircuit: SerializedCircuit, nodeCollection: NodeConstructor[]): Circuit {
-        const circuit = new Circuit();
-
-        circuit.id = serializedCircuit.id;
-        circuit.name = serializedCircuit.name;
-        circuit.data = serializedCircuit.data;
-
-        const connectionCache = new Map<Output['id'], Input<any>['id']>();
-        const portCache = new Map<Input['id'] | Output['id'], Input<any> | Output<any>>();
-
-        for (const serializedNode of serializedCircuit.nodes) {
-            const nodeConstructor = nodeCollection.find(
-                nodeConstructor => nodeConstructor.displayName === serializedNode.displayName
-            );
-
-            if (!nodeConstructor) continue;
-
-            const node =
-                nodeConstructor.displayName === 'Circuit'
-                    ? Circuit.from(serializedNode as SerializedCircuit, nodeCollection)
-                    : /** @ts-ignore */
-                      new nodeConstructor(circuit);
-
-            node.id = serializedNode.id;
-            node.name = serializedNode.name;
-            node.data = serializedNode.data;
-
-            for (const [outputName, serializedOutput] of Object.entries(serializedNode.outputs)) {
-                const output = node.outputs[outputName];
-
-                if (output) {
-                    output.id = serializedOutput.id;
-                    output.name = serializedOutput.name;
-
-                    portCache.set(output.id, output);
-
-                    for (const serializedConnection of serializedOutput.connections) {
-                        connectionCache.set(serializedConnection.from, serializedConnection.to);
-                    }
-                }
-            }
-
-            for (const [inputName, serializedInput] of Object.entries(serializedNode.inputs)) {
-                const input = node.inputs[inputName];
-
-                if (input) {
-                    input.id = serializedInput.id;
-                    input.name = serializedInput.name;
-
-                    portCache.set(input.id, input);
-                }
-            }
-
-            circuit.addNode(node);
-        }
-
-        for (const [outputId, inputId] of connectionCache.entries()) {
-            const output = portCache.get(outputId);
-            const input = portCache.get(inputId);
-
-            if (output && input) {
-                (output as Output).connect(input as Input);
-            }
-        }
-
-        return circuit;
-    }
-
     constructor() {
         super();
 
@@ -128,14 +59,6 @@ export class Circuit extends Node {
         this.inputs[inputProps.name] = new Input(inputProps);
 
         return this;
-    }
-
-    /** Serializes Circuit */
-    public toJSON() {
-        return {
-            ...super.toJSON(),
-            nodes: this.nodes
-        };
     }
 }
 

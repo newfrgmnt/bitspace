@@ -49,22 +49,4 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
 
         this.unsubscribe();
     }
-
-    /** Serializes Port */
-    public toJSON() {
-        let value: string | null = null;
-
-        try {
-            value = JSON.stringify(this.value);
-        } catch (err) {
-            value = null;
-        }
-
-        return {
-            id: this.id,
-            name: this.name,
-            connection: this.connection,
-            value
-        };
-    }
 }

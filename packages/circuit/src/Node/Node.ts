@@ -47,17 +47,4 @@ export abstract class Node<TData extends NodeData = NodeData> {
             output.dispose();
         }
     }
-
-    /** Serializes Node */
-    public toJSON() {
-        return {
-            id: this.id,
-            name: this.name,
-            /** @ts-ignore */
-            displayName: this.constructor.displayName,
-            data: this.data,
-            inputs: this.inputs,
-            outputs: this.outputs
-        };
-    }
 }

@@ -27,7 +27,10 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
                     <h3 className="text-3xl">Bitspace</h3>
                 </Link>
                 <div className="flex flex-row items-center gap-x-12">
-                    <Link href="/mission">
+                    <Link
+                        href="https://polar.sh/emilwidlund/posts/introducing-bitspace-a-playground-for-your-creative-ideas"
+                        target="_blank"
+                    >
                         <h3 className="text-xl">Mission</h3>
                     </Link>
                     <Link href="/preview-access">

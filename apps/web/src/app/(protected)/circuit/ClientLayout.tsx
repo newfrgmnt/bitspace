@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { SignInWithGithub } from '../../components/Auth/SignInWithGithub';
-import { useNestedCircuit } from '../../hooks/useNestedCircuit/useNestedCircuit';
+import { SignInWithGithub } from '../../../components/Auth/SignInWithGithub';
+import { useNestedCircuit } from '../../../hooks/useNestedCircuit/useNestedCircuit';
 import { ArrowBackOutlined } from '@mui/icons-material';
 import posthog from 'posthog-js';
 import { useEffect } from 'react';
