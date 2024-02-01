@@ -3,7 +3,7 @@ import http from 'http';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { CircuitModel } from './models/Circuit';
+import { CircuitModel } from '../../web/src/server/models/Circuit';
 
 dotenv.config();
 
