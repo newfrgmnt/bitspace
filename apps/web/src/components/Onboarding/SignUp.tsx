@@ -12,7 +12,7 @@ export const SignUp = () => {
 
     return (
         <Panel
-            className="right-4 bottom-4 left-4 md:right-[unset] md:left-12 md:bottom-12 fixed md:w-80 md:h-fit justify-between z-20"
+            className="right-4 bottom-4 left-4 md:right-[unset] md:left-12 md:bottom-12 fixed md:w-80 justify-between z-20"
             variants={{
                 initial: { y: 300, opacity: 0 },
                 animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
