@@ -1,7 +1,7 @@
 import React, { KeyboardEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
-import { NodeGroups } from '../../../nodes';
+import { NodeConstructor, NodeGroups } from '../../../nodes';
 import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
@@ -48,7 +48,7 @@ export const Menu = ({ onClose }: MenuProps) => {
 
             const created = await createNode({
                 name: node.name,
-                type: upperCase(node.constructor.displayName) as NodeType,
+                type: upperCase((node.constructor as NodeConstructor).type),
                 parentId: store.circuit.id,
                 position: {
                     create: {
