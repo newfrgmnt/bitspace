@@ -53,7 +53,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             e.stopPropagation();
 
             for (const selectedNode of store.selectedNodes || []) {
-                node.setPosition((selectedNode.position?.x || 0) + deltaX, (selectedNode.position.y || 0) + -deltaY);
+                selectedNode.incrementPosition(deltaX, -deltaY);
             }
         },
         [node]

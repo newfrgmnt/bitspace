@@ -30,6 +30,7 @@ export abstract class Node<TData extends NodeData = NodeData> {
             position: observable,
             connections: computed,
             setPosition: action,
+            incrementPosition: action,
             dispose: action
         });
     }
@@ -44,6 +45,11 @@ export abstract class Node<TData extends NodeData = NodeData> {
     /** Set Position */
     public setPosition(x: number, y: number): void {
         this.position = { x, y };
+    }
+
+    /** Increment Position */
+    public incrementPosition(deltaX: number, deltaY: number) {
+        this.setPosition(this.position.x + deltaX, this.position.y + deltaY);
     }
 
     /** Disposes the Node */
