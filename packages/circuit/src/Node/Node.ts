@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
-import { NodeData, SerializedNode } from './Node.types';
+import { NodeData } from './Node.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
@@ -17,6 +17,8 @@ export abstract class Node<TData extends NodeData = NodeData> {
     public abstract outputs: Record<string, Output>;
     /** Arbitrary Data Store */
     public data: TData = {} as TData;
+    /** Node Position */
+    public position = { x: 0, y: 0 };
 
     /** Node Display Name */
     public static displayName: string = '';
@@ -25,7 +27,9 @@ export abstract class Node<TData extends NodeData = NodeData> {
         makeObservable(this, {
             id: observable,
             data: observable,
+            position: observable,
             connections: computed,
+            setPosition: action,
             dispose: action
         });
     }
@@ -35,6 +39,11 @@ export abstract class Node<TData extends NodeData = NodeData> {
         return [...Object.values(this.inputs), ...Object.values(this.outputs)]
             .flatMap(port => ('connection' in port ? [port.connection] : port.connections))
             .filter((connection): connection is Connection<unknown> => Boolean(connection));
+    }
+
+    /** Set Position */
+    public setPosition(x: number, y: number): void {
+        this.position = { x, y };
     }
 
     /** Disposes the Node */
