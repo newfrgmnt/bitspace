@@ -12,6 +12,7 @@ import clsx from 'clsx';
 import { CloseOutlined } from '@mui/icons-material';
 import posthog from 'posthog-js';
 import { createConnection } from '../../../server/mutations/createConnection';
+import { removeConnection } from '../../../server/mutations/removeConnection';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -72,6 +73,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
             for (const connection of connections) {
                 if (connection) {
                     connection.dispose();
+                    removeConnection(connection.from.id, connection.to.id);
 
                     posthog.capture('Connection removed on port click');
                 }
