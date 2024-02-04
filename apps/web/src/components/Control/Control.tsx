@@ -4,11 +4,11 @@ import { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useMe
 
 export interface ControlProps {
     port: Input | Output;
+    disabled?: boolean;
 }
 
-export const Control = observer(({ port }: ControlProps) => {
+export const Control = observer(({ port, disabled }: ControlProps) => {
     const [value, setValue] = useState<any>();
-    const disabled = useMemo(() => port.connected, [port]);
 
     useEffect(() => {
         const subscription = port.subscribe(value => {

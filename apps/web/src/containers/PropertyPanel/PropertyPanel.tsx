@@ -18,25 +18,25 @@ export const PropertyPanel = observer(({ className, ...props }: HTMLMotionProps<
     }
 
     return (
-        <Panel className={clsx('h-fit flex flex-col gap-y-8', className)} {...props}>
+        <Panel className={clsx('h-fit flex flex-col gap-y-8 p-8', className)} {...props}>
             <div className="flex flex-col gap-y-4">
-                <h4 className="font-medium text-lg">Inputs</h4>
+                <h4 className="font-medium">Inputs</h4>
                 <div className="flex flex-col gap-y-1">
                     {inputs.map(input => (
-                        <div key={input.id} className="flex flex-row items-center justify-between">
+                        <div key={input.id} className="flex flex-row items-center justify-between text-sm">
                             <h3 className="font-medium w-full">{input.name}</h3>
-                            <Control port={input} />
+                            <Control port={input} disabled={input.connected} />
                         </div>
                     ))}
                 </div>
             </div>
             <div className="flex flex-col gap-y-4">
-                <h4 className="font-medium text-lg">Outputs</h4>
+                <h4 className="font-medium">Outputs</h4>
                 <div className="flex flex-col gap-y-1">
                     {outputs.map(output => (
-                        <div key={output.id} className="flex flex-row items-center justify-between">
+                        <div key={output.id} className="flex flex-row items-center justify-between text-sm">
                             <h3 className="font-medium w-full">{output.name}</h3>
-                            <Control port={output} />
+                            <Control port={output} disabled />
                         </div>
                     ))}
                 </div>

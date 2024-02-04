@@ -11,7 +11,7 @@ import { CanvasProps } from './Canvas.types';
 
 export const Canvas = observer(
     React.forwardRef<HTMLDivElement, CanvasProps>(
-        ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp }: CanvasProps, ref) => {
+        ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp, onScroll }: CanvasProps, ref) => {
             const scrollRef = React.useRef<HTMLDivElement>(null);
             const { transform, setContainer, panZoomHandlers } = usePanZoom({ enableZoom: false });
 
@@ -49,6 +49,7 @@ export const Canvas = observer(
                     className={clsx('w-full h-full overflow-auto bg-[#f0f2f7] text-slate-400', className)}
                     {...panZoomHandlers}
                     onMouseDown={handleMouseDown}
+                    onScroll={onScroll}
                 >
                     <motion.div
                         ref={ref}

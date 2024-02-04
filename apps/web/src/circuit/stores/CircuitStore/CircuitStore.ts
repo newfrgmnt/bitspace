@@ -7,7 +7,7 @@ import { NODE_CENTER } from '../../constants';
 import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { Bounds } from '../../utils/bounds/bounds.types';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
-import { MousePosition, NodeWithPosition, StoreProviderValue } from './CircuitStore.types';
+import { Position, StoreProviderValue } from './CircuitStore.types';
 
 export class CircuitStore {
     /** Associated Nodes */
@@ -23,7 +23,9 @@ export class CircuitStore {
     /** Selection bounds */
     public selectionBounds: Bounds | null = null;
     /** Mouse Position */
-    public mousePosition: MousePosition = { x: 0, y: 0 };
+    public mousePosition: Position = { x: 0, y: 0 };
+    /** Viewport Position */
+    public viewportPosition: Position = { x: 0, y: 0 };
 
     /** Selection Bounds autorun disposer */
     private selectionBoundsDisposer: IReactionDisposer;
@@ -41,13 +43,6 @@ export class CircuitStore {
         return this.circuit.nodes
             .flatMap(node => node.connections)
             .filter((value, index, self) => self.indexOf(value) === index);
-    }
-
-    /** Sets the associated nodes */
-    public setNodes(nodesWithPosition: NodeWithPosition[]) {
-        for (const [node, position] of nodesWithPosition) {
-            this.circuit.addNode(node);
-        }
     }
 
     /** Removes a node from the store */
@@ -103,8 +98,13 @@ export class CircuitStore {
     }
 
     /** Sets the mouse position */
-    public setMousePosition(mousePosition: MousePosition): void {
+    public setMousePosition(mousePosition: Position): void {
         this.mousePosition = mousePosition;
+    }
+
+    /** Sets the viewport position */
+    public setViewportPosition(position: Position): void {
+        this.viewportPosition = position;
     }
 
     /** Returns the node with the associated port */

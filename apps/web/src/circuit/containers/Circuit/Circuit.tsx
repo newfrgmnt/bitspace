@@ -73,6 +73,20 @@ export const Circuit = observer(
     React.forwardRef<HTMLDivElement, CircuitProps>((props, ref) => {
         useKeyboardActions(props.store);
 
+        const onScroll = React.useCallback(
+            (e: React.UIEvent<HTMLDivElement>) => {
+                if (!(e.target instanceof HTMLDivElement)) {
+                    return;
+                }
+
+                props.store.setViewportPosition({
+                    x: e.target.scrollLeft,
+                    y: e.target.scrollTop
+                });
+            },
+            [props]
+        );
+
         const onMouseMove = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.nativeEvent.clientX - rect.left;
@@ -164,6 +178,7 @@ export const Circuit = observer(
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
+                onScroll={onScroll}
             >
                 <Nodes windowResolver={props.nodeWindowResolver} />
                 <Connections />
