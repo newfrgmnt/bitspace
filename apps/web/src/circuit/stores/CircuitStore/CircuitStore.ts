@@ -14,8 +14,6 @@ export class CircuitStore {
     public circuit: Circuit;
     /** Associated Node Elements */
     public nodeElements: Map<Node['id'], HTMLDivElement> = new Map();
-    /** Node Positions */
-    public nodePositions: Map<Node['id'], { x: number; y: number }> = new Map();
     /** Associated Port Elements */
     public portElements: Map<Input['id'] | Output['id'], HTMLDivElement> = new Map();
     /** Selected Nodes */
@@ -49,7 +47,6 @@ export class CircuitStore {
     public setNodes(nodesWithPosition: NodeWithPosition[]) {
         for (const [node, position] of nodesWithPosition) {
             this.circuit.addNode(node);
-            this.nodePositions.set(node.id, position);
         }
     }
 
@@ -57,7 +54,6 @@ export class CircuitStore {
     public removeNode(node: Node) {
         this.circuit.removeNode(node);
         this.nodeElements.delete(node.id);
-        this.nodePositions.delete(node.id);
     }
 
     /** Associates a given Node instance with an HTML Element */
@@ -111,16 +107,6 @@ export class CircuitStore {
         this.mousePosition = mousePosition;
     }
 
-    /** Sets a node's position */
-    public setNodePosition(nodeId: Node['id'], position: { x: number; y: number }) {
-        this.nodePositions.set(nodeId, position);
-    }
-
-    /** Remove a node's position */
-    public removeNodePosition(nodeId: Node['id']) {
-        this.nodePositions.delete(nodeId);
-    }
-
     /** Returns the node with the associated port */
     public getNodeByPortId(portId: Input['id'] | Output['id']) {
         return this.circuit.nodes.find(node => {
@@ -132,7 +118,6 @@ export class CircuitStore {
     public dispose(): void {
         this.circuit.dispose();
         this.nodeElements.clear();
-        this.nodePositions.clear();
         this.portElements.clear();
         this.selectedNodes = [];
         this.selectionBounds = null;
@@ -156,7 +141,7 @@ export class CircuitStore {
                     if (nodeElement) {
                         const nodeRect = nodeElement.getBoundingClientRect();
 
-                        const nodePosition = this.nodePositions.get(node.id);
+                        const nodePosition = node.position;
 
                         if (
                             nodePosition &&

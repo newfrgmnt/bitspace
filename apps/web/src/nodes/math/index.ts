@@ -1,3 +1,4 @@
+import { NodeType } from '@prisma/client';
 import { Absolute } from './Absolute/Absolute';
 import { Addition } from './Addition/Addition';
 import { Ceil } from './Ceil/Ceil';
@@ -37,3 +38,28 @@ export const MathNodes = [
     SquareRoot,
     Subtraction
 ].sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+export type MathNode =
+    | Absolute
+    | Addition
+    | Ceil
+    | Cosine
+    | Division
+    | Floor
+    | Logarithm
+    | Logarithm2
+    | Max
+    | Min
+    | Modulo
+    | Multiplication
+    | Power
+    | Round
+    | Sign
+    | Sine
+    | SquareRoot
+    | Subtraction;
+
+export interface MathNodeConstructor {
+    new (): MathNode;
+    type: NodeType;
+}

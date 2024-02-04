@@ -13,6 +13,8 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { Circuit } from '@bitspace/circuit';
 import { useRouter } from 'next/navigation';
+import { moveNode } from '../../../server/mutations/moveNode';
+import { removeNode } from '../../../server/mutations/removeNode';
 
 export const Node = observer(({ node, actions, window }: NodeProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -51,10 +53,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             e.stopPropagation();
 
             for (const selectedNode of store.selectedNodes || []) {
-                store.setNodePosition(selectedNode.id, {
-                    x: (store.nodePositions.get(selectedNode.id)?.x || 0) + deltaX,
-                    y: (store.nodePositions.get(selectedNode.id)?.y || 0) + -deltaY
-                });
+                node.setPosition((selectedNode.position?.x || 0) + deltaX, (selectedNode.position.y || 0) + -deltaY);
             }
         },
         [node]
@@ -64,6 +63,8 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
         node.dispose();
 
         store.removeNode(node);
+
+        removeNode(node.id);
     }, [node]);
 
     const handleDoubleClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback(() => {
@@ -73,7 +74,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     }, [node, store]);
 
     const active = store.selectedNodes?.indexOf(node) !== -1;
-    const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
+    const position = node.position || { x: 0, y: 0 };
 
     const nodeWrapperClassNames = clsx(
         `absolute flex flex-col select-none focus:outline-none w-[260px] bg-[#fcfdff] border-white border rounded-3xl transition-shadow active:shadow-2xl opacity-100`,
@@ -111,6 +112,11 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             nodeRef={ref}
             position={fromCanvasCartesianPoint(position.x - NODE_POSITION_OFFSET_X, position.y)}
             onDrag={handleOnDrag}
+            onStop={e => {
+                for (const selectedNode of store.selectedNodes || []) {
+                    moveNode(selectedNode.id, { x: selectedNode.position.x, y: selectedNode.position.y });
+                }
+            }}
         >
             <motion.div
                 ref={ref}

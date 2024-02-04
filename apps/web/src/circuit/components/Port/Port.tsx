@@ -11,6 +11,7 @@ import { PortProps } from './Port.types';
 import clsx from 'clsx';
 import { CloseOutlined } from '@mui/icons-material';
 import posthog from 'posthog-js';
+import { createConnection } from '../../../server/mutations/createConnection';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -54,7 +55,11 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
 
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && store.draftConnectionSource) {
-            store.commitDraftConnection(port as Input<any>);
+            const connection = store.commitDraftConnection(port as Input<any>);
+
+            if (connection) {
+                createConnection(connection.from.id, connection.to.id);
+            }
 
             posthog.capture('Connection established');
         }

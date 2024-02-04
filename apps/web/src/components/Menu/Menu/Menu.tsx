@@ -5,8 +5,10 @@ import { NodeGroups } from '../../../nodes';
 import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
-import { startCase } from 'lodash';
+import { startCase, upperCase } from 'lodash';
 import posthog from 'posthog-js';
+import { createNode } from '../../../server/mutations/createNode';
+import { NodeType } from '@prisma/client';
 
 export interface MenuProps {
     onClose: () => void;
@@ -36,13 +38,48 @@ export const Menu = ({ onClose }: MenuProps) => {
         setActiveIndex(0);
     }, [query]);
 
-    const handlePress = useCallback(() => {
+    const handlePress = useCallback(async () => {
         const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
 
         if (matchingNode) {
             const node = new matchingNode();
             store.setNodes([[node, { x: 0, y: 0 }]]);
             store.selectNodes([node]);
+
+            const created = await createNode({
+                name: node.name,
+                type: upperCase(node.constructor.displayName) as NodeType,
+                parentId: store.circuit.id,
+                position: {
+                    create: {
+                        x: node.position.x,
+                        y: node.position.y
+                    }
+                },
+                inputs: {
+                    createMany: {
+                        data: Object.values(node.inputs).map(input => ({
+                            name: input.name,
+                            value: input.value
+                        }))
+                    }
+                },
+                outputs: {
+                    createMany: {
+                        data: Object.values(node.outputs).map(output => ({ name: output.name }))
+                    }
+                }
+            });
+
+            node.id = created.id;
+
+            for (const input of Object.values(node.inputs)) {
+                input.id = created.inputs.find(i => i.name === input.name)?.id;
+            }
+
+            for (const output of Object.values(node.outputs)) {
+                output.id = created.outputs.find(o => o.name === output.name)?.id;
+            }
 
             /** @ts-ignore */
             posthog.capture('Node Created from Menu', { node: node.constructor.displayName });

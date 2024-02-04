@@ -7,7 +7,7 @@ import { Circuit } from '@bitspace/circuit';
 import { Timer } from '../../../nodes/utilities/Timer/Timer';
 import { ToHSV } from '../../../nodes/color/ToHSV/ToHSV';
 import { ComplementaryHarmony } from '../../../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
-import { HSV } from '../../../nodes/color/HSV/HSV';
+import { HSV } from '../../../nodes/color/FromHSV/FromHSV';
 import { Multiplication } from '../../../nodes/math/Multiplication/Multiplication';
 import { SignUp } from '../../../components/Onboarding/SignUp';
 

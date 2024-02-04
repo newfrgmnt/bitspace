@@ -10,6 +10,7 @@ import { ConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
 import { motion } from 'framer-motion';
 import posthog from 'posthog-js';
+import { removeConnection } from '../../../server/mutations/removeConnection';
 
 const INPUT_PORT_OFFSET_X = 16;
 const INPUT_PORT_OFFSET_Y = 12;
@@ -36,8 +37,8 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
         if (outputElement && inputElement) {
             return autorun(() => {
                 if (connection) {
-                    const fromPosition = store.nodePositions.get(store.getNodeByPortId(connection.from.id)?.id || '');
-                    const toPosition = store.nodePositions.get(store.getNodeByPortId(connection.to.id)?.id || '');
+                    const fromPosition = store.getNodeByPortId(connection.from.id)?.position;
+                    const toPosition = store.getNodeByPortId(connection.to.id)?.position;
 
                     if (!fromPosition || !toPosition) {
                         return;
@@ -85,7 +86,7 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
     React.useEffect(() => {
         if (output && outputElement) {
             return autorun(() => {
-                const outputPosition = store.nodePositions.get(store.getNodeByPortId(output.id)?.id || '');
+                const outputPosition = store.getNodeByPortId(output.id)?.position;
 
                 if (!outputPosition) {
                     return;
@@ -117,6 +118,8 @@ export const Connection = observer(<T,>({ output, connection }: ConnectionProps<
     const handleClick = React.useCallback(() => {
         if (connection) {
             connection.dispose();
+
+            removeConnection(connection.from.id, connection.to.id);
 
             posthog.capture('Connection removed on connection click');
         }

@@ -12,7 +12,7 @@ import { TetradicHarmony } from '../nodes/color/TetradicHarmony/TetradicHarmony'
 import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
-import { HSV } from '../nodes/color/HSV/HSV';
+import { HSV } from '../nodes/color/FromHSV/FromHSV';
 import { CubicBezierWindow } from './CubicBezierWindow';
 import { CubicBezier } from '../nodes/easings/CubicBezier/CubicBezier';
 

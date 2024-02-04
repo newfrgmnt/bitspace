@@ -2,11 +2,13 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 import { HSVSchema } from '../../../schemas/HSVSchema';
+import { NodeType } from '@prisma/client';
 
 const NumberSchema = schema('Number', z.number());
 
 export class ToHSV extends Node {
     static displayName = 'To HSV';
+    static type = NodeType.TO_HSV;
 
     inputs = {
         hue: new Input({

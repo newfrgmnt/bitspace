@@ -3,12 +3,14 @@ import * as React from 'react';
 import { CircuitStore } from '../../stores/CircuitStore/CircuitStore';
 import { KeyboardKey } from '../../types';
 import { KeyboardAction } from './useKeyboardActions.types';
+import { removeNode } from '../../../server/mutations/removeNode';
 
 export const useKeyboardActions = (store: CircuitStore) => {
     const removeNodes = React.useCallback(() => {
         for (const node of store.selectedNodes || []) {
             node.dispose();
             store.removeNode(node);
+            removeNode(node.id);
         }
 
         store.selectNodes([]);

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map, from, switchMap, skip } from 'rxjs';
+import { NodeType } from '@prisma/client';
 
 /** Declare a zod schema for value validation */
 const StringSchema = schema(z.string());
@@ -9,6 +10,7 @@ const ImageSchema = schema('Image', z.string().url());
 
 export class Image extends Node {
     static displayName = 'Image';
+    static type = NodeType.IMAGE_AI;
 
     inputs = {
         prompt: new Input({

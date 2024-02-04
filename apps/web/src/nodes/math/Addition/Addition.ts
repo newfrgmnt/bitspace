@@ -2,9 +2,11 @@ import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
 import { NumberSchema } from '../../../schemas/NumberSchema';
+import { NodeType } from '@prisma/client';
 
 export class Addition extends Node {
     static displayName = 'Addition';
+    static type = NodeType.ADDITION;
 
     inputs = {
         a: new Input({ name: 'A', type: NumberSchema, defaultValue: 0 }),

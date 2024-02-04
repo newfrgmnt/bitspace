@@ -1,11 +1,12 @@
-import { z } from 'zod';
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { HSVSchema } from '../../../schemas/HSVSchema';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
+import { NodeType } from '@prisma/client';
 
 export class TetradicHarmony extends Node {
     static displayName = 'Tetradic Harmony';
+    static type = NodeType.TETRADIC_COLOR;
 
     inputs = {
         color: new Input({

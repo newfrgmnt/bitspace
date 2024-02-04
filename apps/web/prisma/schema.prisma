@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public", "auth"]
+}
+
+model Bit {
+  id        String   @id @default(uuid())
+  name      String
+  rootId    String   @unique
+  root      Node     @relation(fields: [rootId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@schema("public")
+}
+
+model Connection {
+  id     String @id @default(uuid())
+  fromId String
+  from   Output @relation(fields: [fromId], references: [id], onDelete: Cascade)
+  toId   String @unique
+  to     Input  @relation(fields: [toId], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+model NodePosition {
+  nodeId String @unique
+  node   Node   @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  x      Float
+  y      Float
+
+  @@schema("public")
+}
+
+model Node {
+  id        String        @id @default(uuid())
+  name      String        @default("Untitled")
+  type      NodeType
+  bit       Bit?
+  parentId  String?
+  parent    Node?         @relation("node", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Node[]        @relation("node")
+  inputs    Input[]
+  outputs   Output[]
+  position  NodePosition?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@schema("public")
+}
+
+model Input {
+  id         String      @id @default(uuid())
+  name       String      @default("Untitled")
+  nodeId     String?
+  node       Node?       @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  connection Connection?
+  value      Json?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@schema("public")
+}
+
+model Output {
+  id          String       @id @default(uuid())
+  name        String       @default("Untitled")
+  nodeId      String?
+  node        Node?        @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  connections Connection[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@schema("public")
+}
+
+enum NodeType {
+  ADDITION
+  SUBTRACTION
+  MULTIPLICATION
+  DIVISION
+  MODULO
+  POWER
+  SQUARE_ROOT
+  ABSOLUTE
+  SINE
+  COSINE
+  TANGENT
+  ARCSINE
+  ARCCOSINE
+  ARCTANGENT
+  LOGARITHM
+  LOGARITHM2
+  EXPONENTIAL
+  PI
+  EULER
+  MIN
+  MAX
+  CEIL
+  FLOOR
+  ROUND
+  RANDOM
+  SIGN
+
+  TRIAD_COLOR
+  TETRADIC_COLOR
+  ANALOGOUS_COLOR
+  COMPLEMENTARY_COLOR
+  SQUARE_COLOR
+  TO_HSV
+  FROM_HSV
+  TO_HSL
+  FROM_HSL
+  TO_RGB
+  FROM_RGB
+
+  IMAGE_AI
+  IMAGE_VARIATION_AI
+  PROMPT_AI
+
+  CIRCUIT
+  CIRCUIT_INPUTS
+  CIRCUIT_OUTPUT
+
+  TIMER
+  CONSOLE
+  LERP
+
+  CUBIC_BEZIER
+
+  @@schema("public")
+}
