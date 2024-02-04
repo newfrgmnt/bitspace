@@ -48,7 +48,7 @@ export const Menu = ({ onClose }: MenuProps) => {
 
             const created = await createNode({
                 name: node.name,
-                type: upperCase((node.constructor as NodeConstructor).type),
+                type: matchingNode.type,
                 parentId: store.circuit.id,
                 position: {
                     create: {
@@ -82,7 +82,7 @@ export const Menu = ({ onClose }: MenuProps) => {
             }
 
             /** @ts-ignore */
-            posthog.capture('Node Created from Menu', { node: node.constructor.displayName });
+            posthog.capture('Node Created from Menu', { node: matchingNode.constructor.type });
 
             onClose();
         }
