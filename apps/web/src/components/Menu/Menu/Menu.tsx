@@ -43,7 +43,7 @@ export const Menu = ({ onClose }: MenuProps) => {
 
         if (matchingNode) {
             const node = new matchingNode();
-            store.setNodes([[node, { x: 0, y: 0 }]]);
+            store.circuit.addNode(node);
             store.selectNodes([node]);
 
             const created = await createNode({
