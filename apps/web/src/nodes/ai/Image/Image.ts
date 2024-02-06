@@ -2,11 +2,7 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map, from, switchMap, skip } from 'rxjs';
 import { NodeType } from '@prisma/client';
-
-/** Declare a zod schema for value validation */
-const StringSchema = schema(z.string());
-
-const ImageSchema = schema('Image', z.string().url());
+import { AnySchema, ImageSchema, StringSchema } from '../../schemas';
 
 export class Image extends Node {
     static displayName = 'Image';
@@ -17,6 +13,11 @@ export class Image extends Node {
             name: 'Prompt',
             type: StringSchema,
             defaultValue: 'A man looking outside of a window from a house on a winter landscape'
+        }),
+        context: new Input({
+            name: 'Context',
+            type: AnySchema,
+            defaultValue: undefined
         })
     };
 

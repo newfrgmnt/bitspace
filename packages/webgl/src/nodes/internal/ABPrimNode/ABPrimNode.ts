@@ -1,7 +1,7 @@
 import { Input, Node } from '@bitspace/circuit';
 import { float, Prim, Term } from '@thi.ng/shader-ast';
 
-import { PrimSchema } from '../../../schemas/Prim/Prim';
+import { PrimSchema } from '../../schemas'Prim/Prim';
 
 export abstract class ABPrimNode extends Node {
     static displayName = 'AB Prim Node';

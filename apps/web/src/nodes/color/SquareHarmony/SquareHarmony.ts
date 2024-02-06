@@ -1,7 +1,7 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
-import { HSVSchema } from '../../../schemas/HSVSchema';
+import { HSVSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';
 
 export class SquareHarmony extends Node {

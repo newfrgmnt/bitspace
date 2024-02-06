@@ -1,7 +1,7 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { NumberSchema } from '../../../schemas/NumberSchema';
-import { RGBSchema } from '../../../schemas/RGBSchema';
+import { NumberSchema } from '../../schemas';
+import { RGBSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';
 
 export class FromRGB extends Node {
