@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
-import { from, switchMap, skip, tap } from 'rxjs';
+import { from, switchMap, skip, tap, debounceTime } from 'rxjs';
 import { NodeType } from '@prisma/client';
 import { StringSchema } from '../../schemas';
 
@@ -22,6 +22,7 @@ export class Prompt extends Node {
             type: StringSchema,
             observable: this.inputs.prompt.pipe(
                 skip(1),
+                debounceTime(500),
                 switchMap(prompt =>
                     from(
                         fetch('/api/prompt', {

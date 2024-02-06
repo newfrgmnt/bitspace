@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
-import { map, from, switchMap, skip } from 'rxjs';
+import { map, from, switchMap, skip, combineLatest, debounceTime } from 'rxjs';
 import { NodeType } from '@prisma/client';
 import { AnySchema, ImageSchema, StringSchema } from '../../schemas';
 
@@ -25,13 +25,14 @@ export class Image extends Node {
         output: new Output({
             name: 'Output',
             type: ImageSchema,
-            observable: this.inputs.prompt.pipe(
+            observable: combineLatest([this.inputs.prompt, this.inputs.context]).pipe(
                 skip(1),
-                switchMap(prompt =>
+                debounceTime(500),
+                switchMap(([prompt, context]) =>
                     from(
                         fetch('/api/images', {
                             method: 'POST',
-                            body: JSON.stringify({ prompt }),
+                            body: JSON.stringify({ prompt, context: context }),
                             headers: {
                                 'Content-Type': 'application/json'
                             }

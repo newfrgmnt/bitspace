@@ -19,7 +19,9 @@ export const ImageWindow = ({ node }: { node: Image }) => {
         <NodeWindow>
             <input
                 className="text-black"
-                onKeyDown={e => e.preventDefault()}
+                onKeyDown={e => {
+                    e.stopPropagation();
+                }}
                 onBlur={e => node.inputs.prompt.next(e.target.value)}
                 defaultValue={node.inputs.prompt.value}
             />
