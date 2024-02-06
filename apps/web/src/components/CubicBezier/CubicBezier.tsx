@@ -8,7 +8,7 @@ export interface CubicBezierProps {
 }
 
 export const CubicBezier = ({ points: controls, onChange, size = 222 }: CubicBezierProps) => {
-    const [points, setPosition] = useState<[number, number, number, number]>(controls);
+    const [points, setPoints] = useState<[number, number, number, number]>(controls);
 
     const [xy1, xy2] = useMemo(() => {
         const [x1, y1, x2, y2] = points;
@@ -76,14 +76,14 @@ export const CubicBezier = ({ points: controls, onChange, size = 222 }: CubicBez
             <ControlPoint
                 position={xy1}
                 onDrag={(e, data) => {
-                    setPosition(position => [data.x / size, 1 - data.y / size, position[2], position[3]]);
+                    setPoints(points => [data.x / size, 1 - data.y / size, points[2], points[3]]);
                 }}
                 editorSize={size}
             />
             <ControlPoint
                 position={xy2}
                 onDrag={(e, data) => {
-                    setPosition(position => [position[0], position[1], data.x / size, 1 - data.y / size]);
+                    setPoints(points => [points[0], points[1], data.x / size, 1 - data.y / size]);
                 }}
                 editorSize={size}
             />
