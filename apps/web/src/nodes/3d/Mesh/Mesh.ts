@@ -1,14 +1,19 @@
 import { Node, Input, Output } from '@bitspace/circuit';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 import * as THREE from 'three';
 import { BoxGeometry, MeshPhongMaterial } from 'three';
 import { HSVSchema, MeshSchema } from '../../schemas';
-import { hsv2rgb } from '../../../components/ColorPicker/ColorPicker.utils';
 import { NodeType } from '@prisma/client';
+import { hsv2rgb } from '../../../components/ColorPicker/ColorPicker.utils';
 
 export class Mesh extends Node {
     static displayName = 'Mesh';
     static type = NodeType.MESH_3D;
+
+    public color = new THREE.Color(0xff0000);
+    public material = new MeshPhongMaterial({ color: this.color });
+    public geometry = new BoxGeometry();
+    public mesh = new THREE.Mesh(this.geometry, this.material);
 
     inputs = {
         color: new Input({
@@ -23,15 +28,11 @@ export class Mesh extends Node {
             name: 'Mesh',
             type: MeshSchema,
             observable: this.inputs.color.pipe(
-                map(
-                    color =>
-                        new THREE.Mesh(
-                            new BoxGeometry(),
-                            new MeshPhongMaterial({
-                                color: new THREE.Color().setRGB(...hsv2rgb(color.hue, color.saturation, color.value))
-                            })
-                        )
-                )
+                map(color => {
+                    this.color.setRGB(...hsv2rgb(color.hue, color.saturation, color.value));
+                    this.material.color = this.color;
+                    return this.mesh;
+                })
             )
         })
     };

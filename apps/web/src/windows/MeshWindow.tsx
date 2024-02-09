@@ -32,7 +32,7 @@ export const MeshWindow = ({ node }: { node: MeshNode }) => {
     return (
         <NodeWindow>
             <Canvas style={{ height: 222 }} gl={{ alpha: false }}>
-                <pointLight position={[0, 0, 10]} intensity={0.2} />
+                <pointLight position={[0, 0, 10]} intensity={1} />
                 {mesh ? <MeshComponent mesh={mesh} /> : undefined}
             </Canvas>
         </NodeWindow>
