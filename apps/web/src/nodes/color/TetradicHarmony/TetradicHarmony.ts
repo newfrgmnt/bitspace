@@ -1,6 +1,6 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { HSVSchema } from '../../schemas';
+import { HSVSchema } from '../../../schemas';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
 import { NodeType } from '@prisma/client';
 

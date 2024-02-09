@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map, from, switchMap, skip, combineLatest, debounceTime } from 'rxjs';
 import { NodeType } from '@prisma/client';
-import { AnySchema, ImageSchema, StringSchema } from '../../schemas';
+import { AnySchema, ImageSchema, StringSchema } from '../../../schemas';
 
 export class Image extends Node {
     static displayName = 'Image';
