@@ -5,6 +5,7 @@ import { Control } from '../../components/Control/Control';
 import { HTMLMotionProps } from 'framer-motion';
 import { StoreContext } from '../../circuit';
 import clsx from 'clsx';
+import { updateInput } from '../../server/mutations/updateInput';
 
 export const PropertyPanel = observer(({ className, ...props }: HTMLMotionProps<'div'>) => {
     const { store } = useContext(StoreContext);
@@ -25,7 +26,11 @@ export const PropertyPanel = observer(({ className, ...props }: HTMLMotionProps<
                     {inputs.map(input => (
                         <div key={input.id} className="flex flex-row items-center justify-between text-sm">
                             <h3 className="font-medium w-full">{input.name}</h3>
-                            <Control port={input} disabled={input.connected} />
+                            <Control
+                                port={input}
+                                disabled={input.connected}
+                                onBlur={value => updateInput(input.id, value)}
+                            />
                         </div>
                     ))}
                 </div>

@@ -89,12 +89,16 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
             }
 
             for (const [inputName, serializedInput] of Object.entries(child.inputs)) {
-                const input = Object.values(node.inputs)[inputName];
+                const input: Input = Object.values(node.inputs)[inputName];
 
                 if (input) {
                     input.id = serializedInput.id;
 
                     portCache.set(input.id, input);
+                }
+
+                if (serializedInput.value) {
+                    input.next(input.type.validator.parse(serializedInput.value));
                 }
             }
 

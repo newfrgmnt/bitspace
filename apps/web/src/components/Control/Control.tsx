@@ -1,13 +1,23 @@
 import { Input, Output } from '@bitspace/circuit';
 import { observer } from 'mobx-react-lite';
-import { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+    ChangeEventHandler,
+    FocusEventHandler,
+    KeyboardEventHandler,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState
+} from 'react';
+import { withLatestFrom } from 'rxjs';
 
 export interface ControlProps {
     port: Input | Output;
     disabled?: boolean;
+    onBlur?: (value: any) => void;
 }
 
-export const Control = observer(({ port, disabled }: ControlProps) => {
+export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
     const [value, setValue] = useState<any>();
 
     useEffect(() => {
@@ -33,6 +43,15 @@ export const Control = observer(({ port, disabled }: ControlProps) => {
         [port]
     );
 
+    const handleBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+        e => {
+            if (port.type.name === 'Number') {
+                onBlur?.(port.type.validator.parse(parseFloat(e.target.value)));
+            }
+        },
+        [onBlur]
+    );
+
     return (
         <input
             className="px-2 py-1 border rounded-md border-slate-200 w-full"
@@ -43,6 +62,7 @@ export const Control = observer(({ port, disabled }: ControlProps) => {
             value={value}
             disabled={disabled}
             onChange={handleChange}
+            onBlur={handleBlur}
         />
     );
 });
