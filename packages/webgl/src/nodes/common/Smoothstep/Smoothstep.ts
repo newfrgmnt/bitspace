@@ -2,7 +2,7 @@ import { Input, Node, Output } from '@bitspace/circuit';
 import { float, smoothstep, step } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
-import { PrimSchema } from '../../schemas'Prim/Prim';
+import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export class Smoothstep extends Node {
     static displayName = 'Smoothstep';

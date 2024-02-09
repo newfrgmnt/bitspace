@@ -2,8 +2,8 @@ import { Input, Node, Output } from '@bitspace/circuit';
 import { float, vec2 } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
-import { FloatSchema } from '../../schemas'Float/Float';
-import { Vec2Schema } from '../../schemas'Vec2/Vec2';
+import { FloatSchema } from '../../../schemas/Float/Float';
+import { Vec2Schema } from '../../../schemas/Vec2/Vec2';
 
 export class Vector2 extends Node {
     static displayName = 'Vector 2';

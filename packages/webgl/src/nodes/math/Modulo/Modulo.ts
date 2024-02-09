@@ -2,7 +2,7 @@ import { Output } from '@bitspace/circuit';
 import { mod } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
-import { PrimSchema } from '../../schemas'Prim/Prim';
+import { PrimSchema } from '../../../schemas/Prim/Prim';
 import { ABPrimNode } from '../../internal/ABPrimNode/ABPrimNode';
 
 export class Modulo extends ABPrimNode {

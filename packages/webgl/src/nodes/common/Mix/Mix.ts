@@ -1,9 +1,9 @@
 import { Input, Node, Output } from '@bitspace/circuit';
 import { float, mix, Prim, Term } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
-import { FloatSchema } from '../../schemas'Float/Float';
+import { FloatSchema } from '../../../schemas/Float/Float';
 
-import { PrimSchema } from '../../schemas'Prim/Prim';
+import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export class Mix extends Node {
     static displayName = 'Mix';
