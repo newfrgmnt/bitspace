@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { from, switchMap, skip, tap, debounceTime, combineLatest } from 'rxjs';
 import { NodeType } from '@prisma/client';
-import { AnySchema, StringSchema } from '../../../schemas';
+import { AnySchema, StringSchema } from '../../schemas';
 
 export class Prompt extends Node {
     static displayName = 'Prompt';

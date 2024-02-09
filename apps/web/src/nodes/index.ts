@@ -4,12 +4,14 @@ import { EasingNodeConstructor, EasingNodes } from './easings';
 import { UtilityNodes, UtiliyNodeConstructor } from './utilities';
 import { ColorNodeConstructor, ColorNodes } from './color';
 import { AINodeConstructor, AINodes } from './ai';
+import { ThreeDNodeConstructor, ThreeDNodes } from './3d';
 
 export type NodeConstructor =
     | AINodeConstructor
     | ColorNodeConstructor
     | EasingNodeConstructor
     | MathNodeConstructor
+    | ThreeDNodeConstructor
     | UtiliyNodeConstructor;
 
 // Node Groups
@@ -21,6 +23,10 @@ export const NodeGroups = [
     {
         name: 'Math',
         nodes: MathNodes
+    },
+    {
+        name: '3D',
+        nodes: ThreeDNodes
     },
     {
         name: 'Easing',
@@ -38,6 +44,7 @@ export const NodeGroups = [
 
 export const NodeConstructors: NodeConstructor[] = [
     ...AINodes,
+    ...ThreeDNodes,
     ...MathNodes,
     ...EasingNodes,
     ...ColorNodes,

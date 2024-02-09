@@ -12,9 +12,11 @@ import { TetradicHarmony } from '../nodes/color/TetradicHarmony/TetradicHarmony'
 import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
-import { HSV } from '../nodes/color/FromHSV/FromHSV';
+import { FromHSV } from '../nodes/color/FromHSV/FromHSV';
 import { CubicBezierWindow } from './CubicBezierWindow';
 import { CubicBezier } from '../nodes/easings/CubicBezier/CubicBezier';
+import { MeshWindow } from './MeshWindow';
+import { Mesh } from '../nodes/3d/Mesh/Mesh';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if ('displayName' in node.constructor === false) return <></>;
@@ -37,6 +39,8 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
             );
         case 'Cubic Bezier':
             return <CubicBezierWindow node={node as CubicBezier} />;
+        case 'Mesh':
+            return <MeshWindow node={node as Mesh} />;
         case 'Triad Harmony':
         case 'Analogous Harmony':
         case 'Square Harmony':
@@ -49,7 +53,7 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
                     }
                 />
             );
-        case 'HSV':
-            return <HSVWindow node={node as HSV} />;
+        case 'From HSV':
+            return <HSVWindow node={node as FromHSV} />;
     }
 };

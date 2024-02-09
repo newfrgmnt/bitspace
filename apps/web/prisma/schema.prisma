@@ -138,5 +138,9 @@ enum NodeType {
 
   CUBIC_BEZIER
 
+  MESH_3D
+  GEOMETRY_3D
+  RENDERER_3D
+
   @@schema("public")
 }

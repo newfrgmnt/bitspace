@@ -1,5 +1,6 @@
 import { schema } from '@bitspace/circuit';
 import { z } from 'zod';
+import { Mesh } from 'three';
 
 export const AnySchema = schema('Any', z.any());
 export const StringSchema = schema('String', z.string());
@@ -35,3 +36,5 @@ export const RGBSchema = schema(
 );
 
 export const ImageSchema = schema('Image', z.string().url());
+
+export const MeshSchema = schema('Mesh', z.instanceof(Mesh));

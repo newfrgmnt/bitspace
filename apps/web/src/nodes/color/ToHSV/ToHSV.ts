@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
-import { HSVSchema } from '../../../schemas';
+import { HSVSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';
 
 const NumberSchema = schema('Number', z.number());

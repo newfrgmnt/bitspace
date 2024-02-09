@@ -1,7 +1,7 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 
-import { NumberSchema } from '../../../schemas';
+import { NumberSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';
 
 export class Logarithm2 extends Node {
