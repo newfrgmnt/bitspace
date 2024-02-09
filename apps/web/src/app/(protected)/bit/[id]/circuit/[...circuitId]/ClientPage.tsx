@@ -136,7 +136,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                 <CircuitComponent store={circuitStore} nodeWindowResolver={nodeWindowResolver} />
                 {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
                 <PropertyPanel className="fixed right-12 top-32" />
-                <Minimap className="fixed right-12 bottom-20" />
+                {/* <Minimap className="fixed right-12 bottom-20" /> */}
             </StoreContext.Provider>
             <div className="fixed left-1/2 bottom-20 -translate-x-1/2 flex flex-row justify-center">
                 {<MenuButton onClick={onMenuButtonClick} animate={menuOpen} />}

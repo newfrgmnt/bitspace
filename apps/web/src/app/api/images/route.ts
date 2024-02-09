@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const { prompt, context } = await req.json();
     const response = await openai.images.generate({
         model: 'dall-e-2',
-        prompt: `${prompt}. Interpret the following context and let it influence the image: ${context}`
+        prompt: `${prompt}. Interpret the following context: ${JSON.stringify(context)}`
     });
 
     return new NextResponse(JSON.stringify(response.data));

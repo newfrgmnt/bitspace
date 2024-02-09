@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
-import { from, switchMap, skip, tap, debounceTime } from 'rxjs';
+import { from, switchMap, skip, tap, debounceTime, combineLatest } from 'rxjs';
 import { NodeType } from '@prisma/client';
-import { StringSchema } from '../../schemas';
+import { AnySchema, StringSchema } from '../../schemas';
 
 export class Prompt extends Node {
     static displayName = 'Prompt';
@@ -13,6 +13,11 @@ export class Prompt extends Node {
             name: 'Prompt',
             type: StringSchema,
             defaultValue: ''
+        }),
+        context: new Input({
+            name: 'Context',
+            type: AnySchema,
+            defaultValue: undefined
         })
     };
 
@@ -20,14 +25,14 @@ export class Prompt extends Node {
         output: new Output({
             name: 'Output',
             type: StringSchema,
-            observable: this.inputs.prompt.pipe(
+            observable: combineLatest([this.inputs.prompt, this.inputs.context]).pipe(
                 skip(1),
                 debounceTime(500),
-                switchMap(prompt =>
+                switchMap(([prompt, context]) =>
                     from(
                         fetch('/api/prompt', {
                             method: 'POST',
-                            body: JSON.stringify({ prompt }),
+                            body: JSON.stringify({ prompt, context }),
                             headers: {
                                 'Content-Type': 'application/json'
                             }
