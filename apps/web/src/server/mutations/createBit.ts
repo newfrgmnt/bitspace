@@ -6,7 +6,6 @@ export const createBit = async () => {
     const prisma = new PrismaClient();
     const node = await prisma.node.create({
         data: {
-            name: 'Circuit',
             type: 'CIRCUIT',
             position: {
                 create: {

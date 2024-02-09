@@ -47,7 +47,6 @@ export const Menu = ({ onClose }: MenuProps) => {
             store.selectNodes([node]);
 
             const created = await createNode({
-                name: node.name,
                 type: matchingNode.type,
                 parentId: store.circuit.id,
                 position: {
@@ -59,14 +58,13 @@ export const Menu = ({ onClose }: MenuProps) => {
                 inputs: {
                     createMany: {
                         data: Object.values(node.inputs).map(input => ({
-                            name: input.name,
                             value: input.value
                         }))
                     }
                 },
                 outputs: {
                     createMany: {
-                        data: Object.values(node.outputs).map(output => ({ name: output.name }))
+                        data: Object.values(node.outputs).map(output => ({}))
                     }
                 }
             });

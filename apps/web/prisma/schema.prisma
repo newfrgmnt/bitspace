@@ -44,7 +44,6 @@ model NodePosition {
 
 model Node {
   id        String        @id @default(uuid())
-  name      String        @default("Untitled")
   type      NodeType
   bit       Bit?
   parentId  String?
@@ -61,7 +60,6 @@ model Node {
 
 model Input {
   id         String      @id @default(uuid())
-  name       String      @default("Untitled")
   nodeId     String?
   node       Node?       @relation(fields: [nodeId], references: [id], onDelete: Cascade)
   connection Connection?
@@ -74,7 +72,6 @@ model Input {
 
 model Output {
   id          String       @id @default(uuid())
-  name        String       @default("Untitled")
   nodeId      String?
   node        Node?        @relation(fields: [nodeId], references: [id], onDelete: Cascade)
   connections Connection[]
@@ -135,6 +132,7 @@ enum NodeType {
   TIMER
   CONSOLE
   LERP
+  OSCILLATOR
 
   CUBIC_BEZIER
 

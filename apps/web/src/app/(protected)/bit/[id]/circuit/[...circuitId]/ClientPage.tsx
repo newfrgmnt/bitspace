@@ -61,7 +61,6 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 
         const circuit = new Circuit();
         circuit.id = serializedNode.id;
-        circuit.name = serializedNode.name;
 
         for (const child of serializedNode.children) {
             const nodeConstructor = NodeConstructors.find(
@@ -80,7 +79,6 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 
                 if (output) {
                     output.id = serializedOutput.id;
-                    output.name = serializedOutput.name;
 
                     portCache.set(output.id, output);
 
@@ -95,7 +93,6 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 
                 if (input) {
                     input.id = serializedInput.id;
-                    input.name = serializedInput.name;
 
                     portCache.set(input.id, input);
                 }

@@ -13,7 +13,7 @@ const MeshComponent = ({ mesh }: { mesh: Mesh }) => {
             meshRef.current.rotation.y = clock.getElapsedTime();
         }
     });
-    return <primitive ref={meshRef} object={mesh} position={[0, 0, 3]} />;
+    return <primitive ref={meshRef} object={mesh} position={[0, 0, 1]} />;
 };
 
 export const MeshWindow = ({ node }: { node: MeshNode }) => {
@@ -31,7 +31,7 @@ export const MeshWindow = ({ node }: { node: MeshNode }) => {
 
     return (
         <NodeWindow>
-            <Canvas style={{ height: 222 }} gl={{ alpha: false }}>
+            <Canvas style={{ height: 222 }} gl={{ alpha: false }} camera={{ fov: 35 }}>
                 <pointLight position={[0, 0, 10]} intensity={1} />
                 {mesh ? <MeshComponent mesh={mesh} /> : undefined}
             </Canvas>
