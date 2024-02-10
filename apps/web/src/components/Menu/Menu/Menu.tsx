@@ -1,14 +1,13 @@
 import React, { KeyboardEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
-import { NodeConstructor, NodeGroups } from '../../../nodes';
+import { NodeGroups } from '../../../nodes';
 import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
-import { startCase, upperCase } from 'lodash';
+import { startCase } from 'lodash';
 import posthog from 'posthog-js';
 import { createNode } from '../../../server/mutations/createNode';
-import { NodeType } from '@prisma/client';
 
 export interface MenuProps {
     onClose: () => void;
@@ -61,7 +60,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                         data: Object.entries(node.inputs).map(([key, input]) => ({
                             id: input.id,
                             key,
-                            value: input.value
+                            value: typeof input.value !== 'function' ? input.value : undefined
                         }))
                     }
                 },
