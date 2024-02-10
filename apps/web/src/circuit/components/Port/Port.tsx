@@ -64,7 +64,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
 
             posthog.capture('Connection established');
         }
-    }, [isOutput]);
+    }, [isOutput, port]);
 
     const onClick = React.useCallback(() => {
         if (port.connected) {

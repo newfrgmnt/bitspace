@@ -46,7 +46,7 @@ export const Menu = ({ onClose }: MenuProps) => {
             store.circuit.addNode(node);
             store.selectNodes([node]);
 
-            const created = await createNode({
+            await createNode({
                 id: node.id,
                 type: matchingNode.type,
                 parentId: store.circuit.id,
@@ -58,20 +58,19 @@ export const Menu = ({ onClose }: MenuProps) => {
                 },
                 inputs: {
                     createMany: {
-                        data: Object.values(node.inputs).map(input => ({
+                        data: Object.entries(node.inputs).map(([key, input]) => ({
                             id: input.id,
+                            key,
                             value: input.value
                         }))
                     }
                 },
                 outputs: {
                     createMany: {
-                        data: Object.values(node.outputs).map(output => ({ id: output.id }))
+                        data: Object.entries(node.outputs).map(([key, output]) => ({ id: output.id, key }))
                     }
                 }
             });
-
-            node.id = created.id;
 
             /** @ts-ignore */
             posthog.capture('Node Created from Menu', { node: matchingNode.constructor.type });

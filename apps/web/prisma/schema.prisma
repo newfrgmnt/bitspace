@@ -60,6 +60,7 @@ model Node {
 
 model Input {
   id         String      @id @default(uuid())
+  key        String
   nodeId     String?
   node       Node?       @relation(fields: [nodeId], references: [id], onDelete: Cascade)
   connection Connection?
@@ -72,6 +73,7 @@ model Input {
 
 model Output {
   id          String       @id @default(uuid())
+  key         String
   nodeId      String?
   node        Node?        @relation(fields: [nodeId], references: [id], onDelete: Cascade)
   connections Connection[]

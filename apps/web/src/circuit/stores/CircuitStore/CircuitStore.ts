@@ -8,6 +8,7 @@ import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { Bounds } from '../../utils/bounds/bounds.types';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Position, StoreProviderValue } from './CircuitStore.types';
+import { removeConnection } from '../../../server/mutations/removeConnection';
 
 export class CircuitStore {
     /** Associated Nodes */
@@ -79,7 +80,7 @@ export class CircuitStore {
     /** Sets an Output as the current draft connection source */
     public commitDraftConnection<T>(target: Input<T>): Connection<T> | void {
         if (this.draftConnectionSource) {
-            const connection = this.draftConnectionSource.connect(target);
+            const connection = this.draftConnectionSource.connect(target, removeConnection);
 
             this.setDraftConnectionSource(null);
 

@@ -19,6 +19,7 @@ import {
 import { Circuit, Input, Output } from '@bitspace/circuit';
 import { NodeConstructor, NodeConstructors } from '../../../../../../nodes';
 import { Minimap } from '../../../../../../components/Minimap/Minimap';
+import { removeConnection } from '../../../../../../server/mutations/removeConnection';
 
 interface ExtendedNode extends SerializedNode {
     children: ExtendedNode[];
@@ -56,7 +57,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
             return;
         }
 
-        const connectionCache = new Map<Output['id'], Input<any>['id']>();
+        const connectionCache = new Set<[Output['id'], Input<any>['id']]>();
         const portCache = new Map<Input['id'] | Output['id'], Input<any> | Output<any>>();
 
         const circuit = new Circuit();
@@ -74,8 +75,8 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
             node.id = child.id;
             node.position = { x: child.position.x, y: child.position.y };
 
-            for (const [outputName, serializedOutput] of Object.entries(child.outputs)) {
-                const output = Object.values(node.outputs)[outputName];
+            for (const serializedOutput of Object.values(child.outputs)) {
+                const output = node.outputs[serializedOutput.key];
 
                 if (output) {
                     output.id = serializedOutput.id;
@@ -83,22 +84,22 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                     portCache.set(output.id, output);
 
                     for (const serializedConnection of serializedOutput.connections) {
-                        connectionCache.set(serializedConnection.fromId, serializedConnection.toId);
+                        connectionCache.add([serializedConnection.fromId, serializedConnection.toId]);
                     }
                 }
             }
 
-            for (const [inputName, serializedInput] of Object.entries(child.inputs)) {
-                const input: Input = Object.values(node.inputs)[inputName];
+            for (const serializedInput of Object.values(child.inputs)) {
+                const input: Input = node.inputs[serializedInput.key];
 
                 if (input) {
                     input.id = serializedInput.id;
 
                     portCache.set(input.id, input);
-                }
 
-                if (serializedInput.value) {
-                    input.next(input.type.validator.parse(serializedInput.value));
+                    if (serializedInput.value) {
+                        input.next(input.type.validator.parse(serializedInput.value));
+                    }
                 }
             }
 
@@ -109,7 +110,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
             const output = portCache.get(outputId) as Output<any>;
             const input = portCache.get(inputId) as Input<any>;
 
-            output.connect(input);
+            output.connect(input, removeConnection);
         }
 
         return circuit;
