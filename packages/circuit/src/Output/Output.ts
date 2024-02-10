@@ -49,8 +49,11 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
     }
 
     /** Connects the output with a compatible input port */
-    public connect(input: Input<TValue>): Connection<TValue> {
-        return new Connection(this, input);
+    public connect(
+        input: Input<TValue>,
+        onValidationFail?: (fromId: string, toId: string) => void
+    ): Connection<TValue> {
+        return new Connection(this, input, onValidationFail);
     }
 
     /** Disposes the Output */

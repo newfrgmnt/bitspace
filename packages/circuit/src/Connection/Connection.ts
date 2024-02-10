@@ -15,7 +15,7 @@ export class Connection<T> extends Subject<T> {
     /** Subscription */
     public subscription: Subscription;
 
-    constructor(from: Output<T>, to: Input<T>) {
+    constructor(from: Output<T>, to: Input<T>, onValidationFail?: (fromId: string, toId: string) => void) {
         super();
 
         if (to.connected) {
@@ -33,6 +33,7 @@ export class Connection<T> extends Subject<T> {
                 this.to.type.validator.parse(value);
                 this.to.next(value);
             } catch (err) {
+                onValidationFail?.(this.from.id, this.to.id);
                 this.dispose();
                 throw new Error('Received a value with an incompatible type');
             }
