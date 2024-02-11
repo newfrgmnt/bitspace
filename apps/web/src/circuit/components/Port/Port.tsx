@@ -87,7 +87,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         (store.draftConnectionSource?.id === port.id && !visuallyDisabled);
 
     const portWrapperClassNames = clsx(
-        'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-widest select-none transition-opacity',
+        'relative flex flex-row grow-1 items-center py-1 text-xs font-medium select-none transition-opacity',
         {
             'flex-row-reverse': isOutput,
             'flex-row': !isOutput,
@@ -103,8 +103,8 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
             'bg-slate-200': !port.connected && !isHovered && !highlighted,
             'bg-black': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered) || highlighted,
             'text-white': highlighted || isHovered,
-            'ml-3': isOutput,
-            'mr-3': !isOutput
+            'ml-2': isOutput,
+            'mr-2': !isOutput
         }
     );
 

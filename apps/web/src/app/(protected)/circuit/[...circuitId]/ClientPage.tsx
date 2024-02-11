@@ -10,6 +10,8 @@ import { Journey } from '../../../../components/Onboarding/Journey';
 import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPanel';
 import posthog from 'posthog-js';
 import { ExtendedNode, buildCircuit } from '../../../../circuit/utils/circuit/buildCircuit';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -53,6 +55,17 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
         <main className="flex flex-row items-stretch h-full w-full gap-x-8">
             <StoreContext.Provider value={{ store: canvasStore }}>
                 <div className="relative flex flex-col justify-between h-full w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-[2rem] overflow-hidden">
+                    <motion.div
+                        className="flex flex-row justify-center items-center w-full absolute h-24 top-0 left-0 right-0 z-10"
+                        variants={{
+                            initial: { opacity: 0 },
+                            animate: { opacity: 1, transition: { duration: 1, delay: 1 } }
+                        }}
+                    >
+                        <Link href="/">
+                            <h3 className="text-xl">Bitspace</h3>
+                        </Link>
+                    </motion.div>
                     <CircuitComponent store={canvasStore} nodeWindowResolver={nodeWindowResolver} />
                     {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
                     {/* <Minimap className="fixed right-12 bottom-20" /> */}
@@ -81,7 +94,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                         ]}
                     />
                 </div>
-                <PropertyPanel className="flex flex-col" />
+                <PropertyPanel />
             </StoreContext.Provider>
         </main>
     );

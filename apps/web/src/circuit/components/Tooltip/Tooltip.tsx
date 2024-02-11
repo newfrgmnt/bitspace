@@ -75,7 +75,7 @@ const TooltipNode = ({ text, position, offset }: ITooltipNodeProps) => {
     return (
         <span
             ref={ref}
-            className="absolute flex flex-row py-1 px-2 rounded-md bg-white text-xxs text-slate-500 uppercase tracking-wider drop-shadow-lg z-20 nowrap"
+            className="absolute flex flex-row py-1 px-2 rounded-md bg-white text-xxs text-slate-500 drop-shadow-lg z-20 nowrap"
             style={getPositionalStyles(position, dimensions, offset)}
         >
             {text}

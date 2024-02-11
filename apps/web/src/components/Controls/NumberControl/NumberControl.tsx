@@ -1,4 +1,5 @@
 import { Input, Output } from '@bitspace/circuit';
+import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, useCallback, useEffect, useState } from 'react';
 
@@ -45,7 +46,9 @@ export const NumberControl = observer(({ port, disabled, onBlur }: NumberControl
 
     return (
         <input
-            className="px-2 py-1 border rounded-md border-slate-200 w-full"
+            className={clsx('px-3 py-2 rounded-xl w-full shadow-sm border border-slate-100', {
+                'text-slate-400': disabled
+            })}
             type="number"
             step={0.01}
             placeholder={port.type.name}
