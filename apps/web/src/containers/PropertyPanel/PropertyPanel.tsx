@@ -20,8 +20,8 @@ export const PropertyPanel = observer(({ className, ...props }: ComponentProps<'
 
     return (
         <div className={clsx('h-full flex flex-col gap-y-8 w-72 py-8', className)} {...props}>
-            <div className="flex flex-col gap-y-4">
-                <h2 className="font-bold">{selectedNode.name}</h2>
+            <div className="flex flex-col gap-y-2">
+                <h2 className="font-semibold">{selectedNode.name}</h2>
                 <p className="text-sm text-slate-500 leading-relaxed text-pretty">
                     {NodeDescriptionsMap[selectedNode.type as NodeType]}
                 </p>

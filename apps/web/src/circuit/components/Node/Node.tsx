@@ -86,7 +86,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     );
 
     const nodeHeaderWrapperClassNames = clsx(
-        'relative flex flex-row justify-center items-center px-4 pt-4 text-xs font-bold rounded-t-xl handle',
+        'relative flex flex-row justify-center items-center px-4 pt-4 text-xs font-medium rounded-t-xl handle',
         {
             'text-black': active
         }
