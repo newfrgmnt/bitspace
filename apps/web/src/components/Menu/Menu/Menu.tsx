@@ -9,7 +9,8 @@ import { startCase } from 'lodash';
 import posthog from 'posthog-js';
 import { createNode } from '../../../server/mutations/createNode';
 import { toCanvasCartesianPoint } from '../../../circuit/utils/coordinates/coordinates';
-import { NODE_CENTER, NODE_WIDTH } from '../../../circuit/constants';
+import { NODE_CENTER } from '../../../circuit/constants';
+import { NodeDescriptionsMap } from '../../../nodes/descriptions';
 
 export interface MenuProps {
     onClose: () => void;
@@ -128,7 +129,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                         />
                     </div>
                 </FocusTrap>
-                <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-4">
+                <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-8">
                     {matchingGroups.map((group, index) => (
                         <MenuItemGroup key={group.name} title={group.name}>
                             {group.nodes.map(node => {
@@ -138,6 +139,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                                     <MenuItem
                                         key={node.displayName}
                                         title={node.displayName}
+                                        description={NodeDescriptionsMap[node.type]}
                                         active={activeIndex === index}
                                         index={index}
                                     />
@@ -181,7 +183,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
             })}
         >
             <h4 className="text-lg">{startCase(title)}</h4>
-            {description && <p className="text-slate-400">{description}</p>}
+            {description && <p className="text-slate-400 text-sm">{description}</p>}
         </motion.div>
     );
 };
