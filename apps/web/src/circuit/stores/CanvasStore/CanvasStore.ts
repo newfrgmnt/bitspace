@@ -7,10 +7,10 @@ import { NODE_CENTER } from '../../constants';
 import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { Bounds } from '../../utils/bounds/bounds.types';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
-import { Position, StoreProviderValue } from './CircuitStore.types';
+import { Position, Size, StoreProviderValue } from './CanvasStore.types';
 import { removeConnection } from '../../../server/mutations/removeConnection';
 
-export class CircuitStore {
+export class CanvasStore {
     /** Associated Nodes */
     public circuit: Circuit;
     /** Associated Node Elements */
@@ -25,8 +25,10 @@ export class CircuitStore {
     public selectionBounds: Bounds | null = null;
     /** Mouse Position */
     public mousePosition: Position = { x: 0, y: 0 };
-    /** Viewport Position */
-    public viewportPosition: Position = { x: 0, y: 0 };
+    /** Canvas Size */
+    public canvasSize: Size = { width: 0, height: 0 };
+    /** Canvas Position */
+    public canvasPosition: Position = { x: 0, y: 0 };
 
     /** Selection Bounds autorun disposer */
     private selectionBoundsDisposer: IReactionDisposer;
@@ -44,6 +46,14 @@ export class CircuitStore {
         return this.circuit.nodes
             .flatMap(node => node.connections)
             .filter((value, index, self) => self.indexOf(value) === index);
+    }
+
+    /** Canvas midpoint */
+    public get canvasMidpoint(): Position {
+        return {
+            x: this.canvasPosition.x + this.canvasSize.width / 2,
+            y: this.canvasPosition.y + this.canvasSize.height / 2
+        };
     }
 
     /** Removes a node from the store */
@@ -103,9 +113,14 @@ export class CircuitStore {
         this.mousePosition = mousePosition;
     }
 
-    /** Sets the viewport position */
-    public setViewportPosition(position: Position): void {
-        this.viewportPosition = position;
+    /** Sets the canvas size */
+    public setCanvasSize(size: Size): void {
+        this.canvasSize = size;
+    }
+
+    /** Sets the canvas position */
+    public setCanvasPosition(position: Position): void {
+        this.canvasPosition = position;
     }
 
     /** Returns the node with the associated port */
@@ -166,7 +181,7 @@ export class CircuitStore {
 }
 
 const defaultStoreProviderValue: StoreProviderValue = {
-    store: new CircuitStore(new Circuit())
+    store: new CanvasStore(new Circuit())
 };
 
 export const StoreContext = createContext(defaultStoreProviderValue);

@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CIRCUIT_SIZE } from '../../circuit/constants';
 import Draggable from 'react-draggable';
 import clsx from 'clsx';
-import { StoreContext } from '../../circuit/stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../circuit/stores/CanvasStore/CanvasStore';
 import { observer } from 'mobx-react-lite';
 import { autorun, get } from 'mobx';
 import { Position } from '../../circuit';
@@ -10,7 +10,7 @@ import { lerp } from '../../utils';
 
 export const Minimap = observer(({ className }: { className?: string }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const [viewportScale, setViewportScale] = useState({ width: 0, height: 0 });
+    const [viewportScale, setCanvasScale] = useState({ width: 0, height: 0 });
     const [mapSize, setMapSize] = useState({ width: 0, height: 0 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const { store } = useContext(StoreContext);
@@ -23,7 +23,7 @@ export const Minimap = observer(({ className }: { className?: string }) => {
         const { width: viewportWidth, height: viewportHeight } = window.visualViewport;
         const { width: mapWidth, height: mapHeight } = ref.current?.getBoundingClientRect();
 
-        setViewportScale({
+        setCanvasScale({
             width: viewportWidth / CIRCUIT_SIZE,
             height: viewportHeight / CIRCUIT_SIZE
         });

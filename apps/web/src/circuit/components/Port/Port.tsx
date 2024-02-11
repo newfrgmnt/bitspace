@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { useHover } from '../../hooks/useHover/useHover';
-import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../stores/CanvasStore/CanvasStore';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';

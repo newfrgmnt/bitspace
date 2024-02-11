@@ -8,7 +8,7 @@ import { Connection } from '../../components/Connection/Connection';
 import { Node } from '../../components/Node/Node';
 import { CIRCUIT_SIZE } from '../../constants';
 import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
-import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../stores/CanvasStore/CanvasStore';
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { CircuitProps, NodeWindowResolver } from './Circuit.types';
 import { motion } from 'framer-motion';
@@ -69,121 +69,118 @@ const Selection = observer(() => {
     ) : null;
 });
 
-export const Circuit = observer(
-    React.forwardRef<HTMLDivElement, CircuitProps>((props, ref) => {
-        useKeyboardActions(props.store);
+export const Circuit = observer((props: CircuitProps) => {
+    useKeyboardActions(props.store);
 
-        const onScroll = React.useCallback(
-            (e: React.UIEvent<HTMLDivElement>) => {
-                if (!(e.target instanceof HTMLDivElement)) {
-                    return;
-                }
-
-                props.store.setViewportPosition({
-                    x: e.target.scrollLeft,
-                    y: e.target.scrollTop
-                });
-            },
-            [props]
-        );
-
-        const onMouseMove = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const x = e.nativeEvent.clientX - rect.left;
-            const y = e.nativeEvent.clientY - rect.top;
-
-            props.store.setMousePosition({ x, y });
-
-            if (props.store.selectionBounds) {
-                const { x, y, width, height } = props.store.selectionBounds;
-
-                const bounds = {
-                    x,
-                    y,
-                    width: width + e.movementX,
-                    height: height + e.movementY
-                };
-
-                props.store.setSelectionBounds(bounds);
+    const onScroll = React.useCallback(
+        (e: React.UIEvent<HTMLDivElement>) => {
+            if (!(e.target instanceof HTMLDivElement)) {
+                return;
             }
-        }, []);
 
-        const onMouseDown = React.useCallback(({ nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
-            if ((nativeEvent.target as HTMLDivElement).id === 'connections') {
-                props.store.setSelectionBounds({
-                    x: props.store.mousePosition.x,
-                    y: props.store.mousePosition.y,
-                    width: 0,
-                    height: 0
-                });
+            props.store.setCanvasPosition({
+                x: e.target.scrollLeft,
+                y: e.target.scrollTop
+            });
+        },
+        [props]
+    );
+
+    const onMouseMove = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.nativeEvent.clientX - rect.left;
+        const y = e.nativeEvent.clientY - rect.top;
+
+        props.store.setMousePosition({ x, y });
+
+        if (props.store.selectionBounds) {
+            const { x, y, width, height } = props.store.selectionBounds;
+
+            const bounds = {
+                x,
+                y,
+                width: width + e.movementX,
+                height: height + e.movementY
+            };
+
+            props.store.setSelectionBounds(bounds);
+        }
+    }, []);
+
+    const onMouseDown = React.useCallback(({ nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
+        if ((nativeEvent.target as HTMLDivElement).id === 'connections') {
+            props.store.setSelectionBounds({
+                x: props.store.mousePosition.x,
+                y: props.store.mousePosition.y,
+                width: 0,
+                height: 0
+            });
+        }
+    }, []);
+
+    const onMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        props.store.setDraftConnectionSource(null);
+        props.store.setSelectionBounds(null);
+    }, []);
+
+    React.useEffect(() => {
+        return reaction(
+            () => props.store.connections,
+            (connections, prevConnections) => {
+                const addedConnections = connections.filter(connection => !prevConnections.includes(connection));
+                const removedConnections = prevConnections.filter(connection => !connections.includes(connection));
+
+                if (addedConnections.length && props.onConnection) {
+                    for (const connection of addedConnections) {
+                        props.onConnection(connection);
+                    }
+                }
+
+                if (removedConnections.length && props.onConnectionRemoval) {
+                    for (const connection of removedConnections) {
+                        props.onConnectionRemoval(connection);
+                    }
+                }
             }
-        }, []);
-
-        const onMouseUp = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            props.store.setDraftConnectionSource(null);
-            props.store.setSelectionBounds(null);
-        }, []);
-
-        React.useEffect(() => {
-            return reaction(
-                () => props.store.connections,
-                (connections, prevConnections) => {
-                    const addedConnections = connections.filter(connection => !prevConnections.includes(connection));
-                    const removedConnections = prevConnections.filter(connection => !connections.includes(connection));
-
-                    if (addedConnections.length && props.onConnection) {
-                        for (const connection of addedConnections) {
-                            props.onConnection(connection);
-                        }
-                    }
-
-                    if (removedConnections.length && props.onConnectionRemoval) {
-                        for (const connection of removedConnections) {
-                            props.onConnectionRemoval(connection);
-                        }
-                    }
-                }
-            );
-        }, [props]);
-
-        React.useEffect(() => {
-            return reaction(
-                () => props.store.circuit.nodes,
-                (nodes, prevNodes) => {
-                    const removedNodes = prevNodes.filter(node => !nodes.includes(node));
-
-                    if (removedNodes.length && props.onNodeRemoval) {
-                        for (const node of removedNodes) {
-                            props.onNodeRemoval(node);
-                        }
-                    }
-                }
-            );
-        }, [props]);
-
-        React.useEffect(() => {
-            return reaction(
-                () => props.store.selectedNodes,
-                (selectedNodes, prevSelectedNodes) => {
-                    props.onSelectionChanged?.(selectedNodes);
-                }
-            );
-        }, [props]);
-
-        return (
-            <Canvas
-                ref={ref}
-                className={clsx('absolute inset-0 w-full h-full', props.className)}
-                size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
-                onMouseDown={onMouseDown}
-                onMouseMove={onMouseMove}
-                onMouseUp={onMouseUp}
-                onScroll={onScroll}
-            >
-                <Nodes windowResolver={props.nodeWindowResolver} />
-                <Connections />
-                <Selection />
-            </Canvas>
         );
-    })
-);
+    }, [props]);
+
+    React.useEffect(() => {
+        return reaction(
+            () => props.store.circuit.nodes,
+            (nodes, prevNodes) => {
+                const removedNodes = prevNodes.filter(node => !nodes.includes(node));
+
+                if (removedNodes.length && props.onNodeRemoval) {
+                    for (const node of removedNodes) {
+                        props.onNodeRemoval(node);
+                    }
+                }
+            }
+        );
+    }, [props]);
+
+    React.useEffect(() => {
+        return reaction(
+            () => props.store.selectedNodes,
+            (selectedNodes, prevSelectedNodes) => {
+                props.onSelectionChanged?.(selectedNodes);
+            }
+        );
+    }, [props]);
+
+    return (
+        <Canvas
+            className={clsx('absolute inset-0 w-full h-full', props.className)}
+            size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onScroll={onScroll}
+        >
+            <Nodes windowResolver={props.nodeWindowResolver} />
+            <Connections />
+            <Selection />
+        </Canvas>
+    );
+});

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { NODE_POSITION_OFFSET_X } from '../../constants';
-import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../stores/CanvasStore/CanvasStore';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { ConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';

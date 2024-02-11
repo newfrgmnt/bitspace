@@ -8,6 +8,8 @@ import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClick
 import { startCase } from 'lodash';
 import posthog from 'posthog-js';
 import { createNode } from '../../../server/mutations/createNode';
+import { toCanvasCartesianPoint } from '../../../circuit/utils/coordinates/coordinates';
+import { NODE_CENTER, NODE_WIDTH } from '../../../circuit/constants';
 
 export interface MenuProps {
     onClose: () => void;
@@ -42,6 +44,7 @@ export const Menu = ({ onClose }: MenuProps) => {
 
         if (matchingNode) {
             const node = new matchingNode();
+            node.position = toCanvasCartesianPoint(store.canvasMidpoint.x - NODE_CENTER, store.canvasMidpoint.y - 200);
             store.circuit.addNode(node);
             store.selectNodes([node]);
 

@@ -5,7 +5,7 @@ import Draggable, { DraggableEventHandler } from 'react-draggable';
 
 import { NODE_POSITION_OFFSET_X } from '../../constants';
 import { useHover } from '../../hooks/useHover/useHover';
-import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../stores/CanvasStore/CanvasStore';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Port } from '../Port/Port';
 import { NodeActionProps, NodePortsProps, NodeProps } from './Node.types';
