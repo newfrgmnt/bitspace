@@ -19,6 +19,7 @@
         "@prisma/client": "5.9.1",
         "@react-three/fiber": "^8.15.16",
         "@repo/ui": "workspace:*",
+        "@supabase/supabase-js": "^2.39.3",
         "@tanstack/react-query": "^5.18.1",
         "@trpc/client": "11.0.0-next-beta.255",
         "@trpc/next": "11.0.0-next-beta.255",

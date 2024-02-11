@@ -1,7 +1,6 @@
 import { Input, Node, Output } from '@bitspace/circuit';
-import { NumberSchema } from '../../schemas';
+import { NumberSchema, EasingSchema } from '../../schemas';
 import { combineLatest, map } from 'rxjs';
-import { EasingSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';
 
 export class Lerp extends Node {

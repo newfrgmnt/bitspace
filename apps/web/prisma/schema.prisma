@@ -52,6 +52,7 @@ model Node {
   inputs    Input[]
   outputs   Output[]
   position  NodePosition?
+  data      Json?
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
