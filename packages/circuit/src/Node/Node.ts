@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
-import { NodeData } from './Node.types';
+import { NodeConstructor, NodeData } from './Node.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
@@ -10,7 +10,7 @@ export abstract class Node<TData extends NodeData = NodeData> {
     /** Identifier */
     public id: string = uuid();
     /** Node Name */
-    public name: string = this.constructor.name;
+    public _name: string = (this.constructor as NodeConstructor).displayName;
     /** Node Inputs */
     public abstract inputs: Record<string, Input>;
     /** Node Outputs */
@@ -26,6 +26,7 @@ export abstract class Node<TData extends NodeData = NodeData> {
     constructor() {
         makeObservable(this, {
             id: observable,
+            _name: observable,
             data: observable,
             position: observable,
             connections: computed,
@@ -61,5 +62,20 @@ export abstract class Node<TData extends NodeData = NodeData> {
         for (const output of Object.values(this.outputs)) {
             output.dispose();
         }
+    }
+
+    /** Returns the Node Name from the constructor */
+    public get name(): string {
+        return this._name.length ? this._name : (this.constructor as NodeConstructor).displayName;
+    }
+
+    /** Returns the Node Name from the constructor */
+    public set name(name: string) {
+        this._name = name;
+    }
+
+    /** Returns the Node Type from the constructor */
+    public get type(): string {
+        return this.constructor.type;
     }
 }
