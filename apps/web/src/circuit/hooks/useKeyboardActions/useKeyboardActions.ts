@@ -64,6 +64,7 @@ export const useKeyboardActions = (store: CircuitStore) => {
             for (const action of actions) {
                 if (action.key === e.key) {
                     if (action.modifier && !e[action.modifier]) continue;
+                    e.preventDefault();
                     action.callback(e);
                 }
             }

@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, useContext, useMemo } from 'react';
-import { Control } from '../../components/Control/Control';
+import { Control } from '../../components/Controls/Control/Control';
 import { StoreContext } from '../../circuit';
 import clsx from 'clsx';
 import { updateInput } from '../../server/mutations/updateInput';
+import { NodeDescriptionsMap } from '../../nodes/descriptions';
+import { NodeType } from '@prisma/client';
 
 export const PropertyPanel = observer(({ className, ...props }: ComponentProps<'div'>) => {
     const { store } = useContext(StoreContext);
@@ -17,7 +19,11 @@ export const PropertyPanel = observer(({ className, ...props }: ComponentProps<'
     }
 
     return (
-        <div className={clsx('w-full h-full flex flex-col gap-y-8', className)} {...props}>
+        <div className={clsx('h-full flex flex-col gap-y-8 w-72 py-8', className)} {...props}>
+            <div className="flex flex-col gap-y-4">
+                <h2 className="font-medium">{selectedNode.name}</h2>
+                <p className="text-sm text-slate-500">{NodeDescriptionsMap[selectedNode.type as NodeType]}</p>
+            </div>
             <div className="flex flex-col gap-y-4">
                 <h4 className="font-medium">Inputs</h4>
                 <div className="flex flex-col gap-y-1">

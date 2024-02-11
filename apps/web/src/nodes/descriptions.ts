@@ -8,6 +8,8 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.CONSOLE]: 'Logs the input value to the console',
     [NodeType.LERP]: 'Linearly interpolates between two input values, using a third input as the interpolation factor',
     [NodeType.TIMER]: 'Emits the time since Circuit was initialized in milliseconds',
+    [NodeType.OSCILLATOR]:
+        'Outputs an oscillated value between 0 and the given amplitude, using the frequecy as the time interval',
 
     [NodeType.CUBIC_BEZIER]: 'Returns the cubic-bezier function for a given set of control points',
 
@@ -52,5 +54,9 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
 
     [NodeType.IMAGE_AI]: 'Returns an image based on the input prompt',
     [NodeType.IMAGE_VARIATION_AI]: 'Returns a new image based on the input image & a given instruction prompt',
-    [NodeType.PROMPT_AI]: 'Returns text based on the input prompt'
+    [NodeType.PROMPT_AI]: 'Returns text based on the input prompt',
+
+    [NodeType.GEOMETRY_3D]: 'Constrcuts a Geometry which can be used to build a Mesh',
+    [NodeType.MESH_3D]: 'Constructs a 3D Mesh',
+    [NodeType.RENDERER_3D]: 'Renders a given Mesh to a WebGL Context'
 };

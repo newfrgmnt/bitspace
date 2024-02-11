@@ -1,23 +1,14 @@
 import { Input, Output } from '@bitspace/circuit';
 import { observer } from 'mobx-react-lite';
-import {
-    ChangeEventHandler,
-    FocusEventHandler,
-    KeyboardEventHandler,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState
-} from 'react';
-import { withLatestFrom } from 'rxjs';
+import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, useCallback, useEffect, useState } from 'react';
 
-export interface ControlProps {
-    port: Input | Output;
+export interface NumberControlProps {
+    port: Input<number> | Output<number>;
     disabled?: boolean;
     onBlur?: (value: any) => void;
 }
 
-export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
+export const NumberControl = observer(({ port, disabled, onBlur }: NumberControlProps) => {
     const [value, setValue] = useState<any>();
 
     useEffect(() => {

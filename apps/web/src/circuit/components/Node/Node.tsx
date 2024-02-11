@@ -101,7 +101,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     );
 
     const nodeContentWrapperClassNames = clsx(
-        `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-100`,
+        `flex flex-row justify-between items-start rounded-b-xl border-b-slate-100`,
         {
             'mt-4': !window
         }
