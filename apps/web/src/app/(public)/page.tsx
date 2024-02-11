@@ -8,7 +8,7 @@ export default async function Page() {
     const session = await getServerSession(authOptions);
 
     const prisma = new PrismaClient();
-    const bits = await prisma.bit.findMany();
+    const circuits = await prisma.node.findMany({ where: { type: 'CIRCUIT' } });
 
     if (
         // !usersWithSubscription?.includes(session?.user?.email ?? '') &&
@@ -17,5 +17,5 @@ export default async function Page() {
         redirect('/demo');
     }
 
-    return <ClientPage bits={bits} />;
+    return <ClientPage circuits={circuits} />;
 }

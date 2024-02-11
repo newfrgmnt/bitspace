@@ -173,7 +173,7 @@ export const Circuit = observer(
         return (
             <Canvas
                 ref={ref}
-                className={clsx('fixed top-0 left-0 w-full h-full', props.className)}
+                className={clsx('absolute inset-0 w-full h-full', props.className)}
                 size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}

@@ -1,13 +1,11 @@
-import { Panel } from '../../components/Panel/Panel';
 import { observer } from 'mobx-react-lite';
-import { useContext, useMemo } from 'react';
+import { ComponentProps, useContext, useMemo } from 'react';
 import { Control } from '../../components/Control/Control';
-import { HTMLMotionProps } from 'framer-motion';
 import { StoreContext } from '../../circuit';
 import clsx from 'clsx';
 import { updateInput } from '../../server/mutations/updateInput';
 
-export const PropertyPanel = observer(({ className, ...props }: HTMLMotionProps<'div'>) => {
+export const PropertyPanel = observer(({ className, ...props }: ComponentProps<'div'>) => {
     const { store } = useContext(StoreContext);
     const selectedNode = store.selectedNodes[0];
 
@@ -19,7 +17,7 @@ export const PropertyPanel = observer(({ className, ...props }: HTMLMotionProps<
     }
 
     return (
-        <Panel className={clsx('h-fit flex flex-col gap-y-8 p-8', className)} {...props}>
+        <div className={clsx('w-full h-full flex flex-col gap-y-8', className)} {...props}>
             <div className="flex flex-col gap-y-4">
                 <h4 className="font-medium">Inputs</h4>
                 <div className="flex flex-col gap-y-1">
@@ -46,6 +44,6 @@ export const PropertyPanel = observer(({ className, ...props }: HTMLMotionProps<
                     ))}
                 </div>
             </div>
-        </Panel>
+        </div>
     );
 });

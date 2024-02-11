@@ -1,4 +1,4 @@
-import { getCircuit } from '../../../../../../server/query/getCircuit';
+import { getCircuit } from '../../../../server/query/getCircuit';
 import { ClientPage } from './ClientPage';
 
 export default async function Page({ params: { circuitId } }: { params: { circuitId: string[] } }) {

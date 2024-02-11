@@ -47,6 +47,7 @@ export const Menu = ({ onClose }: MenuProps) => {
 
             await createNode({
                 id: node.id,
+                name: matchingNode.displayName,
                 type: matchingNode.type,
                 parentId: store.circuit.id,
                 position: {

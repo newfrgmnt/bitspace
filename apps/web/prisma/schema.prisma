@@ -12,17 +12,6 @@ datasource db {
   schemas  = ["public", "auth"]
 }
 
-model Bit {
-  id        String   @id @default(uuid())
-  name      String
-  rootId    String   @unique
-  root      Node     @relation(fields: [rootId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@schema("public")
-}
-
 model Connection {
   id     String @id @default(uuid())
   fromId String
@@ -45,7 +34,7 @@ model NodePosition {
 model Node {
   id        String        @id @default(uuid())
   type      NodeType
-  bit       Bit?
+  name      String
   parentId  String?
   parent    Node?         @relation("node", fields: [parentId], references: [id], onDelete: Cascade)
   children  Node[]        @relation("node")

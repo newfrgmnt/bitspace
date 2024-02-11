@@ -17,7 +17,7 @@ export const Journey = ({ steps }: JourneyProps) => {
 
     return (
         <Panel
-            className="fixed left-12 bottom-12 w-80 max-h-[360px] h-full justify-between"
+            className="absolute left-12 bottom-12 w-80 max-h-[360px] h-full justify-between"
             variants={{
                 initial: { y: 300, opacity: 0 },
                 animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
