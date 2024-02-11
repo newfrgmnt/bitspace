@@ -30,19 +30,12 @@ const Connections = observer(() => {
     const ref = React.useRef<SVGSVGElement>(null);
     const { store } = React.useContext(StoreContext);
 
-    const onMouseDown = React.useCallback((e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-        if (ref.current === e.target) {
-            store.selectNodes([]);
-        }
-    }, []);
-
     return (
         <motion.svg
             ref={ref}
             id="connections"
             width="100%"
             height="100%"
-            onMouseDown={onMouseDown}
             animate="animate"
             initial="initial"
             transition={{ staggerChildren: 0.3, delayChildren: 1.5 }}

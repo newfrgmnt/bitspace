@@ -28,10 +28,10 @@ export function useClickOutside<T extends HTMLElement, U extends Function>(eleme
             return;
         };
 
-        document.addEventListener('click', handleClickOutside, true);
+        document.addEventListener('mousedown', handleClickOutside, true);
 
         return () => {
-            document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('mousedown', handleClickOutside, true);
         };
     }, [elementRef, callback]);
 }

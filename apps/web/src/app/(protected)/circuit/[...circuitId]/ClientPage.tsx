@@ -81,7 +81,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                         ]}
                     />
                 </div>
-                <PropertyPanel className="w-fit flex flex-col" />
+                <PropertyPanel className="flex flex-col" />
             </StoreContext.Provider>
         </main>
     );

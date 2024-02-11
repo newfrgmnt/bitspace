@@ -15,6 +15,7 @@ import { Circuit } from '@bitspace/circuit';
 import { useRouter } from 'next/navigation';
 import { moveNode } from '../../../server/mutations/moveNode';
 import { removeNode } from '../../../server/mutations/removeNode';
+import { useClickOutside } from '../../hooks/useClickOutside/useClickOutside';
 
 export const Node = observer(({ node, actions, window }: NodeProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -72,6 +73,14 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             router.push(`/circuit/${store.circuit.id}/${node.id}`);
         }
     }, [node, store]);
+
+    useClickOutside(ref, () => {
+        const isSelected = store.selectedNodes.some(sn => sn.id === node.id);
+
+        if (isSelected) {
+            store.selectNodes([]);
+        }
+    });
 
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = node.position || { x: 0, y: 0 };
