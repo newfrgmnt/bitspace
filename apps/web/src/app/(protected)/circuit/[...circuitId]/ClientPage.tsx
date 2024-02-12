@@ -12,6 +12,7 @@ import posthog from 'posthog-js';
 import { ExtendedNode, buildCircuit } from '../../../../circuit/utils/circuit/buildCircuit';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { ImageEditor } from '../../../../components/ImageEditor/ImageEditor';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -95,6 +96,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                     />
                 </div>
                 <PropertyPanel />
+                <ImageEditor imageUrl="https://avatars.githubusercontent.com/u/10053249?v=4" />
             </StoreContext.Provider>
         </main>
     );

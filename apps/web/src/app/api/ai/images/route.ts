@@ -8,10 +8,11 @@ const openai = new OpenAI({
 export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
-    const { prompt, context } = await req.json();
+    const { prompt } = await req.json();
+
     const response = await openai.images.generate({
         model: 'dall-e-2',
-        prompt: `${prompt}. Interpret the following context: ${JSON.stringify(context)}`
+        prompt
     });
 
     return new NextResponse(JSON.stringify(response.data));
