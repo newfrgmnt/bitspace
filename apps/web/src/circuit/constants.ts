@@ -1,4 +1,4 @@
-export const CIRCUIT_SIZE = 10000;
+export const CIRCUIT_SIZE = 20000;
 export const CANVAS_CENTER = CIRCUIT_SIZE / 2;
 
 export const NODE_WIDTH = 260;
