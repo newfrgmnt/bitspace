@@ -53,6 +53,8 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.TO_HSV]: 'Returns a HSV color from a given hue, saturation & value',
 
     [NodeType.IMAGE_AI]: 'Returns an image based on the input prompt',
+    [NodeType.IMAGE_EDIT_AI]:
+        'Returns a new image based on the input image, a given instruction prompt & a mask with transparent area to replace',
     [NodeType.IMAGE_VARIATION_AI]: 'Returns a new image based on the input image & a given instruction prompt',
     [NodeType.PROMPT_AI]: 'Returns text based on the input prompt',
 

@@ -25,11 +25,11 @@ export class Image extends Node {
             name: 'Output',
             type: ImageSchema,
             observable: combineLatest([this.inputs.prompt, this.inputs.context]).pipe(
-                skip(1),
                 debounceTime(500),
+                skip(1),
                 switchMap(([prompt, context]) =>
                     from(
-                        fetch('/api/images', {
+                        fetch('/api/ai/images', {
                             method: 'POST',
                             body: JSON.stringify({ prompt, context: context }),
                             headers: {

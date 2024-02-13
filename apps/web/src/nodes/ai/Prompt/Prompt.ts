@@ -26,11 +26,11 @@ export class Prompt extends Node {
             name: 'Output',
             type: StringSchema,
             observable: combineLatest([this.inputs.prompt, this.inputs.context]).pipe(
-                skip(1),
                 debounceTime(500),
+                skip(1),
                 switchMap(([prompt, context]) =>
                     from(
-                        fetch('/api/prompt', {
+                        fetch('/api/ai/prompt', {
                             method: 'POST',
                             body: JSON.stringify({ prompt, context }),
                             headers: {

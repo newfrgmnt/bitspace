@@ -17,18 +17,12 @@ export const ImageWindow = ({ node }: { node: Image }) => {
 
     return (
         <NodeWindow>
-            <input
-                className="text-black"
-                onKeyDown={e => {
-                    e.stopPropagation();
-                }}
-                onBlur={e => node.inputs.prompt.next(e.target.value)}
-                defaultValue={node.inputs.prompt.value}
-            />
             <div
-                className="w-[244px] h-80 bg-cover bg-center bg-slate-100"
+                className="w-[226px] h-80 bg-cover bg-center bg-slate-100"
                 style={{
-                    backgroundImage: `url(${imageSrc})`
+                    backgroundImage: `url(${imageSrc})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
                 }}
             />
         </NodeWindow>

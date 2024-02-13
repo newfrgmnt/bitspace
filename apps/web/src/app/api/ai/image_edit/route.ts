@@ -22,9 +22,6 @@ export async function POST(req: NextRequest) {
     const imageFile = await toFile(image as any, 'image.png', { type: 'image/png' });
     const maskFile = await toFile(mask as any, 'mask.png', { type: 'image/png' });
 
-    console.log(imageFile.size / (1024 * 1000), maskFile.size / (1024 * 1000));
-    console.log(imageFile.name, imageFile.type, maskFile.name, maskFile.type);
-
     const response = await openai.images.edit({
         model: 'dall-e-2',
         prompt: prompt as string,
@@ -32,5 +29,5 @@ export async function POST(req: NextRequest) {
         mask: maskFile
     });
 
-    return new NextResponse(JSON.stringify(response.data));
+    return new NextResponse(JSON.stringify(response.data[0]?.url));
 }
