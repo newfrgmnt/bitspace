@@ -165,7 +165,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
 
     const handleSelect = React.useCallback(() => {
-        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        ref.current?.scrollIntoView({ block: 'nearest' });
     }, []);
 
     useEffect(() => {
@@ -177,13 +177,25 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     return (
         <motion.div
             ref={ref}
-            className={clsx('flex flex-col px-4 py-2 gap-y-1 transition-colors rounded-xl scroll-m-4', {
-                'bg-slate-100': active,
-                'scroll-m-24': index === 0
-            })}
+            className={clsx(
+                'relative flex flex-row py-4 px-6 gap-y-1 rounded-2xl scroll-m-4 justify-between items-center gap-x-8',
+                {
+                    'text-black': active,
+                    'text-slate-500': !active,
+                    'bg-slate-100': active,
+                    'scroll-m-32': index === 0
+                }
+            )}
         >
-            <h4 className="text-lg">{startCase(title)}</h4>
-            {description && <p className="text-slate-400 text-sm">{description}</p>}
+            <div className="flex-row items-center w-full min-w-0">
+                <h4 className="text-lg">{startCase(title)}</h4>
+                {description && <p className="text-slate-400 text-sm truncate">{description}</p>}
+            </div>
+            {active && (
+                <div className="flex flex-col items-center -mr-2 h-12 w-12 bg-white justify-center rounded-xl leading-none flex-shrink-0 shadow-sm">
+                    <span className="mt-1">↵</span>
+                </div>
+            )}
         </motion.div>
     );
 };
@@ -191,8 +203,8 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
 const MenuItemGroup = ({ title, children }: { title: string; children: React.ReactNode }) => {
     return (
         <div className="flex flex-col gap-y-2">
-            <h3 className="px-8 text-slate-400">{title}</h3>
-            <div className="flex flex-col px-4 gap-y-1">{children}</div>
+            <h3 className="px-10 text-slate-400">{title}</h3>
+            <div className="flex flex-col px-4">{children}</div>
         </div>
     );
 };
