@@ -183,7 +183,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
                     'text-black': active,
                     'text-slate-500': !active,
                     'bg-slate-100': active,
-                    'scroll-m-32': index === 0
+                    'scroll-mt-32': index === 0
                 }
             )}
         >
