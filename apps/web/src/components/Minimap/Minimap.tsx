@@ -36,8 +36,8 @@ export const Minimap = observer(({ className }: { className?: string }) => {
 
     useEffect(() => {
         return autorun(() => {
-            const viewportX = get(store.viewportPosition, 'x');
-            const viewportY = get(store.viewportPosition, 'y');
+            const viewportX = get(store.canvasPosition, 'x');
+            const viewportY = get(store.canvasPosition, 'y');
 
             setPosition({
                 x: lerp(0, mapSize.width, viewportX / CIRCUIT_SIZE),

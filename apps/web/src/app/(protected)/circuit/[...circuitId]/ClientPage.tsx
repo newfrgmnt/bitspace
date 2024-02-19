@@ -12,11 +12,10 @@ import posthog from 'posthog-js';
 import { ExtendedNode, buildCircuit } from '../../../../circuit/utils/circuit/buildCircuit';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ImageEditor } from '../../../../components/ImageEditor/ImageEditor';
+import { Minimap } from '../../../../components/Minimap/Minimap';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [image, setImage] = useState<string>();
 
     useHotkeys(
         'space',
@@ -71,15 +70,16 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                     </motion.div>
                     <CircuitComponent store={canvasStore} nodeWindowResolver={nodeWindowResolver} />
                     {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
-                    {/* <Minimap className="fixed right-12 bottom-20" /> */}
+                    <Minimap className="fixed right-12 bottom-20" />
                     <div className="absolute left-1/2 bottom-12 -translate-x-1/2 flex flex-row justify-center">
                         {<MenuButton onClick={onMenuButtonClick} animate={menuOpen} />}
                     </div>
                     <Journey
+                        persistenceKey="onboarding-complete"
                         steps={[
                             {
                                 title: 'Welcome to Bitspace',
-                                description: 'A visual programming environment for creative endeavours.'
+                                description: `A visual programming environment for creative endeavours. Let's go through the basics.`
                             },
                             {
                                 title: 'Circuits',
@@ -92,7 +92,8 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                             },
                             {
                                 title: 'Connections',
-                                description: 'These are used to link data between different nodes.'
+                                description:
+                                    'These are used to link data between different nodes. Connections may only be established between outputs & inputs'
                             }
                         ]}
                     />
