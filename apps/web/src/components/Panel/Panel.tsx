@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { HTMLMotionProps, motion } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import { PropsWithChildren } from 'react';
 

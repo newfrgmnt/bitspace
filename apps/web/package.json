@@ -30,6 +30,7 @@
         "ai": "^2.2.31",
         "clsx": "^2.1.0",
         "color-convert": "^2.0.1",
+        "eslint-plugin-unused-imports": "^2.0.0",
         "focus-trap-react": "^10.2.3",
         "framer-motion": "^10.16.16",
         "install": "^0.13.0",

@@ -4,7 +4,7 @@
             "mode": "auto"
         }
     ],
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnPaste": false, // required
     "editor.formatOnType": false, // required
     "editor.formatOnSave": true, // optional

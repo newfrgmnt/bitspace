@@ -1,18 +1,18 @@
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { Circuit as CircuitComponent, CanvasStore, StoreContext } from '../../../../circuit';
-import { MenuButton } from '../../../../components/Menu/MenuButton/MenuButton';
-import { Menu } from '../../../../components/Menu/Menu/Menu';
-import { nodeWindowResolver } from '../../../../windows';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { Journey } from '../../../../components/Onboarding/Journey';
-import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPanel';
-import posthog from 'posthog-js';
-import { ExtendedNode, buildCircuit } from '../../../../circuit/utils/circuit/buildCircuit';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import posthog from 'posthog-js';
+import { useCallback, useMemo, useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { CanvasStore, Circuit as CircuitComponent, StoreContext } from '../../../../circuit';
+import { ExtendedNode, buildCircuit } from '../../../../circuit/utils/circuit/buildCircuit';
+import { MenuButton } from '../../../../components/Menu/MenuButton/MenuButton';
 import { Minimap } from '../../../../components/Minimap/Minimap';
+import { Journey } from '../../../../components/Onboarding/Journey';
+import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPanel';
+import { nodeWindowResolver } from '../../../../windows';
+import { Menu } from '../../../../components/Menu/Menu/Menu';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -56,7 +56,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     return (
         <main className="flex flex-row items-stretch h-full w-full gap-x-8">
             <StoreContext.Provider value={{ store: canvasStore }}>
-                <div className="relative flex flex-col justify-between h-full w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-[2rem] overflow-hidden">
+                <div className="relative flex flex-col justify-between h-full w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-tr-[2rem] overflow-hidden">
                     <motion.div
                         className="flex flex-row justify-center items-center w-full absolute h-24 top-0 left-0 right-0 z-10"
                         variants={{
@@ -69,8 +69,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                         </Link>
                     </motion.div>
                     <CircuitComponent store={canvasStore} nodeWindowResolver={nodeWindowResolver} />
-                    {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
-                    <Minimap className="fixed right-12 bottom-20" />
+                    { menuOpen && <Menu onClose={() => setMenuOpen(false)} /> }
                     <div className="absolute left-1/2 bottom-12 -translate-x-1/2 flex flex-row justify-center">
                         {<MenuButton onClick={onMenuButtonClick} animate={menuOpen} />}
                     </div>

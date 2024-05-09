@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion';
-import { Panel } from '../Panel/Panel';
-import Link from 'next/link';
-import PolarIcon from '../Icons/PolarIcon';
-import { useState } from 'react';
 import { CloseOutlined } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useState } from 'react';
+import PolarIcon from '../Icons/PolarIcon';
+import { Panel } from '../Panel/Panel';
 
 export const SignUp = () => {
     const [isShown, toggle] = useState(true);

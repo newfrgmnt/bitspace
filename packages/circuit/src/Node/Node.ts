@@ -76,6 +76,7 @@ export abstract class Node<TData extends NodeData = NodeData> {
 
     /** Returns the Node Type from the constructor */
     public get type(): string {
+        /** @ts-ignore */
         return this.constructor.type;
     }
 }

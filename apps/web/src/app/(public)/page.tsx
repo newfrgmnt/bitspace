@@ -10,12 +10,12 @@ export default async function Page() {
     const prisma = new PrismaClient();
     const circuits = await prisma.node.findMany({ where: { type: 'CIRCUIT' } });
 
-    if (
+    /* if (
         // !usersWithSubscription?.includes(session?.user?.email ?? '') &&
         session?.user?.email !== 'hello@emilwidlund.com'
     ) {
         redirect('/demo');
-    }
+    } */
 
     return <ClientPage circuits={circuits} />;
 }
