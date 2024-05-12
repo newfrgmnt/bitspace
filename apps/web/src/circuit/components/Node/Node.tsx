@@ -187,7 +187,7 @@ export const NodeWindow = React.forwardRef<HTMLDivElement, React.PropsWithChildr
             <div
                 ref={ref}
                 className={clsx(
-                    'relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl max-h-[226px] h-full',
+                    'relative flex flex-col m-4 rounded-3xl overflow-hidden bg-slate-100 max-h-[226px] h-full',
                     className
                 )}
                 onMouseDown={e => e.stopPropagation()}

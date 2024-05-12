@@ -8,7 +8,6 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { CanvasStore, Circuit as CircuitComponent, StoreContext } from '../../../../circuit';
 import { ExtendedNode, buildCircuit } from '../../../../circuit/utils/circuit/buildCircuit';
 import { MenuButton } from '../../../../components/Menu/MenuButton/MenuButton';
-import { Minimap } from '../../../../components/Minimap/Minimap';
 import { Journey } from '../../../../components/Onboarding/Journey';
 import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPanel';
 import { nodeWindowResolver } from '../../../../windows';
@@ -18,11 +17,11 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     useHotkeys(
-        'space',
+        ['space', 'meta+k', 'ctrl+k'],
         e => {
             e.preventDefault();
             e.stopPropagation();
-            setMenuOpen(true);
+            setMenuOpen(!menuOpen);
 
             posthog.capture('Menu invoked from hotkey');
         },

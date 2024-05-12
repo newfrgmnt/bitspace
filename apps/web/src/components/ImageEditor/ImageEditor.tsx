@@ -56,7 +56,7 @@ export const ImageEditor = forwardRef<HTMLDivElement, ImageEditorProps>(
                 var currentPoint = { x, y };
 
                 ctx.beginPath();
-                ctx.arc(x, y, 50, 0, Math.PI * 2, false);
+                ctx.arc(x, y, 33, 0, Math.PI * 2, false);
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
@@ -74,8 +74,8 @@ export const ImageEditor = forwardRef<HTMLDivElement, ImageEditorProps>(
             [setIsDrawing, setLastPoint]
         );
 
-        const handleMouseUp: MouseEventHandler = useCallback(
-            async e => {
+        const handleMouseUp = useCallback(
+            async () => {
                 setIsDrawing(false);
                 setLastPoint(undefined);
 
@@ -105,14 +105,28 @@ export const ImageEditor = forwardRef<HTMLDivElement, ImageEditorProps>(
         );
 
         return (
-            <div ref={ref} className={clsx('relative flex flex-col', className)} {...props}>
+            <div ref={element => {
+                if (ref) {
+                    if (typeof ref === 'function') {
+                        ref(element);
+                    } else {
+                        ref.current = element;
+                    }
+                }
+                
+                window.addEventListener('mouseup', handleMouseUp);
+
+                return () => {
+                    window.removeEventListener('mouseup', handleMouseUp);
+                };
+            
+            }} className={clsx('relative flex flex-col', className)} {...props}>
                 <canvas
                     ref={canvasRef}
-                    className="cursor-[url('/brush.svg')_50_50,auto]"
+                    className="cursor-[url('/brush.svg')_37_37,auto]"
                     width={SIZE}
                     height={SIZE}
                     onMouseDown={handleMouseDown}
-                    onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
                 />
             </div>

@@ -18,7 +18,7 @@ export const ImageWindow = ({ node }: { node: Image }) => {
     return (
         <NodeWindow>
             <div
-                className="w-[226px] h-80 bg-cover bg-center bg-slate-100"
+                className="w-[226px] h-80 bg-cover bg-center"
                 style={{
                     backgroundImage: `url(${imageSrc})`,
                     backgroundSize: 'cover',

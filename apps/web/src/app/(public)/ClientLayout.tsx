@@ -27,18 +27,6 @@ export function ClientLayout({ children }: { children: React.ReactNode }): JSX.E
                     <h3 className="text-3xl">Bitspace</h3>
                 </Link>
                 <div className="flex flex-row items-center gap-x-8 text-lg">
-                    <Link
-                        href="https://polar.sh/emilwidlund/posts/introducing-bitspace-a-playground-for-your-creative-ideas"
-                        target="_blank"
-                    >
-                        <h3>Library</h3>
-                    </Link>
-                    <Link href="/preview-access">
-                        <h3>Preview</h3>
-                    </Link>
-                    <Link href="https://github.com/bitspace/bitspace" target="_blank">
-                        <h3>Open Source</h3>
-                    </Link>
                     {status === 'authenticated' ? (
                         <div
                             className="w-11 h-11 bg-cover bg-center rounded-full"
