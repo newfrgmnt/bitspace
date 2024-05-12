@@ -20,6 +20,8 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
     public subscription: Subscription;
     /** Associated Connections */
     public connections: Connection<TValue>[];
+    /** Optional Loading State */
+    public loading: boolean = false
 
     constructor(props: IOutputProps<TValue>) {
         super(1);
@@ -37,8 +39,11 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
             observable: observable,
             subscription: observable,
             connections: observable,
+            loading: observable,
             connected: computed,
             connect: action,
+            setLoading: action,
+            resetLoading: action,
             dispose: action
         });
     }
@@ -54,6 +59,16 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
         onValidationFail?: (fromId: string, toId: string) => void
     ): Connection<TValue> {
         return new Connection(this, input, onValidationFail);
+    }
+
+    /** Sets the loading state */
+    public setLoading() {
+        this.loading = true;
+    }
+
+    /** Flushes the loading state */
+    public resetLoading() {
+        this.loading = false;
     }
 
     /** Disposes the Output */
