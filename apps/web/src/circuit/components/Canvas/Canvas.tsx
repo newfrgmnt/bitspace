@@ -8,12 +8,14 @@ import usePanZoom from 'use-pan-and-zoom';
 
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import { CanvasProps } from './Canvas.types';
+import { StoreContext } from '../..';
 
 export const Canvas = observer(
     React.forwardRef<HTMLDivElement, CanvasProps>(
-        ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp }: CanvasProps, ref) => {
+        ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp, onScroll }: CanvasProps, ref) => {
             const scrollRef = React.useRef<HTMLDivElement>(null);
             const { transform, setContainer, panZoomHandlers } = usePanZoom({ enableZoom: false });
+            const { store } = React.useContext(StoreContext);
 
             React.useEffect(() => {
                 if (scrollRef.current) {
@@ -28,9 +30,24 @@ export const Canvas = observer(
                     );
 
                     scrollRef.current.scrollTo({ left: x - offsetX, top: y - offsetY });
+
+                    const resizeObserver = new ResizeObserver(entries => {
+                        for (const entry of entries) {
+                            store.setCanvasSize({
+                                width: entry.contentRect.width,
+                                height: entry.contentRect.height
+                            });
+                        }
+                    });
+
+                    resizeObserver.observe(scrollRef.current);
+
+                    return () => {
+                        resizeObserver.disconnect();
+                    };
                 }
                 // eslint-disabled-next-line react-hooks/exhaustive-deps
-            }, []);
+            }, [store]);
 
             const handleMouseDown = React.useCallback(
                 (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -49,6 +66,7 @@ export const Canvas = observer(
                     className={clsx('w-full h-full overflow-auto bg-[#f0f2f7] text-slate-400', className)}
                     {...panZoomHandlers}
                     onMouseDown={handleMouseDown}
+                    onScroll={onScroll}
                 >
                     <motion.div
                         ref={ref}

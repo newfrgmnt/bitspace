@@ -1,11 +1,12 @@
-import { z } from 'zod';
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
-import { HSVSchema } from '../../../schemas/HSVSchema';
+import { HSVSchema } from '../../schemas';
+import { NodeType } from '@prisma/client';
 
 export class SquareHarmony extends Node {
     static displayName = 'Square Harmony';
+    static type = NodeType.SQUARE_COLOR;
 
     inputs = {
         color: new Input({

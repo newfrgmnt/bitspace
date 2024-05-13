@@ -1,17 +1,9 @@
 {
     "name": "@bitspace/webgl",
     "version": "0.0.1",
-    "main": "build/index.js",
+    "main": "src/index.ts",
     "description": "",
     "private": true,
-    "files": [
-        "build/*"
-    ],
-    "exports": {
-        ".": "./build/index.js",
-        "./nodes": "./build/nodes/index.js",
-        "./schemas": "./build/schemas/index.js"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/newfrgmnt/alma.git"

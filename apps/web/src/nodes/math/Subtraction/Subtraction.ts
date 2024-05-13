@@ -1,10 +1,12 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
-import { NumberSchema } from '../../../schemas/NumberSchema';
+import { NumberSchema } from '../../schemas';
+import { NodeType } from '@prisma/client';
 
 export class Subtraction extends Node {
     static displayName = 'Subtraction';
+    static type = NodeType.SUBTRACTION;
 
     inputs = {
         a: new Input({ name: 'A', type: NumberSchema, defaultValue: 0 }),

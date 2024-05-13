@@ -1,23 +1,32 @@
-import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
+import { ChevronLeftOutlined, ChevronRightOutlined, CloseOutlined } from '@mui/icons-material';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Panel } from '../Panel/Panel';
 
 export interface JourneyProps {
+    persistenceKey: string;
     steps: JourneyStepProps[];
 }
 
-export const Journey = ({ steps }: JourneyProps) => {
+export const Journey = ({ persistenceKey, steps }: JourneyProps) => {
     const [currentStep, setCurrentStep] = useState(0);
+    const [finished, setFinished] = useState(false);
 
     const step = useMemo(() => steps[currentStep], [currentStep, steps]);
     const nextStep = useMemo(() => steps[currentStep + 1], [currentStep, steps]);
     const previousStep = useMemo(() => steps[currentStep - 1], [currentStep, steps]);
 
+    const handleFinish = useCallback(() => {
+        localStorage.setItem(persistenceKey, 'true');
+        setFinished(true);
+    }, [setFinished]);
+
+    if (localStorage.getItem(persistenceKey) || finished) return null;
+
     return (
         <Panel
-            className="fixed left-12 bottom-12 w-80 max-h-[360px] h-full justify-between"
+            className="absolute left-12 bottom-12 w-80 max-h-[360px] h-full justify-between bg-slate-50"
             variants={{
                 initial: { y: 300, opacity: 0 },
                 animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
@@ -47,15 +56,19 @@ export const Journey = ({ steps }: JourneyProps) => {
                     {currentStep + 1} / {steps.length}
                 </span>
 
-                <motion.button
-                    className={clsx('bg-slate-200 text-slate-400 rounded-xl p-2', {
-                        'opacity-50': !nextStep
-                    })}
-                    onClick={() => setCurrentStep(currentStep + 1)}
-                    disabled={!nextStep}
-                >
-                    <ChevronRightOutlined />
-                </motion.button>
+                {
+                    <motion.button
+                        className={clsx('rounded-xl w-10 h-10 flex flex-col items-center justify-center', {
+                            'text-slate-400': !!nextStep,
+                            'bg-slate-200': !!nextStep,
+                            'text-white': !nextStep,
+                            'bg-blue-500': !nextStep
+                        })}
+                        onClick={() => (nextStep ? setCurrentStep(currentStep + 1) : handleFinish())}
+                    >
+                        {nextStep ? <ChevronRightOutlined /> : <CloseOutlined fontSize="small" />}
+                    </motion.button>
+                }
             </div>
         </Panel>
     );

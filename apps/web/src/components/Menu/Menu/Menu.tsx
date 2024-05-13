@@ -7,6 +7,10 @@ import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
 import { startCase } from 'lodash';
 import posthog from 'posthog-js';
+import { createNode } from '../../../server/mutations/createNode';
+import { toCanvasCartesianPoint } from '../../../circuit/utils/coordinates/coordinates';
+import { NODE_CENTER } from '../../../circuit/constants';
+import { NodeDescriptionsMap } from '../../../nodes/descriptions';
 
 export interface MenuProps {
     onClose: () => void;
@@ -36,16 +40,44 @@ export const Menu = ({ onClose }: MenuProps) => {
         setActiveIndex(0);
     }, [query]);
 
-    const handlePress = useCallback(() => {
+    const handlePress = useCallback(async () => {
         const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
 
         if (matchingNode) {
             const node = new matchingNode();
-            store.setNodes([[node, { x: 0, y: 0 }]]);
+            node.position = toCanvasCartesianPoint(store.canvasMidpoint.x - NODE_CENTER, store.canvasMidpoint.y - 200);
+            store.circuit.addNode(node);
             store.selectNodes([node]);
 
+            await createNode({
+                id: node.id,
+                name: matchingNode.displayName,
+                type: matchingNode.type,
+                parentId: store.circuit.id,
+                position: {
+                    create: {
+                        x: node.position.x,
+                        y: node.position.y
+                    }
+                },
+                inputs: {
+                    createMany: {
+                        data: Object.entries(node.inputs).map(([key, input]) => ({
+                            id: input.id,
+                            key,
+                            value: typeof input.value !== 'function' ? input.value : undefined
+                        }))
+                    }
+                },
+                outputs: {
+                    createMany: {
+                        data: Object.entries(node.outputs).map(([key, output]) => ({ id: output.id, key }))
+                    }
+                }
+            });
+
             /** @ts-ignore */
-            posthog.capture('Node Created from Menu', { node: node.constructor.displayName });
+            posthog.capture('Node Created from Menu', { node: matchingNode.constructor.type });
 
             onClose();
         }
@@ -97,7 +129,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                         />
                     </div>
                 </FocusTrap>
-                <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-4">
+                <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-8">
                     {matchingGroups.map((group, index) => (
                         <MenuItemGroup key={group.name} title={group.name}>
                             {group.nodes.map(node => {
@@ -107,6 +139,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                                     <MenuItem
                                         key={node.displayName}
                                         title={node.displayName}
+                                        description={NodeDescriptionsMap[node.type]}
                                         active={activeIndex === index}
                                         index={index}
                                     />
@@ -132,7 +165,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
 
     const handleSelect = React.useCallback(() => {
-        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        ref.current?.scrollIntoView({ block: 'nearest' });
     }, []);
 
     useEffect(() => {
@@ -144,13 +177,25 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     return (
         <motion.div
             ref={ref}
-            className={clsx('flex flex-col px-4 py-2 gap-y-1 transition-colors rounded-xl scroll-m-4', {
-                'bg-slate-100': active,
-                'scroll-m-24': index === 0
-            })}
+            className={clsx(
+                'relative flex flex-row py-4 px-6 gap-y-1 rounded-2xl scroll-m-4 justify-between items-center gap-x-8',
+                {
+                    'text-black': active,
+                    'text-slate-500': !active,
+                    'bg-slate-100': active,
+                    'scroll-mt-32': index === 0
+                }
+            )}
         >
-            <h4 className="text-lg">{startCase(title)}</h4>
-            {description && <p className="text-slate-400">{description}</p>}
+            <div className="flex-row items-center w-full min-w-0">
+                <h4 className="text-lg">{startCase(title)}</h4>
+                {description && <p className="text-slate-400 text-sm truncate">{description}</p>}
+            </div>
+            {active && (
+                <div className="flex flex-col items-center -mr-2 h-12 w-12 bg-white justify-center rounded-xl leading-none flex-shrink-0 shadow-sm">
+                    <span className="mt-1">↵</span>
+                </div>
+            )}
         </motion.div>
     );
 };
@@ -158,8 +203,8 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
 const MenuItemGroup = ({ title, children }: { title: string; children: React.ReactNode }) => {
     return (
         <div className="flex flex-col gap-y-2">
-            <h3 className="px-8 text-slate-400">{title}</h3>
-            <div className="flex flex-col px-4 gap-y-1">{children}</div>
+            <h3 className="px-10 text-slate-400">{title}</h3>
+            <div className="flex flex-col px-4">{children}</div>
         </div>
     );
 };

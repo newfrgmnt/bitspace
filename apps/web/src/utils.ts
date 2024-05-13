@@ -1,37 +1,12 @@
-import { Configuration, HTTPHeaders, PolarAPI } from '@polar-sh/sdk';
-import { cookies } from 'next/headers';
-import GithubProvider from 'next-auth/providers/github';
-import { AuthOptions } from 'next-auth';
-import posthog from 'posthog-js';
+import { Position } from './circuit';
 
-export const authOptions: AuthOptions = {
-    secret: process.env.NEXTAUTH_SECRET,
-    providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_ID ?? '',
-            clientSecret: process.env.GITHUB_SECRET ?? ''
-        })
-    ]
+export const lerp = (a: number, b: number, t: number) => {
+    return a * (1 - t) + b * t;
 };
 
-export const getServerSideAPI = (token?: string): PolarAPI => {
-    let headers: HTTPHeaders | undefined;
-
-    if (token) {
-        headers = {
-            Authorization: `Bearer ${token}`
-        };
-    } else {
-        const cookieStore = cookies();
-        headers = {
-            Cookie: cookieStore.toString()
-        };
-    }
-
-    return new PolarAPI(
-        new Configuration({
-            credentials: 'include',
-            headers
-        })
-    );
+export const distanceBetween = (a: Position, b: Position) => {
+    return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+};
+export const angleBetween = (a: Position, b: Position) => {
+    return Math.atan2(b.x - a.x, b.y - a.y);
 };

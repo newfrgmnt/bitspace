@@ -1,10 +1,12 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
-import { NumberSchema } from '../../../schemas/NumberSchema';
+import { NumberSchema } from '../../schemas';
+import { NodeType } from '@prisma/client';
 
 export class Power extends Node {
     static displayName = 'Power';
+    static type = NodeType.POWER;
 
     inputs = {
         x: new Input({ name: 'X', type: NumberSchema, defaultValue: 0 }),

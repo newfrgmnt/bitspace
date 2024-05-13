@@ -1,10 +1,12 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
-import { NumberSchema } from '../../../schemas/NumberSchema';
+import { NumberSchema } from '../../schemas';
+import { NodeType } from '@prisma/client';
 
 export class Multiplication extends Node {
     static displayName = 'Multiplication';
+    static type = NodeType.MULTIPLICATION;
 
     inputs = {
         a: new Input({ name: 'A', type: NumberSchema, defaultValue: 1 }),

@@ -2,10 +2,12 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
-import { HSVSchema } from '../../../schemas/HSVSchema';
+import { HSVSchema } from '../../schemas';
+import { NodeType } from '@prisma/client';
 
 export class ComplementaryHarmony extends Node {
     static displayName = 'Complementary Harmony';
+    static type = NodeType.COMPLEMENTARY_COLOR;
 
     inputs = {
         color: new Input({

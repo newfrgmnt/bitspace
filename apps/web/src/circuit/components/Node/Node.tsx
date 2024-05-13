@@ -5,7 +5,7 @@ import Draggable, { DraggableEventHandler } from 'react-draggable';
 
 import { NODE_POSITION_OFFSET_X } from '../../constants';
 import { useHover } from '../../hooks/useHover/useHover';
-import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../stores/CanvasStore/CanvasStore';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Port } from '../Port/Port';
 import { NodeActionProps, NodePortsProps, NodeProps } from './Node.types';
@@ -13,6 +13,8 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { Circuit } from '@bitspace/circuit';
 import { useRouter } from 'next/navigation';
+import { moveNode } from '../../../server/mutations/moveNode';
+import { removeNode } from '../../../server/mutations/removeNode';
 
 export const Node = observer(({ node, actions, window }: NodeProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -51,10 +53,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             e.stopPropagation();
 
             for (const selectedNode of store.selectedNodes || []) {
-                store.setNodePosition(selectedNode.id, {
-                    x: (store.nodePositions.get(selectedNode.id)?.x || 0) + deltaX,
-                    y: (store.nodePositions.get(selectedNode.id)?.y || 0) + -deltaY
-                });
+                selectedNode.incrementPosition(deltaX, -deltaY);
             }
         },
         [node]
@@ -64,6 +63,8 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
         node.dispose();
 
         store.removeNode(node);
+
+        removeNode(node.id);
     }, [node]);
 
     const handleDoubleClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback(() => {
@@ -73,7 +74,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     }, [node, store]);
 
     const active = store.selectedNodes?.indexOf(node) !== -1;
-    const position = store.nodePositions.get(node.id) || { x: 0, y: 0 };
+    const position = node.position || { x: 0, y: 0 };
 
     const nodeWrapperClassNames = clsx(
         `absolute flex flex-col select-none focus:outline-none w-[260px] bg-[#fcfdff] border-white border rounded-3xl transition-shadow active:shadow-2xl opacity-100`,
@@ -85,7 +86,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     );
 
     const nodeHeaderWrapperClassNames = clsx(
-        'relative flex flex-row justify-center items-center px-4 pt-4 text-xxs font-medium uppercase tracking-widest rounded-t-xl handle',
+        'relative flex flex-row justify-center items-center px-4 pt-4 text-xs font-medium rounded-t-xl handle',
         {
             'text-black': active
         }
@@ -100,7 +101,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     );
 
     const nodeContentWrapperClassNames = clsx(
-        `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-100`,
+        `flex flex-row justify-between items-start rounded-b-xl border-b-slate-100`,
         {
             'mt-4': !window
         }
@@ -111,6 +112,11 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
             nodeRef={ref}
             position={fromCanvasCartesianPoint(position.x - NODE_POSITION_OFFSET_X, position.y)}
             onDrag={handleOnDrag}
+            onStop={e => {
+                for (const selectedNode of store.selectedNodes || []) {
+                    moveNode(selectedNode.id, { x: selectedNode.position.x, y: selectedNode.position.y });
+                }
+            }}
         >
             <motion.div
                 ref={ref}
@@ -181,7 +187,7 @@ export const NodeWindow = React.forwardRef<HTMLDivElement, React.PropsWithChildr
             <div
                 ref={ref}
                 className={clsx(
-                    'relative flex flex-col m-4 rounded-3xl overflow-hidden shadow-xl max-h-[226px] h-full',
+                    'relative flex flex-col m-4 rounded-3xl overflow-hidden bg-slate-100 max-h-[226px] h-full',
                     className
                 )}
                 onMouseDown={e => e.stopPropagation()}

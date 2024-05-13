@@ -1,10 +1,11 @@
 import { Input, Node, Output } from '@bitspace/circuit';
-import { NumberSchema } from '../../../schemas/NumberSchema';
+import { NumberSchema, EasingSchema } from '../../schemas';
 import { combineLatest, map } from 'rxjs';
-import { EasingSchema } from '../../../schemas/EasingSchema';
+import { NodeType } from '@prisma/client';
 
 export class Lerp extends Node {
     static displayName = 'Lerp';
+    static type = NodeType.LERP;
 
     inputs = {
         a: new Input({

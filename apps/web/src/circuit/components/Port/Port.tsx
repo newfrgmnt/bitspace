@@ -4,13 +4,15 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { useHover } from '../../hooks/useHover/useHover';
-import { StoreContext } from '../../stores/CircuitStore/CircuitStore';
+import { StoreContext } from '../../stores/CanvasStore/CanvasStore';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';
 import clsx from 'clsx';
 import { CloseOutlined } from '@mui/icons-material';
 import posthog from 'posthog-js';
+import { createConnection } from '../../../server/mutations/createConnection';
+import { removeConnection } from '../../../server/mutations/removeConnection';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -54,11 +56,15 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
 
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && store.draftConnectionSource) {
-            store.commitDraftConnection(port as Input<any>);
+            const connection = store.commitDraftConnection(port as Input<any>);
+
+            if (connection) {
+                createConnection(connection.from.id, connection.to.id);
+            }
 
             posthog.capture('Connection established');
         }
-    }, [isOutput]);
+    }, [isOutput, port]);
 
     const onClick = React.useCallback(() => {
         if (port.connected) {
@@ -67,6 +73,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
             for (const connection of connections) {
                 if (connection) {
                     connection.dispose();
+                    removeConnection(connection.from.id, connection.to.id);
 
                     posthog.capture('Connection removed on port click');
                 }
@@ -80,7 +87,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         (store.draftConnectionSource?.id === port.id && !visuallyDisabled);
 
     const portWrapperClassNames = clsx(
-        'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-widest select-none transition-opacity',
+        'relative flex flex-row grow-1 items-center py-1 text-xs font-medium select-none transition-opacity',
         {
             'flex-row-reverse': isOutput,
             'flex-row': !isOutput,
@@ -96,8 +103,8 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
             'bg-slate-200': !port.connected && !isHovered && !highlighted,
             'bg-black': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered) || highlighted,
             'text-white': highlighted || isHovered,
-            'ml-3': isOutput,
-            'mr-3': !isOutput
+            'ml-2': isOutput,
+            'mr-2': !isOutput
         }
     );
 

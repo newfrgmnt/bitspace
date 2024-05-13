@@ -2,10 +2,12 @@ import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
-import { HSVSchema } from '../../../schemas/HSVSchema';
+import { NodeType } from '@prisma/client';
+import { HSVSchema } from '../../schemas';
 
 export class AnalogousHarmony extends Node {
     static displayName = 'Analogous Harmony';
+    static type = NodeType.ANALOGOUS_COLOR;
 
     inputs = {
         color: new Input({
