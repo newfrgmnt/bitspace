@@ -120,13 +120,11 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
 
     return (
         <div className="flex flex-row items-center gap-4 justify-between bg-white p-2 rounded-full w-full shadow-sm">
-            <div className="flex flex-row items-center gap-4">
+            <div className="flex flex-row items-center gap-2">
                 <input
                     className={clsx(
                         'rounded-full h-6 w-6 overflow-hidden border border-slate-100 [&::-webkit-color-swatch]:border-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch-wrapper]:rounded-none',
-                        disabled
-                            ? 'opacity-50 cursor-not-allowed'
-                            : 'cursor-pointer'
+                        disabled ? 'cursor-not-allowed' : 'cursor-pointer'
                     )}
                     type="color"
                     disabled={disabled}
