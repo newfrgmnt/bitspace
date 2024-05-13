@@ -1,5 +1,13 @@
 import clsx from 'clsx';
-import { ComponentProps, MouseEventHandler, forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import {
+    ComponentProps,
+    MouseEventHandler,
+    forwardRef,
+    useCallback,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import { Position } from '../../circuit';
 
 const SIZE = 226;
@@ -74,53 +82,53 @@ export const ImageEditor = forwardRef<HTMLDivElement, ImageEditorProps>(
             [setIsDrawing, setLastPoint]
         );
 
-        const handleMouseUp = useCallback(
-            async () => {
-                setIsDrawing(false);
-                setLastPoint(undefined);
+        const handleMouseUp = useCallback(async () => {
+            setIsDrawing(false);
+            setLastPoint(undefined);
 
-                if (!canvasRef.current) return;
+            if (!canvasRef.current) return;
 
-                const ctx = canvasRef.current.getContext('2d');
+            const ctx = canvasRef.current.getContext('2d');
 
-                if (!ctx) return;
+            if (!ctx) return;
 
-                convertJPGToPNG(imageUrl, imageBlob => {
-                    canvasRef.current?.toBlob(maskBlob => {
-                        const formData = new FormData();
-                        formData.append('prompt', 'A man with a hat');
-                        formData.append('image', imageBlob as Blob);
-                        formData.append('mask', maskBlob as Blob);
+            convertJPGToPNG(imageUrl, imageBlob => {
+                canvasRef.current?.toBlob(maskBlob => {
+                    const formData = new FormData();
+                    formData.append('prompt', 'A man with a hat');
+                    formData.append('image', imageBlob as Blob);
+                    formData.append('mask', maskBlob as Blob);
 
-                        fetch('/api/ai/image_edit', {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.json())
-                            .then(onImageChange);
-                    });
+                    fetch('/api/ai/image_edit', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(onImageChange);
                 });
-            },
-            [setIsDrawing, setLastPoint, imageUrl, onImageChange]
-        );
+            });
+        }, [setIsDrawing, setLastPoint, imageUrl, onImageChange]);
 
         return (
-            <div ref={element => {
-                if (ref) {
-                    if (typeof ref === 'function') {
-                        ref(element);
-                    } else {
-                        ref.current = element;
+            <div
+                ref={element => {
+                    if (ref) {
+                        if (typeof ref === 'function') {
+                            ref(element);
+                        } else {
+                            ref.current = element;
+                        }
                     }
-                }
-                
-                window.addEventListener('mouseup', handleMouseUp);
 
-                return () => {
-                    window.removeEventListener('mouseup', handleMouseUp);
-                };
-            
-            }} className={clsx('relative flex flex-col', className)} {...props}>
+                    window.addEventListener('mouseup', handleMouseUp);
+
+                    return () => {
+                        window.removeEventListener('mouseup', handleMouseUp);
+                    };
+                }}
+                className={clsx('relative flex flex-col', className)}
+                {...props}
+            >
                 <canvas
                     ref={canvasRef}
                     className="cursor-[url('/brush.svg')_37_37,auto]"

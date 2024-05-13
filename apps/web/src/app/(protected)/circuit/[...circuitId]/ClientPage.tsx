@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import posthog from 'posthog-js';
-import { useCallback, useMemo, useState } from 'react';
+import { FocusEventHandler, useCallback, useMemo, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import {
     CanvasStore,
@@ -21,10 +21,15 @@ import { nodeWindowResolver } from '../../../../windows';
 import { Menu } from '../../../../components/Menu/Menu/Menu';
 import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
 import { useSession } from 'next-auth/react';
+import {
+    ArrowDropDown,
+    KeyboardArrowDown,
+    KeyboardArrowDownOutlined
+} from '@mui/icons-material';
+import { updateCircuit } from '../../../../server/mutations/updateCircuit';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const { data: sessionData } = useSession();
 
     useHotkeys(
         ['space', 'meta+k', 'ctrl+k'],
@@ -66,28 +71,7 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
         <main className="flex flex-row items-stretch h-full w-full gap-x-8">
             <StoreContext.Provider value={{ store: canvasStore }}>
                 <div className="relative flex flex-col justify-between h-full w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-[2rem] overflow-hidden">
-                    <motion.div
-                        className="flex flex-row justify-between items-center w-full z-10 px-12 pt-12"
-                        variants={{
-                            initial: { opacity: 0 },
-                            animate: {
-                                opacity: 1,
-                                transition: { duration: 1, delay: 1 }
-                            }
-                        }}
-                    >
-                        <Link href="/">
-                            <h3 className="text-xl">Bitspace</h3>
-                        </Link>
-                        <div className="flex flex-col items-center">
-                            <h3>{circuit.name}</h3>
-                        </div>
-                        {sessionData?.user?.image && (
-                            <div>
-                                <Avatar imageUrl={sessionData.user.image} />
-                            </div>
-                        )}
-                    </motion.div>
+                    <CircuitHeader circuit={circuit} />
                     <CircuitComponent
                         store={canvasStore}
                         nodeWindowResolver={nodeWindowResolver}
@@ -129,5 +113,59 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                 <PropertyPanel />
             </StoreContext.Provider>
         </main>
+    );
+};
+
+const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
+    const { data: sessionData } = useSession();
+
+    const updateCircuitName: FocusEventHandler<HTMLHeadingElement> =
+        useCallback(
+            e => {
+                if (e.target.innerText.length !== 0) {
+                    updateCircuit(circuit.id, { name: e.target.innerText });
+                }
+            },
+            [circuit, updateCircuit]
+        );
+
+    return (
+        <motion.div
+            className="flex flex-row justify-between items-center w-full z-10 px-12 pt-12"
+            variants={{
+                initial: { opacity: 0 },
+                animate: {
+                    opacity: 1,
+                    transition: { duration: 1, delay: 1 }
+                }
+            }}
+        >
+            <Link href="/">
+                <h3 className="text-xl">Bitspace</h3>
+            </Link>
+            <div className="flex flex-row items-center gap-x-2">
+                <h3
+                    className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none"
+                    onBlur={updateCircuitName}
+                    contentEditable
+                    onKeyDown={e => {
+                        e.stopPropagation();
+
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            e.currentTarget.blur();
+                        }
+                    }}
+                >
+                    {circuit.name}
+                </h3>
+                <KeyboardArrowDownOutlined fontSize="inherit" />
+            </div>
+            {sessionData?.user?.image && (
+                <div>
+                    <Avatar imageUrl={sessionData.user.image} />
+                </div>
+            )}
+        </motion.div>
     );
 };

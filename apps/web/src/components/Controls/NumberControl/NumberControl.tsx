@@ -60,7 +60,7 @@ export const NumberControl = observer(
         return (
             <input
                 className={clsx(
-                    'px-4 py-2 rounded-full w-full shadow-sm border border-slate-100',
+                    'px-4 py-2 rounded-full w-full shadow-sm border border-slate-100 focus-visible:outline-slate-200',
                     {
                         'text-slate-400': disabled
                     }

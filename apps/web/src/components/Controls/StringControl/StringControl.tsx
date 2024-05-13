@@ -61,12 +61,11 @@ export const StringControl = observer(
         return (
             <textarea
                 className={clsx(
-                    'px-4 py-3 rounded-2xl w-full shadow-sm border border-slate-100 resize-none min-h-24',
+                    'px-4 py-3 rounded-2xl w-full shadow-sm border border-slate-100 resize-none min-h-24 focus-visible:outline-slate-200',
                     {
                         'text-slate-400': disabled
                     }
                 )}
-                placeholder={port.type.name}
                 onKeyDown={handleKeydown}
                 value={value}
                 disabled={disabled}
