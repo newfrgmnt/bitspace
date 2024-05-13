@@ -1,11 +1,12 @@
 import clsx from 'clsx';
+import { ComponentProps } from 'react';
 
-export interface AvatarProps {
+export interface AvatarProps extends ComponentProps<'div'> {
     imageUrl: string;
     className?: string;
 }
 
-export const Avatar = ({ imageUrl, className }: AvatarProps) => {
+export const Avatar = ({ imageUrl, className, ...props }: AvatarProps) => {
     return (
         <div
             className={clsx(
@@ -15,6 +16,7 @@ export const Avatar = ({ imageUrl, className }: AvatarProps) => {
             style={{
                 backgroundImage: `url(${imageUrl})`
             }}
+            {...props}
         />
     );
 };

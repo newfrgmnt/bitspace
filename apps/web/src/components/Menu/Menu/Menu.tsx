@@ -1,4 +1,12 @@
-import React, { KeyboardEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    KeyboardEventHandler,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from 'react';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
 import { NodeGroups } from '../../../nodes';
@@ -28,24 +36,37 @@ export const Menu = ({ onClose }: MenuProps) => {
             return {
                 name: group.name,
                 nodes: group.nodes.filter(node => {
-                    return node.displayName.toLowerCase().includes(query.toLowerCase());
+                    return (
+                        node.displayName
+                            .toLowerCase()
+                            .includes(query.toLowerCase()) ||
+                        group.name.toLowerCase().includes(query.toLowerCase())
+                    );
                 })
             };
         }).filter(group => group.nodes.length);
     }, [query]);
 
-    const matchingItems = useMemo(() => matchingGroups.flatMap(group => group.nodes), [matchingGroups]);
+    const matchingItems = useMemo(
+        () => matchingGroups.flatMap(group => group.nodes),
+        [matchingGroups]
+    );
 
     useEffect(() => {
         setActiveIndex(0);
     }, [query]);
 
     const handlePress = useCallback(async () => {
-        const matchingNode = matchingGroups.flatMap(group => group.nodes)[activeIndex];
+        const matchingNode = matchingGroups.flatMap(group => group.nodes)[
+            activeIndex
+        ];
 
         if (matchingNode) {
             const node = new matchingNode();
-            node.position = toCanvasCartesianPoint(store.canvasMidpoint.x - NODE_CENTER, store.canvasMidpoint.y - 200);
+            node.position = toCanvasCartesianPoint(
+                store.canvasMidpoint.x - NODE_CENTER,
+                store.canvasMidpoint.y - 200
+            );
             store.circuit.addNode(node);
             store.selectNodes([node]);
 
@@ -62,22 +83,31 @@ export const Menu = ({ onClose }: MenuProps) => {
                 },
                 inputs: {
                     createMany: {
-                        data: Object.entries(node.inputs).map(([key, input]) => ({
-                            id: input.id,
-                            key,
-                            value: typeof input.value !== 'function' ? input.value : undefined
-                        }))
+                        data: Object.entries(node.inputs).map(
+                            ([key, input]) => ({
+                                id: input.id,
+                                key,
+                                value:
+                                    typeof input.value !== 'function'
+                                        ? input.value
+                                        : undefined
+                            })
+                        )
                     }
                 },
                 outputs: {
                     createMany: {
-                        data: Object.entries(node.outputs).map(([key, output]) => ({ id: output.id, key }))
+                        data: Object.entries(node.outputs).map(
+                            ([key, output]) => ({ id: output.id, key })
+                        )
                     }
                 }
             });
 
             /** @ts-ignore */
-            posthog.capture('Node Created from Menu', { node: matchingNode.constructor.type });
+            posthog.capture('Node Created from Menu', {
+                node: matchingNode.constructor.type
+            });
 
             onClose();
         }
@@ -88,9 +118,19 @@ export const Menu = ({ onClose }: MenuProps) => {
             e.stopPropagation();
 
             if (e.key === 'ArrowDown') {
-                setActiveIndex(activeIndex => Math.max(0, Math.min(matchingItems.length - 1, activeIndex + 1)));
+                setActiveIndex(activeIndex =>
+                    Math.max(
+                        0,
+                        Math.min(matchingItems.length - 1, activeIndex + 1)
+                    )
+                );
             } else if (e.key === 'ArrowUp') {
-                setActiveIndex(activeIndex => Math.min(matchingItems.length - 1, Math.max(0, activeIndex - 1)));
+                setActiveIndex(activeIndex =>
+                    Math.min(
+                        matchingItems.length - 1,
+                        Math.max(0, activeIndex - 1)
+                    )
+                );
             }
 
             if (e.key === 'Enter') {
@@ -109,7 +149,10 @@ export const Menu = ({ onClose }: MenuProps) => {
             className="fixed inset-0 bg-black/20 flex flex-col items-center z-90"
             variants={{
                 initial: { opacity: 0 },
-                animate: { opacity: 1, transition: { ease: [0.65, 0, 0.35, 1], duration: 0.2 } }
+                animate: {
+                    opacity: 1,
+                    transition: { ease: [0.65, 0, 0.35, 1], duration: 0.2 }
+                }
             }}
         >
             <motion.div
@@ -117,11 +160,11 @@ export const Menu = ({ onClose }: MenuProps) => {
                 className="bg-white rounded-3xl max-w-3xl w-full h-fit -translate-y-1/3 -translate-x-1/2 absolute top-1/3 left-1/2 overflow-hidden"
             >
                 <FocusTrap>
-                    <div className="flex flex-row p-8 border-b">
+                    <div className="flex flex-row p-8 bg-slate-50">
                         <input
                             tabIndex={0}
                             placeholder="Search for Nodes & Utilities..."
-                            className="text-2xl w-full border-none focus:outline-none"
+                            className="text-xl w-full border-none focus:outline-none bg-transparent"
                             value={query}
                             onChange={e => setQuery(e.target.value)}
                             autoFocus
@@ -139,7 +182,9 @@ export const Menu = ({ onClose }: MenuProps) => {
                                     <MenuItem
                                         key={node.displayName}
                                         title={node.displayName}
-                                        description={NodeDescriptionsMap[node.type]}
+                                        description={
+                                            NodeDescriptionsMap[node.type]
+                                        }
                                         active={activeIndex === index}
                                         index={index}
                                     />
@@ -189,7 +234,11 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
         >
             <div className="flex-row items-center w-full min-w-0">
                 <h4 className="text-lg">{startCase(title)}</h4>
-                {description && <p className="text-slate-400 text-sm truncate">{description}</p>}
+                {description && (
+                    <p className="text-slate-400 text-sm truncate">
+                        {description}
+                    </p>
+                )}
             </div>
             {active && (
                 <div className="flex flex-col items-center -mr-2 h-12 w-12 bg-white justify-center rounded-xl leading-none flex-shrink-0 shadow-sm">
@@ -200,7 +249,13 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
     );
 };
 
-const MenuItemGroup = ({ title, children }: { title: string; children: React.ReactNode }) => {
+const MenuItemGroup = ({
+    title,
+    children
+}: {
+    title: string;
+    children: React.ReactNode;
+}) => {
     return (
         <div className="flex flex-col gap-y-2">
             <h3 className="px-10 text-slate-400">{title}</h3>

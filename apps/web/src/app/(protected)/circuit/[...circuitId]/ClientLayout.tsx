@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import posthog from 'posthog-js';
 import { useEffect } from 'react';
 

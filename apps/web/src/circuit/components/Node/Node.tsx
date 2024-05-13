@@ -67,11 +67,12 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
         removeNode(node.id);
     }, [node]);
 
-    const handleDoubleClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback(() => {
-        if (node instanceof Circuit) {
-            router.push(`/circuit/${store.circuit.id}/${node.id}`);
-        }
-    }, [node, store]);
+    const handleDoubleClick: React.MouseEventHandler<HTMLDivElement> =
+        React.useCallback(() => {
+            if (node instanceof Circuit) {
+                router.push(`/circuit/${store.circuit.id}/${node.id}`);
+            }
+        }, [node, store]);
 
     const active = store.selectedNodes?.indexOf(node) !== -1;
     const position = node.position || { x: 0, y: 0 };
@@ -110,11 +111,17 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
     return (
         <Draggable
             nodeRef={ref}
-            position={fromCanvasCartesianPoint(position.x - NODE_POSITION_OFFSET_X, position.y)}
+            position={fromCanvasCartesianPoint(
+                position.x - NODE_POSITION_OFFSET_X,
+                position.y
+            )}
             onDrag={handleOnDrag}
             onStop={e => {
                 for (const selectedNode of store.selectedNodes || []) {
-                    moveNode(selectedNode.id, { x: selectedNode.position.x, y: selectedNode.position.y });
+                    moveNode(selectedNode.id, {
+                        x: selectedNode.position.x,
+                        y: selectedNode.position.y
+                    });
                 }
             }}
         >
@@ -144,13 +151,19 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
                     {/** @ts-ignore */}
                     <span>{node.constructor.displayName}</span>
                     <div className={nodeActionsClassNames}>
-                        <NodeAction color="#ff4444" onClick={handleRemoveNode} />
+                        <NodeAction
+                            color="#ff4444"
+                            onClick={handleRemoveNode}
+                        />
                     </div>
                 </div>
                 {window}
                 <div className={nodeContentWrapperClassNames}>
                     <NodePorts ports={Object.values(node.inputs)} />
-                    <NodePorts ports={Object.values(node.outputs)} isOutputWrapper={true} />
+                    <NodePorts
+                        ports={Object.values(node.outputs)}
+                        isOutputWrapper={true}
+                    />
                 </div>
             </motion.div>
         </Draggable>
@@ -160,7 +173,7 @@ export const Node = observer(({ node, actions, window }: NodeProps) => {
 const NodeAction = ({ color = '#fff', onClick }: NodeActionProps) => {
     return (
         <div
-            className="opacity-100 transition-opacity ml-1.5 w-2 h-2 rounded-md bg-red-400 hover:opactiy-40"
+            className="opacity-100 transition-opacity ml-1.5 w-2.5 h-2.5 rounded-md bg-red-400 hover:opactiy-40"
             color={color}
             onClick={onClick}
         />
@@ -181,19 +194,20 @@ const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
     );
 };
 
-export const NodeWindow = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{ className?: string }>>(
-    ({ children, className }, ref) => {
-        return (
-            <div
-                ref={ref}
-                className={clsx(
-                    'relative flex flex-col m-4 rounded-3xl overflow-hidden bg-slate-100 max-h-[226px] h-full',
-                    className
-                )}
-                onMouseDown={e => e.stopPropagation()}
-            >
-                {children}
-            </div>
-        );
-    }
-);
+export const NodeWindow = React.forwardRef<
+    HTMLDivElement,
+    React.PropsWithChildren<{ className?: string }>
+>(({ children, className }, ref) => {
+    return (
+        <div
+            ref={ref}
+            className={clsx(
+                'relative flex flex-col m-4 rounded-3xl overflow-hidden bg-slate-100 max-h-[226px] h-full',
+                className
+            )}
+            onMouseDown={e => e.stopPropagation()}
+        >
+            {children}
+        </div>
+    );
+});
