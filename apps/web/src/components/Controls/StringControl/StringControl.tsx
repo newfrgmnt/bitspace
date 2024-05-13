@@ -61,7 +61,7 @@ export const StringControl = observer(
         return (
             <textarea
                 className={clsx(
-                    'px-3 py-2 rounded-xl w-full shadow-sm border border-slate-100 resize-none min-h-24',
+                    'px-4 py-3 rounded-2xl w-full shadow-sm border border-slate-100 resize-none min-h-24',
                     {
                         'text-slate-400': disabled
                     }

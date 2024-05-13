@@ -134,12 +134,6 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
                 />
                 <span className="font-mono text-xs">{`#${normalizedColor.replace('#', '')}`}</span>
             </div>
-            {disabled && (
-                <LockOutlined
-                    className="mr-2 text-slate-400"
-                    fontSize="inherit"
-                />
-            )}
         </div>
     );
 });
