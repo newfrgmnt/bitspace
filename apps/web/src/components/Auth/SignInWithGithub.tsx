@@ -21,11 +21,11 @@ export const SignInWithGithub = () => {
 
     return (
         <button
-            className="bg-slate-200 rounded-xl py-3 px-4 hover:bg-slate-100 transition-colors flex flex-row gap-x-3 items-center"
+            className="bg-slate-200 rounded-full py-3 px-4 hover:bg-slate-100 transition-colors flex flex-row gap-x-3 items-center"
             onClick={handleClick}
         >
             <GithubIcon className="w-6 h-6" />
-            <span>Continue with GitHub</span>
+            <span className="mr-2">Continue with GitHub</span>
         </button>
     );
 };
