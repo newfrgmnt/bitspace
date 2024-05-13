@@ -14,9 +14,18 @@ import { HSVSchema } from '../schemas/HSVSchema';
 export const ColorHarmonyWindow = ({
     node
 }: {
-    node: TriadHarmony | TetradicHarmony | SquareHarmony | ComplementaryHarmony | AnalogousHarmony;
+    node:
+        | TriadHarmony
+        | TetradicHarmony
+        | SquareHarmony
+        | ComplementaryHarmony
+        | AnalogousHarmony;
 }) => {
-    const [color, setColor] = useState<z.infer<typeof HSVSchema.validator>>({ hue: 0, saturation: 0, value: 0 });
+    const [color, setColor] = useState<z.infer<typeof HSVSchema.validator>>({
+        hue: 0,
+        saturation: 0,
+        value: 0
+    });
 
     useEffect(() => {
         const subscription = node.inputs.color.subscribe(value => {

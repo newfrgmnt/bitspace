@@ -2,9 +2,9 @@ import type { z } from 'zod';
 
 import { Schema } from './Schema.types';
 
-export function schema(name: string, schema: z.Schema): Schema;
-export function schema(schema: z.Schema): Schema;
-export function schema(...args: any[]): Schema {
+export function schema<T extends z.Schema>(name: string, schema: T): Schema<T>;
+export function schema<T extends z.Schema>(schema: T): Schema<T>;
+export function schema<T extends z.Schema>(...args: any[]): Schema<T> {
     if (arguments.length > 1) {
         const [name, schema] = args;
 

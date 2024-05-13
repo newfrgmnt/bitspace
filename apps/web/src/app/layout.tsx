@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { Providers } from './providers';
 import type { Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
+import { GeistMono } from 'geist/font/mono';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,11 +22,17 @@ export const viewport: Viewport = {
     // interactiveWidget: 'resizes-visual',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+    children
+}: {
+    children: React.ReactNode;
+}) {
     return (
         <Providers>
             <html lang="en">
-                <body className={`${inter.className} bg-slate-50`}>
+                <body
+                    className={`${inter.className} ${GeistMono.variable} bg-slate-50`}
+                >
                     {children}
                     <Analytics />
                 </body>
