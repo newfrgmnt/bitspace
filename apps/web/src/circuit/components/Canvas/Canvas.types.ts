@@ -9,4 +9,5 @@ export type CanvasProps = React.PropsWithChildren<{
     onClick?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onContextMenu?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onScroll(e: React.UIEvent<HTMLDivElement, MouseEvent>): void;
+    onDrop(files: FileList): void;
 }>;

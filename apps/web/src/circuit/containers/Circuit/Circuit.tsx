@@ -159,6 +159,7 @@ export const Circuit = observer(
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
                 onScroll={onScroll}
+                onDrop={console.log}
             >
                 <Nodes windowResolver={nodeWindowResolver} />
                 <Connections />

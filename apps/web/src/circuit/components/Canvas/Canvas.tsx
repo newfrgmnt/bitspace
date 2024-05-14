@@ -9,19 +9,41 @@ import usePanZoom from 'use-pan-and-zoom';
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import { CanvasProps } from './Canvas.types';
 import { StoreContext } from '../..';
+import { useDropzone } from '../../hooks/useDropzone/useDropzone';
 
 export const Canvas = observer(
     React.forwardRef<HTMLDivElement, CanvasProps>(
-        ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp, onScroll }: CanvasProps, ref) => {
+        (
+            {
+                children,
+                size,
+                className,
+                onMouseMove,
+                onClick,
+                onMouseDown,
+                onMouseUp,
+                onScroll,
+                onDrop
+            }: CanvasProps,
+            ref
+        ) => {
             const scrollRef = React.useRef<HTMLDivElement>(null);
-            const { transform, setContainer, panZoomHandlers } = usePanZoom({ enableZoom: false });
+            const { transform, setContainer, panZoomHandlers } = usePanZoom({
+                enableZoom: false
+            });
             const { store } = React.useContext(StoreContext);
+            const dropHelpers = useDropzone(onDrop);
 
             React.useEffect(() => {
                 if (scrollRef.current) {
                     setContainer(scrollRef.current);
 
-                    const { x, y } = fromCartesianPoint(size.width, size.height, 0, 0);
+                    const { x, y } = fromCartesianPoint(
+                        size.width,
+                        size.height,
+                        0,
+                        0
+                    );
                     const { x: offsetX, y: offsetY } = fromCartesianPoint(
                         scrollRef.current.clientWidth,
                         scrollRef.current.clientHeight,
@@ -29,7 +51,10 @@ export const Canvas = observer(
                         0
                     );
 
-                    scrollRef.current.scrollTo({ left: x - offsetX, top: y - offsetY });
+                    scrollRef.current.scrollTo({
+                        left: x - offsetX,
+                        top: y - offsetY
+                    });
 
                     const resizeObserver = new ResizeObserver(entries => {
                         for (const entry of entries) {
@@ -63,7 +88,10 @@ export const Canvas = observer(
             return (
                 <div
                     ref={scrollRef}
-                    className={clsx('w-full h-full overflow-auto bg-[#f0f2f7] text-slate-400', className)}
+                    className={clsx(
+                        'w-full h-full overflow-auto bg-[#f0f2f7] text-slate-400',
+                        className
+                    )}
                     {...panZoomHandlers}
                     onMouseDown={handleMouseDown}
                     onScroll={onScroll}
@@ -74,7 +102,8 @@ export const Canvas = observer(
                         style={{
                             width: size.width,
                             height: size.height,
-                            backgroundImage: 'radial-gradient(rgba(0,0,0,.15) 3%, transparent 3%)',
+                            backgroundImage:
+                                'radial-gradient(rgba(0,0,0,.15) 3%, transparent 3%)',
                             backgroundPosition: '0 0',
                             backgroundSize: '50px 50px',
                             transform
@@ -88,6 +117,7 @@ export const Canvas = observer(
                         onMouseDown={onMouseDown}
                         onMouseUp={onMouseUp}
                         onClick={onClick}
+                        {...dropHelpers}
                     >
                         {children}
                     </motion.div>
