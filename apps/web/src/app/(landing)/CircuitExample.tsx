@@ -26,6 +26,13 @@ export const CircuitExample = () => {
         const hsvNode = new FromHSV();
         const hsvNode2 = new FromHSV();
 
+        timer.setPosition(-1300, 100);
+        multiplication.setPosition(-1000, 100);
+        toHSV.setPosition(-600, 100);
+        cHarmonyNode.setPosition(-200, 50);
+        hsvNode.setPosition(200, 300);
+        hsvNode2.setPosition(550, 150);
+
         circuit.addNode(timer);
         circuit.addNode(multiplication);
         circuit.addNode(toHSV);
@@ -46,7 +53,7 @@ export const CircuitExample = () => {
 
     return (
         <StoreContext.Provider value={{ store: circuitStore }}>
-            <div className="relative flex flex-col justify-between h-full w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-[2rem] overflow-hidden">
+            <div className="relative flex flex-col justify-between aspect-video w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-[2rem] overflow-hidden pointer-events-none">
                 <CircuitComponent
                     store={circuitStore}
                     nodeWindowResolver={nodeWindowResolver}
