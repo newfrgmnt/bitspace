@@ -21,11 +21,7 @@ import { nodeWindowResolver } from '../../../../windows';
 import { Menu } from '../../../../components/Menu/Menu/Menu';
 import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
 import { useSession } from 'next-auth/react';
-import {
-    ArrowDropDown,
-    KeyboardArrowDown,
-    KeyboardArrowDownOutlined
-} from '@mui/icons-material';
+import { KeyboardArrowDownOutlined } from '@mui/icons-material';
 import { updateCircuit } from '../../../../server/mutations/updateCircuit';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
