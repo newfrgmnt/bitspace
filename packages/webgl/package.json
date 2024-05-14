@@ -16,7 +16,6 @@
     },
     "keywords": [],
     "author": "",
-    "license": "MIT",
     "devDependencies": {
         "@types/jest": "^29.5.4",
         "@types/node": "^18.7.18",

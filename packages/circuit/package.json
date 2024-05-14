@@ -4,7 +4,6 @@
     "description": "Core implementation of the Circuit framework",
     "main": "src/index.ts",
     "author": "Emil Widlund",
-    "license": "MIT",
     "private": true,
     "type": "module",
     "scripts": {
