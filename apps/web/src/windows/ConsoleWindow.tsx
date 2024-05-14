@@ -9,7 +9,10 @@ export const ConsoleWindow = ({ node }: { node: Console }) => {
 
     useEffect(() => {
         const subscription = node.inputs.input.subscribe(value => {
-            setStack(stack => [...takeRight(stack, 100), JSON.stringify(value)]);
+            setStack(stack => [
+                ...takeRight(stack, 100),
+                JSON.stringify(value)
+            ]);
         });
 
         return () => {
@@ -23,7 +26,10 @@ export const ConsoleWindow = ({ node }: { node: Console }) => {
 
     return (
         <NodeWindow className="font-mono flex flex-col text-xxs flex-wrap !shadow-none border-slate-100 bg-slate-50 border-2 text-slate-500 rounded-2xl h-full">
-            <pre ref={scrollRef} className="w-full h-[226px] text-wrap overflow-y-auto flex flex-col gap-y-1 p-2">
+            <pre
+                ref={scrollRef}
+                className="w-full h-[226px] text-wrap overflow-y-auto flex flex-col gap-y-1 p-2 select-text"
+            >
                 {stack.map((v, i) => (
                     <div className="flex flex-row w-full" key={i}>
                         {v}

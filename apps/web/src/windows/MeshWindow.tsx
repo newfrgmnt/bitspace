@@ -31,7 +31,11 @@ export const MeshWindow = ({ node }: { node: MeshNode }) => {
 
     return (
         <NodeWindow>
-            <Canvas style={{ height: 222 }} gl={{ alpha: false }} camera={{ fov: 35 }}>
+            <Canvas
+                style={{ height: 222 }}
+                gl={{ alpha: true }}
+                camera={{ fov: 35 }}
+            >
                 <pointLight position={[0, 0, 10]} intensity={1} />
                 {mesh ? <MeshComponent mesh={mesh} /> : undefined}
             </Canvas>

@@ -36,7 +36,7 @@ export const PropertyPanel = observer(
                 {...props}
             >
                 <div className="flex flex-col gap-y-2 pb-8">
-                    <h2 className="font-semibold">{selectedNode.name}</h2>
+                    <h2 className="text-lg">{selectedNode.name}</h2>
                     <p className="text-sm text-slate-500 leading-relaxed text-pretty">
                         {NodeDescriptionsMap[selectedNode.type as NodeType]}
                     </p>
@@ -94,7 +94,7 @@ const Port = observer(({ port, disabled, onBlur }: PortProps) => (
                         fontSize="inherit"
                     />
                 )}
-                <span className="bg-slate-200/60 text-slate-500 rounded-lg px-1.5 py-0.5 font-medium text-xxs">
+                <span className="bg-slate-200/60 text-slate-500 rounded-lg px-1.5 font-medium text-xxs">
                     {port.type.name}
                 </span>
             </div>
