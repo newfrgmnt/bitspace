@@ -144,6 +144,7 @@ const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
                     className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none"
                     onBlur={updateCircuitName}
                     contentEditable
+                    suppressContentEditableWarning
                     onKeyDown={e => {
                         e.stopPropagation();
 
