@@ -104,8 +104,8 @@ export const Menu = ({ onClose }: MenuProps) => {
                 }
             });
 
-            /** @ts-ignore */
             posthog.capture('Node Created from Menu', {
+                /** @ts-ignore */
                 node: matchingNode.constructor.type
             });
 
@@ -173,7 +173,7 @@ export const Menu = ({ onClose }: MenuProps) => {
                     </div>
                 </FocusTrap>
                 <div className="flex flex-col py-8 max-h-96 h-96 overflow-y-scroll gap-y-8">
-                    {matchingGroups.map((group, index) => (
+                    {matchingGroups.map(group => (
                         <MenuItemGroup key={group.name} title={group.name}>
                             {group.nodes.map(node => {
                                 const index = matchingItems.indexOf(node);
