@@ -1,13 +1,33 @@
-import React, { ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    ComponentProps,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from 'react';
 import Draggable, { DraggableEventHandler } from 'react-draggable';
-import { harmonies, hsv2rgb, hsv2xy, polar2xy, rad2deg, xy2polar, xy2rgb } from './ColorPicker.utils';
+import {
+    harmonies,
+    hsv2rgb,
+    hsv2xy,
+    polar2xy,
+    rad2deg,
+    xy2polar,
+    xy2rgb
+} from './ColorPicker.utils';
 
-export type ColorWheelProps = Omit<ComponentProps<'div'>, 'color' | 'onChange'> & {
+export type ColorWheelProps = Omit<
+    ComponentProps<'div'>,
+    'color' | 'onChange'
+> & {
     radius: number;
     harmony: keyof typeof harmonies;
     color?: { hue: number; saturation: number; value: number };
     defaultColor?: { hue: number; saturation: number; value: number };
-    onChange?: (colors: { hue: number; saturation: number; value: number }[]) => void;
+    onChange?: (
+        colors: { hue: number; saturation: number; value: number }[]
+    ) => void;
 };
 
 export const ColorWheel = ({
@@ -21,10 +41,18 @@ export const ColorWheel = ({
     const ref = useRef<HTMLCanvasElement>(null);
     const [position, setPosition] = useState(
         defaultColor
-            ? hsv2xy(defaultColor.hue, defaultColor.saturation, defaultColor.value, radius)
+            ? hsv2xy(
+                  defaultColor.hue,
+                  defaultColor.saturation,
+                  defaultColor.value,
+                  radius
+              )
             : hsv2xy(0, 1, 1, radius)
     );
-    const harmony = useMemo(() => harmonies[harmonyName], [harmonies, harmonyName]);
+    const harmony = useMemo(
+        () => harmonies[harmonyName],
+        [harmonies, harmonyName]
+    );
 
     useEffect(() => {
         if (!ref.current) return;
@@ -40,7 +68,9 @@ export const ColorWheel = ({
 
     useEffect(() => {
         if (color) {
-            setPosition(hsv2xy(color.hue, color.saturation, color.value, radius));
+            setPosition(
+                hsv2xy(color.hue, color.saturation, color.value, radius)
+            );
         }
     }, [color, radius]);
 
@@ -75,7 +105,13 @@ export const ColorWheel = ({
             newHue = newHue < 0 ? 360 + newHue : newHue;
 
             const [x, y] = polar2xy(r, newHue * (Math.PI / 180));
-            return { x: -x + radius, y: -y + radius, hue: newHue, saturation, value };
+            return {
+                x: -x + radius,
+                y: -y + radius,
+                hue: newHue,
+                saturation,
+                value
+            };
         });
 
         onChange?.([{ hue, saturation, value }, ...colors]);
@@ -99,7 +135,8 @@ export const ColorWheel = ({
                     let adjustedX = x + radius; // convert x from [-50, 50] to [0, 100] (the coordinates of the image data array)
                     let adjustedY = y + radius; // convert y from [-50, 50] to [0, 100] (the coordinates of the image data array)
                     let pixelWidth = 4; // each pixel requires 4 slots in the data array
-                    let index = (adjustedX + adjustedY * rowLength) * pixelWidth;
+                    let index =
+                        (adjustedX + adjustedY * rowLength) * pixelWidth;
 
                     let hue = deg;
                     let saturation = r / radius;
@@ -120,73 +157,48 @@ export const ColorWheel = ({
         [radius]
     );
 
-    const [r, g, b] = useMemo(() => xy2rgb(position.x, position.y, radius), [position, radius]);
+    const [r, g, b] = useMemo(
+        () => xy2rgb(position.x, position.y, radius),
+        [position, radius]
+    );
 
     return (
         <div
+            className="relative rounded-full overflow-hidden"
             style={{
-                position: 'relative',
                 width: `${radius * 2}px`,
-                height: `${radius * 2}px`,
-                borderRadius: '999px',
-                overflow: 'hidden'
+                height: `${radius * 2}px`
             }}
             {...props}
         >
-            <canvas
-                ref={ref}
-                style={{
-                    width: '100%',
-                    height: '100%'
-                }}
-            />
+            <canvas className="w-full h-full" ref={ref} />
             {harmonyPairs.map((harmony, i) => {
-                const [r, g, b] = hsv2rgb(harmony.hue, harmony.saturation, harmony.value);
+                const [r, g, b] = hsv2rgb(
+                    harmony.hue,
+                    harmony.saturation,
+                    harmony.value
+                );
                 return (
                     <div
                         key={i}
+                        className="rounded-full absolute -top-3 -left-3 w-6 h-6 border-2 border-white shadow-sm"
                         style={{
-                            position: 'absolute',
-                            top: '-12px',
-                            left: '-12px',
-                            width: '24px',
-                            height: '24px',
-                            borderRadius: '999px',
-                            border: '2px solid #fff',
                             backgroundColor: `rgb(${r}, ${g}, ${b})`,
                             transform: `translate(${harmony.x}px, ${harmony.y}px)`,
-                            boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.05)'
+                            willChange: 'transform'
                         }}
                     />
                 );
             })}
             <Draggable onDrag={handleDrag} position={position}>
                 <div
+                    className="rounded-full absolute -top-3 -left-3 w-6 h-6 border-2 border-white shadow-sm flex flex-col items-center justify-center"
                     style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        top: '-12px',
-                        left: '-12px',
-                        width: '24px',
-                        height: '24px',
-                        borderRadius: '99px',
-                        border: '2px solid rgba(255, 255, 255, 1)',
                         backgroundColor: `rgb(${r}, ${g}, ${b})`,
-                        boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.05)'
+                        willChange: 'transform'
                     }}
                 >
-                    <div
-                        style={{
-                            position: 'absolute',
-                            width: '4px',
-                            height: '4px',
-                            borderRadius: '99px',
-                            backgroundColor: '#fff'
-                        }}
-                    />
+                    <div className="w-1 h-1 rounded-full bg-white absolute" />
                 </div>
             </Draggable>
         </div>

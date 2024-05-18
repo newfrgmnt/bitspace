@@ -19,7 +19,7 @@ const Footer = () => {
     return (
         <div className="flex flex-col items-center w-full py-12">
             <div className="flex flex-col items-center w-full gap-y-8">
-                <h2 className="text-xl text-center">
+                <h2 className="text-lg md:text-2xl text-center">
                     A passion project from{' '}
                     <Link
                         className="text-gray-400 hover:text-blue-500 duration-200 transition-colors"
