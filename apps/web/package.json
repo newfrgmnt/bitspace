@@ -4,9 +4,10 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "pnpm prisma:generate && next build",
         "start": "next start",
-        "lint": "eslint . --max-warnings 0"
+        "lint": "eslint . --max-warnings 0",
+        "prisma:generate": "prisma generate"
     },
     "dependencies": {
         "@bitspace/circuit": "workspace:*",
