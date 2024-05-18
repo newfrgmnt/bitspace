@@ -25,14 +25,18 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
     }
 
     const connectionCache = new Set<[Output['id'], Input<any>['id']]>();
-    const portCache = new Map<Input['id'] | Output['id'], Input<any> | Output<any>>();
+    const portCache = new Map<
+        Input['id'] | Output['id'],
+        Input<any> | Output<any>
+    >();
 
     const circuit = new Circuit();
     circuit.id = serializedNode.id;
 
     for (const child of serializedNode.children) {
         const nodeConstructor = NodeConstructors.find(
-            (nodeConstructor: NodeConstructor) => nodeConstructor.type === child.type
+            (nodeConstructor: NodeConstructor) =>
+                nodeConstructor.type === child.type
         );
 
         if (!nodeConstructor) continue;
@@ -44,6 +48,7 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
         node.data = (child.data as JsonObject) ?? {};
 
         for (const serializedOutput of Object.values(child.outputs)) {
+            // @ts-ignore
             const output = node.outputs[serializedOutput.key];
 
             if (output) {
@@ -52,12 +57,16 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
                 portCache.set(output.id, output);
 
                 for (const serializedConnection of serializedOutput.connections) {
-                    connectionCache.add([serializedConnection.fromId, serializedConnection.toId]);
+                    connectionCache.add([
+                        serializedConnection.fromId,
+                        serializedConnection.toId
+                    ]);
                 }
             }
         }
 
         for (const serializedInput of Object.values(child.inputs)) {
+            // @ts-ignore
             const input: Input = node.inputs[serializedInput.key];
 
             if (input) {
@@ -66,7 +75,9 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
                 portCache.set(input.id, input);
 
                 if (serializedInput.value) {
-                    input.next(input.type.validator.parse(serializedInput.value));
+                    input.next(
+                        input.type.validator.parse(serializedInput.value)
+                    );
                 }
             }
         }
