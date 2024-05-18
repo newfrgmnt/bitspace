@@ -3,9 +3,9 @@
 import { motion } from 'framer-motion';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { SignInWithGithub } from '../../components/Auth/SignInWithGithub';
+import { SignInWithGithub } from '../../../components/Auth/SignInWithGithub';
 import posthog from 'posthog-js';
-import { Avatar } from '../../circuit/components/Avatar/Avatar';
+import { Avatar } from '../../../circuit/components/Avatar/Avatar';
 
 export function ClientLayout({
     children

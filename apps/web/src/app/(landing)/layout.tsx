@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 export default function Layout({ children }: { children: ReactNode }) {
     return (
         <div className="flex flex-col items-center h-screen overflow-y-auto">
-            <div className="flex flex-col items-center w-full h-fit p-24 gap-y-24">
+            <div className="flex flex-col items-center w-full h-fit px-8 py-12 md:p-24 gap-y-24">
                 <div className="flex flex-col items-center w-full">
                     <h1 className="text-2xl text-center">Bitspace</h1>
                 </div>
@@ -22,7 +22,7 @@ const Footer = () => {
                 <h2 className="text-2xl">
                     A passion project from{' '}
                     <Link
-                        className="text-gray-400"
+                        className="text-gray-400 hover:text-blue-500 duration-200 transition-colors"
                         href="https://twitter.com/newfrgmnt"
                         target="_blank"
                     >

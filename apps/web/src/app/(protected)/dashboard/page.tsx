@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import ClientPage from './ClientPage';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../server/utils';
+import { authOptions } from '../../../server/utils';
 import { redirect } from 'next/navigation';
 
 export default async function Page() {

@@ -5,7 +5,7 @@ import { AddOutlined, HiveOutlined } from '@mui/icons-material';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Node } from '@prisma/client';
-import { createCircuit } from '../../server/mutations/createCircuit';
+import { createCircuit } from '../../../server/mutations/createCircuit';
 
 export default function Page({ circuits }: { circuits: Node[] }): JSX.Element {
     const router = useRouter();
@@ -51,13 +51,22 @@ export default function Page({ circuits }: { circuits: Node[] }): JSX.Element {
                     className="flex flex-col gap-y-8 rounded-3xl p-8 text-lg bg-slate-200 w-48 h-56 hover:bg-white group transition-colors duration-200 items-stretch justify-between"
                     variants={{
                         initial: { y: 200, opacity: 0 },
-                        animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
+                        animate: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 1.6,
+                                ease: [0.75, 0, 0.25, 1]
+                            }
+                        }
                     }}
                 >
                     <span className="group-hover:text-black transition-colors">
                         <AddOutlined fontSize="large" />
                     </span>
-                    <h3 className="font-medium text-2xl leading-normal">New Circuit</h3>
+                    <h3 className="font-medium text-2xl leading-normal">
+                        New Circuit
+                    </h3>
                 </motion.div>
                 {circuits.map(circuit => (
                     <motion.a
@@ -66,13 +75,22 @@ export default function Page({ circuits }: { circuits: Node[] }): JSX.Element {
                         className="flex flex-col gap-y-8 rounded-3xl p-8 text-lg bg-slate-200 w-48 h-56 hover:bg-white group transition-colors duration-200 items-stretch justify-between"
                         variants={{
                             initial: { y: 200, opacity: 0 },
-                            animate: { y: 0, opacity: 1, transition: { duration: 1.6, ease: [0.75, 0, 0.25, 1] } }
+                            animate: {
+                                y: 0,
+                                opacity: 1,
+                                transition: {
+                                    duration: 1.6,
+                                    ease: [0.75, 0, 0.25, 1]
+                                }
+                            }
                         }}
                     >
                         <span className="group-hover:text-black transition-colors">
                             <HiveOutlined fontSize="large" />
                         </span>
-                        <h3 className="font-medium text-2xl leading-normal">{circuit.name}</h3>
+                        <h3 className="font-medium text-2xl leading-normal">
+                            {circuit.name}
+                        </h3>
                     </motion.a>
                 ))}
             </div>

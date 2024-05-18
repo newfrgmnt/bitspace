@@ -34,7 +34,11 @@ export const Journey = ({ persistenceKey, steps }: JourneyProps) => {
         setFinished(true);
     }, [setFinished]);
 
-    if (localStorage.getItem(persistenceKey) || finished) return null;
+    if (
+        (window !== undefined && localStorage.getItem(persistenceKey)) ||
+        finished
+    )
+        return null;
 
     return (
         <Panel
