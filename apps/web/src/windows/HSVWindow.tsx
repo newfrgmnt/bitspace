@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { hsv2rgb } from '../components/ColorPicker/ColorPicker.utils';
 import { NodeWindow } from '../circuit/components/Node/Node';
-import { HSV } from '../nodes/color/FromHSV/FromHSV';
+import { FromHSV } from '../nodes/color/FromHSV/FromHSV';
 
-export const HSVWindow = ({ node }: { node: HSV }) => {
+export const HSVWindow = ({ node }: { node: FromHSV }) => {
     const [rgb, setRgb] = useState<[number, number, number]>([0, 0, 0]);
 
     useEffect(() => {
@@ -17,7 +17,10 @@ export const HSVWindow = ({ node }: { node: HSV }) => {
 
     return (
         <NodeWindow>
-            <div className="w-full h-[226px]" style={{ backgroundColor: `rgba(${r}, ${g}, ${b})` }} />
+            <div
+                className="w-full h-[226px]"
+                style={{ backgroundColor: `rgba(${r}, ${g}, ${b})` }}
+            />
         </NodeWindow>
     );
 };

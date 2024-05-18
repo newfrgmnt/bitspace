@@ -3,13 +3,12 @@ import { NodeWindow } from '../circuit/components/Node/Node';
 import { ColorWheel } from '../components/ColorPicker/ColorPicker';
 import { harmonies } from '../components/ColorPicker/ColorPicker.utils';
 import { z } from 'zod';
-import { output } from '@bitspace/webgl';
 import { TriadHarmony } from '../nodes/color/TriadHarmony/TriadHarmony';
 import { TetradicHarmony } from '../nodes/color/TetradicHarmony/TetradicHarmony';
 import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
-import { HSVSchema } from '../schemas/HSVSchema';
+import { HSVSchema } from '../nodes/schemas';
 
 export const ColorHarmonyWindow = ({
     node
