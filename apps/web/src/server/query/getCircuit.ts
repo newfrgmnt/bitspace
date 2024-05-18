@@ -2,6 +2,7 @@
 
 import { PrismaClient } from '@prisma/client';
 
+// @ts-ignore
 export const generateIncludeStructure = (depth: number) => {
     if (depth === 0) {
         return {};
