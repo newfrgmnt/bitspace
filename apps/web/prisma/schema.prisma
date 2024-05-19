@@ -42,6 +42,7 @@ model Node {
   outputs   Output[]
   position  NodePosition?
   data      Json?
+  userId    String
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
