@@ -227,9 +227,6 @@ importers:
       prisma:
         specifier: 5.9.1
         version: 5.9.1
-      tailwindcss:
-        specifier: ^3.4.0
-        version: 3.4.1
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -351,6 +348,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      tailwindcss:
+        specifier: ^3.4.0
+        version: 3.4.1
       typescript:
         specifier: ^5.2.2
         version: 5.3.3

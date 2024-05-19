@@ -8,8 +8,16 @@
         "./button": "./src/components/button.tsx",
         "./input": "./src/components/input.tsx",
         "./input-otp": "./src/components/input-otp.tsx",
-        "./cn": "./src/utils/cn.ts"
+        "./cn": "./src/utils/cn.ts",
+        "./tailwind.config": "./tailwind.config.ts",
+        "./postcss": "./postcss.config.js",
+        "./globals.css": "./globals.css"
     },
+    "files": [
+        "tailwind.config.ts",
+        "postcss.config.js",
+        "globals.css"
+    ],
     "scripts": {
         "lint": "eslint . --max-warnings 0",
         "generate:component": "turbo gen react-component"
@@ -24,6 +32,7 @@
         "@types/react-dom": "^18.2.0",
         "eslint": "^8.53.0",
         "react": "^18.2.0",
+        "tailwindcss": "^3.4.0",
         "typescript": "^5.2.2"
     },
     "dependencies": {
