@@ -1,8 +1,9 @@
 import OpenAI from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
+import { env } from '@/env';
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: env.OPENAI_API_KEY
 });
 
 export const runtime = 'edge';
@@ -30,5 +31,7 @@ ${JSON.stringify(context)}
         ]
     });
 
-    return new NextResponse(JSON.stringify(response.choices[0]?.message.content));
+    return new NextResponse(
+        JSON.stringify(response.choices[0]?.message.content)
+    );
 }
