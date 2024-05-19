@@ -1,4 +1,3 @@
-import { signIn } from 'next-auth/react';
 import posthog from 'posthog-js';
 import { ComponentProps, useCallback } from 'react';
 
