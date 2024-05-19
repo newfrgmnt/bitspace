@@ -2,12 +2,12 @@
 
 import { createClient } from '@/supabase/browser';
 import { User } from '@supabase/supabase-js';
+import { redirect } from 'next/navigation';
 import React, {
     useContext,
     useState,
     useEffect,
     createContext,
-    use,
     PropsWithChildren,
     useMemo
 } from 'react';
@@ -31,27 +31,27 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const [user, setUser] = useState<User>();
     const [loading, setLoading] = useState(true);
 
-    const {
-        data: { session }
-    } = use(supabase.auth.getSession());
-
     useEffect(() => {
-        if (session) {
-            setUser(session?.user ?? null);
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setUser(session?.user);
+            setLoading(false);
+        });
+
+        const {
+            data: { subscription }
+        } = supabase.auth.onAuthStateChange((event, session) => {
+            setUser(session?.user);
             setLoading(false);
 
-            const {
-                data: { subscription }
-            } = supabase.auth.onAuthStateChange((event, session) => {
-                setUser(session?.user);
-                setLoading(false);
-            });
+            if (event === 'SIGNED_OUT') {
+                redirect('/');
+            }
+        });
 
-            return () => {
-                subscription?.unsubscribe();
-            };
-        }
-    }, [session]);
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, [supabase]);
 
     const contextValue = useMemo(
         () => ({
