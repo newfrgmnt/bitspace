@@ -1,9 +1,10 @@
 'use client';
 
-import clsx from 'clsx';
 import { ComponentProps, useCallback, useState } from 'react';
 import { createSubscription } from './createSubscription';
 import { ArrowForwardOutlined } from '@mui/icons-material';
+import { Button } from '@bitspace/ui/button';
+import { cn } from '@bitspace/ui/cn';
 
 const isEmail = (email: string) => {
     return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
@@ -15,9 +16,9 @@ export const Hero = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | undefined>();
 
-    const handleSignUp = useCallback(() => {
+    const handleSignUp = useCallback(async () => {
         if (isEmail(email)) {
-            createSubscription(email)
+            await createSubscription(email)
                 .then(() => setSuccess(true))
                 .catch(() => setError('An error occured. Please try again.'));
         }
@@ -72,25 +73,10 @@ export const Hero = () => {
     );
 };
 
-const Button = ({ className, ...props }: ComponentProps<'button'>) => {
-    return (
-        <button
-            className={clsx(
-                'bg-black text-white px-6 py-3 rounded-full flex flex-row items-center justify-center gap-x-4 shadow-2xl',
-                props.disabled
-                    ? 'bg-slate-200'
-                    : 'hover:bg-white hover:text-black transition-colors duration-200 ease-in-out ',
-                className
-            )}
-            {...props}
-        />
-    );
-};
-
 const Input = ({ className, ...props }: ComponentProps<'input'>) => {
     return (
         <input
-            className={clsx(
+            className={cn(
                 'bg-white rounded-full px-6 pr-12 py-3 focus-visible:outline-none',
                 className
             )}

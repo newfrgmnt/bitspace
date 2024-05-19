@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-    transpilePackages: ['@repo/ui'],
+    transpilePackages: ['@bitspace/ui'],
     experimental: {
         esmExternals: 'loose',
         serverComponentsExternalPackages: ['mongoose']

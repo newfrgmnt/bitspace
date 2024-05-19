@@ -15,6 +15,7 @@ import { normalizeBounds } from '../../utils/bounds/bounds';
 import { CircuitProps, NodeWindowResolver } from './Circuit.types';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
+import { useUploadFile } from '../../hooks/useDropzone/useDropzone';
 
 const Nodes = observer(
     ({ windowResolver }: { windowResolver?: NodeWindowResolver }) => {
@@ -99,6 +100,8 @@ export const Circuit = observer(
         const { onMouseDown, onMouseMove, onMouseUp, onScroll } =
             useCircuitHelpers(store);
 
+        const uploadFile = useUploadFile();
+
         React.useEffect(() => {
             return reaction(
                 () => store.connections,
@@ -159,7 +162,7 @@ export const Circuit = observer(
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
                 onScroll={onScroll}
-                onDrop={console.log}
+                onDrop={uploadFile}
             >
                 <Nodes windowResolver={nodeWindowResolver} />
                 <Connections />

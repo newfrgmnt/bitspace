@@ -2,7 +2,6 @@
 
 import { PropsWithChildren } from 'react';
 import { HotkeysProvider } from 'react-hotkeys-hook';
-import { SessionProvider } from 'next-auth/react';
 import posthog from 'posthog-js';
 
 if (typeof window !== 'undefined') {
@@ -13,8 +12,8 @@ if (typeof window !== 'undefined') {
 
 export const Providers = ({ children }: PropsWithChildren) => {
     return (
-        <SessionProvider>
-            <HotkeysProvider initiallyActiveScopes={['commandMenuInvokable']}>{children}</HotkeysProvider>
-        </SessionProvider>
+        <HotkeysProvider initiallyActiveScopes={['commandMenuInvokable']}>
+            {children}
+        </HotkeysProvider>
     );
 };

@@ -1,21 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 import ClientPage from './ClientPage';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../server/utils';
 import { redirect } from 'next/navigation';
 
-export default async function Page() {
-    const session = await getServerSession(authOptions);
+import { createClient } from '@/supabase/server';
 
+export default async function Page() {
+    const supabase = createClient();
     const prisma = new PrismaClient();
     const circuits = await prisma.node.findMany({ where: { type: 'CIRCUIT' } });
 
-    /* if (
-        // !usersWithSubscription?.includes(session?.user?.email ?? '') &&
-        session?.user?.email !== 'hello@emilwidlund.com'
-    ) {
-        redirect('/demo');
-    } */
+    const { data, error } = await supabase.auth.getUser();
+
+    console.log(data);
+
+    if (error || !data?.user) {
+        redirect('/login');
+    }
 
     return <ClientPage circuits={circuits} />;
 }

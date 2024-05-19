@@ -1,5 +1,3 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../server/utils';
 import { ClientLayout } from './ClientLayout';
 
 export default async function Layout({
@@ -7,8 +5,6 @@ export default async function Layout({
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getServerSession(authOptions);
-
     // Polar Auth
     /* 
     
