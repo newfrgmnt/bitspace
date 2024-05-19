@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem } from '@bitspace/ui/form';
 import { Input } from '@bitspace/ui/input';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@bitspace/ui/input-otp';
 import { useAction } from 'next-safe-action/hooks';
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createClient } from '@/supabase/browser';
@@ -18,11 +18,9 @@ const formSchema = z.object({
     value: z.string().min(1)
 });
 
-type Props = {
-    className?: string;
-};
-
-export default function OTPSignIn({ className }: Props) {
+export default function OTPSignIn({
+    className
+}: PropsWithChildren<{ className: string }>) {
     const verifyOtp = useAction(verifyOTPAction);
     const [isLoading, setLoading] = useState(false);
     const [isSent, setSent] = useState(false);
