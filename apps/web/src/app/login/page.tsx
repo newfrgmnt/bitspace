@@ -41,13 +41,15 @@ export default function OTPSignIn({ className }: Props) {
 
         setEmail(value);
 
-        await supabase.auth.signInWithOtp({
-            email,
+        const { data, error } = await supabase.auth.signInWithOtp({
+            email: value,
             options: { emailRedirectTo: 'https://bitspace.sh/dashboard' }
         });
 
-        setSent(true);
-        setLoading(false);
+        if (!error) {
+            setSent(true);
+            setLoading(false);
+        }
     }
 
     async function onComplete(token: string) {

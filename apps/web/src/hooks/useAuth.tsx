@@ -2,7 +2,7 @@
 
 import { createClient } from '@/supabase/browser';
 import { User } from '@supabase/supabase-js';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import React, {
     useContext,
     useState,
@@ -27,6 +27,7 @@ const AuthContext = createContext<AuthContextValue>(defaultAuthContextValue);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
     const supabase = createClient();
+    const router = useRouter();
 
     const [user, setUser] = useState<User>();
     const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             setLoading(false);
 
             if (event === 'SIGNED_OUT') {
-                redirect('/');
+                router.push('/');
             }
         });
 
