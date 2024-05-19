@@ -20,7 +20,6 @@ import { PropertyPanel } from '../../../../containers/PropertyPanel/PropertyPane
 import { nodeWindowResolver } from '../../../../windows';
 import { Menu } from '../../../../components/Menu/Menu/Menu';
 import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
-import { useSession } from 'next-auth/react';
 import { KeyboardArrowDownOutlined } from '@mui/icons-material';
 import { updateCircuit } from '../../../../server/mutations/updateCircuit';
 
@@ -113,8 +112,6 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 };
 
 const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
-    const { data: sessionData } = useSession();
-
     const updateCircuitName: FocusEventHandler<HTMLHeadingElement> =
         useCallback(
             e => {
@@ -158,11 +155,6 @@ const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
                 </h3>
                 <KeyboardArrowDownOutlined fontSize="inherit" />
             </div>
-            {sessionData?.user?.image && (
-                <div>
-                    <Avatar imageUrl={sessionData.user.image} />
-                </div>
-            )}
         </motion.div>
     );
 };

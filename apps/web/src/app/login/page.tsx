@@ -41,7 +41,10 @@ export default function OTPSignIn({ className }: Props) {
 
         setEmail(value);
 
-        await supabase.auth.signInWithOtp({ email });
+        await supabase.auth.signInWithOtp({
+            email,
+            options: { emailRedirectTo: 'https://bitspace.sh/dashboard' }
+        });
 
         setSent(true);
         setLoading(false);
