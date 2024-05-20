@@ -1,0 +1,21 @@
+name: Deploy
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+            - name: Setup Node
+              uses: actions/setup-node@v3
+            - name: Install dependencies
+              run: pnpm install
+            - run: pnpm run build
+            - name: Apply all pending migrations to the database
+              run: pnpm dlx prisma migrate deploy
+              env:
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
