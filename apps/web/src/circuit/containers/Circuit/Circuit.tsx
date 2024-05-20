@@ -16,9 +16,16 @@ import { CircuitProps, NodeWindowResolver } from './Circuit.types';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { useUploadFile } from '../../hooks/useDropzone/useDropzone';
+import { DraggableEventHandler } from 'react-draggable';
 
 const Nodes = observer(
-    ({ windowResolver }: { windowResolver?: NodeWindowResolver }) => {
+    ({
+        windowResolver,
+        onNodeMoveStop
+    }: {
+        windowResolver?: NodeWindowResolver;
+        onNodeMoveStop?: DraggableEventHandler;
+    }) => {
         const { store } = React.useContext(StoreContext);
 
         return (
@@ -28,6 +35,7 @@ const Nodes = observer(
                         key={node.id}
                         node={node}
                         window={windowResolver?.(node)}
+                        onMoveStop={onNodeMoveStop}
                     />
                 ))}
             </>
@@ -93,6 +101,7 @@ export const Circuit = observer(
         onConnection,
         onConnectionRemoval,
         onNodeRemoval,
+        onNodeMoveStop,
         onSelectionChanged
     }: CircuitProps) => {
         useKeyboardActions(store);
@@ -164,7 +173,10 @@ export const Circuit = observer(
                 onScroll={onScroll}
                 onDrop={uploadFile}
             >
-                <Nodes windowResolver={nodeWindowResolver} />
+                <Nodes
+                    windowResolver={nodeWindowResolver}
+                    onNodeMoveStop={onNodeMoveStop}
+                />
                 <Connections />
                 <Selection />
             </Canvas>

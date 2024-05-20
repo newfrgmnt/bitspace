@@ -1,5 +1,5 @@
 import { Input, Node, Output } from '@bitspace/circuit';
-import { DraggableProps } from 'react-draggable';
+import { DraggableEventHandler, DraggableProps } from 'react-draggable';
 
 export type NodeProps = {
     node: Node;
@@ -7,6 +7,7 @@ export type NodeProps = {
     actions?: NodeActionProps[];
     className?: string;
     disabled?: boolean;
+    onMoveStop?: DraggableEventHandler;
 } & Partial<DraggableProps>;
 
 export type NodeActionProps = {

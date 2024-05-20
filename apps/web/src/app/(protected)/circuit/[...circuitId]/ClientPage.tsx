@@ -22,6 +22,7 @@ import { Menu } from '../../../../components/Menu/Menu/Menu';
 import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
 import { KeyboardArrowDownOutlined } from '@mui/icons-material';
 import { updateCircuit } from '../../../../server/mutations/updateCircuit';
+import { moveNode } from '@/server/mutations/moveNode';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -70,6 +71,15 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                     <CircuitComponent
                         store={canvasStore}
                         nodeWindowResolver={nodeWindowResolver}
+                        onNodeMoveStop={e => {
+                            for (const selectedNode of canvasStore.selectedNodes ||
+                                []) {
+                                moveNode(selectedNode.id, {
+                                    x: selectedNode.position.x,
+                                    y: selectedNode.position.y
+                                });
+                            }
+                        }}
                     />
                     {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
                     <div className="absolute left-1/2 bottom-12 -translate-x-1/2 flex flex-row justify-center">
