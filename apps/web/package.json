@@ -7,7 +7,9 @@
         "build": "pnpm prisma:generate && next build",
         "start": "next start",
         "lint": "eslint . --max-warnings 0",
-        "prisma:generate": "prisma generate"
+        "prisma:generate": "prisma generate",
+        "prisma:migrate:dev": "prisma migrate dev",
+        "prisma:migrate:deploy": "prisma migrate deploy"
     },
     "dependencies": {
         "@bitspace/circuit": "workspace:*",
