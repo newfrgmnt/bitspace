@@ -1,6 +1,7 @@
 'use client';
 
 import {
+    CheckOutlined,
     ChevronLeftOutlined,
     ChevronRightOutlined,
     CloseOutlined
@@ -70,7 +71,7 @@ export const Journey = ({ persistenceKey, steps }: JourneyProps) => {
                     className={clsx(
                         'bg-slate-200 text-slate-400 rounded-xl p-2',
                         {
-                            'opacity-50': !previousStep
+                            'opacity-30': !previousStep
                         }
                     )}
                     onClick={() => setCurrentStep(currentStep - 1)}
@@ -103,7 +104,7 @@ export const Journey = ({ persistenceKey, steps }: JourneyProps) => {
                         {nextStep ? (
                             <ChevronRightOutlined />
                         ) : (
-                            <CloseOutlined fontSize="small" />
+                            <CheckOutlined fontSize="small" />
                         )}
                     </motion.button>
                 }

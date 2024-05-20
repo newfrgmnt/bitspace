@@ -48,7 +48,7 @@ export default function Page({ circuits }: { circuits: Node[] }): JSX.Element {
             <div className="flex flex-row gap-x-6">
                 <motion.div
                     onClick={handleNewCircuit}
-                    className="flex flex-col gap-y-8 rounded-3xl p-8 text-lg bg-slate-200 w-48 h-56 hover:bg-white group transition-colors duration-200 items-stretch justify-between"
+                    className="flex flex-col gap-y-8 cursor-pointer rounded-3xl p-8 text-lg bg-slate-200 w-48 h-56 hover:bg-white group transition-colors duration-200 items-stretch justify-between"
                     variants={{
                         initial: { y: 200, opacity: 0 },
                         animate: {

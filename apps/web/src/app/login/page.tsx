@@ -19,10 +19,39 @@ const formSchema = z.object({
 });
 
 export default function Page() {
-    const verifyOtp = useAction(verifyOTPAction);
-    const [isLoading, setLoading] = useState(false);
     const [isSent, setSent] = useState(false);
     const [email, setEmail] = useState('');
+
+    return (
+        <div className="flex flex-col justify-center items-center h-screen w-screen">
+            <div className="flex flex-col w-72 gap-y-12">
+                <div className="flex flex-col gap-y-2">
+                    <h2 className="text-2xl font-medium">
+                        Welcome to Bitspace
+                    </h2>
+                    <p className="text-lg text-gray-500">
+                        A new era of creative computing for everyone
+                    </p>
+                </div>
+                <div className="flex flex-col">
+                    {isSent ? (
+                        <VerifyOTPForm email={email} />
+                    ) : (
+                        <LoginForm setEmail={setEmail} setSent={setSent} />
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+interface LoginFormProps {
+    setEmail: (email: string) => void;
+    setSent: (sent: boolean) => void;
+}
+
+const LoginForm = ({ setEmail, setSent }: LoginFormProps) => {
+    const [isLoading, setLoading] = useState(false);
     const supabase = createClient();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -37,56 +66,19 @@ export default function Page() {
 
         setEmail(value);
 
-        const { data, error } = await supabase.auth.signInWithOtp({
-            email: value,
-            options: {
-                emailRedirectTo: 'https://bitspace.sh/dashboard'
-            }
-        });
+        const { error } = await supabase.auth
+            .signInWithOtp({
+                email: value,
+                options: {
+                    emailRedirectTo: 'https://bitspace.sh/dashboard'
+                }
+            })
+            .catch(err => console.log(err));
 
         if (!error) {
             setSent(true);
             setLoading(false);
         }
-    }
-
-    async function onComplete(token: string) {
-        verifyOtp.execute({
-            type: 'email',
-            token,
-            email
-        });
-    }
-
-    if (isSent) {
-        return (
-            <div className={cn('flex flex-col space-y-4 items-center')}>
-                <InputOTP
-                    maxLength={6}
-                    onComplete={onComplete}
-                    disabled={verifyOtp.status === 'executing'}
-                    render={({ slots }) => (
-                        <InputOTPGroup>
-                            {slots.map((slot, index) => (
-                                <InputOTPSlot
-                                    key={index.toString()}
-                                    {...slot}
-                                    className="w-[62px] h-[62px]"
-                                />
-                            ))}
-                        </InputOTPGroup>
-                    )}
-                />
-
-                <button
-                    onClick={() => setSent(false)}
-                    type="button"
-                    className="text-sm"
-                >
-                    Try again
-                </button>
-            </div>
-        );
     }
 
     return (
@@ -100,7 +92,8 @@ export default function Page() {
                             <FormItem>
                                 <FormControl>
                                     <Input
-                                        placeholder="Enter email"
+                                        className="w-full"
+                                        placeholder="Email"
                                         {...field}
                                         autoCapitalize="false"
                                         autoCorrect="false"
@@ -111,10 +104,7 @@ export default function Page() {
                         )}
                     />
 
-                    <Button
-                        type="submit"
-                        className="active:scale-[0.98] rounded-xl bg-primary px-6 py-4 text-secondary font-medium flex space-x-2 h-[40px] w-full"
-                    >
+                    <Button type="submit">
                         {isLoading ? (
                             <Spinner className="h-4 w-4" />
                         ) : (
@@ -125,4 +115,41 @@ export default function Page() {
             </form>
         </Form>
     );
+};
+
+interface VerifyOTPFormProps {
+    email: string;
 }
+
+const VerifyOTPForm = ({ email }: VerifyOTPFormProps) => {
+    const verifyOtp = useAction(verifyOTPAction);
+
+    async function onComplete(token: string) {
+        verifyOtp.execute({
+            type: 'email',
+            token,
+            email
+        });
+    }
+
+    return (
+        <div className={cn('flex flex-col space-y-4 items-center')}>
+            <InputOTP
+                maxLength={6}
+                onComplete={onComplete}
+                disabled={verifyOtp.status === 'executing'}
+                render={({ slots }) => (
+                    <InputOTPGroup>
+                        {slots.map((slot, index) => (
+                            <InputOTPSlot
+                                key={index.toString()}
+                                {...slot}
+                                className="w-[62px] h-[62px] first:rounded-l-xl last:rounded-r-xl"
+                            />
+                        ))}
+                    </InputOTPGroup>
+                )}
+            />
+        </div>
+    );
+};
