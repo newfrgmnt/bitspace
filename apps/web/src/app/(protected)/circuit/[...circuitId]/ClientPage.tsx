@@ -113,8 +113,6 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 };
 
 const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
-    const { user } = useAuth();
-
     const updateCircuitName: FocusEventHandler<HTMLHeadingElement> =
         useCallback(
             e => {
