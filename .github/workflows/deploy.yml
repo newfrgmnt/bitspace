@@ -18,6 +18,6 @@ jobs:
               run: pnpm install
             - run: pnpm run build
             - name: Apply all pending migrations to the database
-              run: pnpm dlx prisma migrate deploy
+              run: pnpm --filter "@bitspace/web" dlx prisma migrate deploy
               env:
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
