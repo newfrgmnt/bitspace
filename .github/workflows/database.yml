@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Database Migrations
 on:
     push:
         branches:
@@ -14,9 +14,6 @@ jobs:
               uses: actions/setup-node@v3
             - name: pnpm-setup
               uses: pnpm/action-setup@v2
-            - name: Install dependencies
-              run: pnpm install
-            - run: pnpm run build
             - name: Apply all pending migrations to the database
               run: pnpm --filter "@bitspace/web" prisma:migrate:deploy
               env:
