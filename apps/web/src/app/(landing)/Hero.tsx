@@ -38,7 +38,7 @@ export const Hero = () => {
     return (
         <div className="flex flex-col items-center max-w-4xl w-full gap-y-16">
             <h1 className="text-5xl md:text-7xl text-center md:text-balance leading-normal md:leading-snug tracking-tight">
-                A creative environment for the 21st century
+                Creative computing for everyone
             </h1>
             {showInput ? (
                 success || error ? (
