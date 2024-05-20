@@ -22,7 +22,6 @@ import { Menu } from '../../../../components/Menu/Menu/Menu';
 import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
 import { KeyboardArrowDownOutlined } from '@mui/icons-material';
 import { updateCircuit } from '../../../../server/mutations/updateCircuit';
-import { useAuth } from '@/hooks/useAuth';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);

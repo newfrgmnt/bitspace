@@ -39,6 +39,7 @@ export const ColorHarmonyWindow = ({
     return (
         <NodeWindow className="overflow-hidden rounded-full">
             <ColorWheel
+                disabled={node.inputs.color.connected}
                 color={color}
                 radius={113}
                 harmony={

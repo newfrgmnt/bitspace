@@ -24,6 +24,7 @@ export type ColorWheelProps = Omit<
     radius: number;
     harmony: keyof typeof harmonies;
     color?: { hue: number; saturation: number; value: number };
+    disabled?: boolean;
     defaultColor?: { hue: number; saturation: number; value: number };
     onChange?: (
         colors: { hue: number; saturation: number; value: number }[]
@@ -36,6 +37,7 @@ export const ColorWheel = ({
     color,
     defaultColor,
     onChange,
+    disabled,
     ...props
 }: ColorWheelProps) => {
     const ref = useRef<HTMLCanvasElement>(null);
@@ -190,7 +192,11 @@ export const ColorWheel = ({
                     />
                 );
             })}
-            <Draggable onDrag={handleDrag} position={position}>
+            <Draggable
+                onDrag={handleDrag}
+                position={position}
+                disabled={disabled}
+            >
                 <div
                     className="rounded-full absolute -top-3 -left-3 w-6 h-6 border-2 border-white shadow-sm flex flex-col items-center justify-center"
                     style={{
