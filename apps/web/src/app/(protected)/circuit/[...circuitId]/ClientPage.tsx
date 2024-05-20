@@ -22,6 +22,7 @@ import { Menu } from '../../../../components/Menu/Menu/Menu';
 import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
 import { KeyboardArrowDownOutlined } from '@mui/icons-material';
 import { updateCircuit } from '../../../../server/mutations/updateCircuit';
+import { useAuth } from '@/hooks/useAuth';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -112,6 +113,8 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 };
 
 const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
+    const { user } = useAuth();
+
     const updateCircuitName: FocusEventHandler<HTMLHeadingElement> =
         useCallback(
             e => {
@@ -133,12 +136,12 @@ const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
                 }
             }}
         >
-            <Link href="/">
-                <h3 className="text-xl">Bitspace</h3>
+            <Link href="/dashboard">
+                <h3 className="text-2xl">Bitspace</h3>
             </Link>
             <div className="flex flex-row items-center gap-x-2">
                 <h3
-                    className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none"
+                    className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none text-lg"
                     onBlur={updateCircuitName}
                     contentEditable
                     suppressContentEditableWarning
@@ -155,6 +158,7 @@ const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
                 </h3>
                 <KeyboardArrowDownOutlined fontSize="inherit" />
             </div>
+            <Avatar />
         </motion.div>
     );
 };
