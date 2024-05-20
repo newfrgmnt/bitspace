@@ -12,6 +12,8 @@ jobs:
               uses: actions/checkout@v3
             - name: Setup Node
               uses: actions/setup-node@v3
+            - name: pnpm-setup
+              uses: pnpm/action-setup@v2
             - name: Install dependencies
               run: pnpm install
             - run: pnpm run build
