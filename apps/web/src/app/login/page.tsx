@@ -66,14 +66,12 @@ const LoginForm = ({ setEmail, setSent }: LoginFormProps) => {
 
         setEmail(value);
 
-        const { error } = await supabase.auth
-            .signInWithOtp({
-                email: value,
-                options: {
-                    emailRedirectTo: 'https://bitspace.sh/dashboard'
-                }
-            })
-            .catch(err => console.log(err));
+        const { error } = await supabase.auth.signInWithOtp({
+            email: value,
+            options: {
+                emailRedirectTo: 'https://bitspace.sh/dashboard'
+            }
+        });
 
         if (!error) {
             setSent(true);
