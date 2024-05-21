@@ -4,7 +4,16 @@ import { Hero } from './Hero';
 
 export const metadata: Metadata = {
     title: 'Bitspace',
-    description: 'A creative environment for the 21st century'
+    description: 'A space for exploration & creative imagination',
+    openGraph: {
+        images: [
+            {
+                url: 'https://polar.sh/_next/image?url=https%3A%2F%2F7vk6rcnylug0u6hg.public.blob.vercel-storage.com%2Fimage-uNOjlhlA1jNCzDcYXCtAJ9Xtdcqh1q.png&w=1920&q=90',
+                width: 1920,
+                height: 1080
+            }
+        ]
+    }
 };
 
 export default function Page() {
