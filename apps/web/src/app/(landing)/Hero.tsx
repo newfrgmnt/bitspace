@@ -5,6 +5,7 @@ import { createSubscription } from './createSubscription';
 import { ArrowForwardOutlined } from '@mui/icons-material';
 import { Button } from '@bitspace/ui/button';
 import { Input } from '@bitspace/ui/input';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 const isEmail = (email: string) => {
     return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
@@ -13,14 +14,17 @@ const isEmail = (email: string) => {
 export const Hero = () => {
     const [email, setEmail] = useState('');
     const [showInput, setShowInput] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | undefined>();
 
     const handleSignUp = useCallback(async () => {
         if (isEmail(email)) {
+            setLoading(true);
             await createSubscription(email)
                 .then(() => setSuccess(true))
-                .catch(() => setError('An error occured. Please try again.'));
+                .catch(() => setError('An error occured. Please try again.'))
+                .finally(() => setLoading(false));
         }
     }, [setSuccess, setError, email]);
 
@@ -61,9 +65,15 @@ export const Hero = () => {
                         <Button
                             className="h-12 w-12"
                             onClick={handleSignUp}
-                            disabled={!isEmail(email)}
+                            disabled={!isEmail(email) || loading}
                         >
-                            <ArrowForwardOutlined fontSize="inherit" />
+                            {loading ? (
+                                <span className="flex flex-col justify-center items-center">
+                                    <Spinner className="h-4 w-4" />
+                                </span>
+                            ) : (
+                                <ArrowForwardOutlined fontSize="inherit" />
+                            )}
                         </Button>
                     </div>
                 )
