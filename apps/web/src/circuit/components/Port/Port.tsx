@@ -9,9 +9,10 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';
 import clsx from 'clsx';
-import { CloseOutlined } from '@mui/icons-material';
+import { Close, CloseOutlined } from '@mui/icons-material';
 import posthog from 'posthog-js';
 import { createConnection } from '../../../server/mutations/createConnection';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -137,16 +138,36 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
                     onMouseLeave={onPortTypeLeave}
                     onClick={onClick}
                 >
-                    {port.connected &&
-                    isPortTypeHovered &&
-                    !visuallyDisabled ? (
-                        <CloseOutlined fontSize="inherit" />
-                    ) : (
-                        <span>{port.type.name.charAt(0)}</span>
-                    )}
+                    <AnimatePresence mode="wait">
+                        {port.connected &&
+                        isPortTypeHovered &&
+                        !visuallyDisabled ? (
+                            <PortWrapper key={0}>
+                                <Close fontSize="inherit" />
+                            </PortWrapper>
+                        ) : (
+                            <PortWrapper key={1}>
+                                <span>{port.type.name.charAt(0)}</span>
+                            </PortWrapper>
+                        )}
+                    </AnimatePresence>
                 </div>
                 <span>{port.name}</span>
             </div>
         </Tooltip>
     );
 });
+
+const PortWrapper = ({ children }: React.PropsWithChildren) => {
+    return (
+        <motion.div
+            className="flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+        >
+            {children}
+        </motion.div>
+    );
+};
