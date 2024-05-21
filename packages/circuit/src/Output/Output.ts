@@ -21,7 +21,7 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
     /** Associated Connections */
     public connections: Connection<TValue>[];
     /** Optional Loading State */
-    public loading: boolean = false
+    public loading: boolean = false;
 
     constructor(props: IOutputProps<TValue>) {
         super(1);
@@ -81,5 +81,10 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
 
         this.subscription.unsubscribe();
         this.unsubscribe();
+    }
+
+    /** Parses the value and sends it */
+    public next(value: TValue) {
+        super.next(this.type.validator.parse(value));
     }
 }

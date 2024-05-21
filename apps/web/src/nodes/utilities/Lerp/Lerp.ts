@@ -10,17 +10,17 @@ export class Lerp extends Node {
     inputs = {
         a: new Input({
             name: 'A',
-            type: NumberSchema,
+            type: NumberSchema(),
             defaultValue: 0
         }),
         b: new Input({
             name: 'B',
-            type: NumberSchema,
+            type: NumberSchema(),
             defaultValue: 1
         }),
         t: new Input({
             name: 'T',
-            type: NumberSchema,
+            type: NumberSchema(),
             defaultValue: 0.5
         }),
         easing: new Input({
@@ -33,10 +33,13 @@ export class Lerp extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: NumberSchema,
-            observable: combineLatest([this.inputs.a, this.inputs.b, this.inputs.t, this.inputs.easing]).pipe(
-                map(([a, b, t, easing]) => this.lerp(a, b, easing(t)))
-            )
+            type: NumberSchema(),
+            observable: combineLatest([
+                this.inputs.a,
+                this.inputs.b,
+                this.inputs.t,
+                this.inputs.easing
+            ]).pipe(map(([a, b, t, easing]) => this.lerp(a, b, easing(t))))
         })
     };
 

@@ -19,7 +19,6 @@ import { z } from 'zod';
 import { hsv2rgb } from '../../ColorPicker/ColorPicker.utils';
 import { hex, hsl, rgb } from 'color-convert';
 import clsx from 'clsx';
-import { LockOutlined } from '@mui/icons-material';
 
 export type HexColorSchemaType = z.infer<(typeof HexSchema)['validator']>;
 export type RGBColorSchemaType = z.infer<(typeof RGBSchema)['validator']>;
@@ -70,7 +69,6 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
 
     const resolveColor = useCallback(
         (v: string): T => {
-            console.log(color);
             if (typeof color === 'object') {
                 if ('red' in color) {
                     const [red, green, blue] = hex.rgb(v);

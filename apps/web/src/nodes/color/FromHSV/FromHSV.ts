@@ -1,10 +1,8 @@
 import { z } from 'zod';
 import { Node, Input, Output, schema } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { HSVSchema } from '../../schemas';
+import { HSVSchema, NumberSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';
-
-const NumberSchema = schema('Number', z.number());
 
 export class FromHSV extends Node {
     static displayName = 'From HSV';
@@ -25,17 +23,17 @@ export class FromHSV extends Node {
     outputs = {
         hue: new Output({
             name: 'Hue',
-            type: NumberSchema,
+            type: NumberSchema(0, 360, true),
             observable: this.inputs.color.pipe(map(color => color.hue))
         }),
         saturation: new Output({
             name: 'Saturation',
-            type: NumberSchema,
+            type: NumberSchema(0, 1),
             observable: this.inputs.color.pipe(map(color => color.saturation))
         }),
         value: new Output({
             name: 'Value',
-            type: NumberSchema,
+            type: NumberSchema(0, 1),
             observable: this.inputs.color.pipe(map(color => color.value))
         })
     };

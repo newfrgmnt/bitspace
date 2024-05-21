@@ -13,7 +13,7 @@ export class PI extends Node {
     outputs = {
         PI: new Output({
             name: 'Output',
-            type: NumberSchema,
+            type: NumberSchema(),
             observable: new Observable(sub => {
                 sub.next(Math.PI);
             })

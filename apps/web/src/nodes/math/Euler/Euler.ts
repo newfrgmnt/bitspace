@@ -13,7 +13,7 @@ export class Euler extends Node {
     outputs = {
         Euler: new Output({
             name: 'Output',
-            type: NumberSchema,
+            type: NumberSchema(),
             observable: new Observable(sub => {
                 sub.next(Math.E);
             })

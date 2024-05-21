@@ -23,17 +23,17 @@ export class FromRGB extends Node {
     outputs = {
         red: new Output({
             name: 'Red',
-            type: NumberSchema,
+            type: NumberSchema(0, 1),
             observable: this.inputs.color.pipe(map(color => color.red))
         }),
         green: new Output({
             name: 'Green',
-            type: NumberSchema,
+            type: NumberSchema(0, 1),
             observable: this.inputs.color.pipe(map(color => color.green))
         }),
         blue: new Output({
             name: 'Blue',
-            type: NumberSchema,
+            type: NumberSchema(0, 1),
             observable: this.inputs.color.pipe(map(color => color.blue))
         })
     };

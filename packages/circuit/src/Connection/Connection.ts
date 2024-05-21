@@ -15,7 +15,11 @@ export class Connection<T> extends Subject<T> {
     /** Subscription */
     public subscription: Subscription;
 
-    constructor(from: Output<T>, to: Input<T>, onValidationFail?: (fromId: string, toId: string) => void) {
+    constructor(
+        from: Output<T>,
+        to: Input<T>,
+        onValidationFail?: (fromId: string, toId: string) => void
+    ) {
         super();
 
         if (to.connected) {
@@ -30,7 +34,6 @@ export class Connection<T> extends Subject<T> {
 
         this.subscription = this.from.subscribe(value => {
             try {
-                this.to.type.validator.parse(value);
                 this.to.next(value);
             } catch (err) {
                 onValidationFail?.(this.from.id, this.to.id);
@@ -53,9 +56,16 @@ export class Connection<T> extends Subject<T> {
         this.unsubscribe();
         this.subscription?.unsubscribe();
 
-        this.from.connections = this.from.connections.filter(connection => connection !== this);
+        this.from.connections = this.from.connections.filter(
+            connection => connection !== this
+        );
         this.to.connection = null;
 
         this.to.next(this.to.defaultValue);
+    }
+
+    /** Parses the value and sends it */
+    public next(value: T) {
+        super.next(this.to.type.validator.parse(value));
     }
 }

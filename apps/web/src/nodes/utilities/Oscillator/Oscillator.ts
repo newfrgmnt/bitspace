@@ -10,17 +10,17 @@ export class Oscillator extends Node {
     inputs = {
         frequency: new Input({
             name: 'Frequency',
-            type: NumberSchema,
+            type: NumberSchema(),
             defaultValue: 2
         }),
         amplitude: new Input({
             name: 'Amplitude',
-            type: NumberSchema,
+            type: NumberSchema(),
             defaultValue: 1
         }),
         time: new Input({
             name: 'Time',
-            type: NumberSchema,
+            type: NumberSchema(),
             defaultValue: 0
         })
     };
@@ -28,11 +28,18 @@ export class Oscillator extends Node {
     outputs = {
         output: new Output({
             name: 'Oscillation',
-            type: NumberSchema,
-            observable: combineLatest([this.inputs.frequency, this.inputs.amplitude, this.inputs.time]).pipe(
+            type: NumberSchema(),
+            observable: combineLatest([
+                this.inputs.frequency,
+                this.inputs.amplitude,
+                this.inputs.time
+            ]).pipe(
                 map(
                     ([frequency, amplitude, time]) =>
-                        (amplitude * Math.sin((Math.PI * 2.0 * time) / frequency) + amplitude) / 2
+                        (amplitude *
+                            Math.sin((Math.PI * 2.0 * time) / frequency) +
+                            amplitude) /
+                        2
                 )
             )
         })

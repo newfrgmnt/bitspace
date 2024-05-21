@@ -49,4 +49,9 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
 
         this.unsubscribe();
     }
+
+    /** Parses the value and sends it */
+    public next(value: TValue) {
+        super.next(this.type.validator.parse(value));
+    }
 }

@@ -9,13 +9,17 @@ export class Absolute extends Node {
     static type = NodeType.ABSOLUTE;
 
     inputs = {
-        input: new Input({ name: 'Input', type: NumberSchema, defaultValue: 0 })
+        input: new Input({
+            name: 'Input',
+            type: NumberSchema(),
+            defaultValue: 0
+        })
     };
 
     outputs = {
         output: new Output({
             name: 'Output',
-            type: NumberSchema,
+            type: NumberSchema(),
             observable: this.inputs.input.pipe(map(input => Math.abs(input)))
         })
     };
