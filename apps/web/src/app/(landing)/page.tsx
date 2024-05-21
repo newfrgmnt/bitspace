@@ -4,7 +4,7 @@ import { Hero } from './Hero';
 
 export const metadata: Metadata = {
     title: 'Bitspace',
-    description: 'A space for exploration, prototypes & creative computation',
+    description: 'A space for exploration, prototyping & creative computation',
     openGraph: {
         images: [
             {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Bitspace',
         description:
-            'A space for exploration, prototypes & creative computation',
+            'A space for exploration, prototyping & creative computation',
         creator: '@newfrgmnt',
         images: [
             {
