@@ -13,7 +13,9 @@ import {
     CanvasStore
 } from '../../circuit';
 import { nodeWindowResolver } from '../../windows';
-import { Cosine } from '@/nodes/math/Cosine/Cosine';
+import { Mesh } from '@/nodes/3d/Mesh/Mesh';
+import { SquareHarmony } from '@/nodes/color/SquareHarmony/SquareHarmony';
+import { Oscillator } from '@/nodes/utilities/Oscillator/Oscillator';
 
 export const CircuitExample = () => {
     const circuitStore = useMemo(() => {
@@ -22,34 +24,41 @@ export const CircuitExample = () => {
         const timer = new Timer();
         const multiplication = new Multiplication();
         multiplication.inputs.b.next(0.1);
+        const multiplication2 = new Multiplication();
+        multiplication2.inputs.b.next(0.2);
+        const osc = new Oscillator();
+        osc.inputs.amplitude.next(1);
         const toHSV = new ToHSV();
-        const cHarmonyNode = new ComplementaryHarmony();
+        const sHarmonyNode = new SquareHarmony();
         const hsvNode = new FromHSV();
-        const hsvNode2 = new FromHSV();
-        const cosine = new Cosine();
+        const meshNode = new Mesh();
 
-        timer.setPosition(-1400, 100);
+        timer.setPosition(-2000, 100);
         multiplication.setPosition(-1000, 100);
-        toHSV.setPosition(-500, 100);
-        cHarmonyNode.setPosition(0, 200);
-        hsvNode.setPosition(400, 420);
-        hsvNode2.setPosition(400, -20);
-        cosine.setPosition(1000, 100);
+        multiplication2.setPosition(-1400, -50);
+        osc.setPosition(-1000, -50);
+        toHSV.setPosition(-450, 100);
+        sHarmonyNode.setPosition(0, 200);
+        hsvNode.setPosition(450, 420);
+        meshNode.setPosition(450, -20);
 
         circuit.addNode(timer);
         circuit.addNode(multiplication);
+        circuit.addNode(multiplication2);
+        circuit.addNode(osc);
         circuit.addNode(toHSV);
-        circuit.addNode(cHarmonyNode);
+        circuit.addNode(sHarmonyNode);
         circuit.addNode(hsvNode);
-        circuit.addNode(hsvNode2);
-        circuit.addNode(cosine);
+        circuit.addNode(meshNode);
 
         timer.outputs.milliseconds.connect(multiplication.inputs.a);
         multiplication.outputs.output.connect(toHSV.inputs.hue);
-        toHSV.outputs.color.connect(cHarmonyNode.inputs.color);
-        cHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
-        cHarmonyNode.outputs.b.connect(hsvNode2.inputs.color);
-        hsvNode2.outputs.hue.connect(cosine.inputs.input);
+        timer.outputs.seconds.connect(multiplication2.inputs.a);
+        multiplication2.outputs.output.connect(osc.inputs.time);
+        osc.outputs.output.connect(toHSV.inputs.saturation);
+        toHSV.outputs.color.connect(sHarmonyNode.inputs.color);
+        sHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
+        sHarmonyNode.outputs.c.connect(meshNode.inputs.color);
 
         const circuitStore = new CanvasStore(circuit);
 

@@ -41,7 +41,7 @@ export const Hero = () => {
                 Creative computing for everyone
             </h1>
             <p className="text-gray-500 text-xl">
-                A space for exploration, prototyping & creative imagination
+                A space for exploration & creative imagination
             </p>
             {showInput ? (
                 success || error ? (
