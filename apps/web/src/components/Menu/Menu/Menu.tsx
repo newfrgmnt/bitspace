@@ -70,7 +70,7 @@ export const Menu = ({ onClose }: MenuProps) => {
             store.circuit.addNode(node);
             store.selectNodes([node]);
 
-            await createNode({
+            createNode({
                 id: node.id,
                 name: matchingNode.displayName,
                 type: matchingNode.type,
