@@ -13,7 +13,6 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { Circuit } from '@bitspace/circuit';
 import { useRouter } from 'next/navigation';
-import { removeNode } from '../../../server/mutations/removeNode';
 
 export const Node = observer(
     ({ node, actions, window, onMoveStop }: NodeProps) => {
@@ -63,9 +62,7 @@ export const Node = observer(
             node.dispose();
 
             store.removeNode(node);
-
-            removeNode(node.id);
-        }, [node]);
+        }, [node, store]);
 
         const handleDoubleClick: React.MouseEventHandler<HTMLDivElement> =
             React.useCallback(() => {

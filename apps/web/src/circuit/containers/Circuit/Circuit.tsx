@@ -156,6 +156,23 @@ export const Circuit = observer(
 
         React.useEffect(() => {
             return reaction(
+                () => store.circuit.connections,
+                (connections, prevConnections) => {
+                    const removedConnections = prevConnections.filter(
+                        node => !connections.includes(node)
+                    );
+
+                    if (removedConnections.length && onConnectionRemoval) {
+                        for (const connection of removedConnections) {
+                            onConnectionRemoval(connection);
+                        }
+                    }
+                }
+            );
+        }, [onNodeRemoval, store]);
+
+        React.useEffect(() => {
+            return reaction(
                 () => store.selectedNodes,
                 selectedNodes => {
                     onSelectionChanged?.(selectedNodes);

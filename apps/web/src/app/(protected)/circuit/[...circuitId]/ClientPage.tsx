@@ -23,6 +23,8 @@ import { Avatar } from '../../../../circuit/components/Avatar/Avatar';
 import { KeyboardArrowDownOutlined } from '@mui/icons-material';
 import { updateCircuit } from '../../../../server/mutations/updateCircuit';
 import { moveNode } from '@/server/mutations/moveNode';
+import { removeNode } from '@/server/mutations/removeNode';
+import { removeConnection } from '@/server/mutations/removeConnection';
 
 export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -71,6 +73,15 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                     <CircuitComponent
                         store={canvasStore}
                         nodeWindowResolver={nodeWindowResolver}
+                        onNodeRemoval={node => {
+                            removeNode(node.id);
+                        }}
+                        onConnectionRemoval={connection => {
+                            removeConnection(
+                                connection.from.id,
+                                connection.to.id
+                            );
+                        }}
                         onNodeMoveStop={e => {
                             for (const selectedNode of canvasStore.selectedNodes ||
                                 []) {
