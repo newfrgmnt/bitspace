@@ -1,10 +1,12 @@
 generator client {
   provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["auth", "public"]
 }
 
 model Connection {
@@ -15,6 +17,7 @@ model Connection {
   to     Input  @relation(fields: [toId], references: [id], onDelete: Cascade)
 
   @@map("connections")
+  @@schema("public")
 }
 
 model NodePosition {
@@ -24,6 +27,7 @@ model NodePosition {
   node   Node   @relation(fields: [nodeId], references: [id], onDelete: Cascade)
 
   @@map("node_positions")
+  @@schema("public")
 }
 
 model Node {
@@ -42,6 +46,7 @@ model Node {
   outputs   Output[]
 
   @@map("nodes")
+  @@schema("public")
 }
 
 model Input {
@@ -55,6 +60,7 @@ model Input {
   node       Node?       @relation(fields: [nodeId], references: [id], onDelete: Cascade)
 
   @@map("inputs")
+  @@schema("public")
 }
 
 model Output {
@@ -67,6 +73,7 @@ model Output {
   node        Node?        @relation(fields: [nodeId], references: [id], onDelete: Cascade)
 
   @@map("outputs")
+  @@schema("public")
 }
 
 enum NodeType {
@@ -122,4 +129,6 @@ enum NodeType {
   RENDERER_3D
   OSCILLATOR
   IMAGE_EDIT_AI
+  
+  @@schema("public")
 }
