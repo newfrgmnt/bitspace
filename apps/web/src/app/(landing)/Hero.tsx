@@ -36,10 +36,13 @@ export const Hero = () => {
     );
 
     return (
-        <div className="flex flex-col items-center max-w-4xl w-full gap-y-16">
-            <h1 className="text-5xl md:text-7xl text-center md:text-balance leading-normal md:leading-snug tracking-tight">
+        <div className="flex flex-col items-center max-w-4xl w-full gap-y-16 text-center">
+            <h1 className="text-5xl md:text-8xl md:text-balance leading-normal md:leading-tight tracking-tight">
                 Creative computing for everyone
             </h1>
+            <p className="text-gray-500 text-xl">
+                A space for exploration, prototyping & creative imagination
+            </p>
             {showInput ? (
                 success || error ? (
                     <span className="text-center">
