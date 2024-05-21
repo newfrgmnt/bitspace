@@ -12,23 +12,32 @@ import clsx from 'clsx';
 import { CloseOutlined } from '@mui/icons-material';
 import posthog from 'posthog-js';
 import { createConnection } from '../../../server/mutations/createConnection';
-import { removeConnection } from '../../../server/mutations/removeConnection';
 
 export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
-    const { onMouseEnter: onPortTypeEnter, onMouseLeave: onPortTypeLeave, isHovered: isPortTypeHovered } = useHover();
+    const {
+        onMouseEnter: onPortTypeEnter,
+        onMouseLeave: onPortTypeLeave,
+        isHovered: isPortTypeHovered
+    } = useHover();
     const { store } = React.useContext(StoreContext);
 
-    const tooltipPosition = React.useMemo(() => (isOutput ? TooltipPosition.RIGHT : TooltipPosition.LEFT), [isOutput]);
+    const tooltipPosition = React.useMemo(
+        () => (isOutput ? TooltipPosition.RIGHT : TooltipPosition.LEFT),
+        [isOutput]
+    );
     const visuallyDisabled = React.useMemo(() => {
         const isOccupied = !isOutput && port.connected;
         const hasSharedNode = store.draftConnectionSource
-            ? store.getNodeByPortId(store.draftConnectionSource.id) === store.getNodeByPortId(port.id)
+            ? store.getNodeByPortId(store.draftConnectionSource.id) ===
+              store.getNodeByPortId(port.id)
             : false;
         // const isUnrelatedToConnectionDraft = store.draftConnectionSource !== port;
 
-        return store.draftConnectionSource ? isOccupied || isOutput || hasSharedNode : false;
+        return store.draftConnectionSource
+            ? isOccupied || isOutput || hasSharedNode
+            : false;
     }, [isOutput]);
 
     React.useEffect(() => {
@@ -41,18 +50,19 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         }
     }, []);
 
-    const onMouseDown: React.MouseEventHandler<HTMLDivElement> = React.useCallback(
-        e => {
-            e.stopPropagation();
+    const onMouseDown: React.MouseEventHandler<HTMLDivElement> =
+        React.useCallback(
+            e => {
+                e.stopPropagation();
 
-            if (isOutput) {
-                store.setDraftConnectionSource(port as Output<any>);
+                if (isOutput) {
+                    store.setDraftConnectionSource(port as Output<any>);
 
-                posthog.capture('Connection Draft initiated');
-            }
-        },
-        [isOutput]
-    );
+                    posthog.capture('Connection Draft initiated');
+                }
+            },
+            [isOutput]
+        );
 
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && store.draftConnectionSource) {
@@ -68,12 +78,12 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
 
     const onClick = React.useCallback(() => {
         if (port.connected) {
-            const connections = 'connection' in port ? [port.connection] : port.connections;
+            const connections =
+                'connection' in port ? [port.connection] : port.connections;
 
             for (const connection of connections) {
                 if (connection) {
                     connection.dispose();
-                    removeConnection(connection.from.id, connection.to.id);
 
                     posthog.capture('Connection removed on port click');
                 }
@@ -101,7 +111,10 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
         {
             'bg-red-500': port.connected && isPortTypeHovered,
             'bg-slate-200': !port.connected && !isHovered && !highlighted,
-            'bg-black': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered) || highlighted,
+            'bg-black':
+                (port.connected && !isPortTypeHovered) ||
+                (!port.connected && isHovered) ||
+                highlighted,
             'text-white': highlighted || isHovered,
             'ml-2': isOutput,
             'mr-2': !isOutput
@@ -124,7 +137,9 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
                     onMouseLeave={onPortTypeLeave}
                     onClick={onClick}
                 >
-                    {port.connected && isPortTypeHovered && !visuallyDisabled ? (
+                    {port.connected &&
+                    isPortTypeHovered &&
+                    !visuallyDisabled ? (
                         <CloseOutlined fontSize="inherit" />
                     ) : (
                         <span>{port.type.name.charAt(0)}</span>

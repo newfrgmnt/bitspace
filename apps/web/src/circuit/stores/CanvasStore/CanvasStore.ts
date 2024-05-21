@@ -8,7 +8,6 @@ import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { Bounds } from '../../utils/bounds/bounds.types';
 import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Position, Size, StoreProviderValue } from './CanvasStore.types';
-import { removeConnection } from '../../../server/mutations/removeConnection';
 
 export class CanvasStore {
     /** Associated Nodes */
@@ -16,7 +15,8 @@ export class CanvasStore {
     /** Associated Node Elements */
     public nodeElements: Map<Node['id'], HTMLDivElement> = new Map();
     /** Associated Port Elements */
-    public portElements: Map<Input['id'] | Output['id'], HTMLDivElement> = new Map();
+    public portElements: Map<Input['id'] | Output['id'], HTMLDivElement> =
+        new Map();
     /** Selected Nodes */
     public selectedNodes: Node[] = [];
     /** Draft Connection Source */
@@ -63,7 +63,10 @@ export class CanvasStore {
     }
 
     /** Associates a given Node instance with an HTML Element */
-    public setNodeElement(nodeId: Node['id'], portElement: HTMLDivElement): void {
+    public setNodeElement(
+        nodeId: Node['id'],
+        portElement: HTMLDivElement
+    ): void {
         this.nodeElements.set(nodeId, portElement);
     }
 
@@ -73,7 +76,10 @@ export class CanvasStore {
     }
 
     /** Associates a given Input or Output instance with an HTML Element */
-    public setPortElement(portId: Input['id'] | Output['id'], portElement: HTMLDivElement): void {
+    public setPortElement(
+        portId: Input['id'] | Output['id'],
+        portElement: HTMLDivElement
+    ): void {
         this.portElements.set(portId, portElement);
     }
 
@@ -90,7 +96,7 @@ export class CanvasStore {
     /** Sets an Output as the current draft connection source */
     public commitDraftConnection<T>(target: Input<T>): Connection<T> | void {
         if (this.draftConnectionSource) {
-            const connection = this.draftConnectionSource.connect(target, removeConnection);
+            const connection = this.draftConnectionSource.connect(target);
 
             this.setDraftConnectionSource(null);
 
@@ -126,7 +132,10 @@ export class CanvasStore {
     /** Returns the node with the associated port */
     public getNodeByPortId(portId: Input['id'] | Output['id']) {
         return this.circuit.nodes.find(node => {
-            return [...Object.values(node.inputs), ...Object.values(node.outputs)].some(port => port.id === portId);
+            return [
+                ...Object.values(node.inputs),
+                ...Object.values(node.outputs)
+            ].some(port => port.id === portId);
         });
     }
 
@@ -162,7 +171,10 @@ export class CanvasStore {
                         if (
                             nodePosition &&
                             withinBounds(bounds, {
-                                ...fromCanvasCartesianPoint(nodePosition.x - NODE_CENTER, nodePosition.y),
+                                ...fromCanvasCartesianPoint(
+                                    nodePosition.x - NODE_CENTER,
+                                    nodePosition.y
+                                ),
                                 width: nodeRect.width,
                                 height: nodeRect.height
                             })
@@ -172,7 +184,15 @@ export class CanvasStore {
                     }
                 }
 
-                if (!isEmpty(xorWith(this.selectedNodes, selectionCandidates, isEqual))) {
+                if (
+                    !isEmpty(
+                        xorWith(
+                            this.selectedNodes,
+                            selectionCandidates,
+                            isEqual
+                        )
+                    )
+                ) {
                     this.selectNodes(selectionCandidates);
                 }
             }

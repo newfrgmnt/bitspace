@@ -8,7 +8,6 @@ import {
     Connection as SerializedConnection
 } from '@prisma/client';
 import { NodeConstructor, NodeConstructors } from '../../../nodes';
-import { removeConnection } from '../../../server/mutations/removeConnection';
 
 export interface ExtendedNode extends SerializedNode {
     children: ExtendedNode[];
@@ -89,7 +88,7 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
         const output = portCache.get(outputId) as Output<any>;
         const input = portCache.get(inputId) as Input<any>;
 
-        output.connect(input, removeConnection);
+        output.connect(input);
     }
 
     return circuit;
