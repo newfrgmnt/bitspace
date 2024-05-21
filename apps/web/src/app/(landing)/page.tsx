@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     openGraph: {
         images: [
             {
-                url: 'https://polar.sh/_next/image?url=https%3A%2F%2F7vk6rcnylug0u6hg.public.blob.vercel-storage.com%2Fimage-uNOjlhlA1jNCzDcYXCtAJ9Xtdcqh1q.png&w=1920&q=90',
+                url: 'https://polar.sh/_next/image?url=https%3A%2F%2F7vk6rcnylug0u6hg.public.blob.vercel-storage.com%2Fimage-uNOjlhlA1jNCzDcYXCtAJ9Xtdcqh1q.png&w=1920&q=100',
                 width: 1920,
                 height: 1080
             }
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         creator: '@newfrgmnt',
         images: [
             {
-                url: 'https://polar.sh/_next/image?url=https%3A%2F%2F7vk6rcnylug0u6hg.public.blob.vercel-storage.com%2Fimage-uNOjlhlA1jNCzDcYXCtAJ9Xtdcqh1q.png&w=1920&q=90',
+                url: 'https://polar.sh/_next/image?url=https%3A%2F%2F7vk6rcnylug0u6hg.public.blob.vercel-storage.com%2Fimage-uNOjlhlA1jNCzDcYXCtAJ9Xtdcqh1q.png&w=1920&q=100',
                 width: 1920,
                 height: 1080
             }
