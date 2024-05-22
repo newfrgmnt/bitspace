@@ -95,7 +95,7 @@ const Port = observer(({ port, disabled, onBlur }: PortProps) => (
                     />
                 )}
                 <span className="bg-slate-200/60 text-slate-500 rounded-lg px-1.5 font-medium text-xxs">
-                    {port.type.name}
+                    {port.type.description}
                 </span>
             </div>
         </div>
