@@ -4,7 +4,6 @@ import { Image } from '../nodes/ai/Image/Image';
 import { ConsoleWindow } from './ConsoleWindow';
 import { Node } from '@bitspace/circuit';
 import { ImageWindow } from './ImageWindow';
-import { NodeWindow } from '../circuit/components/Node/Node';
 import { HSVWindow } from './HSVWindow';
 import { ColorHarmonyWindow } from './ColorHarmonyWindow';
 import { TriadHarmony } from '../nodes/color/TriadHarmony/TriadHarmony';
@@ -43,7 +42,12 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
             return (
                 <ColorHarmonyWindow
                     node={
-                        node as TriadHarmony | TetradicHarmony | SquareHarmony | ComplementaryHarmony | AnalogousHarmony
+                        node as
+                            | TriadHarmony
+                            | TetradicHarmony
+                            | SquareHarmony
+                            | ComplementaryHarmony
+                            | AnalogousHarmony
                     }
                 />
             );

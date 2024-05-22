@@ -11,12 +11,12 @@ export class Prompt extends Node {
     inputs = {
         prompt: new Input({
             name: 'Prompt',
-            type: StringSchema,
+            type: StringSchema(),
             defaultValue: ''
         }),
         context: new Input({
             name: 'Context',
-            type: AnySchema,
+            type: AnySchema(),
             defaultValue: undefined
         })
     };
@@ -24,8 +24,11 @@ export class Prompt extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: StringSchema,
-            observable: combineLatest([this.inputs.prompt, this.inputs.context]).pipe(
+            type: StringSchema(),
+            observable: combineLatest([
+                this.inputs.prompt,
+                this.inputs.context
+            ]).pipe(
                 debounceTime(500),
                 skip(1),
                 switchMap(([prompt, context]) =>

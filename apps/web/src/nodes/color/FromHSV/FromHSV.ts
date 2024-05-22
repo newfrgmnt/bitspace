@@ -11,7 +11,7 @@ export class FromHSV extends Node {
     inputs = {
         color: new Input({
             name: 'Color',
-            type: HSVSchema,
+            type: HSVSchema(),
             defaultValue: {
                 hue: 0,
                 saturation: 0.5,

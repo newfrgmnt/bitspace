@@ -11,7 +11,7 @@ export class TriadHarmony extends Node {
     inputs = {
         color: new Input({
             name: 'Color',
-            type: HSVSchema,
+            type: HSVSchema(),
             defaultValue: {
                 hue: 0,
                 saturation: 0.5,
@@ -23,12 +23,12 @@ export class TriadHarmony extends Node {
     outputs = {
         a: new Output({
             name: 'A',
-            type: HSVSchema,
+            type: HSVSchema(),
             observable: this.inputs.color
         }),
         b: new Output({
             name: 'B',
-            type: HSVSchema,
+            type: HSVSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;
@@ -41,7 +41,7 @@ export class TriadHarmony extends Node {
         }),
         c: new Output({
             name: 'C',
-            type: HSVSchema,
+            type: HSVSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;

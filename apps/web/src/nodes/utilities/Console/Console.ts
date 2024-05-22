@@ -1,9 +1,7 @@
 import { z } from 'zod';
 import { Node, Input, schema } from '@bitspace/circuit';
 import { NodeType } from '@prisma/client';
-
-/** Declare a zod schema for value validation */
-const AnySchema = schema('Any', z.any());
+import { AnySchema } from '@/nodes/schemas';
 
 export class Console extends Node {
     static displayName = 'Console';
@@ -12,7 +10,7 @@ export class Console extends Node {
     inputs = {
         input: new Input({
             name: 'Input',
-            type: AnySchema,
+            type: AnySchema(),
             defaultValue: undefined
         })
     };

@@ -20,7 +20,9 @@ export const ColorHarmonyWindow = ({
         | ComplementaryHarmony
         | AnalogousHarmony;
 }) => {
-    const [color, setColor] = useState<z.infer<typeof HSVSchema.validator>>({
+    const [color, setColor] = useState<
+        z.infer<ReturnType<typeof HSVSchema>['validator']>
+    >({
         hue: 0,
         saturation: 0,
         value: 0

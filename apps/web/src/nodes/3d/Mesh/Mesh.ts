@@ -18,7 +18,7 @@ export class Mesh extends Node {
     inputs = {
         color: new Input({
             name: 'Color',
-            type: HSVSchema,
+            type: HSVSchema(),
             defaultValue: { hue: 0, saturation: 1, value: 1 }
         })
     };
@@ -26,10 +26,12 @@ export class Mesh extends Node {
     outputs = {
         mesh: new Output({
             name: 'Mesh',
-            type: MeshSchema,
+            type: MeshSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
-                    this.color.setRGB(...hsv2rgb(color.hue, color.saturation, color.value));
+                    this.color.setRGB(
+                        ...hsv2rgb(color.hue, color.saturation, color.value)
+                    );
                     this.material.color = this.color;
                     return this.mesh;
                 })

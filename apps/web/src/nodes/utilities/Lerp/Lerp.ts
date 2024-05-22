@@ -25,7 +25,7 @@ export class Lerp extends Node {
         }),
         easing: new Input({
             name: 'Easing',
-            type: EasingSchema,
+            type: EasingSchema(),
             defaultValue: (t: number) => t
         })
     };

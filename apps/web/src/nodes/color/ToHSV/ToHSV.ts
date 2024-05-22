@@ -28,7 +28,7 @@ export class ToHSV extends Node {
     outputs = {
         color: new Output({
             name: 'Color',
-            type: HSVSchema,
+            type: HSVSchema(),
             observable: combineLatest([
                 this.inputs.hue,
                 this.inputs.saturation,

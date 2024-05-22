@@ -11,7 +11,7 @@ export class FromRGB extends Node {
     inputs = {
         color: new Input({
             name: 'Color',
-            type: RGBSchema,
+            type: RGBSchema(),
             defaultValue: {
                 red: 0,
                 green: 0,

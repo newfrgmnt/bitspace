@@ -19,13 +19,13 @@ export class Image extends Node {
     inputs = {
         prompt: new Input({
             name: 'Prompt',
-            type: StringSchema,
+            type: StringSchema(),
             defaultValue:
                 'A man looking outside of a window from a house on a winter landscape'
         }),
         context: new Input({
             name: 'Context',
-            type: AnySchema,
+            type: AnySchema(),
             defaultValue: undefined
         })
     };
@@ -33,7 +33,7 @@ export class Image extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: ImageSchema,
+            type: ImageSchema(),
             observable: combineLatest([
                 this.inputs.prompt,
                 this.inputs.context

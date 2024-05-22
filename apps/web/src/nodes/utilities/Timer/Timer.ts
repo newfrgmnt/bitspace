@@ -1,5 +1,4 @@
-import { z } from 'zod';
-import { Node, Output, schema } from '@bitspace/circuit';
+import { Node, Output } from '@bitspace/circuit';
 import { interval, map } from 'rxjs';
 import { NodeType } from '@prisma/client';
 import { NumberSchema } from '@/nodes/schemas';

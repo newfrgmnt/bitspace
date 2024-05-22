@@ -6,10 +6,8 @@ import { makeObservable, observable } from 'mobx';
 import { schema } from '../Schema/Schema';
 import { z } from 'zod';
 import { Subject, Subscription } from 'rxjs';
-import { SerializedCircuit } from './Circuit.types';
-import { NodeConstructor } from '../Node/Node.types';
 
-const AnySchema = schema('Any', z.any());
+const AnySchema = () => schema('Any', z.any());
 
 export class Circuit extends Node {
     /** Display Name */
@@ -23,7 +21,7 @@ export class Circuit extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: AnySchema,
+            type: AnySchema(),
             observable: new Subject()
         })
     };
@@ -96,7 +94,7 @@ export class CircuitOutputNode extends Node {
     inputs = {
         output: new Input({
             name: 'Output',
-            type: AnySchema,
+            type: AnySchema(),
             defaultValue: undefined
         })
     };
@@ -106,7 +104,9 @@ export class CircuitOutputNode extends Node {
     constructor(circuit: Circuit) {
         super();
 
-        this.subscription = this.inputs.output.subscribe(value => circuit.outputs.output.next(value));
+        this.subscription = this.inputs.output.subscribe(value =>
+            circuit.outputs.output.next(value)
+        );
     }
 
     public dispose(): void {
