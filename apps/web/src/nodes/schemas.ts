@@ -46,7 +46,7 @@ export const HSLSchema = schema(
     z.object({
         hue: minMaxNumber(0, 360, true),
         saturation: minMaxNumber(0, 1),
-        value: minMaxNumber(0, 1)
+        luminance: minMaxNumber(0, 1)
     })
 );
 
