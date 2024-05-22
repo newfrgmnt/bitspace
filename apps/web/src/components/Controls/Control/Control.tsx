@@ -17,7 +17,7 @@ export interface ControlProps {
 }
 
 export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
-    switch (port.type.name) {
+    switch (port.type.description) {
         case 'String':
             return (
                 <StringControl

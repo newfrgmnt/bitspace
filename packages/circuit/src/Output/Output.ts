@@ -13,7 +13,7 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
     /** Name */
     public name: string;
     /** Type */
-    public type: z.ZodSchema<TValue, any, any>;
+    public type: z.ZodType<TValue, any, any>;
     /** Compute operation */
     public observable: Observable<TValue>;
     /** Value Operator subscription */
@@ -81,5 +81,10 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
 
         this.subscription.unsubscribe();
         this.unsubscribe();
+    }
+
+    /** Parses the value and sends it */
+    public next(value: TValue) {
+        super.next(this.type.parse(value));
     }
 }

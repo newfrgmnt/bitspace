@@ -3,7 +3,7 @@ import { SerializedConnection } from '../Connection/Connection.types';
 
 export interface IInputProps<T> {
     name?: string;
-    type: z.ZodSchema<T, any, any>;
+    type: z.ZodType<T, any, any>;
     defaultValue: T;
 }
 

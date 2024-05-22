@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 export interface IOutputProps<T> {
     name?: string;
-    type: z.ZodSchema<T, any, any>;
+    type: z.ZodType<T, any, any>;
     observable: Observable<T>;
 }
 

@@ -12,7 +12,7 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
     /** Name */
     public name: string;
     /** Type */
-    public type: z.ZodSchema<TValue, any, any>;
+    public type: z.ZodType<TValue, any, any>;
     /** Default Value */
     public defaultValue: TValue;
     /** Associated Connection */
@@ -48,5 +48,10 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
         this.connection = null;
 
         this.unsubscribe();
+    }
+
+    /** Parses the value and sends it */
+    public next(value: TValue) {
+        super.next(this.type.parse(value));
     }
 }
