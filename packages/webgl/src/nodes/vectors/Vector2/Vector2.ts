@@ -11,12 +11,12 @@ export class Vector2 extends Node {
     inputs = {
         x: new Input({
             name: 'X',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         }),
         y: new Input({
             name: 'Y',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         })
     };
@@ -24,7 +24,7 @@ export class Vector2 extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: Vec2Schema,
+            type: Vec2Schema(),
             observable: combineLatest([this.inputs.x, this.inputs.y]).pipe(map(inputs => vec2(...inputs)))
         })
     };

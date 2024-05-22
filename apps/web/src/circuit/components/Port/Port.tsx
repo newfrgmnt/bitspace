@@ -9,7 +9,7 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { PortProps } from './Port.types';
 import clsx from 'clsx';
-import { Close, CloseOutlined } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import posthog from 'posthog-js';
 import { createConnection } from '../../../server/mutations/createConnection';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -123,7 +123,7 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
     );
 
     return (
-        <Tooltip text={port.type.name} position={tooltipPosition}>
+        <Tooltip text={port.type.description ?? ''} position={tooltipPosition}>
             <div
                 ref={ref}
                 className={portWrapperClassNames}
@@ -147,7 +147,9 @@ export const Port = observer(<T,>({ port, isOutput }: PortProps<T>) => {
                             </PortWrapper>
                         ) : (
                             <PortWrapper key={1}>
-                                <span>{port.type.name.charAt(0)}</span>
+                                <span>
+                                    {port.type.description?.charAt(0) ?? '?'}
+                                </span>
                             </PortWrapper>
                         )}
                     </AnimatePresence>

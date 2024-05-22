@@ -1,4 +1,4 @@
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 import { HSVSchema, NumberSchema } from '../../schemas';
 import { NodeType } from '@prisma/client';

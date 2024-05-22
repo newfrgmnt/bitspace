@@ -38,8 +38,8 @@ export const StringControl = observer(
         const handleChange: ChangeEventHandler<HTMLTextAreaElement> =
             useCallback(
                 e => {
-                    if (port.type.name === 'String') {
-                        const value = port.type.validator.parse(e.target.value);
+                    if (port.type.description === 'String') {
+                        const value = port.type.parse(e.target.value);
                         setValue(value);
                     }
                 },
@@ -48,8 +48,8 @@ export const StringControl = observer(
 
         const handleBlur: FocusEventHandler<HTMLTextAreaElement> = useCallback(
             e => {
-                if (port.type.name === 'String') {
-                    const value = port.type.validator.parse(e.target.value);
+                if (port.type.description === 'String') {
+                    const value = port.type.parse(e.target.value);
 
                     port.next(value);
                     onBlur?.(value);

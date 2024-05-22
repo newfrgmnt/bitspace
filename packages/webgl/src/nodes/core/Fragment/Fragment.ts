@@ -15,7 +15,7 @@ export class Fragment extends Node {
         // eslint-disable-next-line @typescript-eslint/ban-types
         color: new Input<Term<'vec4'> | Function>({
             name: 'Color',
-            type: Vec4Schema,
+            type: Vec4Schema(),
             defaultValue: vec4(0, 0, 0, 1)
         })
     };

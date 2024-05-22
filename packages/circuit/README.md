@@ -42,7 +42,7 @@ An Addition Node may for instance have two inputs and a single output, which com
 
 ```typescript
 import { z } from 'zod';
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
 /** Declare a zod schema for value validation */
@@ -72,7 +72,7 @@ class Addition extends Node {
 
 ```typescript
 import { z } from 'zod';
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
 /** Declare a zod schema for value validation */

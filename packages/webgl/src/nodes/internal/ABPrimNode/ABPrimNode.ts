@@ -9,12 +9,12 @@ export abstract class ABPrimNode extends Node {
     inputs = {
         a: new Input<Term<Prim>>({
             name: 'A',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(0)
         }),
         b: new Input<Term<Prim>>({
             name: 'B',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(0)
         })
     };

@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 
-import { Schema } from '../Schema/Schema.types';
 import { SerializedConnection } from '../Connection/Connection.types';
+import { z } from 'zod';
 
 export interface IOutputProps<T> {
     name?: string;
-    type: Schema;
+    type: z.ZodSchema<T, any, any>;
     observable: Observable<T>;
 }
 

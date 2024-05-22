@@ -1,5 +1,5 @@
 import { Output } from '@bitspace/circuit';
-import { log, sqrt } from '@thi.ng/shader-ast';
+import { sqrt } from '@thi.ng/shader-ast';
 import { map } from 'rxjs';
 
 import { PrimSchema } from '../../../schemas/Prim/Prim';
@@ -11,7 +11,7 @@ export class SquareRoot extends InputPrimNode {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: this.inputs.input.pipe(map(sqrt))
         })
     };

@@ -11,17 +11,17 @@ export class Vector3 extends Node {
     inputs = {
         x: new Input({
             name: 'X',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         }),
         y: new Input({
             name: 'Y',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         }),
         z: new Input({
             name: 'Z',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         })
     };
@@ -29,7 +29,7 @@ export class Vector3 extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: Vec3Schema,
+            type: Vec3Schema(),
             observable: combineLatest([this.inputs.x, this.inputs.y, this.inputs.z]).pipe(
                 map(inputs => vec3(...inputs))
             )

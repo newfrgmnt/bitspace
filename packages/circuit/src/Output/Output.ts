@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { IOutputProps } from './Output.types';
-import { Schema } from '../Schema/Schema.types';
+import { z } from 'zod';
 
 export class Output<TValue = any> extends ReplaySubject<TValue> {
     /** Identifier */
@@ -13,7 +13,7 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
     /** Name */
     public name: string;
     /** Type */
-    public type: Schema;
+    public type: z.ZodSchema<TValue, any, any>;
     /** Compute operation */
     public observable: Observable<TValue>;
     /** Value Operator subscription */
@@ -81,10 +81,5 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
 
         this.subscription.unsubscribe();
         this.unsubscribe();
-    }
-
-    /** Parses the value and sends it */
-    public next(value: TValue) {
-        super.next(this.type.validator.parse(value));
     }
 }

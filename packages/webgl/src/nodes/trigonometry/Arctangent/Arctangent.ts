@@ -11,7 +11,7 @@ export class Arctangent extends InputPrimNode {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: this.inputs.input.pipe(map(value => atan(value)))
         })
     };

@@ -63,9 +63,4 @@ export class Connection<T> extends Subject<T> {
 
         this.to.next(this.to.defaultValue);
     }
-
-    /** Parses the value and sends it */
-    public next(value: T) {
-        super.next(this.to.type.validator.parse(value));
-    }
 }

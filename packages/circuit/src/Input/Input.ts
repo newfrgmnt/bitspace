@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import { IInputProps } from './Input.types';
 import { Connection } from '../Connection/Connection';
-import { Schema } from '../Schema/Schema.types';
+import { z } from 'zod';
 
 export class Input<TValue = any> extends BehaviorSubject<TValue> {
     /** Identifier */
@@ -12,7 +12,7 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
     /** Name */
     public name: string;
     /** Type */
-    public type: Schema;
+    public type: z.ZodSchema<TValue, any, any>;
     /** Default Value */
     public defaultValue: TValue;
     /** Associated Connection */
@@ -48,10 +48,5 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
         this.connection = null;
 
         this.unsubscribe();
-    }
-
-    /** Parses the value and sends it */
-    public next(value: TValue) {
-        super.next(this.type.validator.parse(value));
     }
 }

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Node, Input, Output, schema } from '@bitspace/circuit';
+import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../components/ColorPicker/ColorPicker.utils';
 import { HSVSchema } from '../../schemas';

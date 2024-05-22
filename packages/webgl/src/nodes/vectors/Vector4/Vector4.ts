@@ -1,5 +1,5 @@
 import { Input, Node, Output } from '@bitspace/circuit';
-import { float, Prim, Term, Vec, vec3, vec4 } from '@thi.ng/shader-ast';
+import { float, vec4 } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
 import { FloatSchema } from '../../../schemas/Float/Float';
@@ -11,22 +11,22 @@ export class Vector4 extends Node {
     inputs = {
         x: new Input({
             name: 'X',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         }),
         y: new Input({
             name: 'Y',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         }),
         z: new Input({
             name: 'Z',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         }),
         w: new Input({
             name: 'W',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(1)
         })
     };
@@ -34,7 +34,7 @@ export class Vector4 extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: Vec4Schema,
+            type: Vec4Schema(),
             observable: combineLatest([this.inputs.x, this.inputs.y, this.inputs.z, this.inputs.w]).pipe(
                 map(inputs => vec4(...inputs))
             )

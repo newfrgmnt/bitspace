@@ -24,6 +24,9 @@
                 ".env.development",
                 ".env"
             ]
+        },
+        "test": {
+            "dependsOn": ["^build"]
         }
     }
 }

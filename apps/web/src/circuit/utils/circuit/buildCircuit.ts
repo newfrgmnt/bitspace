@@ -74,9 +74,7 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
                 portCache.set(input.id, input);
 
                 if (serializedInput.value) {
-                    input.next(
-                        input.type.validator.parse(serializedInput.value)
-                    );
+                    input.next(input.type.parse(serializedInput.value));
                 }
             }
         }

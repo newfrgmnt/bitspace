@@ -1,9 +1,9 @@
+import { z } from 'zod';
 import { SerializedConnection } from '../Connection/Connection.types';
-import { Schema } from '../Schema/Schema.types';
 
 export interface IInputProps<T> {
     name?: string;
-    type: Schema;
+    type: z.ZodSchema<T, any, any>;
     defaultValue: T;
 }
 

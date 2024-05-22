@@ -10,12 +10,12 @@ export class Step extends Node {
     inputs = {
         edge: new Input({
             name: 'Edge',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(0)
         }),
         input: new Input({
             name: 'Input',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(0)
         })
     };
@@ -23,7 +23,7 @@ export class Step extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: combineLatest([this.inputs.edge, this.inputs.input]).pipe(map(inputs => step(...inputs)))
         })
     };

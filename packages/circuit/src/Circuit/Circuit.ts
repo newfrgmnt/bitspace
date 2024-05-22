@@ -3,11 +3,10 @@ import { IInputProps } from '../Input/Input.types';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
 import { makeObservable, observable } from 'mobx';
-import { schema } from '../Schema/Schema';
 import { z } from 'zod';
 import { Subject, Subscription } from 'rxjs';
 
-const AnySchema = () => schema('Any', z.any());
+const AnySchema = () => z.any().describe('Any');
 
 export class Circuit extends Node {
     /** Display Name */

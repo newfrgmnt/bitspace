@@ -7,10 +7,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "tsup src/index.ts --dts --format cjs,esm --outDir build",
-        "prepare": "pnpm run build",
-        "test": "jest",
-        "generate:docs": "typedoc ./src/index.ts"
+        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
     },
     "keywords": [],
     "dependencies": {

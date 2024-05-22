@@ -1,4 +1,4 @@
-import { Input, Node, Output } from '@bitspace/circuit';
+import { Input, Node } from '@bitspace/circuit';
 import { float, Prim, Term } from '@thi.ng/shader-ast';
 
 import { PrimSchema } from '../../../schemas/Prim/Prim';
@@ -9,7 +9,7 @@ export abstract class InputPrimNode extends Node {
     inputs = {
         input: new Input<Term<Prim>>({
             name: 'Input',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(0)
         })
     };

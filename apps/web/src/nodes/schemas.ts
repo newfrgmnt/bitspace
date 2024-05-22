@@ -1,4 +1,3 @@
-import { schema } from '@bitspace/circuit';
 import { z } from 'zod';
 import { Mesh } from 'three';
 
@@ -13,66 +12,59 @@ export const minMaxNumber = (
         .number()
         .transform(value => (wrapAround && max ? value % max : value))
         .transform(value => Math.min(Math.max(value, min), max))
-        .pipe(z.number().min(min).max(max));
+        .pipe(z.number().min(min).max(max))
+        .describe('Number');
 
 /** PUBLIC SCHEMAS */
 
-export const AnySchema = () => schema('Any', z.any());
-export const StringSchema = () => schema('String', z.coerce.string());
-export const ImageSchema = () => schema('Image', z.string().url());
+export const AnySchema = () => z.any().describe('Any');
+export const StringSchema = () => z.coerce.string().describe('String');
+export const ImageSchema = () => z.string().url().describe('Image');
 export const NumberSchema = (...args: Parameters<typeof minMaxNumber>) =>
-    schema('Number', minMaxNumber(...args));
+    minMaxNumber(...args).describe('Number');
 
 export const EasingSchema = () =>
-    schema(
-        'Easing',
-        z.function().args(z.number().min(0).max(1)).returns(z.number())
-    );
+    z
+        .function()
+        .args(z.number().min(0).max(1))
+        .returns(z.number())
+        .describe('Easing');
 
-export const MeshSchema = () => schema('Mesh', z.instanceof(Mesh));
+export const MeshSchema = () => z.instanceof(Mesh).describe('Mesh');
 
 /** COLORS */
 
 export const HSVSchema = () =>
-    schema(
-        'HSV',
-        z.object({
+    z
+        .object({
             hue: minMaxNumber(0, 360, true),
             saturation: minMaxNumber(0, 1),
             value: minMaxNumber(0, 1)
         })
-    );
+        .describe('HSV');
 
 export const HSLSchema = () =>
-    schema(
-        'HSL',
-        z.object({
+    z
+        .object({
             hue: minMaxNumber(0, 360, true),
             saturation: minMaxNumber(0, 1),
             luminance: minMaxNumber(0, 1)
         })
-    );
+        .describe('HSL');
 
 export const RGBSchema = () =>
-    schema(
-        'RGB',
-        z.object({
+    z
+        .object({
             red: minMaxNumber(0, 1),
             green: minMaxNumber(0, 1),
             blue: minMaxNumber(0, 1)
         })
-    );
+        .describe('RGB');
 
 export const HexSchema = () =>
-    schema('Hex', z.string().startsWith('#').min(4).max(7));
+    z.string().startsWith('#').min(4).max(7).describe('Hex');
 
 export const ColorSchema = () =>
-    schema(
-        'Color',
-        z.union([
-            HSVSchema().validator,
-            HSLSchema().validator,
-            RGBSchema().validator,
-            HexSchema().validator
-        ])
-    );
+    z
+        .union([HSVSchema(), HSLSchema(), RGBSchema(), HexSchema()])
+        .describe('Color');

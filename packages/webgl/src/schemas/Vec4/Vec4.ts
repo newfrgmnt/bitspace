@@ -1,12 +1,11 @@
-import { schema } from '@bitspace/circuit';
 import { z } from 'zod';
 
 import { TagSchema } from '../Tag/Tag';
 
-export const Vec4Schema = schema(
-    'Vec4',
-    z.object({
-        type: z.literal('vec4'),
-        tag: TagSchema
-    })
-);
+export const Vec4Schema = () =>
+    z
+        .object({
+            type: z.literal('vec4'),
+            tag: TagSchema()
+        })
+        .describe('Vec4');

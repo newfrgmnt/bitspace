@@ -20,19 +20,11 @@ import { hsv2rgb } from '../../ColorPicker/ColorPicker.utils';
 import { hex, hsl, rgb } from 'color-convert';
 import clsx from 'clsx';
 
-export type HexColorSchemaType = z.infer<
-    ReturnType<typeof HexSchema>['validator']
->;
-export type RGBColorSchemaType = z.infer<
-    ReturnType<typeof RGBSchema>['validator']
->;
-export type HSLColorSchemaType = z.infer<
-    ReturnType<typeof HSLSchema>['validator']
->;
-export type HSVColorSchemaType = z.infer<
-    ReturnType<typeof HSVSchema>['validator']
->;
-type ColorSchemaType = z.infer<ReturnType<typeof ColorSchema>['validator']>;
+export type HexColorSchemaType = z.infer<ReturnType<typeof HexSchema>>;
+export type RGBColorSchemaType = z.infer<ReturnType<typeof RGBSchema>>;
+export type HSLColorSchemaType = z.infer<ReturnType<typeof HSLSchema>>;
+export type HSVColorSchemaType = z.infer<ReturnType<typeof HSVSchema>>;
+type ColorSchemaType = z.infer<ReturnType<typeof ColorSchema>>;
 
 export interface ColorControlProps<T extends ColorSchemaType> {
     port: Input<T> | Output<T>;
@@ -81,7 +73,7 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
                 if ('red' in color) {
                     const [red, green, blue] = hex.rgb(v);
 
-                    return RGBSchema().validator.parse({
+                    return RGBSchema().parse({
                         red,
                         green,
                         blue
@@ -89,7 +81,7 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
                 } else if ('hue' in color && 'luminance' in color) {
                     const [hue, saturation, luminance] = hex.hsl(v);
 
-                    return HSLSchema().validator.parse({
+                    return HSLSchema().parse({
                         hue,
                         saturation: saturation / 100,
                         luminance: luminance / 100
@@ -97,14 +89,14 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
                 } else {
                     const [hue, saturation, value] = hex.hsv(v);
 
-                    return HSVSchema().validator.parse({
+                    return HSVSchema().parse({
                         hue,
                         saturation: saturation / 100,
                         value: value / 100
                     }) as T;
                 }
             } else {
-                return HexSchema().validator.parse(v) as T;
+                return HexSchema().parse(v) as T;
             }
         },
         [color]

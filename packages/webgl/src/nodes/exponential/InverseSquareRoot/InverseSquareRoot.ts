@@ -1,5 +1,5 @@
 import { Output } from '@bitspace/circuit';
-import { exp, inversesqrt } from '@thi.ng/shader-ast';
+import { inversesqrt } from '@thi.ng/shader-ast';
 import { map } from 'rxjs';
 
 import { PrimSchema } from '../../../schemas/Prim/Prim';
@@ -11,7 +11,7 @@ export class InverseSquareRoot extends InputPrimNode {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: this.inputs.input.pipe(map(inversesqrt))
         })
     };

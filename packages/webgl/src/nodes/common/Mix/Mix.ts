@@ -1,8 +1,8 @@
 import { Input, Node, Output } from '@bitspace/circuit';
 import { float, mix, Prim, Term } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
-import { FloatSchema } from '../../../schemas/Float/Float';
 
+import { FloatSchema } from '../../../schemas/Float/Float';
 import { PrimSchema } from '../../../schemas/Prim/Prim';
 
 export class Mix extends Node {
@@ -11,17 +11,17 @@ export class Mix extends Node {
     inputs = {
         a: new Input<Term<Prim>>({
             name: 'A',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(0)
         }),
         b: new Input<Term<Prim>>({
             name: 'B',
-            type: PrimSchema,
+            type: PrimSchema(),
             defaultValue: float(1)
         }),
         t: new Input<Term<'float'>>({
             name: 'T',
-            type: FloatSchema,
+            type: FloatSchema(),
             defaultValue: float(0)
         })
     };
@@ -29,7 +29,7 @@ export class Mix extends Node {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: combineLatest([this.inputs.a, this.inputs.b, this.inputs.t]).pipe(map(inputs => mix(...inputs)))
         })
     };

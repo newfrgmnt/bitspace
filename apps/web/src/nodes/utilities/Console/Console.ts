@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Node, Input, schema } from '@bitspace/circuit';
+import { Node, Input } from '@bitspace/circuit';
 import { NodeType } from '@prisma/client';
 import { AnySchema } from '@/nodes/schemas';
 

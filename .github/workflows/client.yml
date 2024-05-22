@@ -1,0 +1,22 @@
+name: Client CI/CD
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+            - name: Setup Node
+              uses: actions/setup-node@v3
+            - name: pnpm-setup
+              uses: pnpm/action-setup@v2
+            - name: Install dependencies
+              run: pnpm install
+            - name: Build packages
+              run: pnpm build
+            - name: Run tests
+              run: pnpm test

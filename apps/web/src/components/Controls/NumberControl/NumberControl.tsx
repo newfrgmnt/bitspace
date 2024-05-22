@@ -37,10 +37,8 @@ export const NumberControl = observer(
 
         const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
             e => {
-                if (port.type.name === 'Number') {
-                    port.next(
-                        port.type.validator.parse(parseFloat(e.target.value))
-                    );
+                if (port.type.description === 'Number') {
+                    port.next(port.type.parse(parseFloat(e.target.value)));
                 }
             },
             [port]
@@ -48,10 +46,8 @@ export const NumberControl = observer(
 
         const handleBlur: FocusEventHandler<HTMLInputElement> = useCallback(
             e => {
-                if (port.type.name === 'Number') {
-                    onBlur?.(
-                        port.type.validator.parse(parseFloat(e.target.value))
-                    );
+                if (port.type.description === 'Number') {
+                    onBlur?.(port.type.parse(parseFloat(e.target.value)));
                 }
             },
             [onBlur]
@@ -67,7 +63,7 @@ export const NumberControl = observer(
                 )}
                 type="number"
                 step={0.01}
-                placeholder={port.type.name}
+                placeholder={port.type.description}
                 onKeyDown={handleKeydown}
                 value={value}
                 disabled={disabled}

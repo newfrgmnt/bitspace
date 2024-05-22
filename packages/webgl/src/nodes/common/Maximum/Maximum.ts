@@ -11,7 +11,7 @@ export class Maximum extends ABPrimNode {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: combineLatest([this.inputs.a, this.inputs.b]).pipe(map(inputs => max(...inputs)))
         })
     };

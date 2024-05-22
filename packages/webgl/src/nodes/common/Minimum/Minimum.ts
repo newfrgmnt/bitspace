@@ -1,4 +1,4 @@
-import { Node, Output } from '@bitspace/circuit';
+import { Output } from '@bitspace/circuit';
 import { min } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class Minimum extends ABPrimNode {
     outputs = {
         output: new Output({
             name: 'Output',
-            type: PrimSchema,
+            type: PrimSchema(),
             observable: combineLatest([this.inputs.a, this.inputs.b]).pipe(map(inputs => min(...inputs)))
         })
     };
