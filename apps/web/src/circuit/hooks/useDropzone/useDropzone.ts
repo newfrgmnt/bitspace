@@ -1,5 +1,6 @@
 import { createClient } from '@/supabase/browser';
 import { DragEventHandler, useCallback } from 'react';
+import type { PutBlobResult } from '@vercel/blob';
 
 type DropzoneOnDrop = (files: FileList) => void;
 
@@ -25,25 +26,18 @@ export const useDropzone = (onDropCallback: DropzoneOnDrop) => {
     };
 };
 
-export const useUploadFile = () => {
-    const supabase = createClient();
-
-    // Upload file using standard upload
+export const useUploadFile = (callback: (blob: PutBlobResult) => void) => {
     async function uploadFile(files: FileList) {
-        Promise.all(
-            Array.from(files).map(async file => {
-                const { data, error } = await supabase.storage
-                    .from('circuit')
-                    .upload(file.name, file);
-                if (error) {
-                    // Handle error
-                } else {
-                    // Handle success
-                }
-                console.log(error);
-                console.log(data);
-            })
-        );
+        const file = files[0];
+
+        const response = await fetch(`/api/upload?filename=${file?.name}`, {
+            method: 'POST',
+            body: file
+        });
+
+        const newBlob = (await response.json()) as PutBlobResult;
+
+        callback(newBlob);
     }
 
     return uploadFile;

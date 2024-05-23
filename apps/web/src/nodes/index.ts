@@ -5,8 +5,10 @@ import { UtilityNodes, UtiliyNodeConstructor } from './utilities';
 import { ColorNodeConstructor, ColorNodes } from './color';
 import { AINodeConstructor, AINodes } from './ai';
 import { ThreeDNodeConstructor, ThreeDNodes } from './3d';
+import { PrimitiveNodeConstructor, PrimitiveNodes } from './primitives';
 
 export type NodeConstructor =
+    | PrimitiveNodeConstructor
     | AINodeConstructor
     | ColorNodeConstructor
     | EasingNodeConstructor
@@ -16,6 +18,10 @@ export type NodeConstructor =
 
 // Node Groups
 export const NodeGroups = [
+    {
+        name: 'Primitives',
+        nodes: PrimitiveNodes
+    },
     {
         name: 'Artificial Intelligence',
         nodes: AINodes
@@ -43,6 +49,7 @@ export const NodeGroups = [
 ] as const;
 
 export const NodeConstructors: NodeConstructor[] = [
+    ...PrimitiveNodes,
     ...AINodes,
     ...ThreeDNodes,
     ...MathNodes,

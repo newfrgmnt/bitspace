@@ -1,6 +1,6 @@
 import { NodeWindowResolver } from '../circuit/containers/Circuit/Circuit.types';
 import { Console } from '../nodes/utilities/Console/Console';
-import { Image } from '../nodes/ai/Image/Image';
+import { Image } from '../nodes/ai/SynthesizedImage/SynthesizedImage';
 import { ConsoleWindow } from './ConsoleWindow';
 import { Node } from '@bitspace/circuit';
 import { ImageWindow } from './ImageWindow';

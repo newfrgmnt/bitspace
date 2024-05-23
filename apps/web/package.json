@@ -33,6 +33,7 @@
         "@trpc/server": "11.0.0-next-beta.255",
         "@types/color-convert": "^2.0.3",
         "@vercel/analytics": "^1.1.2",
+        "@vercel/blob": "^0.23.3",
         "ai": "^2.2.31",
         "clsx": "^2.1.0",
         "color-convert": "^2.0.1",

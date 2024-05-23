@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { NodeWindow } from '../circuit/components/Node/Node';
-import { Image } from '../nodes/ai/Image/Image';
+import { Image } from '../nodes/ai/SynthesizedImage/SynthesizedImage';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../components/Spinner/Spinner';
 

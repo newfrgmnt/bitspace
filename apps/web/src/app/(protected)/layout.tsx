@@ -1,6 +1,17 @@
 import { AuthProvider } from '@/hooks/useAuth';
+import { createClient } from '@/supabase/server';
+import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
-export default function Layout({ children }: PropsWithChildren) {
+export default async function Layout({ children }: PropsWithChildren) {
+    const supabase = createClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+        redirect('/login');
+    }
+
     return <AuthProvider>{children}</AuthProvider>;
 }

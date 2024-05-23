@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Canvas } from '../../components/Canvas/Canvas';
 import { Connection } from '../../components/Connection/Connection';
 import { Node } from '../../components/Node/Node';
-import { CIRCUIT_SIZE } from '../../constants';
+import { CIRCUIT_SIZE, NODE_CENTER } from '../../constants';
 import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
 import {
     CanvasStore,
@@ -17,6 +17,10 @@ import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { useUploadFile } from '../../hooks/useDropzone/useDropzone';
 import { DraggableEventHandler } from 'react-draggable';
+import { PutBlobResult } from '@vercel/blob';
+import { createNode } from '@/server/mutations/createNode';
+import { Image } from '@/nodes/primitives/Image/Image';
+import { toCanvasCartesianPoint } from '@/circuit/utils/coordinates/coordinates';
 
 const Nodes = observer(
     ({
@@ -106,10 +110,10 @@ export const Circuit = observer(
     }: CircuitProps) => {
         useKeyboardActions(store);
 
-        const { onMouseDown, onMouseMove, onMouseUp, onScroll } =
+        const { onMouseDown, onMouseMove, onMouseUp, onScroll, onUploadFile } =
             useCircuitHelpers(store);
 
-        const uploadFile = useUploadFile();
+        const uploadFile = useUploadFile(onUploadFile);
 
         React.useEffect(() => {
             return reaction(
@@ -216,6 +220,56 @@ const useCircuitHelpers = (store: CanvasStore) => {
         [store]
     );
 
+    const onUploadFile = React.useCallback(
+        (blob: PutBlobResult) => {
+            const node = new Image();
+            node.position = toCanvasCartesianPoint(
+                store.canvasMidpoint.x - NODE_CENTER,
+                store.canvasMidpoint.y - 200
+            );
+            store.circuit.addNode(node);
+            store.selectNodes([node]);
+
+            console.log(blob);
+            node.inputs.source.next(blob.url);
+
+            createNode({
+                id: node.id,
+                name: node.name,
+                type: node.type,
+                parentId: store.circuit.id,
+                position: {
+                    create: {
+                        x: node.position.x,
+                        y: node.position.y
+                    }
+                },
+                inputs: {
+                    createMany: {
+                        data: Object.entries(node.inputs).map(
+                            ([key, input]) => ({
+                                id: input.id,
+                                key,
+                                value:
+                                    typeof input.value !== 'function'
+                                        ? input.value
+                                        : undefined
+                            })
+                        )
+                    }
+                },
+                outputs: {
+                    createMany: {
+                        data: Object.entries(node.outputs).map(
+                            ([key, output]) => ({ id: output.id, key })
+                        )
+                    }
+                }
+            });
+        },
+        [store]
+    );
+
     const onMouseMove = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
             const rect = e.currentTarget.getBoundingClientRect();
@@ -259,5 +313,5 @@ const useCircuitHelpers = (store: CanvasStore) => {
         store.setSelectionBounds(null);
     }, []);
 
-    return { onScroll, onMouseMove, onMouseDown, onMouseUp };
+    return { onScroll, onMouseMove, onMouseDown, onMouseUp, onUploadFile };
 };
