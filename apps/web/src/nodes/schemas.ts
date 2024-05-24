@@ -20,7 +20,9 @@ export const minMaxNumber = (
 export const AnySchema = () => z.any().describe('Any');
 export const StringSchema = () => z.coerce.string().describe('String');
 export const URLSchema = () => z.string().url().describe('URL');
-export const ImageSchema = () => z.string().url().describe('Image');
+
+export const ImageSchema = () => z.instanceof(Image).describe('Image');
+
 export const NumberSchema = (...args: Parameters<typeof minMaxNumber>) =>
     minMaxNumber(...args).describe('Number');
 

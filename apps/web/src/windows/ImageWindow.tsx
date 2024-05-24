@@ -11,7 +11,7 @@ export const ImageWindow = observer(
 
         useEffect(() => {
             const subscription = node.outputs.output.subscribe(value => {
-                setImageSrc(value);
+                setImageSrc(value.src);
             });
 
             return () => {

@@ -2,6 +2,7 @@ import { Node, Input, Output } from '@bitspace/circuit';
 
 import { NodeType } from '@prisma/client';
 import { ImageSchema, URLSchema } from '../../schemas';
+import { from, switchMap, tap } from 'rxjs';
 
 export class Image extends Node {
     static displayName = 'Image';
@@ -20,7 +21,17 @@ export class Image extends Node {
         output: new Output({
             name: 'Output',
             type: ImageSchema(),
-            observable: this.inputs.source
+            observable: this.inputs.source.pipe(
+                switchMap(source => {
+                    return from<Promise<HTMLImageElement>>(
+                        new Promise(resolve => {
+                            const image = new window.Image();
+                            image.src = source;
+                            resolve(image);
+                        })
+                    );
+                })
+            )
         })
     };
 }
