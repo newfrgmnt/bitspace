@@ -26,18 +26,16 @@ export const useDropzone = (onDropCallback: DropzoneOnDrop) => {
     };
 };
 
-export const useUploadFile = (callback: (blob: PutBlobResult) => void) => {
+export const useUploadFile = (callback: (blob: Promise<Response>) => void) => {
     async function uploadFile(files: FileList) {
         const file = files[0];
 
-        const response = await fetch(`/api/upload?filename=${file?.name}`, {
+        const fetchRequest = fetch(`/api/upload?filename=${file?.name}`, {
             method: 'POST',
             body: file
         });
 
-        const newBlob = (await response.json()) as PutBlobResult;
-
-        callback(newBlob);
+        callback(fetchRequest);
     }
 
     return uploadFile;

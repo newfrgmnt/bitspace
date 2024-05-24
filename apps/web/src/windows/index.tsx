@@ -1,6 +1,6 @@
 import { NodeWindowResolver } from '../circuit/containers/Circuit/Circuit.types';
 import { Console } from '../nodes/utilities/Console/Console';
-import { Image } from '../nodes/ai/SynthesizedImage/SynthesizedImage';
+import { SynthesizedImage } from '../nodes/ai/SynthesizedImage/SynthesizedImage';
 import { ConsoleWindow } from './ConsoleWindow';
 import { Node } from '@bitspace/circuit';
 import { ImageWindow } from './ImageWindow';
@@ -18,16 +18,18 @@ import { MeshWindow } from './MeshWindow';
 import { Mesh } from '../nodes/3d/Mesh/Mesh';
 import { ImageEditWindow } from './ImageEditWindow';
 import { ImageEdit } from '../nodes/ai/ImageEdit/ImageEdit';
+import { Image } from '@/nodes/primitives/Image/Image';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
-    if ('displayName' in node.constructor === false) return <></>;
+    if (!('displayName' in node.constructor)) return <></>;
 
     // @ts-ignore
     switch (node.constructor.displayName) {
         case 'Console':
             return <ConsoleWindow node={node as Console} />;
         case 'Image':
-            return <ImageWindow node={node as Image} />;
+        case 'Synthesized Image':
+            return <ImageWindow node={node as Image | SynthesizedImage} />;
         case 'Image Edit':
             return <ImageEditWindow node={node as ImageEdit} />;
         case 'Cubic Bezier':

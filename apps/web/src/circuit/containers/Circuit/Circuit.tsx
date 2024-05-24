@@ -111,78 +111,14 @@ export const Circuit = observer(
         useKeyboardActions(store);
 
         const { onMouseDown, onMouseMove, onMouseUp, onScroll, onUploadFile } =
-            useCircuitHelpers(store);
+            useCircuitHelpers(store, {
+                onConnection,
+                onConnectionRemoval,
+                onNodeRemoval,
+                onSelectionChanged
+            });
 
         const uploadFile = useUploadFile(onUploadFile);
-
-        React.useEffect(() => {
-            return reaction(
-                () => store.connections,
-                (connections, prevConnections) => {
-                    const addedConnections = connections.filter(
-                        connection => !prevConnections.includes(connection)
-                    );
-                    const removedConnections = prevConnections.filter(
-                        connection => !connections.includes(connection)
-                    );
-
-                    if (addedConnections.length && onConnection) {
-                        for (const connection of addedConnections) {
-                            onConnection(connection);
-                        }
-                    }
-
-                    if (removedConnections.length && onConnectionRemoval) {
-                        for (const connection of removedConnections) {
-                            onConnectionRemoval(connection);
-                        }
-                    }
-                }
-            );
-        }, [onConnection, onConnectionRemoval, store]);
-
-        React.useEffect(() => {
-            return reaction(
-                () => store.circuit.nodes,
-                (nodes, prevNodes) => {
-                    const removedNodes = prevNodes.filter(
-                        node => !nodes.includes(node)
-                    );
-
-                    if (removedNodes.length && onNodeRemoval) {
-                        for (const node of removedNodes) {
-                            onNodeRemoval(node);
-                        }
-                    }
-                }
-            );
-        }, [onNodeRemoval, store]);
-
-        React.useEffect(() => {
-            return reaction(
-                () => store.circuit.connections,
-                (connections, prevConnections) => {
-                    const removedConnections = prevConnections.filter(
-                        node => !connections.includes(node)
-                    );
-
-                    if (removedConnections.length && onConnectionRemoval) {
-                        for (const connection of removedConnections) {
-                            onConnectionRemoval(connection);
-                        }
-                    }
-                }
-            );
-        }, [onNodeRemoval, store]);
-
-        React.useEffect(() => {
-            return reaction(
-                () => store.selectedNodes,
-                selectedNodes => {
-                    onSelectionChanged?.(selectedNodes);
-                }
-            );
-        }, [onSelectionChanged, store]);
 
         return (
             <Canvas
@@ -205,7 +141,90 @@ export const Circuit = observer(
     }
 );
 
-const useCircuitHelpers = (store: CanvasStore) => {
+const useCircuitHelpers = (
+    store: CanvasStore,
+    {
+        onConnection,
+        onConnectionRemoval,
+        onNodeRemoval,
+        onSelectionChanged
+    }: Pick<
+        CircuitProps,
+        | 'onConnection'
+        | 'onConnectionRemoval'
+        | 'onNodeRemoval'
+        | 'onSelectionChanged'
+    >
+) => {
+    React.useEffect(() => {
+        return reaction(
+            () => store.connections,
+            (connections, prevConnections) => {
+                const addedConnections = connections.filter(
+                    connection => !prevConnections.includes(connection)
+                );
+                const removedConnections = prevConnections.filter(
+                    connection => !connections.includes(connection)
+                );
+
+                if (addedConnections.length && onConnection) {
+                    for (const connection of addedConnections) {
+                        onConnection(connection);
+                    }
+                }
+
+                if (removedConnections.length && onConnectionRemoval) {
+                    for (const connection of removedConnections) {
+                        onConnectionRemoval(connection);
+                    }
+                }
+            }
+        );
+    }, [onConnection, onConnectionRemoval, store]);
+
+    React.useEffect(() => {
+        return reaction(
+            () => store.circuit.nodes,
+            (nodes, prevNodes) => {
+                const removedNodes = prevNodes.filter(
+                    node => !nodes.includes(node)
+                );
+
+                if (removedNodes.length && onNodeRemoval) {
+                    for (const node of removedNodes) {
+                        onNodeRemoval(node);
+                    }
+                }
+            }
+        );
+    }, [onNodeRemoval, store]);
+
+    React.useEffect(() => {
+        return reaction(
+            () => store.circuit.connections,
+            (connections, prevConnections) => {
+                const removedConnections = prevConnections.filter(
+                    node => !connections.includes(node)
+                );
+
+                if (removedConnections.length && onConnectionRemoval) {
+                    for (const connection of removedConnections) {
+                        onConnectionRemoval(connection);
+                    }
+                }
+            }
+        );
+    }, [onNodeRemoval, store]);
+
+    React.useEffect(() => {
+        return reaction(
+            () => store.selectedNodes,
+            selectedNodes => {
+                onSelectionChanged?.(selectedNodes);
+            }
+        );
+    }, [onSelectionChanged, store]);
+
     const onScroll = React.useCallback(
         (e: React.UIEvent<HTMLDivElement>) => {
             if (!(e.target instanceof HTMLDivElement)) {
@@ -221,8 +240,10 @@ const useCircuitHelpers = (store: CanvasStore) => {
     );
 
     const onUploadFile = React.useCallback(
-        (blob: PutBlobResult) => {
+        async (blobRequest: Promise<Response>) => {
             const node = new Image();
+            node.outputs.output.setLoading();
+
             node.position = toCanvasCartesianPoint(
                 store.canvasMidpoint.x - NODE_CENTER,
                 store.canvasMidpoint.y - 200
@@ -230,7 +251,9 @@ const useCircuitHelpers = (store: CanvasStore) => {
             store.circuit.addNode(node);
             store.selectNodes([node]);
 
-            console.log(blob);
+            const blob = (await (await blobRequest).json()) as PutBlobResult;
+
+            node.outputs.output.resetLoading();
             node.inputs.source.next(blob.url);
 
             createNode({

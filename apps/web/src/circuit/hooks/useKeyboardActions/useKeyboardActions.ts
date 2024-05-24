@@ -3,14 +3,12 @@ import * as React from 'react';
 import { CanvasStore } from '../../stores/CanvasStore/CanvasStore';
 import { KeyboardKey } from '../../types';
 import { KeyboardAction } from './useKeyboardActions.types';
-import { removeNode } from '../../../server/mutations/removeNode';
 
 export const useKeyboardActions = (store: CanvasStore) => {
     const removeNodes = React.useCallback(() => {
         for (const node of store.selectedNodes || []) {
             node.dispose();
             store.removeNode(node);
-            removeNode(node.id);
         }
 
         store.selectNodes([]);
