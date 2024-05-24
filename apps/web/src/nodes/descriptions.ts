@@ -5,7 +5,7 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.CIRCUIT_INPUTS]: 'Accessors for the input values of the Circuit',
     [NodeType.CIRCUIT_OUTPUT]: 'Accessors for the output values of the Circuit',
 
-    [NodeType.CONSOLE]: 'Logs the input value to the console',
+    [NodeType.CONSOLE]: 'Serializes the input to JSON & logs it to the console',
     [NodeType.LERP]:
         'Linearly interpolates between two input values, using a third input as the interpolation factor',
     [NodeType.TIMER]:

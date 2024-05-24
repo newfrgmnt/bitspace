@@ -110,7 +110,7 @@ export const Circuit = observer(
     }: CircuitProps) => {
         useKeyboardActions(store);
 
-        const { onMouseDown, onMouseMove, onMouseUp, onScroll, onUploadFile } =
+        const { onMouseDown, onMouseMove, onScroll, onUploadFile } =
             useCircuitHelpers(store, {
                 onConnection,
                 onConnectionRemoval,
@@ -126,7 +126,6 @@ export const Circuit = observer(
                 size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
-                onMouseUp={onMouseUp}
                 onScroll={onScroll}
                 onDrop={uploadFile}
             >
@@ -156,6 +155,19 @@ const useCircuitHelpers = (
         | 'onSelectionChanged'
     >
 ) => {
+    const onMouseUp = React.useCallback(() => {
+        store.setDraftConnectionSource(null);
+        store.setSelectionBounds(null);
+    }, []);
+
+    React.useEffect(() => {
+        document.addEventListener('mouseup', onMouseUp);
+
+        return () => {
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+    }, [store, onMouseUp]);
+
     React.useEffect(() => {
         return reaction(
             () => store.connections,
@@ -331,10 +343,5 @@ const useCircuitHelpers = (
         []
     );
 
-    const onMouseUp = React.useCallback(() => {
-        store.setDraftConnectionSource(null);
-        store.setSelectionBounds(null);
-    }, []);
-
-    return { onScroll, onMouseMove, onMouseDown, onMouseUp, onUploadFile };
+    return { onScroll, onMouseMove, onMouseDown, onUploadFile };
 };
