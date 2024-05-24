@@ -157,10 +157,10 @@ export const Menu = ({ onClose }: MenuProps) => {
         >
             <motion.div
                 ref={modalRef}
-                className="bg-white rounded-3xl max-w-3xl w-full h-fit -translate-y-1/3 -translate-x-1/2 absolute top-1/3 left-1/2 overflow-hidden"
+                className="bg-slate-100 rounded-3xl max-w-3xl w-full h-fit -translate-y-1/3 -translate-x-1/2 absolute top-1/3 left-1/2 overflow-hidden"
             >
                 <FocusTrap>
-                    <div className="flex flex-row p-8 bg-slate-50">
+                    <div className="flex flex-row p-8 bg-white">
                         <input
                             tabIndex={0}
                             placeholder="Search for Nodes & Utilities..."
@@ -227,7 +227,8 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
                 {
                     'text-black': active,
                     'text-slate-500': !active,
-                    'bg-slate-100': active,
+                    'bg-white': active,
+                    'shadow-sm': active,
                     'scroll-mt-32': index === 0
                 }
             )}
@@ -241,7 +242,7 @@ const MenuItem = ({ title, description, active, index }: MenuItemProps) => {
                 )}
             </div>
             {active && (
-                <div className="flex flex-col items-center -mr-2 h-12 w-12 bg-white justify-center rounded-xl leading-none flex-shrink-0 shadow-sm">
+                <div className="flex flex-col items-center -mr-2 h-12 w-12 bg-slate-100 justify-center rounded-xl leading-none flex-shrink-0">
                     <span className="mt-1">↵</span>
                 </div>
             )}
