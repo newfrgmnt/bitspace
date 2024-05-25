@@ -55,7 +55,7 @@ export class Webcam extends Node {
         }
     }
 
-    /** Disposes webcam resources */
+    /** Disposes webcam node */
     public dispose(): void {
         this.disposeMediaStream();
 
