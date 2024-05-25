@@ -19,6 +19,8 @@ import { Mesh } from '../nodes/3d/Mesh/Mesh';
 import { ImageEditWindow } from './ImageEditWindow';
 import { ImageEdit } from '../nodes/ai/ImageEdit/ImageEdit';
 import { Image } from '@/nodes/primitives/Image/Image';
+import { Webcam } from '@/nodes/primitives/Webcam/Webcam';
+import { WebcamWindow } from './WebcamWindow';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if (!('displayName' in node.constructor)) return <></>;
@@ -27,6 +29,8 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     switch (node.constructor.displayName) {
         case 'Console':
             return <ConsoleWindow node={node as Console} />;
+        case 'Webcam':
+            return <WebcamWindow node={node as Webcam} />;
         case 'Image':
         case 'Synthesized Image':
             return <ImageWindow node={node as Image | SynthesizedImage} />;

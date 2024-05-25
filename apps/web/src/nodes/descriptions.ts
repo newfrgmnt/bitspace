@@ -66,6 +66,7 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
         'Returns a HSV color from a given hue, saturation & value',
 
     [NodeType.IMAGE]: 'Returns an image from the given source URL',
+    [NodeType.WEBCAM]: 'Returns a webcam stream',
     [NodeType.SYNTHESIZED_IMAGE]: 'Returns an image based on the input prompt',
     [NodeType.IMAGE_EDIT_AI]:
         'Returns a new image based on the input image, a given instruction prompt & a mask with transparent area to replace',

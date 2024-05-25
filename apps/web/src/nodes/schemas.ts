@@ -18,6 +18,7 @@ export const minMaxNumber = (
 /** PUBLIC SCHEMAS */
 
 export const AnySchema = () => z.any().describe('Any');
+export const BooleanSchema = () => z.coerce.boolean().describe('Boolean');
 export const StringSchema = () => z.coerce.string().describe('String');
 export const URLSchema = () => z.string().url().describe('URL');
 
@@ -35,6 +36,9 @@ export const ImageSchema = () =>
             );
         })
         .describe('Image');
+
+export const MediaStreamSchema = () =>
+    z.instanceof(MediaStream).describe('Media Stream');
 
 export const NumberSchema = (...args: Parameters<typeof minMaxNumber>) =>
     minMaxNumber(...args).describe('Number');
