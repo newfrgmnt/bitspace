@@ -37,7 +37,7 @@ export class SynthesizedImage extends Node {
         })
     };
 
-    public fetchImage(prompt: string): Observable<HTMLImageElement> {
+    public fetchImage(prompt: string): Observable<string> {
         this.outputs.output.setLoading();
 
         return from(
@@ -50,11 +50,6 @@ export class SynthesizedImage extends Node {
             })
                 .then(res => res.json() as Promise<{ url: string }[]>)
                 .then(([v]) => v?.url ?? '')
-                .then(url => {
-                    const image = new window.Image();
-                    image.src = url;
-                    return image;
-                })
                 .finally(
                     this.outputs.output.resetLoading.bind(this.outputs.output)
                 )
