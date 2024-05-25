@@ -21,6 +21,7 @@ export class Webcam extends Node {
             name: 'Output',
             type: MediaStreamSchema(),
             observable: this.inputs.audio.pipe(
+                tap(this.disposeMediaStream.bind(this)),
                 switchMap(this.initializeWebcam.bind(this)),
                 tap(this.saveMediaStream.bind(this))
             )
@@ -48,10 +49,15 @@ export class Webcam extends Node {
     }
 
     /** Disposes webcam resources */
-    public dispose(): void {
+    public disposeMediaStream(): void {
         if (this.mediaStream) {
             this.mediaStream.getTracks().forEach(track => track.stop());
         }
+    }
+
+    /** Disposes webcam resources */
+    public dispose(): void {
+        this.disposeMediaStream();
 
         super.dispose();
     }
