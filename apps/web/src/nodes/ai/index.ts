@@ -2,13 +2,14 @@ import { Prompt } from './Prompt/Prompt';
 import { SynthesizedImage } from './SynthesizedImage/SynthesizedImage';
 import { NodeType } from '@prisma/client';
 import { ImageEdit } from './ImageEdit/ImageEdit';
+import { Vision } from './Vision/Vision';
 
 // AI
-export const AINodes = [SynthesizedImage, ImageEdit, Prompt].sort((a, b) =>
-    a.displayName.localeCompare(b.displayName)
+export const AINodes = [SynthesizedImage, ImageEdit, Prompt, Vision].sort(
+    (a, b) => a.displayName.localeCompare(b.displayName)
 );
 
-export type AINode = SynthesizedImage | ImageEdit | Prompt;
+export type AINode = SynthesizedImage | ImageEdit | Prompt | Vision;
 
 export interface AINodeConstructor {
     new (): AINode;
