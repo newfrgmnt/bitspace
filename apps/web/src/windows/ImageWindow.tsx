@@ -10,9 +10,7 @@ export const ImageWindow = observer(
         const [imageSrc, setImageSrc] = useState<string>();
 
         useEffect(() => {
-            const subscription = node.outputs.output.subscribe(url => {
-                setImageSrc(url);
-            });
+            const subscription = node.outputs.output.subscribe(setImageSrc);
 
             return () => {
                 subscription.unsubscribe();
