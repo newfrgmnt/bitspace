@@ -1,8 +1,8 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@bitspace/supabase/prisma';
 import { generateIncludeStructure } from '../query/getCircuit';
-import { createClient } from '@/supabase/server';
+import { createClient } from '@bitspace/supabase/server';
 
 export const createNode = async (data: any) => {
     const supabase = createClient();

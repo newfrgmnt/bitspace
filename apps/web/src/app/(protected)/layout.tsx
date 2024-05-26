@@ -1,5 +1,5 @@
 import { AuthProvider } from '@/hooks/useAuth';
-import { createClient } from '@/supabase/server';
+import { createClient } from '@bitspace/supabase/server';
 import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 

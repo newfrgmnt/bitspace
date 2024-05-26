@@ -1,0 +1,24 @@
+{
+    "name": "@bitspace/schemas",
+    "version": "0.1.0",
+    "private": true,
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0"
+    },
+    "devDependencies": {
+        "@bitspace/eslint-config": "workspace:*",
+        "@bitspace/typescript-config": "workspace:*",
+        "@types/eslint": "^8.44.7",
+        "@types/node": "^20.5.2",
+        "eslint": "^8.53.0",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@types/three": "^0.161.2",
+        "three": "^0.161.0",
+        "zod": "^3.23.8"
+    },
+    "type": "module"
+}

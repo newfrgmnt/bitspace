@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { NodeWindow } from '../circuit/components/Node/Node';
 import { Spinner } from '../components/Spinner/Spinner';
 import { useWindowSubscription } from '@/hooks/useWindowSubscription';
-import { Webcam } from '@/nodes/primitives/Webcam/Webcam';
+import { Webcam } from '@bitspace/nodes';
 
 export const WebcamWindow = observer(({ node }: { node: Webcam }) => {
     const sourceObject = useWindowSubscription(node.outputs.output);

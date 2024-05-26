@@ -1,10 +1,10 @@
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@bitspace/supabase/prisma';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, useContext, useMemo } from 'react';
 import { StoreContext } from '../../circuit';
 import { Control } from '../../components/Controls/Control/Control';
-import { NodeDescriptionsMap } from '../../nodes/descriptions';
+import { NodeDescriptionsMap } from '@bitspace/nodes/src/descriptions';
 import { updateInput } from '../../server/mutations/updateInput';
 import { Input, Output } from '@bitspace/circuit';
 import { LockOutlined } from '@mui/icons-material';

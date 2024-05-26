@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { NodeWindow } from '../circuit/components/Node/Node';
 import { CubicBezier } from '../components/CubicBezier/CubicBezier';
-import { CubicBezier as CubicBezierNode } from '../nodes/easings/CubicBezier/CubicBezier';
+import { CubicBezier as CubicBezierNode } from '../../../../packages/nodes/src/easings/CubicBezier/CubicBezier';
 import { cubicBezier } from 'framer-motion';
 
 export const CubicBezierWindow = ({ node }: { node: CubicBezierNode }) => {

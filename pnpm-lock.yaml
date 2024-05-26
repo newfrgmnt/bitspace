@@ -43,6 +43,15 @@ importers:
       '@bitspace/circuit':
         specifier: workspace:*
         version: link:../../packages/circuit
+      '@bitspace/nodes':
+        specifier: workspace:^
+        version: link:../../packages/nodes
+      '@bitspace/schemas':
+        specifier: workspace:^
+        version: link:../../packages/schemas
+      '@bitspace/supabase':
+        specifier: workspace:^
+        version: link:../../packages/supabase
       '@bitspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -81,7 +90,7 @@ importers:
         version: 2.39.3
       '@t3-oss/env-nextjs':
         specifier: ^0.10.1
-        version: 0.10.1(typescript@5.3.3)(zod@3.22.4)
+        version: 0.10.1(typescript@5.3.3)(zod@3.23.8)
       '@tanstack/react-query':
         specifier: ^5.18.1
         version: 5.18.1(react@18.2.0)
@@ -182,8 +191,8 @@ importers:
         specifier: ^8.16.0
         version: 8.16.0
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@bitspace/eslint-config':
         specifier: workspace:*
@@ -227,9 +236,6 @@ importers:
       prettier:
         specifier: ^3.1.0
         version: 3.2.4
-      prisma:
-        specifier: 5.9.1
-        version: 5.9.1
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -291,6 +297,96 @@ importers:
       eslint-plugin-only-warn:
         specifier: ^1.1.0
         version: 1.1.0
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/nodes:
+    dependencies:
+      '@bitspace/circuit':
+        specifier: workspace:^
+        version: link:../circuit
+      '@bitspace/schemas':
+        specifier: workspace:^
+        version: link:../schemas
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+    devDependencies:
+      '@bitspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@bitspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/eslint':
+        specifier: ^8.44.7
+        version: 8.56.2
+      '@types/node':
+        specifier: ^20.5.2
+        version: 20.11.5
+      eslint:
+        specifier: ^8.53.0
+        version: 8.56.0
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/schemas:
+    dependencies:
+      '@types/three':
+        specifier: ^0.161.2
+        version: 0.161.2
+      three:
+        specifier: ^0.161.0
+        version: 0.161.0
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@bitspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@bitspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/eslint':
+        specifier: ^8.44.7
+        version: 8.56.2
+      '@types/node':
+        specifier: ^20.5.2
+        version: 20.11.5
+      eslint:
+        specifier: ^8.53.0
+        version: 8.56.0
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/supabase:
+    dependencies:
+      '@prisma/client':
+        specifier: 5.9.1
+        version: 5.9.1(prisma@5.9.1)
+    devDependencies:
+      '@bitspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@bitspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/eslint':
+        specifier: ^8.44.7
+        version: 8.56.2
+      '@types/node':
+        specifier: ^20.5.2
+        version: 20.11.5
+      eslint:
+        specifier: ^8.53.0
+        version: 8.56.0
+      prisma:
+        specifier: 5.9.1
+        version: 5.9.1
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -789,7 +885,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@decs/typeschema@0.12.2(zod@3.22.4):
+  /@decs/typeschema@0.12.2(zod@3.23.8):
     resolution: {integrity: sha512-PA8uAH/Xfsa5X2UNNSnb5i6vB8qWZywp4+d2U8kNMCO7qwirYRPbFCHwIfWBJyURh4rULn3Ey+VBADLcK2xxaQ==}
     deprecated: TypeSchema has been restructured. Install @typeschema/main or @typeschema/all instead.
     peerDependencies:
@@ -843,7 +939,7 @@ packages:
       zod:
         optional: true
     dependencies:
-      zod: 3.22.4
+      zod: 3.23.8
     dev: false
 
   /@emotion/babel-plugin@11.11.0:
@@ -2225,7 +2321,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@t3-oss/env-core@0.10.1(typescript@5.3.3)(zod@3.22.4):
+  /@t3-oss/env-core@0.10.1(typescript@5.3.3)(zod@3.23.8):
     resolution: {integrity: sha512-GcKZiCfWks5CTxhezn9k5zWX3sMDIYf6Kaxy2Gx9YEQftFcz8hDRN56hcbylyAO3t4jQnQ5ifLawINsNgCDpOg==}
     peerDependencies:
       typescript: '>=5.0.0'
@@ -2235,10 +2331,10 @@ packages:
         optional: true
     dependencies:
       typescript: 5.3.3
-      zod: 3.22.4
+      zod: 3.23.8
     dev: false
 
-  /@t3-oss/env-nextjs@0.10.1(typescript@5.3.3)(zod@3.22.4):
+  /@t3-oss/env-nextjs@0.10.1(typescript@5.3.3)(zod@3.23.8):
     resolution: {integrity: sha512-iy2qqJLnFh1RjEWno2ZeyTu0ufomkXruUsOZludzDIroUabVvHsrSjtkHqwHp1/pgPUzN3yBRHMILW162X7x2Q==}
     peerDependencies:
       typescript: '>=5.0.0'
@@ -2247,9 +2343,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@t3-oss/env-core': 0.10.1(typescript@5.3.3)(zod@3.22.4)
+      '@t3-oss/env-core': 0.10.1(typescript@5.3.3)(zod@3.23.8)
       typescript: 5.3.3
-      zod: 3.22.4
+      zod: 3.23.8
     dev: false
 
   /@tanstack/query-core@5.18.1:
@@ -2893,7 +2989,6 @@ packages:
 
   /@types/stats.js@0.17.3:
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
-    dev: true
 
   /@types/three@0.161.2:
     resolution: {integrity: sha512-DazpZ+cIfBzbW/p0zm6G8CS03HBMd748A3R1ZOXHpqaXZLv2I5zNgQUrRG//UfJ6zYFp2cUoCQaOLaz8ubH07w==}
@@ -2902,7 +2997,6 @@ packages:
       '@types/webxr': 0.5.14
       fflate: 0.6.10
       meshoptimizer: 0.18.1
-    dev: true
 
   /@types/through@0.0.33:
     resolution: {integrity: sha512-HsJ+z3QuETzP3cswwtzt2vEIiHBk/dCcHGhbmG5X3ecnwFD/lPrMpliGXxSCg03L9AhrdwA4Oz/qfspkDW+xGQ==}
@@ -5224,7 +5318,6 @@ packages:
 
   /fflate@0.6.10:
     resolution: {integrity: sha512-IQrh3lEPM93wVCEczc9SaAOvkmcoQn/G8Bo1e8ZPlY3X3bnAxWaBdvTdvM1hP62iZp0BXWDy4vTAy4fF0+Dlpg==}
-    dev: true
 
   /figures@3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -6874,7 +6967,6 @@ packages:
 
   /meshoptimizer@0.18.1:
     resolution: {integrity: sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw==}
-    dev: true
 
   /micromatch@4.0.5:
     resolution: {integrity: sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==}
@@ -7103,11 +7195,11 @@ packages:
       next: '>= 14.0.0'
       react: '>= 18.2.0'
     dependencies:
-      '@decs/typeschema': 0.12.2(zod@3.22.4)
+      '@decs/typeschema': 0.12.2(zod@3.23.8)
       next: 14.1.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
     optionalDependencies:
-      zod: 3.22.4
+      zod: 3.23.8
     transitivePeerDependencies:
       - '@deepkit/type'
       - '@effect/schema'
@@ -9507,6 +9599,10 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
     dev: false
 
   /zustand@3.7.2(react@18.2.0):

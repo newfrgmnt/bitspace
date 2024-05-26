@@ -1,6 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@bitspace/supabase/prisma';
 
 // @ts-ignore
 export const generateIncludeStructure = (depth: number) => {

@@ -1,7 +1,7 @@
 'use server';
 
-import { createClient } from '@/supabase/server';
-import { PrismaClient } from '@prisma/client';
+import { createClient } from '@bitspace/supabase/server';
+import { PrismaClient } from '@bitspace/supabase/prisma';
 
 export const createCircuit = async () => {
     const supabase = createClient();

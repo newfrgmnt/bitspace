@@ -6,8 +6,8 @@ import {
     Node as SerializedNode,
     NodePosition as SerializedPosition,
     Connection as SerializedConnection
-} from '@prisma/client';
-import { NodeConstructor, NodeConstructors } from '../../../nodes';
+} from '@bitspace/supabase/prisma';
+import { NodeConstructor, NodeConstructors } from '../@bitspace/nodes/src';
 
 export interface ExtendedNode extends SerializedNode {
     children: ExtendedNode[];
