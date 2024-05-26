@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
-import { NodeGroups } from '../@bitspace/nodes/src';
+import { NodeGroups } from '@bitspace/nodes';
 import clsx from 'clsx';
 import { StoreContext } from '../../../circuit';
 import { useClickOutside } from '../../../circuit/hooks/useClickOutside/useClickOutside';
@@ -18,7 +18,7 @@ import posthog from 'posthog-js';
 import { createNode } from '../../../server/mutations/createNode';
 import { toCanvasCartesianPoint } from '../../../circuit/utils/coordinates/coordinates';
 import { NODE_CENTER } from '../../../circuit/constants';
-import { NodeDescriptionsMap } from '../@bitspace/nodes/src/descriptions';
+import { NodeDescriptionsMap } from '@bitspace/nodes/descriptions';
 
 export interface MenuProps {
     onClose: () => void;

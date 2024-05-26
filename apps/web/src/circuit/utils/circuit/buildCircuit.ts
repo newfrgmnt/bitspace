@@ -7,7 +7,7 @@ import {
     NodePosition as SerializedPosition,
     Connection as SerializedConnection
 } from '@bitspace/supabase/prisma';
-import { NodeConstructor, NodeConstructors } from '../@bitspace/nodes/src';
+import { NodeConstructor, NodeConstructors } from '@bitspace/nodes';
 
 export interface ExtendedNode extends SerializedNode {
     children: ExtendedNode[];

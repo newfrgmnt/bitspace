@@ -12,3 +12,5 @@ export interface PrimitiveNodeConstructor {
     new (): PrimitiveNode;
     type: NodeType;
 }
+
+export { Image, Webcam };

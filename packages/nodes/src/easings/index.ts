@@ -11,3 +11,5 @@ export interface EasingNodeConstructor {
     new (): EasingNode;
     type: NodeType;
 }
+
+export { CubicBezier };

@@ -33,3 +33,14 @@ export interface ColorNodeConstructor {
     new (): ColorNode;
     type: NodeType;
 }
+
+export {
+    AnalogousHarmony,
+    TriadHarmony,
+    SquareHarmony,
+    TetradicHarmony,
+    ComplementaryHarmony,
+    FromHSV,
+    ToHSV,
+    FromRGB
+};

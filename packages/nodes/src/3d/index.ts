@@ -12,3 +12,5 @@ export interface ThreeDNodeConstructor {
     new (): ThreeDNode;
     type: NodeType;
 }
+
+export { Mesh };
