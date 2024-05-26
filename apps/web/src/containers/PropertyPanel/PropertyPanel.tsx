@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { ComponentProps, useContext, useMemo } from 'react';
 import { StoreContext } from '../../circuit';
 import { Control } from '../../components/Controls/Control/Control';
-import { NodeDescriptionsMap } from '@bitspace/nodes/src/descriptions';
+import { NodeDescriptionsMap } from '@bitspace/nodes/descriptions';
 import { updateInput } from '../../server/mutations/updateInput';
 import { Input, Output } from '@bitspace/circuit';
 import { LockOutlined } from '@mui/icons-material';

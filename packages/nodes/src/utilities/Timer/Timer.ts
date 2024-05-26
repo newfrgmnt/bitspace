@@ -1,7 +1,7 @@
 import { Node, Output } from '@bitspace/circuit';
 import { interval, map } from 'rxjs';
 import { NodeType } from '@bitspace/supabase/prisma';
-import { NumberSchema } from '@bitspace/nodes';
+import { NumberSchema } from '@bitspace/schemas';
 
 export class Timer extends Node {
     static displayName = 'Timer';

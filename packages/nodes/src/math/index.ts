@@ -63,3 +63,24 @@ export interface MathNodeConstructor {
     new (): MathNode;
     type: NodeType;
 }
+
+export {
+    Absolute,
+    Addition,
+    Ceil,
+    Cosine,
+    Division,
+    Floor,
+    Logarithm,
+    Logarithm2,
+    Max,
+    Min,
+    Modulo,
+    Multiplication,
+    Power,
+    Round,
+    Sign,
+    Sine,
+    SquareRoot,
+    Subtraction
+};

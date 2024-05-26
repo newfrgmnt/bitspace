@@ -2,19 +2,16 @@
 
 import { useMemo } from 'react';
 import { Circuit } from '@bitspace/circuit';
-import { Timer } from '@bitspace/nodes/utilities/Timer/Timer';
-import { ToHSV } from '@bitspace/nodes/color/ToHSV/ToHSV';
-import { FromHSV } from '@bitspace/nodesc/color/FromHSV/FromHSV';
-import { Multiplication } from '@bitspace/nodes/math/Multiplication/Multiplication';
+import { Timer, Oscillator } from '@bitspace/nodes/utilities';
+import { ToHSV, FromHSV, SquareHarmony } from '@bitspace/nodes/color';
+import { Multiplication } from '@bitspace/nodes/math';
 import {
     StoreContext,
     Circuit as CircuitComponent,
     CanvasStore
 } from '../../circuit';
 import { nodeWindowResolver } from '../../windows';
-import { Mesh } from '@bitspace/nodes/3d/Mesh/Mesh';
-import { SquareHarmony } from '@bitspace/nodes/color/SquareHarmony/SquareHarmony';
-import { Oscillator } from '@bitspace/nodes/utilities/Oscillator/Oscillator';
+import { Mesh } from '@bitspace/nodes/3d';
 
 export const CircuitExample = () => {
     const circuitStore = useMemo(() => {

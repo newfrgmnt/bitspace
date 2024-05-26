@@ -309,6 +309,9 @@ importers:
       '@bitspace/schemas':
         specifier: workspace:^
         version: link:../schemas
+      '@bitspace/supabase':
+        specifier: workspace:^
+        version: link:../supabase
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1

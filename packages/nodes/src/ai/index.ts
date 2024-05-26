@@ -15,3 +15,5 @@ export interface AINodeConstructor {
     new (): AINode;
     type: NodeType;
 }
+
+export { SynthesizedImage, ImageEdit, Prompt, Vision };

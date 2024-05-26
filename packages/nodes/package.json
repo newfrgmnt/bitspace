@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "exports": {
-        "./index": "./src/index.ts",
+        ".": "./src/index.ts",
+        "./descriptions": "./src/descriptions.ts",
         "./3d": "./src/3d/index.ts",
         "./ai": "./src/ai/index.ts",
         "./math": "./src/math/index.ts",
@@ -26,6 +27,7 @@
     "dependencies": {
         "@bitspace/circuit": "workspace:^",
         "@bitspace/schemas": "workspace:^",
+        "@bitspace/supabase": "workspace:^",
         "rxjs": "^7.8.1"
     },
     "type": "module"

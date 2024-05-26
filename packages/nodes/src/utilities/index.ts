@@ -14,3 +14,5 @@ export interface UtiliyNodeConstructor {
     new (): UtitltyNode;
     type: NodeType;
 }
+
+export { Console, Timer, Lerp, Oscillator };
