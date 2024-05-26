@@ -4,15 +4,15 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "pnpm prisma:generate && next build",
+        "build": "next build",
         "start": "next start",
-        "lint": "eslint . --max-warnings 0",
-        "prisma:generate": "prisma generate",
-        "prisma:migrate:dev": "prisma migrate dev",
-        "prisma:migrate:deploy": "prisma migrate deploy"
+        "lint": "eslint . --max-warnings 0"
     },
     "dependencies": {
         "@bitspace/circuit": "workspace:*",
+        "@bitspace/nodes": "workspace:^",
+        "@bitspace/schemas": "workspace:^",
+        "@bitspace/supabase": "workspace:^",
         "@bitspace/ui": "workspace:*",
         "@bitspace/webgl": "workspace:*",
         "@emotion/react": "^11.11.3",
@@ -59,7 +59,7 @@
         "three": "^0.161.0",
         "use-pan-and-zoom": "^0.6.5",
         "ws": "^8.16.0",
-        "zod": "^3.22.4"
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@bitspace/eslint-config": "workspace:*",
@@ -76,7 +76,6 @@
         "eslint": "^8.53.0",
         "postcss": "^8.4.32",
         "prettier": "^3.1.0",
-        "prisma": "5.9.1",
         "typescript": "^5.2.2"
     }
 }

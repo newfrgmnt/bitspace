@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Console } from '../nodes/utilities/Console/Console';
+import { Console } from '../../../../packages/nodes/src/utilities/Console/Console';
 import { takeRight } from 'lodash';
 import { NodeWindow } from '../circuit/components/Node/Node';
 

@@ -12,7 +12,6 @@ export const env = createEnv({
         POLAR_ACCESS_KEY: z.string(),
         OPENAI_API_KEY: z.string(),
         VERCEL_URL: z.string(),
-        DATABASE_URL: z.string(),
         BLOB_READ_WRITE_TOKEN: z.string()
     },
     runtimeEnv: {
@@ -24,7 +23,6 @@ export const env = createEnv({
         POLAR_ACCESS_KEY: process.env.POLAR_ACCESS_KEY,
         OPENAI_API_KEY: process.env.OPENAI_API_KEY,
         VERCEL_URL: process.env.VERCEL_URL,
-        DATABASE_URL: process.env.DATABASE_URL,
         BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN
     }
 });

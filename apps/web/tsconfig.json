@@ -18,7 +18,10 @@
         "next.config.js",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts"
+        ".next/types/**/*.ts",
+        "../../packages/supabase/src/browser.ts",
+        "../../packages/supabase/src/middleware.ts",
+        "../../packages/supabase/src/server.ts"
     ],
     "exclude": ["node_modules"]
 }

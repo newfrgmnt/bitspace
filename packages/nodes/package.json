@@ -1,0 +1,32 @@
+{
+    "name": "@bitspace/nodes",
+    "version": "0.1.0",
+    "private": true,
+    "exports": {
+        "./index": "./src/index.ts",
+        "./3d": "./src/3d/index.ts",
+        "./ai": "./src/ai/index.ts",
+        "./math": "./src/math/index.ts",
+        "./color": "./src/color/index.ts",
+        "./primitives": "./src/primitives/index.ts",
+        "./utilities": "./src/utilities/index.ts"
+    },
+    "main": "./src/index.ts",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0"
+    },
+    "devDependencies": {
+        "@bitspace/eslint-config": "workspace:*",
+        "@bitspace/typescript-config": "workspace:*",
+        "@types/eslint": "^8.44.7",
+        "@types/node": "^20.5.2",
+        "eslint": "^8.53.0",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@bitspace/circuit": "workspace:^",
+        "@bitspace/schemas": "workspace:^",
+        "rxjs": "^7.8.1"
+    },
+    "type": "module"
+}

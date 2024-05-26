@@ -1,7 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as React from 'react';
 import { Mesh } from 'three';
-import { Mesh as MeshNode } from '../nodes/3d/Mesh/Mesh';
+import { Mesh as MeshNode } from '../../../../packages/nodes/src/3d/Mesh/Mesh';
 import { NodeWindow } from '../circuit/components/Node/Node';
 
 const MeshComponent = ({ mesh }: { mesh: Mesh }) => {

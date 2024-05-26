@@ -1,0 +1,13 @@
+{
+    "extends": "@bitspace/typescript-config/base.json",
+    "compilerOptions": {
+        "outDir": "build",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "module": "esnext",
+        "moduleResolution": "node"
+    },
+    "include": ["./src"],
+    "exclude": ["./src/**/*.spec.ts", "./src/**/*.test.ts"]
+}

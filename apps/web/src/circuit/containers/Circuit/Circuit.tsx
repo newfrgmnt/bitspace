@@ -19,7 +19,7 @@ import { useUploadFile } from '../../hooks/useDropzone/useDropzone';
 import { DraggableEventHandler } from 'react-draggable';
 import { PutBlobResult } from '@vercel/blob';
 import { createNode } from '@/server/mutations/createNode';
-import { Image } from '@/nodes/primitives/Image/Image';
+import { Image } from '@bitspace/nodes';
 import { toCanvasCartesianPoint } from '@/circuit/utils/coordinates/coordinates';
 
 const Nodes = observer(

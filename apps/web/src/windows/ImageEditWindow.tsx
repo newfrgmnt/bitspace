@@ -1,7 +1,7 @@
 import { NodeWindow } from '../circuit/components/Node/Node';
 import { ImageEditor } from '../components/ImageEditor/ImageEditor';
 import { useEffect, useState } from 'react';
-import { ImageEdit } from '../nodes/ai/ImageEdit/ImageEdit';
+import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
 
 export const ImageEditWindow = ({ node }: { node: ImageEdit }) => {
     const [imageSrc, setImageSrc] = useState<string>('');

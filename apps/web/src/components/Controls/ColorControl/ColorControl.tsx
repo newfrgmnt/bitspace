@@ -6,7 +6,7 @@ import {
     HSVSchema,
     HexSchema,
     RGBSchema
-} from '../../../nodes/schemas';
+} from '@bitspace/schemas';
 import {
     ChangeEventHandler,
     FocusEventHandler,

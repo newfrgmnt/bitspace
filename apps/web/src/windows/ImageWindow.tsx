@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { NodeWindow } from '../circuit/components/Node/Node';
-import { SynthesizedImage } from '../nodes/ai/SynthesizedImage/SynthesizedImage';
+import { SynthesizedImage } from '../../../../packages/nodes/src/ai/SynthesizedImage/SynthesizedImage';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../components/Spinner/Spinner';
-import { Image } from '@/nodes/primitives/Image/Image';
+import { Image } from '@bitspace/nodes';
 
 export const ImageWindow = observer(
     ({ node }: { node: Image | SynthesizedImage }) => {

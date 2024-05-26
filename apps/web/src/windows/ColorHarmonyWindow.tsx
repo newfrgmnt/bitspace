@@ -3,12 +3,12 @@ import { NodeWindow } from '../circuit/components/Node/Node';
 import { ColorWheel } from '../components/ColorPicker/ColorPicker';
 import { harmonies } from '../components/ColorPicker/ColorPicker.utils';
 import { z } from 'zod';
-import { TriadHarmony } from '../nodes/color/TriadHarmony/TriadHarmony';
-import { TetradicHarmony } from '../nodes/color/TetradicHarmony/TetradicHarmony';
-import { SquareHarmony } from '../nodes/color/SquareHarmony/SquareHarmony';
-import { ComplementaryHarmony } from '../nodes/color/ComplementaryHarmony/ComplementaryHarmony';
-import { AnalogousHarmony } from '../nodes/color/AnalogousHarmony/AnalogousHarmony';
-import { HSVSchema } from '../nodes/schemas';
+import { TriadHarmony } from '../../../../packages/nodes/src/color/TriadHarmony/TriadHarmony';
+import { TetradicHarmony } from '../../../../packages/nodes/src/color/TetradicHarmony/TetradicHarmony';
+import { SquareHarmony } from '../../../../packages/nodes/src/color/SquareHarmony/SquareHarmony';
+import { ComplementaryHarmony } from '../../../../packages/nodes/src/color/ComplementaryHarmony/ComplementaryHarmony';
+import { AnalogousHarmony } from '../../../../packages/nodes/src/color/AnalogousHarmony/AnalogousHarmony';
+import { HSVSchema } from '../../../../packages/schemas/src';
 
 export const ColorHarmonyWindow = ({
     node

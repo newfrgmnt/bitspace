@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@bitspace/supabase/prisma';
 import ClientPage from './ClientPage';
-import { createClient } from '@/supabase/server';
+import { createClient } from '@bitspace/supabase/server';
 
 export default async function Page() {
     const supabase = createClient();
