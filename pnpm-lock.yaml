@@ -150,7 +150,7 @@ importers:
         specifier: ^1.103.1
         version: 1.136.1
       prisma:
-        specifier: ^5.9.1
+        specifier: ^5.14.0
         version: 5.14.0
       react:
         specifier: ^18.2.0
