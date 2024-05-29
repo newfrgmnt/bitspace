@@ -1,6 +1,6 @@
 'use client';
 
-import { createClient } from '@bitspace/supabase/browser';
+import { createClient } from '@/supabase/browser';
 import { User } from '@supabase/supabase-js';
 import { redirect, useRouter } from 'next/navigation';
 import React, {

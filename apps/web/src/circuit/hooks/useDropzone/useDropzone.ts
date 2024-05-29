@@ -1,6 +1,4 @@
-import { createClient } from '@/supabase/browser';
 import { DragEventHandler, useCallback } from 'react';
-import type { PutBlobResult } from '@vercel/blob';
 
 type DropzoneOnDrop = (files: FileList) => void;
 

@@ -27,7 +27,6 @@
     "dependencies": {
         "@bitspace/circuit": "workspace:^",
         "@bitspace/schemas": "workspace:^",
-        "@bitspace/supabase": "workspace:^",
         "rxjs": "^7.8.1"
     },
     "type": "module"

@@ -1,6 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@bitspace/supabase/prisma';
+import { PrismaClient } from '@prisma/client';
 
 export const createConnection = async (fromId: string, toId: string) => {
     const prisma = new PrismaClient();

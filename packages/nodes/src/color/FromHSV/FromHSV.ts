@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { HSVSchema, NumberSchema } from '@bitspace/schemas';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 
 export class FromHSV extends Node {
     static displayName = 'From HSV';

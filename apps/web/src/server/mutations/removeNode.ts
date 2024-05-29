@@ -1,6 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@bitspace/supabase/prisma';
+import { PrismaClient } from '@prisma/client';
 
 export const removeNode = async (id: string) => {
     const prisma = new PrismaClient();

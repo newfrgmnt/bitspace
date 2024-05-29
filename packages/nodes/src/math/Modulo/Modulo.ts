@@ -2,7 +2,7 @@ import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
 import { NumberSchema } from '@bitspace/schemas';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 
 export class Modulo extends Node {
     static displayName = 'Modulo';

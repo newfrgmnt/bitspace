@@ -1,4 +1,4 @@
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 
 export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.CIRCUIT]: 'A representation of a nested Circuit graph',

@@ -1,4 +1,4 @@
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { Absolute } from './Absolute/Absolute';
 import { Addition } from './Addition/Addition';
 import { Ceil } from './Ceil/Ceil';

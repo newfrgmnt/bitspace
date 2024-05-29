@@ -1,6 +1,6 @@
 import { Prompt } from './Prompt/Prompt';
 import { SynthesizedImage } from './SynthesizedImage/SynthesizedImage';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { ImageEdit } from './ImageEdit/ImageEdit';
 import { Vision } from './Vision/Vision';
 

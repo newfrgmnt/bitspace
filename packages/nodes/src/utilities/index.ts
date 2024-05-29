@@ -1,4 +1,4 @@
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { Console } from './Console/Console';
 import { Lerp } from './Lerp/Lerp';
 import { Timer } from './Timer/Timer';

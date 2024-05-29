@@ -19,9 +19,9 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "../../packages/supabase/src/browser.ts",
-        "../../packages/supabase/src/middleware.ts",
-        "../../packages/supabase/src/server.ts"
+        "src/supabase/browser.ts",
+        "src/supabase/middleware.ts",
+        "src/supabase/server.ts"
     ],
     "exclude": ["node_modules"]
 }

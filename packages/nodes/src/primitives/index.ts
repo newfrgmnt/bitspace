@@ -1,4 +1,4 @@
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { Image } from './Image/Image';
 import { Webcam } from './Webcam/Webcam';
 

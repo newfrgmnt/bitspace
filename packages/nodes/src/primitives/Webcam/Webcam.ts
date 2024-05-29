@@ -1,6 +1,6 @@
 import { Input, Node, Output } from '@bitspace/circuit';
 
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { BooleanSchema, MediaStreamSchema } from '@bitspace/schemas';
 import { Observable, from, switchMap, tap } from 'rxjs';
 

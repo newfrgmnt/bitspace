@@ -1,4 +1,4 @@
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { CubicBezier } from './CubicBezier/CubicBezier';
 
 export const EasingNodes = [CubicBezier].sort((a, b) =>

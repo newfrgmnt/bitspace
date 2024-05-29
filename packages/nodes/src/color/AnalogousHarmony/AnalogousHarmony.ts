@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { HSVSchema } from '@bitspace/schemas';
 
 export class AnalogousHarmony extends Node {

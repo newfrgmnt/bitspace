@@ -1,5 +1,5 @@
 import { Node, Input } from '@bitspace/circuit';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { AnySchema } from '@bitspace/schemas';
 
 export class Console extends Node {

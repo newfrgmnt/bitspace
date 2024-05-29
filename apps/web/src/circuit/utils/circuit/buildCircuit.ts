@@ -6,7 +6,7 @@ import {
     Node as SerializedNode,
     NodePosition as SerializedPosition,
     Connection as SerializedConnection
-} from '@bitspace/supabase/prisma';
+} from '@prisma/client';
 import { NodeConstructor, NodeConstructors } from '@bitspace/nodes';
 
 export interface ExtendedNode extends SerializedNode {
@@ -85,6 +85,10 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
     for (const [outputId, inputId] of connectionCache) {
         const output = portCache.get(outputId) as Output<any>;
         const input = portCache.get(inputId) as Input<any>;
+
+        if (!output || !input) {
+            continue;
+        }
 
         output.connect(input);
     }

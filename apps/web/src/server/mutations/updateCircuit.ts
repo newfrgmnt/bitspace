@@ -1,6 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@bitspace/supabase/prisma';
+import { PrismaClient } from '@prisma/client';
 
 export const updateCircuit = async (id: string, data: { name?: string }) => {
     const prisma = new PrismaClient();

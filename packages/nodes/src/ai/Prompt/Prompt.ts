@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Node, Input, Output } from '@bitspace/circuit';
 import { from, switchMap, skip, tap, debounceTime, combineLatest } from 'rxjs';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { AnySchema, StringSchema } from '@bitspace/schemas';
 
 export class Prompt extends Node {

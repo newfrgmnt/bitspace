@@ -2,7 +2,7 @@ import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { HSVSchema } from '@bitspace/schemas';
 import { harmonies } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 
 export class TetradicHarmony extends Node {
     static displayName = 'Tetradic Harmony';

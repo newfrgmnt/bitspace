@@ -1,6 +1,6 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { ImageSchema, URLSchema } from '@bitspace/schemas';
 
 export class Image extends Node {

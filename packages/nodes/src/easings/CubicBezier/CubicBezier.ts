@@ -2,7 +2,7 @@ import { Node, Output } from '@bitspace/circuit';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { cubicBezier } from 'framer-motion';
 import { EasingSchema } from '@bitspace/schemas';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 
 export class CubicBezier extends Node {
     static displayName = 'Cubic Bezier';

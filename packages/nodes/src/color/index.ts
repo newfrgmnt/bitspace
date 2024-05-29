@@ -1,4 +1,4 @@
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { AnalogousHarmony } from './AnalogousHarmony/AnalogousHarmony';
 import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmony';
 import { FromHSV } from './FromHSV/FromHSV';

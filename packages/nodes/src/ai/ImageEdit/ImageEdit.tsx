@@ -1,6 +1,6 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { Observable } from 'rxjs';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 import { ImageSchema, StringSchema } from '@bitspace/schemas';
 
 export class ImageEdit extends Node {

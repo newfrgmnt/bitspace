@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { AddOutlined, HiveOutlined } from '@mui/icons-material';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Node } from '@bitspace/supabase/prisma';
+import { Node } from '@prisma/client';
 import { createCircuit } from '../../../server/mutations/createCircuit';
 
 export default function Page({ circuits }: { circuits: Node[] }): JSX.Element {

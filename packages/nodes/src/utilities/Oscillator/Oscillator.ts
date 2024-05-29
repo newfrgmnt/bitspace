@@ -1,7 +1,7 @@
 import { Input, Node, Output } from '@bitspace/circuit';
 import { NumberSchema } from '@bitspace/schemas';
 import { combineLatest, map } from 'rxjs';
-import { NodeType } from '@bitspace/supabase/prisma';
+import { NodeType } from '@prisma/client';
 
 export class Oscillator extends Node {
     static displayName = 'Oscillator';
