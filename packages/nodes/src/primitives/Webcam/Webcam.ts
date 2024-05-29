@@ -53,6 +53,8 @@ export class Webcam extends Node {
         if (this.mediaStream) {
             this.mediaStream.getTracks().forEach(track => track.stop());
         }
+
+        this.mediaStream = null;
     }
 
     /** Disposes webcam node */
