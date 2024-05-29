@@ -2,7 +2,6 @@
 module.exports = {
     transpilePackages: ['@bitspace/ui'],
     experimental: {
-        esmExternals: 'loose',
-        serverComponentsExternalPackages: ['mongoose']
+        esmExternals: 'loose'
     }
 };
