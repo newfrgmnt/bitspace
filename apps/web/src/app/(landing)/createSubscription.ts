@@ -12,6 +12,7 @@ export const createSubscription = async (email: string) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Accept: 'application/json',
                 Authorization: `Bearer ${env.POLAR_ACCESS_KEY}`
             },
             body: JSON.stringify({ email })
