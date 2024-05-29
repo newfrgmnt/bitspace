@@ -1,6 +1,6 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { from, switchMap, skip, debounceTime, filter } from 'rxjs';
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@/types';
 import { ImageSchema, StringSchema } from '@bitspace/schemas';
 
 export class Vision extends Node {

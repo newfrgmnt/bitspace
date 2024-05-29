@@ -20,11 +20,5 @@
     "packageManager": "pnpm@8.9.0",
     "engines": {
         "node": ">=18"
-    },
-    "pnpm": {
-        "patchedDependencies": {
-            "@thi.ng/shader-ast-glsl@0.4.90": "patches/@thi.ng__shader-ast-glsl@0.4.90.patch",
-            "@thi.ng/webgl@6.6.19": "patches/@thi.ng__webgl@6.6.19.patch"
-        }
     }
 }

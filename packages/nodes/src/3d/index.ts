@@ -1,4 +1,4 @@
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@/types';
 import { Mesh } from './Mesh/Mesh';
 
 // AI

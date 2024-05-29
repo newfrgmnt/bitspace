@@ -3,7 +3,7 @@ import { map, of } from 'rxjs';
 import * as THREE from 'three';
 import { BoxGeometry, MeshPhongMaterial } from 'three';
 import { HSVSchema, MeshSchema } from '@bitspace/schemas';
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@/types';
 import { hsv2rgb } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
 
 export class Mesh extends Node {

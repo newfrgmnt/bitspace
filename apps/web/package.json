@@ -7,9 +7,9 @@
         "build": "pnpm run prisma:generate && next build",
         "start": "pnpm run prisma:generate && next start",
         "lint": "eslint . --max-warnings 0",
-        "prisma:generate": "prisma generate",
-        "prisma:migrate:dev": "prisma migrate dev",
-        "prisma:migrate:deploy": "prisma migrate deploy"
+        "prisma:generate": "pnpm dlx prisma generate",
+        "prisma:migrate:dev": "pnpm dlx prisma migrate dev",
+        "prisma:migrate:deploy": "pnpm dlx prisma migrate deploy"
     },
     "dependencies": {
         "@bitspace/circuit": "workspace:*",
@@ -26,6 +26,7 @@
         "@prisma/client": "5.9.1",
         "@react-three/fiber": "^8.15.16",
         "@supabase/ssr": "^0.3.0",
+        "@supabase/supabase-js": "^2.43.4",
         "@t3-oss/env-nextjs": "^0.10.1",
         "@tanstack/react-query": "^5.18.1",
         "@trpc/client": "11.0.0-next-beta.255",

@@ -2,7 +2,7 @@ import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 
 import { NumberSchema } from '@bitspace/schemas';
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@/types';
 
 export class Max extends Node {
     static displayName = 'Max';

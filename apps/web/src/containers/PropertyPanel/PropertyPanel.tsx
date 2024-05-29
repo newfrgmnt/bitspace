@@ -1,4 +1,4 @@
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@bitspace/nodes';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import { ComponentProps, useContext, useMemo } from 'react';

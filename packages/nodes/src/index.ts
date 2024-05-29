@@ -6,6 +6,16 @@ import { AINodeConstructor, AINodes } from './ai';
 import { ThreeDNodeConstructor, ThreeDNodes } from './3d';
 import { PrimitiveNodeConstructor, PrimitiveNodes } from './primitives';
 
+export * from './math';
+export * from './easings';
+export * from './utilities';
+export * from './color';
+export * from './ai';
+export * from './3d';
+export * from './primitives';
+
+export * from './types';
+
 export type NodeConstructor =
     | PrimitiveNodeConstructor
     | AINodeConstructor

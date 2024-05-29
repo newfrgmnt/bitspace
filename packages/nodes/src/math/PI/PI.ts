@@ -2,7 +2,7 @@ import { Node, Output } from '@bitspace/circuit';
 import { Observable } from 'rxjs';
 
 import { NumberSchema } from '@bitspace/schemas';
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@/types';
 
 export class PI extends Node {
     static displayName = 'PI';

@@ -1,6 +1,6 @@
 import { Node, Output } from '@bitspace/circuit';
 import { interval, map } from 'rxjs';
-import { NodeType } from '@prisma/client';
+import { NodeType } from '@/types';
 import { NumberSchema } from '@bitspace/schemas';
 
 export class Timer extends Node {
