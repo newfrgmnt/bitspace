@@ -10,15 +10,22 @@ import { motion } from 'framer-motion';
 export const OscillatorWindow = observer(({ node }: { node: Oscillator }) => {
     const [value, setValue] = useState<number>(0);
     const [amplitude, setAmplitude] = useState<number>(1);
+    const [frequency, setFrequency] = useState<number>(0);
+    const [time, setTime] = useState<number>(0);
 
     useEffect(() => {
         const outputSubscription = node.outputs.output.subscribe(setValue);
         const amplitudeSubscription =
             node.inputs.amplitude.subscribe(setAmplitude);
+        const frequencySubscription =
+            node.inputs.frequency.subscribe(setFrequency);
+        const timeSubscription = node.inputs.time.subscribe(setTime);
 
         return () => {
             outputSubscription.unsubscribe();
             amplitudeSubscription.unsubscribe();
+            frequencySubscription.unsubscribe();
+            timeSubscription.unsubscribe();
         };
     }, [node]);
 
@@ -27,8 +34,12 @@ export const OscillatorWindow = observer(({ node }: { node: Oscillator }) => {
     return (
         <NodeWindow>
             <div className="w-[226px] h-80 bg-cover bg-center flex flex-col items-center justify-center relative">
+                <SineWave
+                    phase={time * frequency * Math.PI}
+                    frequency={frequency}
+                />
                 <motion.div
-                    className="w-2 h-2 bg-black rounded-full"
+                    className="w-2 h-2 bg-black rounded-full absolute"
                     style={{
                         y: `${(((value / amplitude) * 2 - 1) * pendulumLength) / 2}px`,
                         x: '50%'
@@ -38,3 +49,44 @@ export const OscillatorWindow = observer(({ node }: { node: Oscillator }) => {
         </NodeWindow>
     );
 });
+
+const SineWave = ({
+    frequency,
+    phase
+}: {
+    phase: number;
+    frequency: number;
+}) => {
+    const [pathData, setPathData] = useState('');
+
+    useEffect(() => {
+        const generatePathData = () => {
+            const size = 226; // Height of the SVG
+            const points = 226; // Number of points to plot
+
+            let path = '';
+            for (let i = 0; i <= points; i++) {
+                const x = ((i / points) * size) / 2;
+                const y =
+                    size / 2 +
+                    (size / 2) *
+                        Math.sin(Math.PI * (i / points) + phase * 2 + Math.PI);
+                path += `${i === 0 ? 'M' : 'L'}${x},${y}`;
+            }
+            return path;
+        };
+
+        setPathData(generatePathData());
+    }, [frequency, phase]);
+
+    return (
+        <svg width="226" height="226" viewBox="0 0 226 226">
+            <path
+                d={pathData}
+                stroke="rgb(203, 213, 225)"
+                strokeWidth={2}
+                fill="transparent"
+            />
+        </svg>
+    );
+};
