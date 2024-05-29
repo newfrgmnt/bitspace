@@ -1,7 +1,6 @@
-import { z } from 'zod';
 import { Node, Input, Output } from '@bitspace/circuit';
 import { from, switchMap, skip, tap, debounceTime, combineLatest } from 'rxjs';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 import { AnySchema, StringSchema } from '@bitspace/schemas';
 
 export class Prompt extends Node {

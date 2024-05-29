@@ -1,6 +1,6 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 import { ImageSchema, URLSchema } from '@bitspace/schemas';
 
 export class Image extends Node {

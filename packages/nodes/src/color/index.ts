@@ -1,4 +1,4 @@
-import { NodeType } from '@/types';
+import { NodeType } from '../types';
 import { AnalogousHarmony } from './AnalogousHarmony/AnalogousHarmony';
 import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmony';
 import { FromHSV } from './FromHSV/FromHSV';

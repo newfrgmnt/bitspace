@@ -2,7 +2,7 @@ import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
 import { HSVSchema } from '@bitspace/schemas';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 
 export class SquareHarmony extends Node {
     static displayName = 'Square Harmony';

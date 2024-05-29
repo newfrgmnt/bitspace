@@ -79,5 +79,6 @@
         "postcss": "^8.4.32",
         "prettier": "^3.1.0",
         "typescript": "^5.2.2"
-    }
+    },
+    "type": "module"
 }

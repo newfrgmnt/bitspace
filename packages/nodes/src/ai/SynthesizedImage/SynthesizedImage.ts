@@ -8,7 +8,7 @@ import {
     Observable,
     filter
 } from 'rxjs';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 import { ImageSchema, StringSchema } from '@bitspace/schemas';
 
 export class SynthesizedImage extends Node {

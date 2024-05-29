@@ -1,7 +1,7 @@
 import { Input, Node, Output } from '@bitspace/circuit';
 import { NumberSchema } from '@bitspace/schemas';
 import { combineLatest, map } from 'rxjs';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 
 export class Oscillator extends Node {
     static displayName = 'Oscillator';

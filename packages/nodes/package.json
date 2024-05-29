@@ -21,13 +21,17 @@
         "@bitspace/typescript-config": "workspace:*",
         "@types/eslint": "^8.44.7",
         "@types/node": "^20.5.2",
+        "@types/three": "^0.161.2",
         "eslint": "^8.53.0",
         "typescript": "^5.2.2"
     },
     "dependencies": {
         "@bitspace/circuit": "workspace:^",
         "@bitspace/schemas": "workspace:^",
-        "rxjs": "^7.8.1"
+        "framer-motion": "^10.16.16",
+        "rxjs": "^7.8.1",
+        "three": "^0.161.0",
+        "zod": "^3.23.8"
     },
     "type": "module"
 }

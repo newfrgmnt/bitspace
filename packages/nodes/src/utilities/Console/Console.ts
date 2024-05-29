@@ -1,5 +1,5 @@
 import { Node, Input } from '@bitspace/circuit';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 import { AnySchema } from '@bitspace/schemas';
 
 export class Console extends Node {

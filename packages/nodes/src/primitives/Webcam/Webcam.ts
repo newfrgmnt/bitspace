@@ -1,6 +1,6 @@
 import { Input, Node, Output } from '@bitspace/circuit';
 
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 import { BooleanSchema, MediaStreamSchema } from '@bitspace/schemas';
 import { Observable, from, switchMap, tap } from 'rxjs';
 

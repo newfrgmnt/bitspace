@@ -1,4 +1,4 @@
-import { NodeType } from '@/types';
+import { NodeType } from './types';
 
 export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.CIRCUIT]: 'A representation of a nested Circuit graph',

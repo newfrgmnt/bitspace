@@ -1,4 +1,4 @@
-import { NodeType } from '@/types';
+import { NodeType } from '../types';
 import { Console } from './Console/Console';
 import { Lerp } from './Lerp/Lerp';
 import { Timer } from './Timer/Timer';

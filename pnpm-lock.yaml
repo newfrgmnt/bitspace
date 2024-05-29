@@ -298,9 +298,18 @@ importers:
       '@bitspace/schemas':
         specifier: workspace:^
         version: link:../schemas
+      framer-motion:
+        specifier: ^10.16.16
+        version: 10.18.0(react-dom@18.3.1)(react@18.3.1)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
+      three:
+        specifier: ^0.161.0
+        version: 0.161.0
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@bitspace/eslint-config':
         specifier: workspace:*
@@ -314,6 +323,9 @@ importers:
       '@types/node':
         specifier: ^20.5.2
         version: 20.12.12
+      '@types/three':
+        specifier: ^0.161.2
+        version: 0.161.2
       eslint:
         specifier: ^8.53.0
         version: 8.57.0

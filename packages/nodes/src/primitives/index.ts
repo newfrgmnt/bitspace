@@ -1,4 +1,4 @@
-import { NodeType } from '@/types';
+import { NodeType } from '../types';
 import { Image } from './Image/Image';
 import { Webcam } from './Webcam/Webcam';
 

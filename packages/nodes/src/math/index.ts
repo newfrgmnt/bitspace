@@ -1,4 +1,4 @@
-import { NodeType } from '@/types';
+import { NodeType } from '../types';
 import { Absolute } from './Absolute/Absolute';
 import { Addition } from './Addition/Addition';
 import { Ceil } from './Ceil/Ceil';

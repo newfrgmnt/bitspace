@@ -2,7 +2,7 @@ import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 
 import { NumberSchema } from '@bitspace/schemas';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 
 export class Round extends Node {
     static displayName = 'Round';

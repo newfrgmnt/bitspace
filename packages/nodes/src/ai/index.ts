@@ -1,6 +1,6 @@
 import { Prompt } from './Prompt/Prompt';
 import { SynthesizedImage } from './SynthesizedImage/SynthesizedImage';
-import { NodeType } from '@/types';
+import { NodeType } from '../types';
 import { ImageEdit } from './ImageEdit/ImageEdit';
 import { Vision } from './Vision/Vision';
 

@@ -1,7 +1,7 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { combineLatest, map } from 'rxjs';
 import { HSVSchema, NumberSchema } from '@bitspace/schemas';
-import { NodeType } from '@/types';
+import { NodeType } from '../../types';
 
 export class ToHSV extends Node {
     static displayName = 'To HSV';

@@ -1,4 +1,4 @@
-import { NodeType } from '@/types';
+import { NodeType } from '../types';
 import { CubicBezier } from './CubicBezier/CubicBezier';
 
 export const EasingNodes = [CubicBezier].sort((a, b) =>
