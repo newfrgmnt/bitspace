@@ -1,14 +1,20 @@
 'use server';
 
+import { env } from '@/env';
 import { getServerSideAPI } from '../../server/utils';
 
 const api = getServerSideAPI();
 
 export const createSubscription = async (email: string) => {
-    return api.subscriptions.createFreeSubscription({
-        freeSubscriptionCreate: {
-            tier_id: 'af8fd983-d2af-4ab8-b191-747d1050df72',
-            customer_email: email
+    return fetch(
+        'https://api.polar.sh/api/v1/subscriptions/subscriptions/email?organization_name=newfrgmnt&platform=github',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${env.POLAR_ACCESS_KEY}`
+            },
+            body: JSON.stringify({ email })
         }
-    });
+    ).then(res => res.json());
 };
