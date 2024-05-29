@@ -22,3 +22,23 @@ export const getServerSideAPI = (token?: string): PolarAPI => {
         })
     );
 };
+
+// @ts-ignore
+export const generateIncludeStructure = (depth: number) => {
+    if (depth === 0) {
+        return {};
+    }
+
+    return {
+        inputs: true,
+        outputs: {
+            include: {
+                connections: true
+            }
+        },
+        position: true,
+        children: {
+            include: generateIncludeStructure(depth - 1)
+        }
+    };
+};

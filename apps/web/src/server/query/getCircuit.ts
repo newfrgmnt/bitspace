@@ -1,32 +1,25 @@
 'use server';
 
+import { createClient } from '@/supabase/server';
 import { PrismaClient } from '@prisma/client';
-
-// @ts-ignore
-export const generateIncludeStructure = (depth: number) => {
-    if (depth === 0) {
-        return {};
-    }
-
-    return {
-        inputs: true,
-        outputs: {
-            include: {
-                connections: true
-            }
-        },
-        position: true,
-        children: {
-            include: generateIncludeStructure(depth - 1)
-        }
-    };
-};
+import { generateIncludeStructure } from '../utils';
 
 export const getCircuit = async (id: string) => {
+    const supabase = createClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+
     const prisma = new PrismaClient();
 
-    return await prisma.node.findUnique({
-        where: { id: id as string, type: 'CIRCUIT' },
+    if (!user) {
+        return null;
+    }
+
+    const node = await prisma.node.findUnique({
+        where: { id: id as string, type: 'CIRCUIT', userId: user.id },
         include: generateIncludeStructure(10)
     });
+
+    return node;
 };
