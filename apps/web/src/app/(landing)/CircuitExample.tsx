@@ -65,6 +65,7 @@ export const CircuitExample = () => {
         <StoreContext.Provider value={{ store: circuitStore }}>
             <div className="relative flex flex-col justify-between h-screen md:h-auto md:aspect-video w-full cursor-[url('/cursor.svg')_4_4,auto] rounded-[2rem] overflow-hidden">
                 <CircuitComponent
+                    className="overflow-x-auto overflow-y-hidden"
                     store={circuitStore}
                     nodeWindowResolver={nodeWindowResolver}
                 />
