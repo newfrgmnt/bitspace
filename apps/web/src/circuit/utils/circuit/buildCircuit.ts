@@ -73,7 +73,7 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
 
                 portCache.set(input.id, input);
 
-                if (serializedInput.value) {
+                if (typeof serializedInput.value !== 'undefined') {
                     input.next(input.type.parse(serializedInput.value));
                 }
             }

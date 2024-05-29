@@ -9,6 +9,7 @@ import {
     HexColorSchemaType,
     RGBColorSchemaType
 } from '../ColorControl/ColorControl';
+import { BooleanControl } from '../BooleanControl/BooleanControl';
 
 export interface ControlProps {
     port: Input | Output;
@@ -18,6 +19,14 @@ export interface ControlProps {
 
 export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
     switch (port.type.description) {
+        case 'Boolean':
+            return (
+                <BooleanControl
+                    port={port}
+                    disabled={disabled}
+                    onBlur={onBlur}
+                />
+            );
         case 'String':
             return (
                 <StringControl
