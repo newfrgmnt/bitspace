@@ -8,10 +8,10 @@ export const UtilityNodes = [Console, Timer, Lerp, Oscillator].sort((a, b) =>
     a.displayName.localeCompare(b.displayName)
 );
 
-export type UtitltyNode = Console | Timer | Lerp | Oscillator;
+export type UtilityNode = Console | Timer | Lerp | Oscillator;
 
 export interface UtiliyNodeConstructor {
-    new (): UtitltyNode;
+    new (): UtilityNode;
     type: NodeType;
 }
 

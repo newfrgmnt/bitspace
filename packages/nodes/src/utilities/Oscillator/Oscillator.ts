@@ -11,7 +11,7 @@ export class Oscillator extends Node {
         frequency: new Input({
             name: 'Frequency',
             type: NumberSchema(),
-            defaultValue: 2
+            defaultValue: 1
         }),
         amplitude: new Input({
             name: 'Amplitude',
@@ -37,15 +37,11 @@ export class Oscillator extends Node {
                 map(
                     ([frequency, amplitude, time]) =>
                         (amplitude *
-                            Math.sin((Math.PI * 2.0 * time) / frequency) +
+                            Math.sin(Math.PI * 2.0 * time * frequency) +
                             amplitude) /
                         2
                 )
             )
         })
     };
-
-    public lerp(a: number, b: number, t: number) {
-        return a * (1 - t) + b * t;
-    }
 }

@@ -18,9 +18,10 @@ import { MeshWindow } from './MeshWindow';
 import { Mesh } from '../../../../packages/nodes/src/3d/Mesh/Mesh';
 import { ImageEditWindow } from './ImageEditWindow';
 import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
-import { Image } from '@bitspace/nodes';
+import { Image, Oscillator } from '@bitspace/nodes';
 import { Webcam } from '@bitspace/nodes';
 import { WebcamWindow } from './WebcamWindow';
+import { OscillatorWindow } from './OscillatorWindow';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if (!('displayName' in node.constructor)) return <></>;
@@ -40,6 +41,8 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
             return <CubicBezierWindow node={node as CubicBezier} />;
         case 'Mesh':
             return <MeshWindow node={node as Mesh} />;
+        case 'Oscillator':
+            return <OscillatorWindow node={node as Oscillator} />;
         case 'Triad Harmony':
         case 'Analogous Harmony':
         case 'Square Harmony':

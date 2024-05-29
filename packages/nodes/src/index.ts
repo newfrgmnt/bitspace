@@ -1,10 +1,14 @@
-import { MathNodeConstructor, MathNodes } from './math';
-import { EasingNodeConstructor, EasingNodes } from './easings';
-import { UtilityNodes, UtiliyNodeConstructor } from './utilities';
-import { ColorNodeConstructor, ColorNodes } from './color';
-import { AINodeConstructor, AINodes } from './ai';
-import { ThreeDNodeConstructor, ThreeDNodes } from './3d';
-import { PrimitiveNodeConstructor, PrimitiveNodes } from './primitives';
+import { MathNode, MathNodeConstructor, MathNodes } from './math';
+import { EasingNode, EasingNodeConstructor, EasingNodes } from './easings';
+import { UtilityNodes, UtiliyNodeConstructor, UtilityNode } from './utilities';
+import { ColorNode, ColorNodeConstructor, ColorNodes } from './color';
+import { AINode, AINodeConstructor, AINodes } from './ai';
+import { ThreeDNode, ThreeDNodeConstructor, ThreeDNodes } from './3d';
+import {
+    PrimitiveNodeConstructor,
+    PrimitiveNodes,
+    PrimitiveNode
+} from './primitives';
 
 export * from './math';
 export * from './easings';
@@ -15,6 +19,15 @@ export * from './3d';
 export * from './primitives';
 
 export * from './types';
+
+export type Nodes =
+    | PrimitiveNode
+    | AINode
+    | ColorNode
+    | EasingNode
+    | MathNode
+    | ThreeDNode
+    | UtilityNode;
 
 export type NodeConstructor =
     | PrimitiveNodeConstructor
