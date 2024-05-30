@@ -21,6 +21,27 @@ export const Node = observer(
         const { store } = React.useContext(StoreContext);
         const router = useRouter();
 
+        const [windowActive, setWindowActive] = React.useState(false);
+
+        React.useEffect(() => {
+            if (ref.current) {
+                const observer = new IntersectionObserver(
+                    entries => {
+                        entries.forEach(entry => {
+                            setWindowActive(entry.isIntersecting);
+                        });
+                    },
+                    { threshold: 0 }
+                );
+
+                observer.observe(ref.current);
+
+                return () => {
+                    observer.disconnect();
+                };
+            }
+        }, []);
+
         React.useEffect(() => {
             if (ref.current) {
                 store.setNodeElement(node.id, ref.current);
@@ -147,10 +168,14 @@ export const Node = observer(
                             />
                         </div>
                     </div>
-                    {window}
+                    {windowActive && window}
                     <div className={nodeContentWrapperClassNames}>
-                        <NodePorts ports={Object.values(node.inputs)} />
                         <NodePorts
+                            ports={Object.values(node.inputs)}
+                            windowActive={windowActive}
+                        />
+                        <NodePorts
+                            windowActive={windowActive}
                             ports={Object.values(node.outputs)}
                             isOutputWrapper={true}
                         />
@@ -171,7 +196,11 @@ const NodeAction = ({ color = '#fff', onClick }: NodeActionProps) => {
     );
 };
 
-const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
+const NodePorts = ({
+    ports,
+    isOutputWrapper,
+    windowActive
+}: NodePortsProps) => {
     const nodePortsWrapperClassNames = clsx(
         'flex flex-col flex-grow px-4 pb-5',
         isOutputWrapper ? 'items-end' : 'items-start'
@@ -179,19 +208,23 @@ const NodePorts = ({ ports, isOutputWrapper }: NodePortsProps) => {
     return (
         <div className={nodePortsWrapperClassNames}>
             {ports.map(port => (
-                <Port key={port.id} port={port} isOutput={!!isOutputWrapper} />
+                <Port
+                    key={port.id}
+                    port={port}
+                    isOutput={!!isOutputWrapper}
+                    windowActive={windowActive}
+                />
             ))}
         </div>
     );
 };
 
-export const NodeWindow = React.forwardRef<
-    HTMLDivElement,
-    React.PropsWithChildren<{ className?: string }>
->(({ children, className }, ref) => {
+export const NodeWindow = ({
+    children,
+    className
+}: React.PropsWithChildren<{ className?: string }>) => {
     return (
         <div
-            ref={ref}
             className={clsx(
                 'relative flex flex-col m-4 rounded-3xl overflow-hidden bg-slate-100 max-h-[226px] h-full',
                 className
@@ -201,4 +234,4 @@ export const NodeWindow = React.forwardRef<
             {children}
         </div>
     );
-});
+};

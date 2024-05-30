@@ -26,71 +26,84 @@ export const Connection = observer(
         const [toPos, setToPos] = React.useState(defaultPosition);
         const { store } = React.useContext(StoreContext);
 
-        const outputElement = connection
-            ? store.portElements.get(connection.from.id)
-            : output
-              ? store.portElements.get(output.id)
-              : undefined;
-        const inputElement =
-            connection && store.portElements.get(connection.to.id);
-
         React.useEffect(() => {
-            if (outputElement && inputElement) {
-                return autorun(() => {
-                    if (connection) {
-                        const fromPosition = store.getNodeByPortId(
-                            connection.from.id
-                        )?.position;
-                        const toPosition = store.getNodeByPortId(
-                            connection.to.id
-                        )?.position;
+            return autorun(() => {
+                if (connection) {
+                    const outputElement = connection
+                        ? store.portElements.get(connection.from.id)
+                        : output
+                          ? store.portElements.get(output.id)
+                          : undefined;
 
-                        if (!fromPosition || !toPosition) {
-                            return;
-                        }
+                    const inputElement =
+                        connection && store.portElements.get(connection.to.id);
 
-                        const outputCartesian = fromCanvasCartesianPoint(
-                            fromPosition.x + NODE_POSITION_OFFSET_X,
-                            fromPosition.y
-                        );
-
-                        const inputCartesian = fromCanvasCartesianPoint(
-                            toPosition.x - NODE_POSITION_OFFSET_X,
-                            toPosition.y
-                        );
-
-                        const outputPortPosition = {
-                            x: outputCartesian.x,
-                            y: outputCartesian.y + outputElement.offsetTop
-                        };
-
-                        const inputPortPosition = {
-                            x: inputCartesian.x + inputElement.offsetLeft,
-                            y: inputCartesian.y + inputElement.offsetTop
-                        };
-
-                        const newFromPos = {
-                            x: outputPortPosition.x + OUTPUT_PORT_OFFSET_X,
-                            y: outputPortPosition.y + OUTPUT_PORT_OFFSET_Y
-                        };
-
-                        const newToPos = {
-                            x: inputPortPosition.x - INPUT_PORT_OFFSET_X,
-                            y: inputPortPosition.y + INPUT_PORT_OFFSET_Y
-                        };
-
-                        setFromPos(newFromPos);
-                        setToPos(newToPos);
-
-                        setPathString(quadraticCurve(newFromPos, newToPos));
+                    if (!outputElement || !inputElement) {
+                        return;
                     }
-                });
-            }
-        }, [outputElement, inputElement]);
+
+                    const fromPosition = store.getNodeByPortId(
+                        connection.from.id
+                    )?.position;
+                    const toPosition = store.getNodeByPortId(
+                        connection.to.id
+                    )?.position;
+
+                    if (!fromPosition || !toPosition) {
+                        return;
+                    }
+
+                    const outputCartesian = fromCanvasCartesianPoint(
+                        fromPosition.x + NODE_POSITION_OFFSET_X,
+                        fromPosition.y
+                    );
+
+                    const inputCartesian = fromCanvasCartesianPoint(
+                        toPosition.x - NODE_POSITION_OFFSET_X,
+                        toPosition.y
+                    );
+
+                    const outputPortPosition = {
+                        x: outputCartesian.x,
+                        y: outputCartesian.y + outputElement.offsetTop
+                    };
+
+                    const inputPortPosition = {
+                        x: inputCartesian.x + inputElement.offsetLeft,
+                        y: inputCartesian.y + inputElement.offsetTop
+                    };
+
+                    const newFromPos = {
+                        x: outputPortPosition.x + OUTPUT_PORT_OFFSET_X,
+                        y: outputPortPosition.y + OUTPUT_PORT_OFFSET_Y
+                    };
+
+                    const newToPos = {
+                        x: inputPortPosition.x - INPUT_PORT_OFFSET_X,
+                        y: inputPortPosition.y + INPUT_PORT_OFFSET_Y
+                    };
+
+                    setFromPos(newFromPos);
+                    setToPos(newToPos);
+
+                    setPathString(quadraticCurve(newFromPos, newToPos));
+                }
+            });
+        }, []);
 
         React.useEffect(() => {
-            if (output && outputElement) {
+            if (output) {
                 return autorun(() => {
+                    const outputElement = connection
+                        ? store.portElements.get(connection.from.id)
+                        : output
+                          ? store.portElements.get(output.id)
+                          : undefined;
+
+                    if (!outputElement) {
+                        return;
+                    }
+
                     const outputPosition = store.getNodeByPortId(
                         output.id
                     )?.position;
@@ -122,7 +135,7 @@ export const Connection = observer(
                     );
                 });
             }
-        }, [output, outputElement]);
+        }, [output]);
 
         const handleClick = React.useCallback(() => {
             if (connection) {

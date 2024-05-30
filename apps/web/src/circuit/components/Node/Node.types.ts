@@ -18,4 +18,5 @@ export type NodeActionProps = {
 export type NodePortsProps = {
     ports: Input<unknown>[] | Output<unknown>[];
     isOutputWrapper?: boolean;
+    windowActive: boolean;
 };
