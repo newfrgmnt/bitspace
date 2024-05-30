@@ -30,18 +30,19 @@ export const OscillatorWindow = observer(({ node }: { node: Oscillator }) => {
     }, [node]);
 
     const pendulumLength = 226 - 8;
+    const scale = 1 - ((value / amplitude) * 2 - 1);
 
     return (
         <NodeWindow>
             <div className="w-[226px] h-80 bg-cover bg-center flex flex-col items-center justify-center relative">
                 <SineWave
-                    phase={time * frequency * Math.PI}
+                    phase={time * frequency * Math.PI + Math.PI / 2}
                     frequency={frequency}
                 />
                 <motion.div
                     className="w-2 h-2 bg-black rounded-full absolute"
                     style={{
-                        y: `${(((value / amplitude) * 2 - 1) * pendulumLength) / 2}px`,
+                        y: `${(pendulumLength / 2) * (scale - 1)}px`,
                         x: '50%'
                     }}
                 />
