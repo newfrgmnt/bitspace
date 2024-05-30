@@ -16,14 +16,12 @@ export async function POST(req: NextRequest) {
         messages: [
             {
                 role: 'system',
-                content: `Everything after "---" is the "context". It is a JSON object with additional information that can be helpful. For example, if the prompt is "What color is this?" the context might be a JSON representation of RGB values. Try to interpret the context as much as possible.`
+                content: `Everything inside the triple-quotes is called a "context". It is a JSON object with additional information that can be helpful to contextualize and answer the prompt given. For example, if the prompt is "What color is this?" the context might be a JSON representation of RGB values.`
             },
             {
-                content: `${prompt}.
+                content: `${prompt}
 
----
-
-${JSON.stringify(context)}
+"""${JSON.stringify(context)}"""
 `,
                 name: 'User',
                 role: 'user'

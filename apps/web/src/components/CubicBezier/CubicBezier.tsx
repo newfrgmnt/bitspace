@@ -2,30 +2,33 @@ import { useEffect, useMemo, useState } from 'react';
 import Draggable, { DraggableProps } from 'react-draggable';
 
 export interface CubicBezierProps {
+    defaultinternalPoints?: [number, number, number, number];
     points: [number, number, number, number];
     size?: number;
-    onChange: (points: [number, number, number, number]) => void;
+    onChange: (internalPoints: [number, number, number, number]) => void;
 }
 
 export const CubicBezier = ({
-    points: controls,
+    defaultinternalPoints,
+    points,
     onChange,
     size = 222
 }: CubicBezierProps) => {
-    const [points, setPoints] =
-        useState<[number, number, number, number]>(controls);
+    const [internalPoints, setInternalPoints] = useState<
+        [number, number, number, number]
+    >(defaultinternalPoints ?? [0, 0, 1, 1]);
 
     const [xy1, xy2] = useMemo(() => {
-        const [x1, y1, x2, y2] = points;
+        const [x1, y1, x2, y2] = internalPoints;
 
         const xy1 = { x: x1 * size, y: size - y1 * size };
         const xy2 = { x: x2 * size, y: size - y2 * size };
 
         return [xy1, xy2];
-    }, [points]);
+    }, [internalPoints]);
 
     useEffect(() => {
-        onChange(points);
+        setInternalPoints(points);
     }, [points]);
 
     const subdivision = Math.round(size / 4);
@@ -95,24 +98,32 @@ export const CubicBezier = ({
             <ControlPoint
                 position={xy1}
                 onDrag={(e, data) => {
-                    setPoints(points => [
-                        data.x / size,
-                        1 - data.y / size,
-                        points[2],
-                        points[3]
-                    ]);
+                    setInternalPoints(internalPoints => {
+                        const p = [
+                            data.x / size,
+                            1 - data.y / size,
+                            internalPoints[2],
+                            internalPoints[3]
+                        ] as [number, number, number, number];
+                        onChange(p as [number, number, number, number]);
+                        return p;
+                    });
                 }}
                 editorSize={size}
             />
             <ControlPoint
                 position={xy2}
                 onDrag={(e, data) => {
-                    setPoints(points => [
-                        points[0],
-                        points[1],
-                        data.x / size,
-                        1 - data.y / size
-                    ]);
+                    setInternalPoints(internalPoints => {
+                        const p = [
+                            internalPoints[0],
+                            internalPoints[1],
+                            data.x / size,
+                            1 - data.y / size
+                        ] as [number, number, number, number];
+                        onChange(p as [number, number, number, number]);
+                        return p;
+                    });
                 }}
                 editorSize={size}
             />

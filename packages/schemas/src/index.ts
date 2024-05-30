@@ -45,9 +45,12 @@ export const NumberSchema = (...args: Parameters<typeof minMaxNumber>) =>
 
 export const EasingSchema = () =>
     z
-        .function()
-        .args(z.number().min(0).max(1))
-        .returns(z.number())
+        .tuple([
+            minMaxNumber(0, 1),
+            minMaxNumber(0, 1),
+            minMaxNumber(0, 1),
+            minMaxNumber(0, 1)
+        ])
         .describe('Easing');
 
 export const MeshSchema = () => z.instanceof(Mesh).describe('Mesh');

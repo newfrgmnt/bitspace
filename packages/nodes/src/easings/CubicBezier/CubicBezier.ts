@@ -1,24 +1,45 @@
-import { Node, Output } from '@bitspace/circuit';
-import { BehaviorSubject, Observable, map } from 'rxjs';
-import { cubicBezier } from 'framer-motion';
-import { EasingSchema } from '@bitspace/schemas';
+import { Input, Node, Output } from '@bitspace/circuit';
+import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { EasingSchema, minMaxNumber } from '@bitspace/schemas';
 import { NodeType } from '../../types';
 
 export class CubicBezier extends Node {
     static displayName = 'Cubic Bezier';
     static type = NodeType.CUBIC_BEZIER;
-    public curve: Observable<[number, number, number, number]> =
-        new BehaviorSubject([0.65, 0, 0.35, 1]);
 
-    inputs = {};
+    inputs = {
+        x1: new Input<number>({
+            name: 'X1',
+            type: minMaxNumber(0, 1),
+            defaultValue: 0.65
+        }),
+        y1: new Input<number>({
+            name: 'Y1',
+            type: minMaxNumber(0, 1),
+            defaultValue: 0
+        }),
+        x2: new Input<number>({
+            name: 'X2',
+            type: minMaxNumber(0, 1),
+            defaultValue: 0.35
+        }),
+        y2: new Input<number>({
+            name: 'Y2',
+            type: minMaxNumber(0, 1),
+            defaultValue: 1
+        })
+    };
 
     outputs = {
         easing: new Output({
             name: 'Easing',
             type: EasingSchema(),
-            observable: this.curve.pipe(
-                map(curve => cubicBezier.apply(this, curve))
-            )
+            observable: combineLatest([
+                this.inputs.x1,
+                this.inputs.y1,
+                this.inputs.x2,
+                this.inputs.y2
+            ])
         })
     };
 }

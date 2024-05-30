@@ -1,7 +1,8 @@
 import { Input, Node, Output } from '@bitspace/circuit';
-import { NumberSchema, EasingSchema } from '@bitspace/schemas';
+import { NumberSchema, EasingSchema, minMaxNumber } from '@bitspace/schemas';
 import { combineLatest, map } from 'rxjs';
 import { NodeType } from '../../types';
+import { cubicBezier } from 'framer-motion';
 
 export class Lerp extends Node {
     static displayName = 'Lerp';
@@ -20,13 +21,13 @@ export class Lerp extends Node {
         }),
         t: new Input({
             name: 'T',
-            type: NumberSchema(),
+            type: minMaxNumber(0, 1),
             defaultValue: 0.5
         }),
         easing: new Input({
             name: 'Easing',
             type: EasingSchema(),
-            defaultValue: (t: number) => t
+            defaultValue: [0.25, 0.1, 0.25, 1] as const
         })
     };
 
@@ -39,10 +40,15 @@ export class Lerp extends Node {
                 this.inputs.b,
                 this.inputs.t,
                 this.inputs.easing
-            ]).pipe(map(([a, b, t, easing]) => this.lerp(a, b, easing(t))))
+            ]).pipe(
+                map(([a, b, t, easing]) =>
+                    this.lerp(a, b, cubicBezier(...easing)(t))
+                )
+            )
         })
     };
 
+    /** Linear Interpolation */
     public lerp(a: number, b: number, t: number) {
         return a * (1 - t) + b * t;
     }

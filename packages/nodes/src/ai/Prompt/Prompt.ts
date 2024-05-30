@@ -20,6 +20,12 @@ export class Prompt extends Node {
         })
     };
 
+    constructor() {
+        super();
+
+        this.inputs.context.subscribe(console.log);
+    }
+
     outputs = {
         output: new Output({
             name: 'Output',
