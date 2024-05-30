@@ -1,33 +1,34 @@
 import { observer } from 'mobx-react-lite';
 import { NodeWindow } from '@/circuit/components/Node/Node';
-import { SynthesizedImage } from '../../../../packages/nodes/src/ai/SynthesizedImage/SynthesizedImage';
 import { useEffect, useState } from 'react';
-import { Spinner } from '@/components/Spinner/Spinner';
-import { Image, Oscillator } from '@bitspace/nodes';
-import { lerp } from '@/utils';
+import { Oscillator } from '@bitspace/nodes';
 import { motion } from 'framer-motion';
+import { combineLatest } from 'rxjs';
 
 export const OscillatorWindow = observer(({ node }: { node: Oscillator }) => {
-    const [value, setValue] = useState<number>(0);
-    const [amplitude, setAmplitude] = useState<number>(1);
-    const [frequency, setFrequency] = useState<number>(0);
-    const [time, setTime] = useState<number>(0);
+    const [oscillation, setOscillation] = useState<{
+        value: number;
+        amplitude: number;
+        frequency: number;
+        time: number;
+    }>({ value: 0, amplitude: 1, frequency: 0, time: 0 });
 
     useEffect(() => {
-        const outputSubscription = node.outputs.output.subscribe(setValue);
-        const amplitudeSubscription =
-            node.inputs.amplitude.subscribe(setAmplitude);
-        const frequencySubscription =
-            node.inputs.frequency.subscribe(setFrequency);
-        const timeSubscription = node.inputs.time.subscribe(setTime);
+        const aggregatedSubscription = combineLatest([
+            node.outputs.output,
+            node.inputs.amplitude,
+            node.inputs.frequency,
+            node.inputs.time
+        ]).subscribe(([value, amplitude, frequency, time]) =>
+            setOscillation({ value, amplitude, frequency, time })
+        );
 
         return () => {
-            outputSubscription.unsubscribe();
-            amplitudeSubscription.unsubscribe();
-            frequencySubscription.unsubscribe();
-            timeSubscription.unsubscribe();
+            aggregatedSubscription.unsubscribe();
         };
     }, [node]);
+
+    const { value, amplitude, frequency, time } = oscillation;
 
     const pendulumLength = 226 - 8;
     const scale = 1 - ((value / amplitude) * 2 - 1);
@@ -63,15 +64,14 @@ const SineWave = ({
     useEffect(() => {
         const generatePathData = () => {
             const size = 226; // Height of the SVG
-            const points = 226; // Number of points to plot
 
             let path = '';
-            for (let i = 0; i <= points; i++) {
-                const x = ((i / points) * size) / 2;
+            for (let i = 0; i <= size; i++) {
+                const x = ((i / size) * size) / 2;
                 const y =
                     size / 2 +
                     (size / 2) *
-                        Math.sin(Math.PI * (i / points) + phase * 2 + Math.PI);
+                        Math.sin(Math.PI * (i / size) + phase * 2 + Math.PI);
                 path += `${i === 0 ? 'M' : 'L'}${x},${y}`;
             }
             return path;
