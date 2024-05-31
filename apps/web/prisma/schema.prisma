@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider  = "prisma-client-js"
 }
 
 datasource db {
@@ -108,6 +108,7 @@ enum NodeType {
   FROM_HSL
   TO_RGB
   FROM_RGB
+  GRADIENT
   IMAGE
   WEBCAM
   IMAGE_VARIATION_AI

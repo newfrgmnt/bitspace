@@ -3,6 +3,7 @@ import { AnalogousHarmony } from './AnalogousHarmony/AnalogousHarmony';
 import { ComplementaryHarmony } from './ComplementaryHarmony/ComplementaryHarmony';
 import { FromHSV } from './FromHSV/FromHSV';
 import { FromRGB } from './FromRGB/FromRGB';
+import { Gradient } from './Gradient/Gradient';
 import { SquareHarmony } from './SquareHarmony/SquareHarmony';
 import { TetradicHarmony } from './TetradicHarmony/TetradicHarmony';
 import { ToHSV } from './ToHSV/ToHSV';
@@ -16,7 +17,8 @@ export const ColorNodes = [
     ComplementaryHarmony,
     FromHSV,
     ToHSV,
-    FromRGB
+    FromRGB,
+    Gradient
 ].sort((a, b) => a.displayName.localeCompare(b.displayName));
 
 export type ColorNode =
@@ -27,7 +29,8 @@ export type ColorNode =
     | ComplementaryHarmony
     | FromHSV
     | ToHSV
-    | FromRGB;
+    | FromRGB
+    | Gradient;
 
 export interface ColorNodeConstructor {
     new (): ColorNode;
@@ -42,5 +45,6 @@ export {
     ComplementaryHarmony,
     FromHSV,
     ToHSV,
-    FromRGB
+    FromRGB,
+    Gradient
 };

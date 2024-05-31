@@ -18,10 +18,11 @@ import { MeshWindow } from './MeshWindow';
 import { Mesh } from '../../../../packages/nodes/src/3d/Mesh/Mesh';
 import { ImageEditWindow } from './ImageEditWindow';
 import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
-import { Image, Oscillator } from '@bitspace/nodes';
+import { Gradient, Image, Oscillator } from '@bitspace/nodes';
 import { Webcam } from '@bitspace/nodes';
 import { WebcamWindow } from './WebcamWindow';
 import { OscillatorWindow } from './OscillatorWindow';
+import { GradientWindow } from './GradientWindow';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if (!('displayName' in node.constructor)) return <></>;
@@ -62,5 +63,7 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
             );
         case 'From HSV':
             return <HSVWindow node={node as FromHSV} />;
+        case 'Gradient':
+            return <GradientWindow node={node as Gradient} />;
     }
 };

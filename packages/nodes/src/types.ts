@@ -36,6 +36,7 @@ export enum NodeType {
     FROM_HSL = 'FROM_HSL',
     TO_RGB = 'TO_RGB',
     FROM_RGB = 'FROM_RGB',
+    GRADIENT = 'GRADIENT',
     IMAGE = 'IMAGE',
     WEBCAM = 'WEBCAM',
     IMAGE_VARIATION_AI = 'IMAGE_VARIATION_AI',

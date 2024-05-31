@@ -64,6 +64,7 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.TO_RGB]: 'Returns a RGB color from a given red, green & blue',
     [NodeType.TO_HSV]:
         'Returns a HSV color from a given hue, saturation & value',
+    [NodeType.GRADIENT]: 'Returns a gradient based on the input colors',
 
     [NodeType.IMAGE]: 'Returns an image from the given source URL',
     [NodeType.WEBCAM]: 'Returns a webcam stream',

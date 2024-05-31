@@ -1,13 +1,6 @@
 import { Input, Output } from '@bitspace/circuit';
 import { observer } from 'mobx-react-lite';
 import {
-    ColorSchema,
-    HSLSchema,
-    HSVSchema,
-    HexSchema,
-    RGBSchema
-} from '@bitspace/schemas';
-import {
     ChangeEventHandler,
     FocusEventHandler,
     useCallback,
@@ -15,16 +8,10 @@ import {
     useMemo,
     useState
 } from 'react';
-import { z } from 'zod';
 import { hsv2rgb } from '../../ColorPicker/ColorPicker.utils';
-import { hex, hsl, rgb } from 'color-convert';
+import { hsl, rgb } from 'color-convert';
 import clsx from 'clsx';
-
-export type HexColorSchemaType = z.infer<ReturnType<typeof HexSchema>>;
-export type RGBColorSchemaType = z.infer<ReturnType<typeof RGBSchema>>;
-export type HSLColorSchemaType = z.infer<ReturnType<typeof HSLSchema>>;
-export type HSVColorSchemaType = z.infer<ReturnType<typeof HSVSchema>>;
-type ColorSchemaType = z.infer<ReturnType<typeof ColorSchema>>;
+import { ColorSchemaType, resolveColor } from '@/utils';
 
 export interface ColorControlProps<T extends ColorSchemaType> {
     port: Input<T> | Output<T>;
@@ -67,51 +54,20 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
         return '#000000';
     }, [color]);
 
-    const resolveColor = useCallback(
-        (v: string): T => {
-            if (typeof color === 'object') {
-                if ('red' in color) {
-                    const [red, green, blue] = hex.rgb(v);
-
-                    return RGBSchema().parse({
-                        red,
-                        green,
-                        blue
-                    }) as T;
-                } else if ('hue' in color && 'luminance' in color) {
-                    const [hue, saturation, luminance] = hex.hsl(v);
-
-                    return HSLSchema().parse({
-                        hue,
-                        saturation: saturation / 100,
-                        luminance: luminance / 100
-                    }) as T;
-                } else {
-                    const [hue, saturation, value] = hex.hsv(v);
-
-                    return HSVSchema().parse({
-                        hue,
-                        saturation: saturation / 100,
-                        value: value / 100
-                    }) as T;
-                }
-            } else {
-                return HexSchema().parse(v) as T;
-            }
-        },
-        [color]
-    );
-
     const handleBlur: FocusEventHandler<HTMLInputElement> = useCallback(
         e => {
-            onBlur?.(resolveColor(e.target.value));
+            if (color) {
+                onBlur?.(resolveColor(e.target.value, color));
+            }
         },
         [onBlur, color]
     );
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
         e => {
-            port.next(resolveColor(e.target.value));
+            if (color) {
+                port.next(resolveColor(e.target.value, color));
+            }
         },
         [port, color]
     );

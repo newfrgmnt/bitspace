@@ -7,10 +7,12 @@ export const HSVWindow = ({ node }: { node: FromHSV }) => {
     const [rgb, setRgb] = useState<[number, number, number]>([0, 0, 0]);
 
     useEffect(() => {
-        node.inputs.color.subscribe(hsv => {
+        const subscription = node.inputs.color.subscribe(hsv => {
             const rgb = hsv2rgb(hsv.hue, hsv.saturation, hsv.value);
             setRgb(rgb);
         });
+
+        return () => subscription.unsubscribe();
     }, [node]);
 
     const [r, g, b] = rgb;
