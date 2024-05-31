@@ -41,9 +41,9 @@ const CircuitModule = ({ circuit }: { circuit: ExtendedNode }) => {
         );
 
     return (
-        <div className="flex flex-row items-center gap-x-3 focus-within:bg-white focus-within:shadow-2xl hover:bg-white hover:shadow-2xl transition-all pr-3 pl-6 py-2 rounded-full">
+        <div className="flex flex-row items-center gap-x-2 focus-within:bg-white focus-within:shadow-2xl hover:bg-white hover:shadow-2xl transition-all pr-3 pl-6 py-2 rounded-full">
             <h3
-                className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none text-lg"
+                className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none"
                 spellCheck="false"
                 onBlur={updateCircuitName}
                 contentEditable
