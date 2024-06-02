@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { ColorSchema, minMaxNumber } from '.';
+import { ColorSchema, HSVSchema, minMaxNumber } from '.';
 
 const GradientType = z.enum(['linear', 'radial', 'conic']);
 
 const ColorStop = z.object({
-    color: ColorSchema(),
+    color: HSVSchema(),
     position: minMaxNumber(0, 1)
 });
 

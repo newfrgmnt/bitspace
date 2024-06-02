@@ -1,6 +1,11 @@
 import { NodeType } from '../../types';
 import { Input, Node, Output } from '@bitspace/circuit';
-import { ColorSchema, GradientSchema, minMaxNumber } from '@bitspace/schemas';
+import {
+    ColorSchema,
+    GradientSchema,
+    HSVSchema,
+    minMaxNumber
+} from '@bitspace/schemas';
 import { combineLatest, map } from 'rxjs';
 
 export class Gradient extends Node {
@@ -10,20 +15,20 @@ export class Gradient extends Node {
     inputs = {
         a: new Input({
             name: 'A',
-            type: ColorSchema(),
+            type: HSVSchema(),
             defaultValue: {
-                red: 0,
-                green: 0,
-                blue: 0
+                hue: 0,
+                saturation: 0.5,
+                value: 1
             }
         }),
         b: new Input({
             name: 'B',
-            type: ColorSchema(),
+            type: HSVSchema(),
             defaultValue: {
-                red: 0,
-                green: 0,
-                blue: 0
+                hue: 180,
+                saturation: 0.5,
+                value: 1
             }
         }),
         angle: new Input({
