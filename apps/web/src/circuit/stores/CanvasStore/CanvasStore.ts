@@ -10,7 +10,7 @@ import { fromCanvasCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Position, Size, StoreProviderValue } from './CanvasStore.types';
 
 export class CanvasStore {
-    /** Associated Nodes */
+    /** Associated Circuit */
     public circuit: Circuit;
     /** Associated Node Elements */
     public nodeElements: Map<Node['id'], HTMLDivElement> = new Map();

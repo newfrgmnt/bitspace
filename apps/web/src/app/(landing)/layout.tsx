@@ -1,7 +1,18 @@
+import { createClient } from '@/supabase/server';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
+    const supabase = createClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+
+    if (user) {
+        redirect('/dashboard');
+    }
+
     return (
         <div className="flex flex-col items-center h-screen overflow-y-auto">
             <div className="flex flex-col items-center w-full h-fit px-8 py-12 md:p-24 gap-y-24">
