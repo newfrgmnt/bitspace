@@ -1,4 +1,4 @@
-import { Node, Circuit, Input } from '@bitspace/circuit';
+import { Node, Circuit, Input, Output } from '@bitspace/circuit';
 import { AnySchema } from '@bitspace/schemas';
 import { Subscription } from 'rxjs';
 import { NodeType } from '../../types';
@@ -20,7 +20,7 @@ export class CircuitOutputs extends Node {
         })
     };
     /** Outputs */
-    outputs = {};
+    outputs: Record<string, Output> = {};
 
     constructor(circuit: Circuit) {
         super();

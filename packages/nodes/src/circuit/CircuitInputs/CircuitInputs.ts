@@ -1,5 +1,5 @@
 import { NodeType } from '../../types';
-import { Circuit, Output, Node } from '@bitspace/circuit';
+import { Circuit, Output, Node, Input } from '@bitspace/circuit';
 
 export class CircuitInputs extends Node {
     /** Display Name */
@@ -8,13 +8,14 @@ export class CircuitInputs extends Node {
     static type = NodeType.CIRCUIT_INPUTS;
 
     /** Inputs */
-    inputs = {};
+    inputs: Record<string, Input> = {};
     /** Outputs */
-    outputs = {};
+    outputs: Record<string, Output> = {};
 
     constructor(circuit: Circuit) {
         super();
 
+        // @ts-ignore
         this.outputs = [...Object.values(circuit.inputs)].map(input => {
             const output = new Output({
                 name: input.name,
