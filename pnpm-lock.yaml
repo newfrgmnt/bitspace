@@ -63,8 +63,8 @@ importers:
         specifier: ^5.15.2
         version: 5.15.18(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
       '@polar-sh/sdk':
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^0.5.2
+        version: 0.5.2
       '@prisma/client':
         specifier: 5.9.1
         version: 5.9.1(prisma@5.14.0)
@@ -1916,8 +1916,8 @@ packages:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  /@polar-sh/sdk@0.5.0:
-    resolution: {integrity: sha512-dJehniSnYMqRDuAK84SV3nPFv1hp8fowmBkSP9gv86i5y9G5R7kRb4+H+HbfmK7a3Jh76LaebYRbGCPSQ6sGaA==}
+  /@polar-sh/sdk@0.5.2:
+    resolution: {integrity: sha512-+hV+GZdqJ6kx1lYl4/wq7WSOKTvgn0RBThCgiskXEAKefICGx3cBcycx82P7YxTox0tgNOU/BXv0qNjsz7hIRg==}
     dev: false
 
   /@popperjs/core@2.11.8:
