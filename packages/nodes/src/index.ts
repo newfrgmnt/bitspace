@@ -9,6 +9,7 @@ import {
     PrimitiveNodes,
     PrimitiveNode
 } from './primitives';
+import { CircuitNodes, CircuitNodeConstructor, CircuitNode } from './circuit';
 
 export * from './math';
 export * from './easings';
@@ -27,7 +28,8 @@ export type Nodes =
     | EasingNode
     | MathNode
     | ThreeDNode
-    | UtilityNode;
+    | UtilityNode
+    | CircuitNode;
 
 export type NodeConstructor =
     | PrimitiveNodeConstructor
@@ -36,7 +38,8 @@ export type NodeConstructor =
     | EasingNodeConstructor
     | MathNodeConstructor
     | ThreeDNodeConstructor
-    | UtiliyNodeConstructor;
+    | UtiliyNodeConstructor
+    | CircuitNodeConstructor;
 
 // Node Groups
 export const NodeGroups = [
@@ -67,6 +70,10 @@ export const NodeGroups = [
     {
         name: 'Utility',
         nodes: UtilityNodes
+    },
+    {
+        name: 'Circuit',
+        nodes: CircuitNodes
     }
 ] as const;
 
@@ -77,5 +84,6 @@ export const NodeConstructors: NodeConstructor[] = [
     ...MathNodes,
     ...EasingNodes,
     ...ColorNodes,
-    ...UtilityNodes
+    ...UtilityNodes,
+    ...CircuitNodes
 ];

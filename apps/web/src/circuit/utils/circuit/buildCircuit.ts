@@ -40,7 +40,7 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
 
         if (!nodeConstructor) continue;
 
-        const node = new nodeConstructor();
+        const node = new nodeConstructor(circuit);
 
         node.id = child.id;
         node.position = { x: child.position.x, y: child.position.y };

@@ -2,14 +2,14 @@ import { Input, Output } from '@bitspace/circuit';
 import { observer } from 'mobx-react-lite';
 import { NumberControl } from '../NumberControl/NumberControl';
 import { StringControl } from '../StringControl/StringControl';
+import { ColorControl } from '../ColorControl/ColorControl';
+import { BooleanControl } from '../BooleanControl/BooleanControl';
 import {
-    ColorControl,
     HSLColorSchemaType,
     HSVColorSchemaType,
     HexColorSchemaType,
     RGBColorSchemaType
-} from '../ColorControl/ColorControl';
-import { BooleanControl } from '../BooleanControl/BooleanControl';
+} from '@/utils';
 
 export interface ControlProps {
     port: Input | Output;
@@ -28,6 +28,7 @@ export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
                 />
             );
         case 'String':
+        case 'URL':
             return (
                 <StringControl
                     port={port}

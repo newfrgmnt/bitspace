@@ -3,7 +3,8 @@ import { NodeType } from './types';
 export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.CIRCUIT]: 'A representation of a nested Circuit graph',
     [NodeType.CIRCUIT_INPUTS]: 'Accessors for the input values of the Circuit',
-    [NodeType.CIRCUIT_OUTPUT]: 'Accessors for the output values of the Circuit',
+    [NodeType.CIRCUIT_OUTPUTS]:
+        'Accessors for the output values of the Circuit',
 
     [NodeType.CONSOLE]: 'Serializes the input to JSON & logs it to the console',
     [NodeType.LERP]:

@@ -62,7 +62,7 @@ export const Menu = ({ onClose }: MenuProps) => {
         ];
 
         if (matchingNode) {
-            const node = new matchingNode();
+            const node = new matchingNode(store.circuit);
             node.position = toCanvasCartesianPoint(
                 store.canvasMidpoint.x - NODE_CENTER,
                 store.canvasMidpoint.y - 200
