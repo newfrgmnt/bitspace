@@ -25,6 +25,8 @@ export const ImageSchema = () =>
 export const MediaStreamSchema = () =>
     z.instanceof(MediaStream).describe('Media Stream');
 
+export const GamepadSchema = () => z.instanceof(Gamepad).describe('Gamepad');
+
 export const NumberSchema = (...args: Parameters<typeof minMaxNumber>) =>
     minMaxNumber(...args).describe('Number');
 
@@ -39,6 +41,33 @@ export const EasingSchema = () =>
         .describe('Easing');
 
 export const MeshSchema = () => z.instanceof(Mesh).describe('Mesh');
+
+export const Vector2Schema = (...args: Parameters<typeof minMaxNumber>) =>
+    z
+        .object({
+            x: minMaxNumber(...args),
+            y: minMaxNumber(...args)
+        })
+        .describe('2D Vector');
+
+export const Vector3Schema = (...args: Parameters<typeof minMaxNumber>) =>
+    z
+        .object({
+            x: minMaxNumber(...args),
+            y: minMaxNumber(...args),
+            z: minMaxNumber(...args)
+        })
+        .describe('3D Vector');
+
+export const Vector4Schema = (...args: Parameters<typeof minMaxNumber>) =>
+    z
+        .object({
+            x: minMaxNumber(...args),
+            y: minMaxNumber(...args),
+            z: minMaxNumber(...args),
+            w: minMaxNumber(...args)
+        })
+        .describe('4D Vector');
 
 export * from './utility';
 export * from './color';

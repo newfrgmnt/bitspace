@@ -39,6 +39,7 @@ export enum NodeType {
     GRADIENT = 'GRADIENT',
     IMAGE = 'IMAGE',
     WEBCAM = 'WEBCAM',
+    GAMEPAD = 'GAMEPAD',
     IMAGE_VARIATION_AI = 'IMAGE_VARIATION_AI',
     PROMPT_AI = 'PROMPT_AI',
     CIRCUIT = 'CIRCUIT',

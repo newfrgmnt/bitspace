@@ -69,6 +69,7 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
 
     [NodeType.IMAGE]: 'Returns an image from the given source URL',
     [NodeType.WEBCAM]: 'Returns a webcam stream',
+    [NodeType.GAMEPAD]: 'Returns states from a connected gamepad',
     [NodeType.SYNTHESIZED_IMAGE]: 'Returns an image based on the input prompt',
     [NodeType.IMAGE_EDIT_AI]:
         'Returns a new image based on the input image, a given instruction prompt & a mask with transparent area to replace',

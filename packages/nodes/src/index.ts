@@ -10,6 +10,11 @@ import {
     PrimitiveNode
 } from './primitives';
 import { CircuitNodes, CircuitNodeConstructor, CircuitNode } from './circuit';
+import {
+    InterfaceNode,
+    InterfaceNodeConstructor,
+    InterfaceNodes
+} from './interface';
 
 export * from './math';
 export * from './easings';
@@ -18,10 +23,12 @@ export * from './color';
 export * from './ai';
 export * from './3d';
 export * from './primitives';
+export * from './interface';
 
 export * from './types';
 
 export type Nodes =
+    | InterfaceNode
     | PrimitiveNode
     | AINode
     | ColorNode
@@ -32,6 +39,7 @@ export type Nodes =
     | CircuitNode;
 
 export type NodeConstructor =
+    | InterfaceNodeConstructor
     | PrimitiveNodeConstructor
     | AINodeConstructor
     | ColorNodeConstructor
@@ -48,12 +56,12 @@ export const NodeGroups = [
         nodes: PrimitiveNodes
     },
     {
-        name: 'Artificial Intelligence',
-        nodes: AINodes
-    },
-    {
         name: 'Math',
         nodes: MathNodes
+    },
+    {
+        name: 'Interface',
+        nodes: InterfaceNodes
     },
     {
         name: '3D',
@@ -68,6 +76,10 @@ export const NodeGroups = [
         nodes: ColorNodes
     },
     {
+        name: 'Artificial Intelligence',
+        nodes: AINodes
+    },
+    {
         name: 'Utility',
         nodes: UtilityNodes
     },
@@ -78,6 +90,7 @@ export const NodeGroups = [
 ] as const;
 
 export const NodeConstructors: NodeConstructor[] = [
+    ...InterfaceNodes,
     ...PrimitiveNodes,
     ...AINodes,
     ...ThreeDNodes,
