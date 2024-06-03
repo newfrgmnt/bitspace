@@ -1,5 +1,5 @@
 import { Node, Input, Output } from '@bitspace/circuit';
-import { map } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 
 import { NumberSchema } from '@bitspace/schemas';
 import { NodeType } from '../../types';
@@ -13,6 +13,11 @@ export class Round extends Node {
             name: 'Input',
             type: NumberSchema(),
             defaultValue: 0
+        }),
+        decimals: new Input({
+            name: 'Decimals',
+            type: NumberSchema(),
+            defaultValue: 0
         })
     };
 
@@ -20,7 +25,16 @@ export class Round extends Node {
         output: new Output({
             name: 'Output',
             type: NumberSchema(),
-            observable: this.inputs.input.pipe(map(input => Math.round(input)))
+            observable: combineLatest([
+                this.inputs.input,
+                this.inputs.decimals
+            ]).pipe(
+                map(([input, decimals]) =>
+                    decimals === 0
+                        ? Math.round(input)
+                        : Number(input.toFixed(decimals))
+                )
+            )
         })
     };
 }

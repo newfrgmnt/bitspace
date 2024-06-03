@@ -69,6 +69,15 @@ export const Vector4Schema = (...args: Parameters<typeof minMaxNumber>) =>
         })
         .describe('4D Vector');
 
+export const VectorSchema = (...args: Parameters<typeof minMaxNumber>) =>
+    z
+        .union([
+            Vector2Schema(...args),
+            Vector3Schema(...args),
+            Vector4Schema(...args)
+        ])
+        .describe('Vector');
+
 export * from './utility';
 export * from './color';
 export * from './gradient';

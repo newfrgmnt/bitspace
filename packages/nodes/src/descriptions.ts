@@ -81,5 +81,7 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.GEOMETRY_3D]:
         'Constrcuts a Geometry which can be used to build a Mesh',
     [NodeType.MESH_3D]: 'Constructs a 3D Mesh',
-    [NodeType.RENDERER_3D]: 'Renders a given Mesh to a WebGL Context'
+    [NodeType.RENDERER_3D]: 'Renders a given Mesh to a WebGL Context',
+    [NodeType.FROM_VECTOR]:
+        'Returns the individual components of a given Vector'
 };

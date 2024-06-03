@@ -27,7 +27,7 @@ export class Lerp extends Node {
         easing: new Input({
             name: 'Easing',
             type: EasingSchema(),
-            defaultValue: [0.25, 0.1, 0.25, 1] as const
+            defaultValue: [0, 0, 1, 1] as const
         })
     };
 
