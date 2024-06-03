@@ -21,7 +21,7 @@ export class Lerp extends Node {
         }),
         t: new Input({
             name: 'T',
-            type: minMaxNumber(0, 1),
+            type: NumberSchema(0, 1),
             defaultValue: 0.5
         }),
         easing: new Input({
