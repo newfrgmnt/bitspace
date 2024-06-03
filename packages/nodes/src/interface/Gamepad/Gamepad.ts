@@ -39,7 +39,7 @@ export class Gamepad extends Node {
     public extractAxis(analog: 'left' | 'right') {
         return (gamepad: globalThis.Gamepad) => {
             const [x, y] = gamepad.axes.slice.call(
-                null,
+                gamepad.axes,
                 ...(analog === 'left' ? [0, 2] : [2, 4])
             );
             return { x: x ?? 0, y: y ?? 0 };
