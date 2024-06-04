@@ -5,7 +5,7 @@ describe('Logarithm2', () => {
         const logarithm2 = new Logarithm2();
 
         expect(typeof logarithm2.id).toEqual('string');
-        expect(logarithm2.name).toEqual('Logarithm2');
+        expect(logarithm2.name).toEqual('Logarithm 2');
         expect(logarithm2.inputs.input).toBeDefined();
         expect(logarithm2.outputs.output).toBeDefined();
     });
