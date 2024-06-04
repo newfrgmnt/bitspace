@@ -5,6 +5,7 @@ import { NodeConstructor, NodeData } from './Node.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
+import { CompleteNotification, ReplaySubject, Subject } from 'rxjs';
 
 export abstract class Node<TData extends NodeData = NodeData> {
     /** Identifier */
@@ -19,6 +20,8 @@ export abstract class Node<TData extends NodeData = NodeData> {
     public data: TData = {} as TData;
     /** Node Position */
     public position = { x: 0, y: 0 };
+    /** Dispose Signal */
+    public disposeSignal$: Subject<void> = new Subject<void>();
 
     /** Node Display Name */
     public static displayName: string = '';
@@ -39,8 +42,12 @@ export abstract class Node<TData extends NodeData = NodeData> {
     /** Associated connections */
     public get connections() {
         return [...Object.values(this.inputs), ...Object.values(this.outputs)]
-            .flatMap(port => ('connection' in port ? [port.connection] : port.connections))
-            .filter((connection): connection is Connection<unknown> => Boolean(connection));
+            .flatMap(port =>
+                'connection' in port ? [port.connection] : port.connections
+            )
+            .filter((connection): connection is Connection<unknown> =>
+                Boolean(connection)
+            );
     }
 
     /** Set Position */
@@ -55,6 +62,9 @@ export abstract class Node<TData extends NodeData = NodeData> {
 
     /** Disposes the Node */
     public dispose(): void {
+        this.disposeSignal$.next();
+        this.disposeSignal$.complete();
+
         for (const input of Object.values(this.inputs)) {
             input.dispose();
         }
@@ -66,7 +76,9 @@ export abstract class Node<TData extends NodeData = NodeData> {
 
     /** Returns the Node Name from the constructor */
     public get name(): string {
-        return this._name.length ? this._name : (this.constructor as NodeConstructor).displayName;
+        return this._name.length
+            ? this._name
+            : (this.constructor as NodeConstructor).displayName;
     }
 
     /** Returns the Node Name from the constructor */

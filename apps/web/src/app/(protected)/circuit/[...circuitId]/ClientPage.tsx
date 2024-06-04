@@ -1,7 +1,7 @@
 'use client';
 
 import posthog from 'posthog-js';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { moveNode } from '@/server/mutations/moveNode';
 import { removeNode } from '@/server/mutations/removeNode';
@@ -63,6 +63,9 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
 };
 
 const useCircuitPage = (circuit: ExtendedNode) => {
+    const [canvasStore, setCanvasStore] = useState<CanvasStore | undefined>(
+        undefined
+    );
     const [menuOpen, setMenuOpen] = useState(false);
 
     useHotkeys(
@@ -96,14 +99,18 @@ const useCircuitPage = (circuit: ExtendedNode) => {
         []
     );
 
-    const canvasStore = useMemo(() => {
+    useEffect(() => {
         if (!circuit) return;
 
         const c = buildCircuit(circuit);
         const store = c ? new CanvasStore(c) : undefined;
 
-        return store;
-    }, [circuit, buildCircuit]);
+        setCanvasStore(store);
+
+        return () => {
+            store?.dispose();
+        };
+    }, [circuit]);
 
     const onNodeMoveStop = useCallback(() => {
         for (const selectedNode of canvasStore?.selectedNodes ?? []) {

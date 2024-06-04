@@ -60,4 +60,13 @@ export class Circuit extends Node {
 
         return this;
     }
+
+    /** Dispose all Circuit resources */
+    public dispose(): void {
+        for (const node of this.nodes) {
+            node.dispose();
+        }
+
+        super.dispose();
+    }
 }

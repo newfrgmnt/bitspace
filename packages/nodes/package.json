@@ -15,7 +15,7 @@
     "main": "./src/index.ts",
     "scripts": {
         "lint": "eslint . --max-warnings 0",
-        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles"
     },
     "devDependencies": {
         "@bitspace/eslint-config": "workspace:*",

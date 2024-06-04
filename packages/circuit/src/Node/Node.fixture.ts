@@ -1,4 +1,4 @@
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, interval, map, takeUntil } from 'rxjs';
 import { z } from 'zod';
 
 import { Input } from '../Input/Input';
@@ -21,6 +21,33 @@ export class Addition extends Node {
             type: NumberSchema(),
             observable: combineLatest([this.inputs.a, this.inputs.b]).pipe(
                 map(inputs => inputs.reduce((sum, value) => sum + value), 0)
+            )
+        })
+    };
+}
+
+export class Timer extends Node {
+    static displayName = 'Timer';
+
+    public startTime = Date.now();
+
+    inputs = {};
+
+    outputs = {
+        milliseconds: new Output({
+            name: 'Milliseconds',
+            type: NumberSchema(),
+            observable: interval(1000 / 60).pipe(
+                takeUntil(this.disposeSignal$),
+                map(() => Date.now() - this.startTime)
+            )
+        }),
+        seconds: new Output({
+            name: 'Seconds',
+            type: NumberSchema(),
+            observable: interval(1000 / 60).pipe(
+                takeUntil(this.disposeSignal$),
+                map(() => (Date.now() - this.startTime) / 1000)
             )
         })
     };

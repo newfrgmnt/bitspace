@@ -1,4 +1,4 @@
-import { Addition } from '../Node/Node.fixture';
+import { Addition, Timer } from '../Node/Node.fixture';
 
 describe('Connection', () => {
     it('should transfer values', () => {
@@ -37,8 +37,29 @@ describe('Connection', () => {
         expect(spy).not.toHaveBeenCalledWith(500);
         expect(connection.closed).toBeTruthy();
         expect(connection.subscription.closed).toBeTruthy();
-        expect(node1.outputs.output.connections.includes(connection)).toBeFalsy();
+        expect(
+            node1.outputs.output.connections.includes(connection)
+        ).toBeFalsy();
         expect(node2.inputs.a.connection === connection).toBeFalsy();
+    });
+
+    it('should dispose timers properly', () => {
+        const node1 = new Timer();
+        const node2 = new Addition();
+
+        const connection = node1.outputs.seconds.connect(node2.inputs.a);
+
+        const spy = jest.fn();
+
+        connection.dispose();
+
+        expect(connection.closed).toBeTruthy();
+        expect(
+            node1.outputs.seconds.connections.includes(connection)
+        ).toBeFalsy();
+        expect(node2.inputs.a.connection === connection).toBeFalsy();
+
+        node1.dispose();
     });
 
     it('should allow attempted connections on occupied inputs', () => {
@@ -49,7 +70,9 @@ describe('Connection', () => {
         const connection = node1.outputs.output.connect(node3.inputs.a);
         const spy = jest.spyOn(connection, 'dispose');
 
-        expect(() => node2.outputs.output.connect(node3.inputs.a)).not.toThrow();
+        expect(() =>
+            node2.outputs.output.connect(node3.inputs.a)
+        ).not.toThrow();
         expect(spy).toBeCalled();
     });
 });

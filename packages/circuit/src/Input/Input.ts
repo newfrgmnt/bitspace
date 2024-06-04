@@ -44,6 +44,7 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
 
     /** Disposes the Input */
     public dispose(): void {
+        this.complete();
         this.connection?.dispose();
         this.connection = null;
 

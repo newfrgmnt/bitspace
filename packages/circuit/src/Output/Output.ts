@@ -1,5 +1,13 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { Observable, ReplaySubject, Subscription } from 'rxjs';
+import {
+    CompleteNotification,
+    Observable,
+    ObservableNotification,
+    ReplaySubject,
+    Subject,
+    Subscription,
+    takeUntil
+} from 'rxjs';
 import { v4 as uuid } from 'uuid';
 
 import { Connection } from '../Connection/Connection';
@@ -14,10 +22,6 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
     public name: string;
     /** Type */
     public type: z.ZodType<TValue, any, any>;
-    /** Compute operation */
-    public observable: Observable<TValue>;
-    /** Value Operator subscription */
-    public subscription: Subscription;
     /** Associated Connections */
     public connections: Connection<TValue>[];
     /** Optional Loading State */
@@ -28,16 +32,13 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
 
         this.name = props.name || 'Untitled';
         this.type = props.type;
-        this.observable = props.observable;
-        this.subscription = this.observable.subscribe(this);
+        props.observable.subscribe(this);
         this.connections = [];
 
         makeObservable(this, {
             id: observable,
             name: observable,
             type: observable,
-            observable: observable,
-            subscription: observable,
             connections: observable,
             loading: observable,
             connected: computed,
@@ -79,7 +80,6 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
 
         this.connections = [];
 
-        this.subscription.unsubscribe();
         this.unsubscribe();
     }
 

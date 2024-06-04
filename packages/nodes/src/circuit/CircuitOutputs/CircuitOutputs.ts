@@ -25,8 +25,8 @@ export class CircuitOutputs extends Node {
     constructor(circuit: Circuit) {
         super();
 
-        this.subscription = this.inputs.output.subscribe(value =>
-            circuit.outputs.output.next(value)
+        this.subscription = this.inputs.output.subscribe(
+            circuit.outputs.output
         );
     }
 

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import { Addition, NumberSchema } from '../Node/Node.fixture';
 
@@ -10,8 +10,7 @@ describe('Output', () => {
         expect(typeof output.id).toEqual('string');
         expect(output.name).toEqual('Output');
         expect(output.type.description).toEqual(NumberSchema().description);
-        expect(output.observable instanceof Observable).toBeTruthy();
-        expect(output.subscription).toBeDefined();
+        expect(output instanceof ReplaySubject).toBeTruthy();
         expect(output.connected).toBeFalsy();
         expect(output.connections.length).toEqual(0);
     });
@@ -21,7 +20,7 @@ describe('Output', () => {
 
         const observableSpy = jest.fn();
         const subjectSpy = jest.fn();
-        addition.outputs.output.observable.subscribe(observableSpy);
+        addition.outputs.output.subscribe(observableSpy);
         addition.outputs.output.subscribe(subjectSpy);
 
         expect(observableSpy).toHaveBeenLastCalledWith(0);
@@ -63,13 +62,11 @@ describe('Output', () => {
 
         const inputARef = addition.inputs.a;
         expect(addition.outputs.output.closed).toBeFalsy();
-        expect(addition.outputs.output.subscription.closed).toBeFalsy();
 
         addition.dispose();
 
         expect(() => inputARef.next(200)).toThrow();
         expect(spy).not.toHaveBeenCalledWith(200);
-        expect(addition.outputs.output.subscription.closed).toBeTruthy();
         expect(addition.outputs.output.closed).toBeTruthy();
     });
 });

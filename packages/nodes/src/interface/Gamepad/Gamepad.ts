@@ -9,7 +9,9 @@ import {
     fromEvent,
     interval,
     map,
-    switchMap
+    switchMap,
+    takeUntil,
+    tap
 } from 'rxjs';
 
 export class Gamepad extends Node {
@@ -17,6 +19,8 @@ export class Gamepad extends Node {
     static type = NodeType.GAMEPAD;
 
     gamepad$ = fromEvent(window, 'gamepadconnected').pipe(
+        takeUntil(this.disposeSignal$),
+        takeUntil(fromEvent(window, 'gamepaddisconnected')),
         switchMap(this.initializeGamepad.bind(this))
     );
 
