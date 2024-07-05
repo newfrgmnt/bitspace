@@ -76,5 +76,7 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.IMAGE_VARIATION_AI]:
         'Returns a new image based on the input image & a given instruction prompt',
     [NodeType.PROMPT_AI]: 'Returns text based on the input prompt',
-    [NodeType.VISION]: 'Returns text based on the input image'
+    [NodeType.VISION]: 'Returns text based on the input image',
+    [NodeType.FROM_VECTOR]:
+        'Returns the individual components of a given Vector'
 };

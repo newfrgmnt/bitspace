@@ -39,9 +39,6 @@ export const EasingSchema = () =>
         ])
         .describe('Easing');
 
-<<<<<<< HEAD
-export const MeshSchema = () => z.instanceof(Mesh).describe('Mesh');
-
 export const Vector2Schema = (...args: Parameters<typeof minMaxNumber>) =>
     z
         .object({
@@ -78,8 +75,6 @@ export const VectorSchema = (...args: Parameters<typeof minMaxNumber>) =>
         ])
         .describe('Vector');
 
-=======
->>>>>>> 7dcc164 (remove 3d capabiltities)
 export * from './utility';
 export * from './color';
 export * from './gradient';

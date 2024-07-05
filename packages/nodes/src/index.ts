@@ -56,17 +56,10 @@ export const NodeGroups = [
         nodes: MathNodes
     },
     {
-<<<<<<< HEAD
         name: 'Interface',
         nodes: InterfaceNodes
     },
     {
-        name: '3D',
-        nodes: ThreeDNodes
-    },
-    {
-=======
->>>>>>> 7dcc164 (remove 3d capabiltities)
         name: 'Easing',
         nodes: EasingNodes
     },
