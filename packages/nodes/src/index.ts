@@ -3,7 +3,6 @@ import { EasingNode, EasingNodeConstructor, EasingNodes } from './easings';
 import { UtilityNodes, UtiliyNodeConstructor, UtilityNode } from './utilities';
 import { ColorNode, ColorNodeConstructor, ColorNodes } from './color';
 import { AINode, AINodeConstructor, AINodes } from './ai';
-import { ThreeDNode, ThreeDNodeConstructor, ThreeDNodes } from './3d';
 import {
     PrimitiveNodeConstructor,
     PrimitiveNodes,
@@ -21,7 +20,6 @@ export * from './easings';
 export * from './utilities';
 export * from './color';
 export * from './ai';
-export * from './3d';
 export * from './primitives';
 export * from './interface';
 
@@ -34,7 +32,6 @@ export type Nodes =
     | ColorNode
     | EasingNode
     | MathNode
-    | ThreeDNode
     | UtilityNode
     | CircuitNode;
 
@@ -45,7 +42,6 @@ export type NodeConstructor =
     | ColorNodeConstructor
     | EasingNodeConstructor
     | MathNodeConstructor
-    | ThreeDNodeConstructor
     | UtiliyNodeConstructor
     | CircuitNodeConstructor;
 
@@ -60,6 +56,7 @@ export const NodeGroups = [
         nodes: MathNodes
     },
     {
+<<<<<<< HEAD
         name: 'Interface',
         nodes: InterfaceNodes
     },
@@ -68,6 +65,8 @@ export const NodeGroups = [
         nodes: ThreeDNodes
     },
     {
+=======
+>>>>>>> 7dcc164 (remove 3d capabiltities)
         name: 'Easing',
         nodes: EasingNodes
     },
@@ -93,7 +92,6 @@ export const NodeConstructors: NodeConstructor[] = [
     ...InterfaceNodes,
     ...PrimitiveNodes,
     ...AINodes,
-    ...ThreeDNodes,
     ...MathNodes,
     ...EasingNodes,
     ...ColorNodes,

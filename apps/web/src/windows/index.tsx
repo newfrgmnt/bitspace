@@ -14,8 +14,6 @@ import { AnalogousHarmony } from '../../../../packages/nodes/src/color/Analogous
 import { FromHSV } from '../../../../packages/nodes/src/color/FromHSV/FromHSV';
 import { CubicBezierWindow } from './CubicBezierWindow';
 import { CubicBezier } from '../../../../packages/nodes/src/easings/CubicBezier/CubicBezier';
-import { MeshWindow } from './MeshWindow';
-import { Mesh } from '../../../../packages/nodes/src/3d/Mesh/Mesh';
 import { ImageEditWindow } from './ImageEditWindow';
 import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
 import { Gradient, Image, Oscillator } from '@bitspace/nodes';
@@ -40,8 +38,6 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
             return <ImageEditWindow node={node as ImageEdit} />;
         case 'Cubic Bezier':
             return <CubicBezierWindow node={node as CubicBezier} />;
-        case 'Mesh':
-            return <MeshWindow node={node as Mesh} />;
         case 'Oscillator':
             return <OscillatorWindow node={node as Oscillator} />;
         case 'Triad Harmony':

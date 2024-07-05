@@ -11,7 +11,6 @@ import {
     CanvasStore
 } from '../../circuit';
 import { nodeWindowResolver } from '../../windows';
-import { Mesh } from '@bitspace/nodes/3d';
 
 export const CircuitExample = () => {
     const circuitStore = useMemo(() => {
@@ -27,7 +26,6 @@ export const CircuitExample = () => {
         const toHSV = new ToHSV();
         const sHarmonyNode = new SquareHarmony();
         const hsvNode = new FromHSV();
-        const meshNode = new Mesh();
 
         timer.setPosition(-2000, 100);
         multiplication.setPosition(-1000, 100);
@@ -35,8 +33,7 @@ export const CircuitExample = () => {
         osc.setPosition(-1000, -50);
         toHSV.setPosition(-450, 100);
         sHarmonyNode.setPosition(0, 200);
-        hsvNode.setPosition(450, 420);
-        meshNode.setPosition(450, -20);
+        hsvNode.setPosition(450, 200);
 
         circuit.addNode(timer);
         circuit.addNode(multiplication);
@@ -45,7 +42,6 @@ export const CircuitExample = () => {
         circuit.addNode(toHSV);
         circuit.addNode(sHarmonyNode);
         circuit.addNode(hsvNode);
-        circuit.addNode(meshNode);
 
         timer.outputs.milliseconds.connect(multiplication.inputs.a);
         multiplication.outputs.output.connect(toHSV.inputs.hue);
@@ -54,7 +50,6 @@ export const CircuitExample = () => {
         osc.outputs.output.connect(toHSV.inputs.saturation);
         toHSV.outputs.color.connect(sHarmonyNode.inputs.color);
         sHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
-        sHarmonyNode.outputs.c.connect(meshNode.inputs.color);
 
         const circuitStore = new CanvasStore(circuit);
 

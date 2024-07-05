@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { Mesh } from 'three';
 import { minMaxNumber } from './utility';
 
 export const AnySchema = () => z.any().describe('Any');
@@ -40,6 +39,7 @@ export const EasingSchema = () =>
         ])
         .describe('Easing');
 
+<<<<<<< HEAD
 export const MeshSchema = () => z.instanceof(Mesh).describe('Mesh');
 
 export const Vector2Schema = (...args: Parameters<typeof minMaxNumber>) =>
@@ -78,6 +78,8 @@ export const VectorSchema = (...args: Parameters<typeof minMaxNumber>) =>
         ])
         .describe('Vector');
 
+=======
+>>>>>>> 7dcc164 (remove 3d capabiltities)
 export * from './utility';
 export * from './color';
 export * from './gradient';
