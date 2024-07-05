@@ -49,7 +49,7 @@ export const CircuitExample = () => {
         multiplication2.outputs.output.connect(osc.inputs.time);
         osc.outputs.output.connect(toHSV.inputs.saturation);
         toHSV.outputs.color.connect(sHarmonyNode.inputs.color);
-        sHarmonyNode.outputs.a.connect(hsvNode.inputs.color);
+        sHarmonyNode.outputs.b.connect(hsvNode.inputs.color);
 
         const circuitStore = new CanvasStore(circuit);
 
