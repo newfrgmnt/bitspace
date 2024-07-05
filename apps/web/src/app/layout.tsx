@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { GeistMono } from 'geist/font/mono';
 import '@bitspace/ui/globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
     title: 'Bitspace',
