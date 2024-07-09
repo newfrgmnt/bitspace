@@ -46,14 +46,6 @@ export const ClientPage = ({ circuit }: { circuit: ExtendedNode }) => {
                         onNodeMoveStop={onNodeMoveStop}
                     />
                     {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
-                    <div className="absolute left-1/2 bottom-12 -translate-x-1/2 flex flex-row justify-center">
-                        {
-                            <MenuButton
-                                onClick={onMenuButtonClick}
-                                animate={menuOpen}
-                            />
-                        }
-                    </div>
                     <Onboarding />
                 </div>
                 <PropertyPanel />
