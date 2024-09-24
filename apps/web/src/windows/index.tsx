@@ -16,11 +16,12 @@ import { CubicBezierWindow } from './CubicBezierWindow';
 import { CubicBezier } from '../../../../packages/nodes/src/easings/CubicBezier/CubicBezier';
 import { ImageEditWindow } from './ImageEditWindow';
 import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
-import { Gradient, Image, Oscillator } from '@bitspace/nodes';
+import { Gradient, Image, Oscillator, Shader } from '@bitspace/nodes';
 import { Webcam } from '@bitspace/nodes';
 import { WebcamWindow } from './WebcamWindow';
 import { OscillatorWindow } from './OscillatorWindow';
 import { GradientWindow } from './GradientWindow';
+import { ShaderWindow } from './ShaderWindow';
 
 export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
     if (!('displayName' in node.constructor)) return <></>;
@@ -40,6 +41,8 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
             return <CubicBezierWindow node={node as CubicBezier} />;
         case 'Oscillator':
             return <OscillatorWindow node={node as Oscillator} />;
+        case 'Shader':
+            return <ShaderWindow node={node as Shader} />;
         case 'Triad Harmony':
         case 'Analogous Harmony':
         case 'Square Harmony':

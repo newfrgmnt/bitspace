@@ -24,7 +24,7 @@
         "@mui/material": "^5.15.2",
         "@polar-sh/sdk": "^0.5.2",
         "@prisma/client": "5.9.1",
-        "@react-three/fiber": "^8.15.16",
+        "@react-three/fiber": "^8.16.6",
         "@supabase/ssr": "^0.3.0",
         "@supabase/supabase-js": "^2.43.4",
         "@t3-oss/env-nextjs": "^0.10.1",
