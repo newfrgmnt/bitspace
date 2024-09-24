@@ -13,6 +13,8 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { Circuit } from '@bitspace/circuit';
 import { useRouter } from 'next/navigation';
+import { get } from 'mobx';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const Node = observer(
     ({ node, actions, window, onMoveStop }: NodeProps) => {
@@ -22,6 +24,10 @@ export const Node = observer(
         const router = useRouter();
 
         const [windowActive, setWindowActive] = React.useState(false);
+
+        const nodeLoading = Object.values(node.outputs).some(output =>
+            get(output, 'loading')
+        );
 
         React.useEffect(() => {
             if (ref.current) {
@@ -104,6 +110,14 @@ export const Node = observer(
             }
         );
 
+        const nodeLoadingClassNames = clsx(
+            'absolute left-5 top-5 flex flex-row ',
+            {
+                hidden: nodeLoading,
+                block: nodeLoading
+            }
+        );
+
         const nodeHeaderWrapperClassNames = clsx(
             'relative flex flex-row justify-center items-center px-4 pt-4 text-xs font-medium rounded-t-xl handle',
             {
@@ -112,7 +126,7 @@ export const Node = observer(
         );
 
         const nodeActionsClassNames = clsx(
-            'absolute right-5 top-5 flex flex-row nowrap gap-x-2 align-center transition-opacity',
+            'absolute right-5 top-5 flex flex-row nowrap gap-x-2 items-center transition-opacity',
             {
                 'opacity-0': !(isHovered || active),
                 'opacity-100': isHovered || active
@@ -159,6 +173,9 @@ export const Node = observer(
                     }}
                 >
                     <div className={nodeHeaderWrapperClassNames}>
+                        <div className={nodeLoadingClassNames}>
+                            <Spinner className="border-slate-300 !h-3 !w-3" />
+                        </div>
                         {/** @ts-ignore */}
                         <span>{node.constructor.displayName}</span>
                         <div className={nodeActionsClassNames}>

@@ -29,11 +29,7 @@ export const ImageWindow = observer(
                         backgroundSize: 'cover',
                         backgroundPosition: 'center'
                     }}
-                >
-                    {node.outputs.output.loading && (
-                        <Spinner className="border-slate-500" />
-                    )}
-                </div>
+                />
             </NodeWindow>
         );
     }

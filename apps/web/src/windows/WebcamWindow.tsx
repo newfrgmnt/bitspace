@@ -18,11 +18,7 @@ export const WebcamWindow = observer(({ node }: { node: Webcam }) => {
                 className="w-[226px] h-80 bg-cover bg-center flex flex-col items-center justify-center"
                 controls={false}
                 autoPlay
-            >
-                {node.outputs.output.loading && (
-                    <Spinner className="border-slate-500" />
-                )}
-            </video>
+            />
         </NodeWindow>
     );
 });
