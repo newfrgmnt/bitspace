@@ -1,5 +1,5 @@
 import { Node, Input, Output } from '@bitspace/circuit';
-import { from, switchMap, skip, debounceTime, filter } from 'rxjs';
+import { from, switchMap, skip, debounceTime, filter, tap } from 'rxjs';
 import { NodeType } from '../../types';
 import { ImageSchema, StringSchema } from '@bitspace/schemas';
 
@@ -11,8 +11,7 @@ export class Vision extends Node {
         image: new Input({
             name: 'Image',
             type: ImageSchema(),
-            defaultValue:
-                'https://pbs.twimg.com/profile_images/1790336717364379649/IYqT5QR8_400x400.jpg'
+            defaultValue: ''
         })
     };
 
@@ -24,6 +23,7 @@ export class Vision extends Node {
                 debounceTime(500),
                 skip(1),
                 filter(image => image.length > 0),
+                tap(() => this.outputs.output.setLoading()),
                 switchMap(imageUrl =>
                     from(
                         fetch('/api/ai/vision', {
@@ -34,7 +34,8 @@ export class Vision extends Node {
                             }
                         }).then(res => res.json())
                     )
-                )
+                ),
+                tap(() => this.outputs.output.resetLoading())
             )
         })
     };
