@@ -111,11 +111,7 @@ export const Node = observer(
         );
 
         const nodeLoadingClassNames = clsx(
-            'absolute left-5 top-5 flex flex-row ',
-            {
-                hidden: nodeLoading,
-                block: nodeLoading
-            }
+            'absolute left-5 top-5 flex flex-row '
         );
 
         const nodeHeaderWrapperClassNames = clsx(
@@ -174,7 +170,9 @@ export const Node = observer(
                 >
                     <div className={nodeHeaderWrapperClassNames}>
                         <div className={nodeLoadingClassNames}>
-                            <Spinner className="border-slate-300 !h-3 !w-3" />
+                            {nodeLoading && (
+                                <Spinner className="border-slate-300 !h-3 !w-3" />
+                            )}
                         </div>
                         {/** @ts-ignore */}
                         <span>{node.constructor.displayName}</span>
