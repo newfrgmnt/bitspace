@@ -78,5 +78,6 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.PROMPT_AI]: 'Returns text based on the input prompt',
     [NodeType.VISION]: 'Returns text based on the input image',
     [NodeType.FROM_VECTOR]:
-        'Returns the individual components of a given Vector'
+        'Returns the individual components of a given Vector',
+    [NodeType.SHADER]: 'Returns a WebGL shader program'
 };
