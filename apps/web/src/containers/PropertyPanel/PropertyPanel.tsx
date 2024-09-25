@@ -14,14 +14,8 @@ export const PropertyPanel = observer(
         const { store } = useContext(StoreContext);
         const selectedNode = store.selectedNodes[0];
 
-        const inputs = useMemo(
-            () => Object.values(selectedNode?.inputs ?? {}),
-            [selectedNode]
-        );
-        const outputs = useMemo(
-            () => Object.values(selectedNode?.outputs ?? {}),
-            [selectedNode]
-        );
+        const inputs = Object.values(selectedNode?.inputs ?? {});
+        const outputs = Object.values(selectedNode?.outputs ?? {});
 
         if (!selectedNode) {
             return null;

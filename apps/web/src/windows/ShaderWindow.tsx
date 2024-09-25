@@ -1,19 +1,25 @@
 import { observer } from 'mobx-react-lite';
 import { NodeWindow } from '@/circuit/components/Node/Node';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { Shader } from '@bitspace/nodes';
-import { Canvas, useThree } from '@react-three/fiber';
-import { ShaderMaterial } from 'three';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { BufferGeometry, ShaderMaterial } from 'three';
 
-const Scene = ({ material }: { material: ShaderMaterial }) => {
-    const viewport = useThree(state => state.viewport);
+const Scene = forwardRef<THREE.Mesh, { material: ShaderMaterial }>(
+    ({ material }, ref) => {
+        const viewport = useThree(state => state.viewport);
 
-    return (
-        <mesh scale={[viewport.width, viewport.height, 1]} material={material}>
-            <planeGeometry />
-        </mesh>
-    );
-};
+        return (
+            <mesh
+                ref={ref}
+                scale={[viewport.width, viewport.height, 1]}
+                material={material}
+            >
+                <planeGeometry />
+            </mesh>
+        );
+    }
+);
 
 export const ShaderWindow = observer(({ node }: { node: Shader }) => {
     const [material, setMaterial] = useState<ShaderMaterial | undefined>();

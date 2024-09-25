@@ -15,6 +15,9 @@ import { Circuit } from '@bitspace/circuit';
 import { useRouter } from 'next/navigation';
 import { get } from 'mobx';
 import { Spinner } from '@/components/Spinner/Spinner';
+import { NodeType, Shader } from '@bitspace/nodes';
+import { useModal } from '@/hooks/useModal';
+import { Modal } from '@/components/Modal/Modal';
 
 export const Node = observer(
     ({ node, actions, window, onMoveStop }: NodeProps) => {
@@ -22,6 +25,8 @@ export const Node = observer(
         const { onMouseEnter, onMouseLeave, isHovered } = useHover();
         const { store } = React.useContext(StoreContext);
         const router = useRouter();
+
+        const { isShown, show, hide } = useModal();
 
         const [windowActive, setWindowActive] = React.useState(false);
 
@@ -177,8 +182,23 @@ export const Node = observer(
                         {/** @ts-ignore */}
                         <span>{node.constructor.displayName}</span>
                         <div className={nodeActionsClassNames}>
+                            {node instanceof Shader && (
+                                <>
+                                    <NodeAction
+                                        color="bg-yellow-400"
+                                        onClick={() => show()}
+                                    />
+                                    <Modal
+                                        hide={hide}
+                                        isShown={isShown}
+                                        modalContent={
+                                            <FragmentEditor node={node} />
+                                        }
+                                    />
+                                </>
+                            )}
                             <NodeAction
-                                color="#ff4444"
+                                color="bg-red-400"
                                 onClick={handleRemoveNode}
                             />
                         </div>
@@ -204,35 +224,35 @@ export const Node = observer(
 const NodeAction = ({ color = '#fff', onClick }: NodeActionProps) => {
     return (
         <div
-            className="opacity-100 transition-opacity ml-1.5 w-2.5 h-2.5 rounded-md bg-red-400 hover:opactiy-40"
-            color={color}
+            className={clsx(
+                'opacity-100 transition-opacity w-2.5 h-2.5 rounded-md hover:opactiy-40',
+                color
+            )}
             onClick={onClick}
         />
     );
 };
 
-const NodePorts = ({
-    ports,
-    isOutputWrapper,
-    windowActive
-}: NodePortsProps) => {
-    const nodePortsWrapperClassNames = clsx(
-        'flex flex-col flex-grow px-4 pb-5',
-        isOutputWrapper ? 'items-end' : 'items-start'
-    );
-    return (
-        <div className={nodePortsWrapperClassNames}>
-            {ports.map(port => (
-                <Port
-                    key={port.id}
-                    port={port}
-                    isOutput={!!isOutputWrapper}
-                    windowActive={windowActive}
-                />
-            ))}
-        </div>
-    );
-};
+const NodePorts = observer(
+    ({ ports, isOutputWrapper, windowActive }: NodePortsProps) => {
+        const nodePortsWrapperClassNames = clsx(
+            'flex flex-col flex-grow px-4 pb-5',
+            isOutputWrapper ? 'items-end' : 'items-start'
+        );
+        return (
+            <div className={nodePortsWrapperClassNames}>
+                {ports.map(port => (
+                    <Port
+                        key={port.id}
+                        port={port}
+                        isOutput={!!isOutputWrapper}
+                        windowActive={windowActive}
+                    />
+                ))}
+            </div>
+        );
+    }
+);
 
 export const NodeWindow = ({
     children,
@@ -247,6 +267,37 @@ export const NodeWindow = ({
             onMouseDown={e => e.stopPropagation()}
         >
             {children}
+        </div>
+    );
+};
+
+const FragmentEditor = ({ node }: { node: Shader }) => {
+    const [fragment, setFragment] = React.useState('');
+
+    React.useEffect(() => {
+        const subscription = node.$fragmentShader.subscribe(setFragment);
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, [node]);
+
+    return (
+        <div className="flex flex-col p-12 min-h-96">
+            <textarea
+                className="bg-slate-100 p-4 h-full rounded-2xl font-mono text-sm"
+                value={fragment}
+                onKeyDown={e => {
+                    e.stopPropagation();
+                }}
+                onChange={e => {
+                    e.stopPropagation();
+                    setFragment(e.target.value);
+                }}
+                onBlur={e => {
+                    node.$fragmentShader.next(fragment);
+                }}
+            />
         </div>
     );
 };

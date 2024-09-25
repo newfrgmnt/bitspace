@@ -55,6 +55,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-draggable": "^4.4.6",
+        "react-focus-lock": "^2.13.2",
         "react-hook-form": "^7.51.4",
         "react-hotkeys-hook": "^4.4.4",
         "rxjs": "^7.8.1",
