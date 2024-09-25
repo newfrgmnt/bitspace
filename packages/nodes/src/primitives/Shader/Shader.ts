@@ -2,8 +2,13 @@ import { Input, Node, Output } from '@bitspace/circuit';
 import {
     BehaviorSubject,
     combineLatest,
+    EMPTY,
+    filter,
     map,
+    mergeMap,
     of,
+    pairwise,
+    startWith,
     Subscription,
     switchMap,
     tap
@@ -32,7 +37,6 @@ void main() {
 }`;
 
 const FRAGMENT_SHADER = `varying vec2 vUv;
-uniform vec3 color;
 uniform float time;
 
 void main() {
@@ -56,7 +60,9 @@ export class Shader extends Node {
             name: 'Output',
             type: ShaderSchema(),
             observable: this.$fragmentShader.pipe(
-                tap(console.log),
+                startWith(''),
+                pairwise(),
+                mergeMap(([prev, next]) => (prev !== next ? of(next) : EMPTY)),
                 tap(this.buildInputs.bind(this)),
                 map(this.buildMaterial.bind(this)),
                 switchMap(this.updateUniforms.bind(this))
@@ -95,7 +101,6 @@ export class Shader extends Node {
         return new ShaderMaterial({
             vertexShader: VERTEX_SHADER,
             fragmentShader,
-            side: DoubleSide,
             uniforms: this.parseUniforms(fragmentShader).reduce(
                 (acc, uniform) => ({
                     ...acc,

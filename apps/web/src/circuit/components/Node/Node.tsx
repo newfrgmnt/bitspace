@@ -18,6 +18,7 @@ import { Spinner } from '@/components/Spinner/Spinner';
 import { NodeType, Shader } from '@bitspace/nodes';
 import { useModal } from '@/hooks/useModal';
 import { Modal } from '@/components/Modal/Modal';
+import { FragmentEditor } from '@/components/FragmentEditor/FragmentEditor';
 
 export const Node = observer(
     ({ node, actions, window, onMoveStop }: NodeProps) => {
@@ -186,7 +187,7 @@ export const Node = observer(
                                 <>
                                     <NodeAction
                                         color="bg-yellow-400"
-                                        onClick={() => show()}
+                                        onClick={show}
                                     />
                                     <Modal
                                         hide={hide}
@@ -267,37 +268,6 @@ export const NodeWindow = ({
             onMouseDown={e => e.stopPropagation()}
         >
             {children}
-        </div>
-    );
-};
-
-const FragmentEditor = ({ node }: { node: Shader }) => {
-    const [fragment, setFragment] = React.useState('');
-
-    React.useEffect(() => {
-        const subscription = node.$fragmentShader.subscribe(setFragment);
-
-        return () => {
-            subscription.unsubscribe();
-        };
-    }, [node]);
-
-    return (
-        <div className="flex flex-col p-12 min-h-96">
-            <textarea
-                className="bg-slate-100 p-4 h-full rounded-2xl font-mono text-sm"
-                value={fragment}
-                onKeyDown={e => {
-                    e.stopPropagation();
-                }}
-                onChange={e => {
-                    e.stopPropagation();
-                    setFragment(e.target.value);
-                }}
-                onBlur={e => {
-                    node.$fragmentShader.next(fragment);
-                }}
-            />
         </div>
     );
 };
