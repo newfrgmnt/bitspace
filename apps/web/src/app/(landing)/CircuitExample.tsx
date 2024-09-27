@@ -3,7 +3,12 @@
 import { useMemo } from 'react';
 import { Circuit } from '@bitspace/circuit';
 import { Timer, Oscillator } from '@bitspace/nodes/utilities';
-import { ToHSV, FromHSV, SquareHarmony } from '@bitspace/nodes/color';
+import {
+    AnalogousHarmony,
+    Gradient,
+    SquareHarmony,
+    ToColor
+} from '@bitspace/nodes/color';
 import { Multiplication } from '@bitspace/nodes/math';
 import {
     StoreContext,
@@ -17,39 +22,33 @@ export const CircuitExample = () => {
         const circuit = new Circuit();
 
         const timer = new Timer();
-        const multiplication = new Multiplication();
-        multiplication.inputs.b.next(0.1);
-        const multiplication2 = new Multiplication();
-        multiplication2.inputs.b.next(0.2);
         const osc = new Oscillator();
-        osc.inputs.amplitude.next(1);
-        const toHSV = new ToHSV();
+        osc.inputs.amplitude.next(180);
+        osc.inputs.frequency.next(0.4);
+        timer.outputs.seconds.connect(osc.inputs.time);
+        const toColor = new ToColor();
+        osc.outputs.output.connect(toColor.inputs.hue);
         const sHarmonyNode = new SquareHarmony();
-        const hsvNode = new FromHSV();
+        toColor.outputs.color.connect(sHarmonyNode.inputs.color);
+        const analogousNode = new AnalogousHarmony();
+        sHarmonyNode.outputs.c.connect(analogousNode.inputs.color);
+        const gradientNode = new Gradient();
+        analogousNode.outputs.a.connect(gradientNode.inputs.a);
+        analogousNode.outputs.c.connect(gradientNode.inputs.b);
 
-        timer.setPosition(-2000, 100);
-        multiplication.setPosition(-1000, 100);
-        multiplication2.setPosition(-1400, -50);
-        osc.setPosition(-1000, -50);
-        toHSV.setPosition(-450, 100);
-        sHarmonyNode.setPosition(0, 200);
-        hsvNode.setPosition(450, 200);
+        timer.setPosition(-1400, 100);
+        osc.setPosition(-1000, 100);
+        toColor.setPosition(-600, 0);
+        sHarmonyNode.setPosition(-200, 200);
+        analogousNode.setPosition(200, 200);
+        gradientNode.setPosition(600, 200);
 
         circuit.addNode(timer);
-        circuit.addNode(multiplication);
-        circuit.addNode(multiplication2);
         circuit.addNode(osc);
-        circuit.addNode(toHSV);
+        circuit.addNode(toColor);
         circuit.addNode(sHarmonyNode);
-        circuit.addNode(hsvNode);
-
-        timer.outputs.milliseconds.connect(multiplication.inputs.a);
-        multiplication.outputs.output.connect(toHSV.inputs.hue);
-        timer.outputs.seconds.connect(multiplication2.inputs.a);
-        multiplication2.outputs.output.connect(osc.inputs.time);
-        osc.outputs.output.connect(toHSV.inputs.saturation);
-        toHSV.outputs.color.connect(sHarmonyNode.inputs.color);
-        sHarmonyNode.outputs.b.connect(hsvNode.inputs.color);
+        circuit.addNode(analogousNode);
+        circuit.addNode(gradientNode);
 
         const circuitStore = new CanvasStore(circuit);
 

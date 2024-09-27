@@ -4,14 +4,12 @@ import { SynthesizedImage } from '../../../../packages/nodes/src/ai/SynthesizedI
 import { ConsoleWindow } from './ConsoleWindow';
 import { Node } from '@bitspace/circuit';
 import { ImageWindow } from './ImageWindow';
-import { HSVWindow } from './HSVWindow';
 import { ColorHarmonyWindow } from './ColorHarmonyWindow';
 import { TriadHarmony } from '../../../../packages/nodes/src/color/TriadHarmony/TriadHarmony';
 import { TetradicHarmony } from '../../../../packages/nodes/src/color/TetradicHarmony/TetradicHarmony';
 import { SquareHarmony } from '../../../../packages/nodes/src/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../../../../packages/nodes/src/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../../../../packages/nodes/src/color/AnalogousHarmony/AnalogousHarmony';
-import { FromHSV } from '../../../../packages/nodes/src/color/FromHSV/FromHSV';
 import { CubicBezierWindow } from './CubicBezierWindow';
 import { CubicBezier } from '../../../../packages/nodes/src/easings/CubicBezier/CubicBezier';
 import { ImageEditWindow } from './ImageEditWindow';
@@ -60,8 +58,6 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
                     }
                 />
             );
-        case 'From HSV':
-            return <HSVWindow node={node as FromHSV} />;
         case 'Gradient':
             return <GradientWindow node={node as Gradient} />;
     }

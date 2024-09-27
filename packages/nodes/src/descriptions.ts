@@ -54,17 +54,6 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.TRIAD_COLOR]: 'Returns the triad colors of the input color',
     [NodeType.TETRADIC_COLOR]: 'Returns the tetradic colors of the input color',
     [NodeType.SQUARE_COLOR]: 'Returns the square colors of the input color',
-    [NodeType.FROM_HSL]:
-        'Returns the hue, saturation & luminance of a given HSL color',
-    [NodeType.FROM_RGB]:
-        'Returns the red, green & blue channels of a given RGB color',
-    [NodeType.FROM_HSV]:
-        'Returns the hue, saturation & value of a given HSV color',
-    [NodeType.TO_HSL]:
-        'Returns a HSL color from a given hue, saturation & luminance',
-    [NodeType.TO_RGB]: 'Returns a RGB color from a given red, green & blue',
-    [NodeType.TO_HSV]:
-        'Returns a HSV color from a given hue, saturation & value',
     [NodeType.GRADIENT]: 'Returns a gradient based on the input colors',
 
     [NodeType.IMAGE]: 'Returns an image from the given source URL',
@@ -79,5 +68,8 @@ export const NodeDescriptionsMap: Record<NodeType, string> = {
     [NodeType.VISION]: 'Returns text based on the input image',
     [NodeType.FROM_VECTOR]:
         'Returns the individual components of a given Vector',
-    [NodeType.SHADER]: 'Returns a WebGL shader program'
+    [NodeType.SHADER]: 'Returns a WebGL shader program',
+    [NodeType.FROM_COLOR]:
+        'Computes the individual components of a given Color',
+    [NodeType.TO_COLOR]: 'Returns a Color based on the given components'
 };

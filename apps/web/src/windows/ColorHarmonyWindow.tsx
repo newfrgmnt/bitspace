@@ -8,7 +8,7 @@ import { TetradicHarmony } from '../../../../packages/nodes/src/color/TetradicHa
 import { SquareHarmony } from '../../../../packages/nodes/src/color/SquareHarmony/SquareHarmony';
 import { ComplementaryHarmony } from '../../../../packages/nodes/src/color/ComplementaryHarmony/ComplementaryHarmony';
 import { AnalogousHarmony } from '../../../../packages/nodes/src/color/AnalogousHarmony/AnalogousHarmony';
-import { HSVSchema } from '../../../../packages/schemas/src';
+import { ColorSchema } from '../../../../packages/schemas/src';
 
 export const ColorHarmonyWindow = ({
     node
@@ -20,11 +20,13 @@ export const ColorHarmonyWindow = ({
         | ComplementaryHarmony
         | AnalogousHarmony;
 }) => {
-    const [color, setColor] = useState<z.infer<ReturnType<typeof HSVSchema>>>({
-        hue: 0,
-        saturation: 0,
-        value: 0
-    });
+    const [color, setColor] = useState<z.infer<ReturnType<typeof ColorSchema>>>(
+        {
+            hue: 0,
+            saturation: 0,
+            value: 0
+        }
+    );
 
     useEffect(() => {
         const subscription = node.inputs.color.subscribe(value => {

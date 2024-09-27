@@ -10,16 +10,15 @@ export class Image extends Node {
     inputs = {
         source: new Input({
             name: 'Source',
-            type: URLSchema(),
-            defaultValue:
-                'https://pbs.twimg.com/profile_images/1790336717364379649/IYqT5QR8_400x400.jpg'
+            type: URLSchema().optional(),
+            defaultValue: null
         })
     };
 
     outputs = {
         output: new Output({
             name: 'Output',
-            type: ImageSchema(),
+            type: ImageSchema().optional(),
             observable: this.inputs.source
         })
     };

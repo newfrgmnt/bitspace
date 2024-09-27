@@ -10,15 +10,20 @@ export const ImageSchema = () =>
     z
         .string()
         .url()
-        .refine(arg => {
-            const fileExtension = arg.split('.').pop()?.toLocaleLowerCase();
+        .refine(
+            arg => {
+                const fileExtension = arg.split('.').pop()?.toLocaleLowerCase();
 
-            return (
-                fileExtension?.includes('jpg') ||
-                fileExtension?.includes('jpeg') ||
-                fileExtension?.includes('png')
-            );
-        })
+                return (
+                    fileExtension?.includes('jpg') ||
+                    fileExtension?.includes('jpeg') ||
+                    fileExtension?.includes('png')
+                );
+            },
+            {
+                message: 'Invalid image format'
+            }
+        )
         .describe('Image');
 
 export const MediaStreamSchema = () =>

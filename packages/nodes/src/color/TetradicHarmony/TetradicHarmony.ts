@@ -1,6 +1,6 @@
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
-import { HSVSchema } from '@bitspace/schemas';
+import { ColorSchema } from '@bitspace/schemas';
 import { harmonies } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
 import { NodeType } from '../../types';
 
@@ -11,7 +11,7 @@ export class TetradicHarmony extends Node {
     inputs = {
         color: new Input({
             name: 'Color',
-            type: HSVSchema(),
+            type: ColorSchema(),
             defaultValue: {
                 hue: 0,
                 saturation: 0.5,
@@ -23,12 +23,12 @@ export class TetradicHarmony extends Node {
     outputs = {
         a: new Output({
             name: 'A',
-            type: HSVSchema(),
+            type: ColorSchema(),
             observable: this.inputs.color
         }),
         b: new Output({
             name: 'B',
-            type: HSVSchema(),
+            type: ColorSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;
@@ -40,7 +40,7 @@ export class TetradicHarmony extends Node {
         }),
         c: new Output({
             name: 'C',
-            type: HSVSchema(),
+            type: ColorSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;
@@ -52,7 +52,7 @@ export class TetradicHarmony extends Node {
         }),
         d: new Output({
             name: 'D',
-            type: HSVSchema(),
+            type: ColorSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;

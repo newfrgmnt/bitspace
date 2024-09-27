@@ -4,12 +4,7 @@ import { NumberControl } from '../NumberControl/NumberControl';
 import { StringControl } from '../StringControl/StringControl';
 import { ColorControl } from '../ColorControl/ColorControl';
 import { BooleanControl } from '../BooleanControl/BooleanControl';
-import {
-    HSLColorSchemaType,
-    HSVColorSchemaType,
-    HexColorSchemaType,
-    RGBColorSchemaType
-} from '@/utils';
+import { ColorSchemaType } from '@/utils';
 
 export interface ControlProps {
     port: Input | Output;
@@ -44,33 +39,9 @@ export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
                     onBlur={onBlur}
                 />
             );
-        case 'HEX':
+        case 'Color':
             return (
-                <ColorControl<HexColorSchemaType>
-                    port={port}
-                    disabled={disabled}
-                    onBlur={onBlur}
-                />
-            );
-        case 'RGB':
-            return (
-                <ColorControl<RGBColorSchemaType>
-                    port={port}
-                    disabled={disabled}
-                    onBlur={onBlur}
-                />
-            );
-        case 'HSL':
-            return (
-                <ColorControl<HSLColorSchemaType>
-                    port={port}
-                    disabled={disabled}
-                    onBlur={onBlur}
-                />
-            );
-        case 'HSV':
-            return (
-                <ColorControl<HSVColorSchemaType>
+                <ColorControl<ColorSchemaType>
                     port={port}
                     disabled={disabled}
                     onBlur={onBlur}

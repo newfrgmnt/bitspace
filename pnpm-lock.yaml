@@ -301,6 +301,9 @@ importers:
       '@bitspace/schemas':
         specifier: workspace:^
         version: link:../schemas
+      color-convert:
+        specifier: ^2.0.1
+        version: 2.0.1
       framer-motion:
         specifier: ^10.16.16
         version: 10.18.0(react-dom@18.3.1)(react@18.3.1)
@@ -323,6 +326,9 @@ importers:
       '@bitspace/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@types/color-convert':
+        specifier: ^2.0.3
+        version: 2.0.3
       '@types/eslint':
         specifier: ^8.44.7
         version: 8.56.10
@@ -2999,11 +3005,9 @@ packages:
     resolution: {integrity: sha512-2Q6wzrNiuEvYxVQqhh7sXM2mhIhvZR/Paq4FdsQkOMgWsCIkKvSGj8Le1/XalulrmgOzPMqNa0ix+ePY4hTrfg==}
     dependencies:
       '@types/color-name': 1.1.4
-    dev: false
 
   /@types/color-name@1.1.4:
     resolution: {integrity: sha512-hulKeREDdLFesGQjl96+4aoJSHY5b2GRjagzzcqCfIrWhe5vkCqIvrLbqzBaI1q94Vg8DNJZZqTR5ocdWmWclg==}
-    dev: false
 
   /@types/eslint@8.56.10:
     resolution: {integrity: sha512-Shavhk87gCtY2fhXDctcfS3e6FdxWkCx1iUZ9eEUbh7rTqlZT0/IzOkCOVt0fCjcFuZ9FPYfuezTBImfHCDBGQ==}

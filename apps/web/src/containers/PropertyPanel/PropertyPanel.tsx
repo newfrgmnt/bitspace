@@ -1,7 +1,7 @@
 import { NodeType } from '@bitspace/nodes';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ComponentProps, useContext, useMemo } from 'react';
+import { ComponentProps, useContext } from 'react';
 import { StoreContext } from '../../circuit';
 import { Control } from '../../components/Controls/Control/Control';
 import { NodeDescriptionsMap } from '@bitspace/nodes/descriptions';
@@ -24,7 +24,7 @@ export const PropertyPanel = observer(
         return (
             <div
                 className={clsx(
-                    'h-full flex flex-col w-80 py-12 pr-4 divide-y divide-slate-200',
+                    'h-full flex flex-col w-80 py-12 pr-4 divide-y divide-slate-200 overflow-y-auto',
                     className
                 )}
                 {...props}
@@ -35,6 +35,7 @@ export const PropertyPanel = observer(
                         {NodeDescriptionsMap[selectedNode.type as NodeType]}
                     </p>
                 </div>
+
                 {inputs.length > 0 && (
                     <div className="flex flex-col gap-y-6 py-8">
                         <h4 className="font-medium">Inputs</h4>

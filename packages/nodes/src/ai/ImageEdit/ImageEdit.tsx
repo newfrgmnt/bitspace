@@ -16,15 +16,15 @@ export class ImageEdit extends Node {
         }),
         image: new Input({
             name: 'Context',
-            type: ImageSchema(),
-            defaultValue: ''
+            type: ImageSchema().optional(),
+            defaultValue: null
         })
     };
 
     outputs = {
         output: new Output({
             name: 'Output',
-            type: ImageSchema(),
+            type: ImageSchema().optional(),
             observable: new Observable()
         })
     };

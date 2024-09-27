@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { Node, Input, Output } from '@bitspace/circuit';
 import { map } from 'rxjs';
 import { harmonies } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
-import { HSVSchema } from '@bitspace/schemas';
+import { ColorSchema } from '@bitspace/schemas';
 import { NodeType } from '../../types';
 
 export class ComplementaryHarmony extends Node {
@@ -12,7 +12,7 @@ export class ComplementaryHarmony extends Node {
     inputs = {
         color: new Input({
             name: 'Color',
-            type: HSVSchema(),
+            type: ColorSchema(),
             defaultValue: {
                 hue: 0,
                 saturation: 0.5,
@@ -24,12 +24,12 @@ export class ComplementaryHarmony extends Node {
     outputs = {
         a: new Output({
             name: 'A',
-            type: HSVSchema(),
+            type: ColorSchema(),
             observable: this.inputs.color
         }),
         b: new Output({
             name: 'B',
-            type: HSVSchema(),
+            type: ColorSchema(),
             observable: this.inputs.color.pipe(
                 map(color => {
                     const { hue, saturation, value } = color;

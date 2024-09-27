@@ -9,7 +9,7 @@ import {
     useState
 } from 'react';
 import { hsv2rgb } from '../../ColorPicker/ColorPicker.utils';
-import { hsl, rgb } from 'color-convert';
+import { rgb } from 'color-convert';
 import clsx from 'clsx';
 import { ColorSchemaType, resolveColor } from '@/utils';
 
@@ -40,15 +40,7 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
         if (typeof color === 'string') {
             return color;
         } else if (typeof color === 'object') {
-            if ('red' in color) {
-                return rgb.hex([color.red, color.green, color.blue]);
-            } else if ('hue' in color && 'luminance' in color) {
-                return hsl.hex([color.hue, color.saturation, color.luminance]);
-            } else {
-                return rgb.hex(
-                    hsv2rgb(color.hue, color.saturation, color.value)
-                );
-            }
+            return rgb.hex(hsv2rgb(color.hue, color.saturation, color.value));
         }
 
         return '#000000';
@@ -57,7 +49,7 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
     const handleBlur: FocusEventHandler<HTMLInputElement> = useCallback(
         e => {
             if (color) {
-                onBlur?.(resolveColor(e.target.value, color));
+                onBlur?.(resolveColor(e.target.value));
             }
         },
         [onBlur, color]
@@ -66,7 +58,7 @@ export const ColorControl = observer(function <T extends ColorSchemaType>({
     const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
         e => {
             if (color) {
-                port.next(resolveColor(e.target.value, color));
+                port.next(resolveColor(e.target.value));
             }
         },
         [port, color]

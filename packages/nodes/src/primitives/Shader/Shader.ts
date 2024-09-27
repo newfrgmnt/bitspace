@@ -14,16 +14,16 @@ import {
     tap
 } from 'rxjs';
 import { NodeType } from '../../types';
-import { z } from 'zod';
-import { DoubleSide, ShaderMaterial } from 'three';
-import { autorun, computed, makeObservable, observable } from 'mobx';
+import { Schema, z } from 'zod';
+import { ShaderMaterial } from 'three';
+import { makeObservable, observable } from 'mobx';
 import {
     AnySchema,
+    ColorSchema,
     NumberSchema,
-    Vector2Schema,
-    Vector3Schema,
-    Vector4Schema
+    Vector2Schema
 } from '@bitspace/schemas';
+import { hsv2rgb } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
 
 const VERTEX_SHADER = `varying vec2 vUv;
 
@@ -38,10 +38,11 @@ void main() {
 
 const FRAGMENT_SHADER = `varying vec2 vUv;
 uniform float time;
+uniform vec3 offset;
 
 void main() {
     float r = sin(time) * 0.5 + 0.5;
-    gl_FragColor = vec4(vUv.x, r, 1.0, 1.0);
+    gl_FragColor = vec4(vUv * offset.xy, r, 1.0);
 }`;
 
 export const ShaderSchema = () =>
@@ -62,6 +63,7 @@ export class Shader extends Node {
             observable: this.$fragmentShader.pipe(
                 startWith(''),
                 pairwise(),
+                // Compare the fragment shader to its previous value
                 mergeMap(([prev, next]) => (prev !== next ? of(next) : EMPTY)),
                 tap(this.buildInputs.bind(this)),
                 map(this.buildMaterial.bind(this)),
@@ -84,15 +86,16 @@ export class Shader extends Node {
             (input as Input).dispose();
         }
 
-        const inputs = this.parseUniforms(fragmentShader).map(input => {
-            const output = new Input({
-                name: input.name,
-                type: this.resolveSchema(input.type),
-                defaultValue: null
-            });
-
-            return output;
-        });
+        const inputs = this.parseUniforms(fragmentShader).map(
+            input =>
+                new Input({
+                    name: input.name,
+                    type: this.resolveSchema(input.type),
+                    defaultValue: this.resolveSchema(input.type).parse(
+                        input.type === 'float' ? 0 : {}
+                    )
+                })
+        );
 
         this.inputs = inputs;
     }
@@ -105,7 +108,7 @@ export class Shader extends Node {
                 (acc, uniform) => ({
                     ...acc,
                     [uniform.name]: {
-                        value: 0
+                        value: this.resolveTypesafeValue(uniform.type)
                     }
                 }),
                 {}
@@ -118,8 +121,14 @@ export class Shader extends Node {
             tap(inputs => {
                 // @ts-ignore
                 Object.values(this.inputs).forEach(({ name }, index) => {
-                    if (material && material.uniforms[name]) {
-                        material.uniforms[name].value = inputs[index];
+                    if (
+                        material &&
+                        material.uniforms[name] &&
+                        inputs[index] !== null
+                    ) {
+                        material.uniforms[name].value = this.resolveSchemaValue(
+                            inputs[index]
+                        );
                     }
                 });
             }),
@@ -149,11 +158,38 @@ export class Shader extends Node {
             case 'vec2':
                 return Vector2Schema();
             case 'vec3':
-                return Vector3Schema();
+                return ColorSchema();
             case 'vec4':
-                return Vector4Schema();
+                return ColorSchema();
             default:
                 return AnySchema();
+        }
+    }
+
+    public resolveTypesafeValue(type: string) {
+        switch (type) {
+            case 'vec2':
+                return [0, 0];
+            case 'vec3':
+                return [0, 0, 0];
+            case 'vec3':
+                return [0, 0, 0, 1];
+            case 'float':
+            default:
+                return 0;
+        }
+    }
+
+    public resolveSchemaValue(value: Zod.infer<Schema>) {
+        if (value === null || typeof value === 'number') return value;
+
+        if ('x' in value && 'y' in value) {
+            return [value.x, value.y];
+        }
+
+        if ('hue' in value && 'saturation' in value && 'value' in value) {
+            const [r, g, b] = hsv2rgb(value.hue, value.saturation, value.value);
+            return [r / 255, g / 255, b / 255];
         }
     }
 }
