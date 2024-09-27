@@ -7,7 +7,7 @@ import { Image } from '@bitspace/nodes';
 
 export const ImageWindow = observer(
     ({ node }: { node: Image | SynthesizedImage }) => {
-        const [imageSrc, setImageSrc] = useState<string>();
+        const [imageSrc, setImageSrc] = useState<string | null | undefined>();
 
         useEffect(() => {
             const subscription = node.outputs.output.subscribe(setImageSrc);

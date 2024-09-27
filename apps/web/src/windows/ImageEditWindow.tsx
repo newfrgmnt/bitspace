@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
 
 export const ImageEditWindow = ({ node }: { node: ImageEdit }) => {
-    const [imageSrc, setImageSrc] = useState<string>('');
+    const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
 
     useEffect(() => {
         const subscription = node.inputs.image.subscribe(value => {
@@ -19,7 +19,7 @@ export const ImageEditWindow = ({ node }: { node: ImageEdit }) => {
     return (
         <NodeWindow>
             <ImageEditor
-                imageUrl={imageSrc}
+                imageUrl={imageSrc ?? ''}
                 onImageChange={image => {
                     node.outputs.output.next(image);
                 }}

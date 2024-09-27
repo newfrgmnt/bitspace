@@ -126,6 +126,7 @@ export class Shader extends Node {
                         material.uniforms[name] &&
                         inputs[index] !== null
                     ) {
+                        // @ts-ignore
                         material.uniforms[name].value = this.resolveSchemaValue(
                             inputs[index]
                         );

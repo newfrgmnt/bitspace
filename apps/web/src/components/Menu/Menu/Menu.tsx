@@ -19,6 +19,7 @@ import { createNode } from '../../../server/mutations/createNode';
 import { toCanvasCartesianPoint } from '../../../circuit/utils/coordinates/coordinates';
 import { NODE_CENTER } from '../../../circuit/constants';
 import { NodeDescriptionsMap } from '@bitspace/nodes/descriptions';
+import { Input, Output } from '@bitspace/circuit';
 
 export interface MenuProps {
     onClose: () => void;
@@ -83,23 +84,23 @@ export const Menu = ({ onClose }: MenuProps) => {
                 },
                 inputs: {
                     createMany: {
-                        data: Object.entries(node.inputs).map(
-                            ([key, input]) => ({
-                                id: input.id,
-                                key,
-                                value:
-                                    typeof input.value !== 'function'
-                                        ? input.value
-                                        : undefined
-                            })
-                        )
+                        data: (
+                            Object.entries(node.inputs) as [string, Input][]
+                        ).map(([key, input]) => ({
+                            id: input.id,
+                            key,
+                            value:
+                                typeof input.value !== 'function'
+                                    ? input.value
+                                    : undefined
+                        }))
                     }
                 },
                 outputs: {
                     createMany: {
-                        data: Object.entries(node.outputs).map(
-                            ([key, output]) => ({ id: output.id, key })
-                        )
+                        data: (
+                            Object.entries(node.outputs) as [string, Output][]
+                        ).map(([key, output]) => ({ id: output.id, key }))
                     }
                 }
             });

@@ -23,7 +23,7 @@ export class Vision extends Node {
                 debounceTime(500),
                 skip(1),
                 filter(image => image.length > 0),
-                tap(() => this.outputs.output.setLoading()),
+                tap(this.setLoading.bind(this)),
                 switchMap(imageUrl =>
                     from(
                         fetch('/api/ai/vision', {
@@ -35,8 +35,16 @@ export class Vision extends Node {
                         }).then(res => res.json())
                     )
                 ),
-                tap(() => this.outputs.output.resetLoading())
+                tap(this.resetLoading.bind(this))
             )
         })
     };
+
+    public setLoading() {
+        this.outputs.output.setLoading();
+    }
+
+    public resetLoading() {
+        this.outputs.output.resetLoading();
+    }
 }
