@@ -12,8 +12,6 @@ import { ComplementaryHarmony } from '../../../../packages/nodes/src/color/Compl
 import { AnalogousHarmony } from '../../../../packages/nodes/src/color/AnalogousHarmony/AnalogousHarmony';
 import { CubicBezierWindow } from './CubicBezierWindow';
 import { CubicBezier } from '../../../../packages/nodes/src/easings/CubicBezier/CubicBezier';
-import { ImageEditWindow } from './ImageEditWindow';
-import { ImageEdit } from '../../../../packages/nodes/src/ai/ImageEdit/ImageEdit';
 import { Gradient, Image, Oscillator, Shader } from '@bitspace/nodes';
 import { Webcam } from '@bitspace/nodes';
 import { WebcamWindow } from './WebcamWindow';
@@ -33,8 +31,6 @@ export const nodeWindowResolver: NodeWindowResolver = (node: Node) => {
         case 'Image':
         case 'Synthesized Image':
             return <ImageWindow node={node as Image | SynthesizedImage} />;
-        case 'Image Edit':
-            return <ImageEditWindow node={node as ImageEdit} />;
         case 'Cubic Bezier':
             return <CubicBezierWindow node={node as CubicBezier} />;
         case 'Oscillator':
