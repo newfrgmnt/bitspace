@@ -24,7 +24,7 @@ export const CircuitHeader = ({ circuit }: { circuit: ExtendedNode }) => {
                 <h3 className="text-2xl">Bitspace</h3>
             </Link>
             <CircuitModule circuit={circuit} />
-            <Avatar />
+            {/** <Avatar /> */}
         </motion.div>
     );
 };
@@ -41,7 +41,7 @@ const CircuitModule = ({ circuit }: { circuit: ExtendedNode }) => {
         );
 
     return (
-        <div className="flex flex-row items-center gap-x-2 focus-within:bg-white focus-within:shadow-2xl hover:bg-white hover:shadow-2xl transition-all pr-3 pl-6 py-2 rounded-full">
+        <div className="flex flex-row items-center gap-x-2 focus-within:bg-white focus-within:shadow-2xl hover:bg-white hover:shadow-2xl transition-all pr-3 pl-6 py-2 rounded-full absolute left-1/2 -translate-x-1/2">
             <h3
                 className="bg-transparent border-none p-0 w-fit cursor-text focus-within:outline-none"
                 spellCheck="false"

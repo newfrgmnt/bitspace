@@ -42,7 +42,7 @@ export default function Page({ circuits }: { circuits: Node[] }): JSX.Element {
                         }
                     }}
                 >
-                    Welcome to your Bitspace
+                    Dashboard
                 </motion.h1>
             </motion.div>
             <div className="flex flex-row gap-x-6">

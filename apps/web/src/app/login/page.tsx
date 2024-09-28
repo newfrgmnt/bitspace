@@ -24,14 +24,20 @@ export default function Page() {
 
     return (
         <div className="flex flex-col justify-center items-center h-screen w-screen">
-            <div className="flex flex-col w-72 gap-y-12">
+            <div className="flex flex-col w-80 gap-y-12">
                 <div className="flex flex-col gap-y-2">
                     <h2 className="text-2xl font-medium">
                         Welcome to Bitspace
                     </h2>
-                    <p className="text-lg text-gray-500">
-                        A new era of creative computing for everyone
-                    </p>
+                    {isSent ? (
+                        <p className="text-lg text-gray-500">
+                            Check your email for a 6-digit code
+                        </p>
+                    ) : (
+                        <p className="text-lg text-gray-500">
+                            A new era of creative computing for everyone
+                        </p>
+                    )}
                 </div>
                 <div className="flex flex-col">
                     {isSent ? (
@@ -142,7 +148,7 @@ const VerifyOTPForm = ({ email }: VerifyOTPFormProps) => {
                             <InputOTPSlot
                                 key={index.toString()}
                                 {...slot}
-                                className="w-[62px] h-[62px] first:rounded-l-xl last:rounded-r-xl"
+                                className="w-[52px] h-[52px] first:rounded-l-xl last:rounded-r-xl"
                             />
                         ))}
                     </InputOTPGroup>

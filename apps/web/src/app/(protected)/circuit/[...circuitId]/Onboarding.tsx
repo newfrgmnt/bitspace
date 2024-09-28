@@ -5,7 +5,7 @@ export const Onboarding = () => (
         persistenceKey="onboarding-complete"
         steps={[
             {
-                title: 'Welcome to Bitspace',
+                title: 'Welcome to the Bitspace prototype',
                 description: `A visual programming environment for creative endeavours. Let's go through the basics.`
             },
             {
@@ -21,7 +21,12 @@ export const Onboarding = () => (
             {
                 title: 'Connections',
                 description:
-                    'These are used to link data between different nodes. Connections may only be established between outputs & inputs'
+                    'The transport layer between nodes. Connections may only be established between outputs & inputs'
+            },
+            {
+                title: 'Add your first node',
+                description:
+                    'Access the Node menu by pressing spacebar & search for a node to add to the circuit.'
             }
         ]}
     />
