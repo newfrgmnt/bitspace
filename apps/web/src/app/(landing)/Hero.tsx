@@ -1,16 +1,7 @@
 'use client';
 
-import { useCallback, useState } from 'react';
-import { createSubscription } from './createSubscription';
-import { ArrowForwardOutlined } from '@mui/icons-material';
 import { Button } from '@bitspace/ui/button';
-import { Input } from '@bitspace/ui/input';
-import { Spinner } from '@/components/Spinner/Spinner';
 import Link from 'next/link';
-
-const isEmail = (email: string) => {
-    return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
-};
 
 export const Hero = () => {
     return (
