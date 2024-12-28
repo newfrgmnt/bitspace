@@ -40,6 +40,7 @@ export const StringControl = observer(
                 e => {
                     if (port.type.description === 'String') {
                         const value = port.type.parse(e.target.value);
+                        
                         setValue(value);
                     }
                 },
