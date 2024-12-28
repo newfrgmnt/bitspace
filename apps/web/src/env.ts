@@ -13,7 +13,8 @@ export const env = createEnv({
         OPENAI_API_KEY: z.string(),
         VERCEL_URL: z.string(),
         BLOB_READ_WRITE_TOKEN: z.string(),
-        DATABASE_URL: z.string()
+        DATABASE_URL: z.string(),
+        DIRECT_URL: z.string()
     },
     runtimeEnv: {
         NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -25,6 +26,7 @@ export const env = createEnv({
         OPENAI_API_KEY: process.env.OPENAI_API_KEY,
         VERCEL_URL: process.env.VERCEL_URL,
         BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
-        DATABASE_URL: process.env.DATABASE_URL
+        DATABASE_URL: process.env.DATABASE_URL,
+        DIRECT_URL: process.env.DIRECT_URL
     }
 });
