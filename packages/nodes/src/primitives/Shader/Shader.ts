@@ -38,11 +38,11 @@ void main() {
 
 const FRAGMENT_SHADER = `varying vec2 vUv;
 uniform float time;
-uniform vec3 offset;
+uniform vec2 offset;
 
 void main() {
     float r = sin(time) * 0.5 + 0.5;
-    gl_FragColor = vec4(vUv * offset.xy, r, 1.0);
+    gl_FragColor = vec4(vUv * (offset.xy + vec2(1.0)), r, 1.0);
 }`;
 
 export const ShaderSchema = () =>

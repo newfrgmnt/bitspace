@@ -5,6 +5,7 @@ import { StringControl } from '../StringControl/StringControl';
 import { ColorControl } from '../ColorControl/ColorControl';
 import { BooleanControl } from '../BooleanControl/BooleanControl';
 import { ColorSchemaType } from '@/utils';
+import { VectorControl } from '../VectorControl/VectorControl';
 
 export interface ControlProps {
     port: Input | Output;
@@ -47,5 +48,7 @@ export const Control = observer(({ port, disabled, onBlur }: ControlProps) => {
                     onBlur={onBlur}
                 />
             );
+        case '2D Vector':
+            return <VectorControl port={port} disabled={disabled} />;
     }
 });
