@@ -1,45 +1,40 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "**/.env.*local"
-  ],
-  "tasks": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**"
-      ],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env.production.local",
-        ".env.local",
-        ".env.production",
-        ".env"
-      ]
-    },
-    "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true,
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env.development.local",
-        ".env.local",
-        ".env.development",
-        ".env"
-      ]
-    },
-    "test": {
-      "dependsOn": [
-        "^build"
-      ]
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": ["**/.env.*local"],
+    "globalEnv": [
+        "DATABASE_URL",
+        "DIRECT_URL",
+        "OPENAI_API_KEY",
+        "BLOB_READ_WRITE_TOKEN"
+    ],
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": [".next/**", "!.next/cache/**"],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                ".env.production.local",
+                ".env.local",
+                ".env.production",
+                ".env"
+            ]
+        },
+        "lint": {
+            "dependsOn": ["^lint"]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true,
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                ".env.development.local",
+                ".env.local",
+                ".env.development",
+                ".env"
+            ]
+        },
+        "test": {
+            "dependsOn": ["^build"]
+        }
     }
-  }
 }
