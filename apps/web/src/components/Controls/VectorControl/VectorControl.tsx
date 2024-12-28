@@ -1,7 +1,14 @@
 import { Input, Output } from '@bitspace/circuit';
 import { Vector2Schema } from '@bitspace/schemas';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+    KeyboardEventHandler,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from 'react';
 import { z } from 'zod';
 import clsx from 'clsx';
 import Draggable, { DraggableEventHandler } from 'react-draggable';
@@ -45,6 +52,11 @@ export const VectorControl = observer(
             [port, disabled, onBlur]
         );
 
+        const handleKeydown: KeyboardEventHandler<HTMLInputElement> =
+            useCallback(e => {
+                e.stopPropagation();
+            }, []);
+
         const handleDrag: DraggableEventHandler = useCallback(
             (_, data) => {
                 const rect = containerRef.current?.getBoundingClientRect();
@@ -69,9 +81,13 @@ export const VectorControl = observer(
             const adjustedWidth = getSamplingSize(rect.width);
             const adjustedHeight = getSamplingSize(rect.height);
 
+            // ensure x and y are within the bounds of the container
+            const clampedX = Math.max(-1, Math.min(1, x));
+            const clampedY = Math.max(-1, Math.min(1, y));
+
             return {
-                x: x * adjustedWidth,
-                y: y * adjustedHeight
+                x: clampedX * adjustedWidth,
+                y: clampedY * adjustedHeight
             };
         }, [value, containerRef]);
 
@@ -115,6 +131,7 @@ export const VectorControl = observer(
                                     'text-slate-400': disabled
                                 }
                             )}
+                            onKeyDown={handleKeydown}
                             type="number"
                             step={0.01}
                             placeholder={port.type.description}
