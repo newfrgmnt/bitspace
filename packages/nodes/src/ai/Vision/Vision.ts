@@ -1,5 +1,13 @@
 import { Node, Input, Output } from '@bitspace/circuit';
-import { from, switchMap, skip, debounceTime, filter, tap } from 'rxjs';
+import {
+    from,
+    switchMap,
+    skip,
+    debounceTime,
+    filter,
+    tap,
+    finalize
+} from 'rxjs';
 import { NodeType } from '../../types';
 import { ImageSchema, StringSchema } from '@bitspace/schemas';
 
@@ -35,7 +43,7 @@ export class Vision extends Node {
                         }).then(res => res.json())
                     )
                 ),
-                tap(this.resetLoading.bind(this))
+                finalize(this.resetLoading.bind(this))
             )
         })
     };

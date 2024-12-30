@@ -6,7 +6,9 @@ import {
     skip,
     debounceTime,
     Observable,
-    filter
+    filter,
+    tap,
+    finalize
 } from 'rxjs';
 import { NodeType } from '../../types';
 import { ImageSchema, StringSchema } from '@bitspace/schemas';
@@ -32,14 +34,14 @@ export class SynthesizedImage extends Node {
                 skip(1),
                 map(prompt => prompt.trim()),
                 filter(prompt => prompt.length > 0),
-                switchMap(this.fetchImage.bind(this))
+                tap(this.setLoading.bind(this)),
+                switchMap(this.fetchImage.bind(this)),
+                finalize(this.resetLoading.bind(this))
             )
         })
     };
 
     public fetchImage(prompt: string): Observable<string> {
-        this.outputs.output.setLoading();
-
         return from(
             fetch('/api/ai/images', {
                 method: 'POST',
@@ -54,5 +56,13 @@ export class SynthesizedImage extends Node {
                     this.outputs.output.resetLoading.bind(this.outputs.output)
                 )
         );
+    }
+
+    public setLoading() {
+        this.outputs.output.setLoading();
+    }
+
+    public resetLoading() {
+        this.outputs.output.resetLoading();
     }
 }
