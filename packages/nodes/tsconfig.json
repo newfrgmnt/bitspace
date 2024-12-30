@@ -13,6 +13,6 @@
         },
         "types": ["./types.d.ts", "jest"]
     },
-    "include": ["./src"],
+    "include": ["./src", "types.d.ts"],
     "exclude": ["./src/**/*.spec.ts", "./src/**/*.test.ts"]
 }
