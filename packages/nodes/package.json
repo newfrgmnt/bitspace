@@ -39,8 +39,5 @@
         "three": "^0.161.0",
         "zod": "^3.23.8"
     },
-    "peerDependencies": {
-        "mobx": "^6.8.0"
-    },
     "type": "module"
 }

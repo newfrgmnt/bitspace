@@ -1,5 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
-import { Subject, Subscription, lastValueFrom, withLatestFrom } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 
 import { Input } from '../Input/Input';
@@ -40,14 +39,6 @@ export class Connection<T> extends Subject<T> {
                 this.dispose();
                 throw new Error('Received a value with an incompatible type');
             }
-        });
-
-        makeObservable(this, {
-            id: observable,
-            from: observable,
-            to: observable,
-            subscription: observable,
-            dispose: action
         });
     }
 

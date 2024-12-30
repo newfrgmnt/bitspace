@@ -1,11 +1,10 @@
-import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
 import { NodeConstructor, NodeData } from './Node.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
-import { CompleteNotification, ReplaySubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 export abstract class Node<TData extends NodeData = NodeData> {
     /** Identifier */
@@ -25,19 +24,6 @@ export abstract class Node<TData extends NodeData = NodeData> {
 
     /** Node Display Name */
     public static displayName: string = '';
-
-    constructor() {
-        makeObservable(this, {
-            id: observable,
-            _name: observable,
-            data: observable,
-            position: observable,
-            connections: computed,
-            setPosition: action,
-            incrementPosition: action,
-            dispose: action
-        });
-    }
 
     /** Associated connections */
     public get connections() {

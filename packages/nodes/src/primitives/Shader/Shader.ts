@@ -14,7 +14,6 @@ import {
 import { NodeType } from '../../types';
 import { Schema, z } from 'zod';
 import { ShaderMaterial } from 'three';
-import { autorun, makeObservable, observable, reaction } from 'mobx';
 import {
     AnySchema,
     ColorSchema,
@@ -56,21 +55,6 @@ export class Shader extends Node {
             )
         })
     };
-
-    reactionDisposer: () => void;
-
-    constructor() {
-        super();
-
-        this.reactionDisposer = reaction(
-            () => this.data.fragmentShader,
-            fragmentShader => {
-                if (typeof fragmentShader === 'string') {
-                    this.$fragmentShader.next(fragmentShader);
-                }
-            }
-        );
-    }
 
     public buildInputs(fragmentShader: string) {
         for (const input of Object.values(this.inputs)) {
@@ -183,11 +167,5 @@ export class Shader extends Node {
             const [r, g, b] = hsv2rgb(value.hue, value.saturation, value.value);
             return [r / 255, g / 255, b / 255];
         }
-    }
-
-    public dispose() {
-        this.reactionDisposer();
-
-        super.dispose();
     }
 }

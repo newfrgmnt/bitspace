@@ -1,5 +1,3 @@
-import { enableStaticRendering } from 'mobx-react-lite';
-
 if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
     const preconnectLink = document.createElement('link');
     preconnectLink.rel = 'preconnect';
@@ -11,8 +9,6 @@ if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
     stylesheetLink.href = 'https://rsms.me/inter/inter.css';
     document.head.appendChild(stylesheetLink);
 }
-
-enableStaticRendering(typeof window === 'undefined');
 
 export * from './components/Connection/Connection.types';
 export * from './components/Canvas/Canvas.types';

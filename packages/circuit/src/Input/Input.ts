@@ -1,4 +1,3 @@
-import { action, computed, makeObservable, observable } from 'mobx';
 import { BehaviorSubject } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 
@@ -25,16 +24,6 @@ export class Input<TValue = any> extends BehaviorSubject<TValue> {
         this.type = props.type;
         this.defaultValue = props.defaultValue;
         this.connection = null;
-
-        makeObservable(this, {
-            id: observable,
-            name: observable,
-            type: observable,
-            defaultValue: observable,
-            connection: observable,
-            connected: computed,
-            dispose: action
-        });
     }
 
     /** Determines if input is connected */

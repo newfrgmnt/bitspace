@@ -2,7 +2,6 @@ import { Node } from '../Node/Node';
 import { IInputProps } from '../Input/Input.types';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';
-import { action, makeObservable, observable } from 'mobx';
 import { z } from 'zod';
 import { Subject } from 'rxjs';
 
@@ -24,17 +23,6 @@ export class Circuit extends Node {
             observable: new Subject()
         })
     };
-
-    constructor() {
-        super();
-
-        makeObservable(this, {
-            nodes: observable,
-            addNode: action,
-            removeNode: action,
-            createInput: action
-        });
-    }
 
     /** Add Node to Circuit */
     public addNode(node: Node): this {

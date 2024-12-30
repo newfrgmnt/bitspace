@@ -23,7 +23,6 @@
     "peerDependencies": {
         "zod": "^3.22.4",
         "rxjs": "^7.8.1",
-        "typescript": "^4.9.4",
-        "mobx": "^6.8.0"
+        "typescript": "^4.9.4"
     }
 }

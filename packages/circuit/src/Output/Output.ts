@@ -1,12 +1,5 @@
-import { action, computed, makeObservable, observable } from 'mobx';
 import {
-    CompleteNotification,
-    Observable,
-    ObservableNotification,
-    ReplaySubject,
-    Subject,
-    Subscription,
-    takeUntil
+    ReplaySubject
 } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 
@@ -34,19 +27,6 @@ export class Output<TValue = any> extends ReplaySubject<TValue> {
         this.type = props.type;
         props.observable.subscribe(this);
         this.connections = [];
-
-        makeObservable(this, {
-            id: observable,
-            name: observable,
-            type: observable,
-            connections: observable,
-            loading: observable,
-            connected: computed,
-            connect: action,
-            setLoading: action,
-            resetLoading: action,
-            dispose: action
-        });
     }
 
     /** Determines if output is connected */
