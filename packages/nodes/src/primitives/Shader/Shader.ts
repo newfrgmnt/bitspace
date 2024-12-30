@@ -3,20 +3,18 @@ import {
     BehaviorSubject,
     combineLatest,
     EMPTY,
-    filter,
     map,
     mergeMap,
     of,
     pairwise,
     startWith,
-    Subscription,
     switchMap,
     tap
 } from 'rxjs';
 import { NodeType } from '../../types';
 import { Schema, z } from 'zod';
 import { ShaderMaterial } from 'three';
-import { makeObservable, observable } from 'mobx';
+import { autorun, makeObservable, observable, reaction } from 'mobx';
 import {
     AnySchema,
     ColorSchema,
@@ -24,26 +22,9 @@ import {
     Vector2Schema
 } from '@bitspace/schemas';
 import { hsv2rgb } from '../../../../../apps/web/src/components/ColorPicker/ColorPicker.utils';
-
-const VERTEX_SHADER = `varying vec2 vUv;
-
-void main() {
-  vUv = uv;
-  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  vec4 viewPosition = viewMatrix * modelPosition;
-  vec4 projectedPosition = projectionMatrix * viewPosition;
-
-  gl_Position = projectedPosition;
-}`;
-
-const FRAGMENT_SHADER = `varying vec2 vUv;
-uniform float time;
-uniform vec2 offset;
-
-void main() {
-    float r = sin(time) * 0.5 + 0.5;
-    gl_FragColor = vec4(vUv * (offset.xy + vec2(1.0)), r, 1.0);
-}`;
+import { NodeData } from '@bitspace/circuit/src/Node/Node.types';
+import VERTEX_SHADER from './vertex.glsl';
+import FRAGMENT_SHADER from './fragment.glsl';
 
 export const ShaderSchema = () =>
     z.instanceof(ShaderMaterial).describe('Shader');
@@ -52,7 +33,11 @@ export class Shader extends Node {
     static displayName = 'Shader';
     static type = NodeType.SHADER;
 
-    public $fragmentShader = new BehaviorSubject(FRAGMENT_SHADER);
+    public data: NodeData = {
+        fragmentShader: FRAGMENT_SHADER
+    };
+
+    public $fragmentShader = new BehaviorSubject(this.data.fragmentShader);
 
     inputs = {};
 
@@ -72,13 +57,19 @@ export class Shader extends Node {
         })
     };
 
+    reactionDisposer: () => void;
+
     constructor() {
         super();
 
-        makeObservable(this, {
-            inputs: observable,
-            outputs: observable
-        });
+        this.reactionDisposer = reaction(
+            () => this.data.fragmentShader,
+            fragmentShader => {
+                if (typeof fragmentShader === 'string') {
+                    this.$fragmentShader.next(fragmentShader);
+                }
+            }
+        );
     }
 
     public buildInputs(fragmentShader: string) {
@@ -192,5 +183,11 @@ export class Shader extends Node {
             const [r, g, b] = hsv2rgb(value.hue, value.saturation, value.value);
             return [r / 255, g / 255, b / 255];
         }
+    }
+
+    public dispose() {
+        this.reactionDisposer();
+
+        super.dispose();
     }
 }

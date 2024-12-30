@@ -10,7 +10,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"]
-        }
+        },
+        "types": ["./types.d.ts"]
     },
     "include": ["./src"],
     "exclude": ["./src/**/*.spec.ts", "./src/**/*.test.ts"]

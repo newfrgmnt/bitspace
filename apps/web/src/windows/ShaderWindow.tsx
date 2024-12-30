@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { NodeWindow } from '@/circuit/components/Node/Node';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { Shader } from '@bitspace/nodes';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { BufferGeometry, ShaderMaterial } from 'three';
+import { Canvas, useThree } from '@react-three/fiber';
+import { ShaderMaterial } from 'three';
 
 const Scene = forwardRef<THREE.Mesh, { material: ShaderMaterial }>(
     ({ material }, ref) => {

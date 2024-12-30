@@ -1,4 +1,6 @@
+import { updateNode } from "@/server/mutations/updateNode";
 import { Shader } from "@bitspace/nodes";
+import { set } from "mobx";
 import { useEffect, useState } from "react";
 
 export const FragmentEditor = ({ node }: { node: Shader }) => {
@@ -25,7 +27,8 @@ export const FragmentEditor = ({ node }: { node: Shader }) => {
                     setFragment(e.target.value);
                 }}
                 onBlur={e => {
-                    node.$fragmentShader.next(fragment);
+                    set(node, 'data', { fragmentShader: fragment });
+                    updateNode(node.id, { data: { fragmentShader: fragment } });
                 }}
             />
         </div>

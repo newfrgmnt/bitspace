@@ -8,6 +8,7 @@ import {
     Connection as SerializedConnection
 } from '@prisma/client';
 import { NodeConstructor, NodeConstructors } from '@bitspace/nodes';
+import { set } from 'mobx';
 
 export interface ExtendedNode extends SerializedNode {
     children: ExtendedNode[];
@@ -44,7 +45,8 @@ export const buildCircuit = (serializedNode: ExtendedNode) => {
 
         node.id = child.id;
         node.position = { x: child.position.x, y: child.position.y };
-        node.data = (child.data as JsonObject) ?? {};
+
+        set(node, 'data', child.data as JsonObject);
 
         for (const serializedOutput of Object.values(child.outputs)) {
             // @ts-ignore

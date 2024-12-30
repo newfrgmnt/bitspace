@@ -24,12 +24,12 @@ export const PropertyPanel = observer(
         return (
             <div
                 className={clsx(
-                    'h-full flex flex-col w-80 py-12 pr-4 divide-y divide-slate-200 overflow-y-auto',
+                    'h-full flex gap-y-8 flex-col w-80 py-12 pr-4 overflow-y-auto',
                     className
                 )}
                 {...props}
             >
-                <div className="flex flex-col gap-y-2 pb-8">
+                <div className="flex flex-col gap-y-2">
                     <h2 className="text-lg">{selectedNode.name}</h2>
                     <p className="text-sm text-slate-500 leading-relaxed text-pretty">
                         {NodeDescriptionsMap[selectedNode.type as NodeType]}
@@ -37,7 +37,7 @@ export const PropertyPanel = observer(
                 </div>
 
                 {inputs.length > 0 && (
-                    <div className="flex flex-col gap-y-6 py-8">
+                    <div className="flex flex-col gap-y-6">
                         <h4 className="font-medium">Inputs</h4>
                         <div className="flex flex-col gap-y-4">
                             {inputs.map(input => (
@@ -54,7 +54,7 @@ export const PropertyPanel = observer(
                     </div>
                 )}
                 {outputs.length > 0 && (
-                    <div className="flex flex-col gap-y-6 py-8">
+                    <div className="flex flex-col gap-y-6">
                         <h4 className="font-medium">Outputs</h4>
                         <div className="flex flex-col gap-y-4">
                             {outputs.map(output => (
