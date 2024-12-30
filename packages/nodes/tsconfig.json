@@ -11,7 +11,7 @@
         "paths": {
             "@/*": ["./src/*"]
         },
-        "types": ["./types.d.ts"]
+        "types": ["./types.d.ts", "jest"]
     },
     "include": ["./src"],
     "exclude": ["./src/**/*.spec.ts", "./src/**/*.test.ts"]
